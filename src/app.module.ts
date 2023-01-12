@@ -3,8 +3,6 @@ import {EventEmitterModule} from '@nestjs/event-emitter';
 import {MongooseModule} from '@nestjs/mongoose';
 import {ScheduleModule} from '@nestjs/schedule';
 import {ThrottlerModule} from '@nestjs/throttler';
-import {AchievementSummaryModule} from './achievement-summary/achievement-summary.module';
-import {AchievementModule} from './achievement/achievement.module';
 
 import {AuthModule} from './auth/auth.module';
 import {environment} from './environment';
@@ -26,8 +24,8 @@ import {UserModule} from './user/user.module';
     AuthModule,
     EventModule,
     UserModule,
-    AchievementSummaryModule,
-    AchievementModule,
+    // AchievementSummaryModule,
+    // AchievementModule,
     GroupModule,
     MessageModule,
     GameModule,
