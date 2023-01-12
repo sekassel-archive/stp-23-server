@@ -5,7 +5,7 @@ export const environment = {
   port,
   baseUrl: process.env.BASE_URL || `http://localhost:${port}`,
   mongo: {
-    uri: process.env.MONGO_URI || 'mongodb://localhost:27018/stp-22',
+    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/stp-23',
   },
   auth: {
     secret: process.env.AUTH_SECRET || 'secret',
