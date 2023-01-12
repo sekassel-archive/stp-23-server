@@ -1,21 +1,20 @@
-import { Module } from '@nestjs/common';
-import { EventEmitterModule } from '@nestjs/event-emitter';
-import { MongooseModule } from '@nestjs/mongoose';
-import { ScheduleModule } from '@nestjs/schedule';
-import { ThrottlerModule } from '@nestjs/throttler';
-import { AchievementModule } from './achievement/achievement.module';
+import {Module} from '@nestjs/common';
+import {EventEmitterModule} from '@nestjs/event-emitter';
+import {MongooseModule} from '@nestjs/mongoose';
+import {ScheduleModule} from '@nestjs/schedule';
+import {ThrottlerModule} from '@nestjs/throttler';
+import {AchievementSummaryModule} from './achievement-summary/achievement-summary.module';
+import {AchievementModule} from './achievement/achievement.module';
 
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { environment } from './environment';
-import { EventModule } from './event/event.module';
-import { GameModule } from './game/game.module';
-import { GroupModule } from './group/group.module';
-import { MemberModule } from './member/member.module';
-import { MessageModule } from './message/message.module';
-import { SettlersModule } from './settlers/settlers.module';
-import { UserModule } from './user/user.module';
-import { AchievementSummaryModule } from './achievement-summary/achievement-summary.module';
+import {AppService} from './app.service';
+import {AuthModule} from './auth/auth.module';
+import {environment} from './environment';
+import {EventModule} from './event/event.module';
+import {GameModule} from './game/game.module';
+import {GroupModule} from './group/group.module';
+import {MemberModule} from './member/member.module';
+import {MessageModule} from './message/message.module';
+import {UserModule} from './user/user.module';
 
 @Module({
   imports: [
@@ -34,7 +33,6 @@ import { AchievementSummaryModule } from './achievement-summary/achievement-summ
     MessageModule,
     GameModule,
     MemberModule,
-    SettlersModule,
   ],
   providers: [AppService],
 })

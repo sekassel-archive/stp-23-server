@@ -71,13 +71,6 @@ Some events are only visible to certain users for privacy reasons.
 | `games.<gameId>.{created,updated,deleted}`                        | [`Game`](#model-Game)               | Everyone                                       |
 | `games.<gameId>.members.<userId>.{created,updated,deleted}`       | [`Member`](#model-Member)           | Everyone                                       |
 | `games.<gameId>.messages.<messageId>.{created,updated,deleted}`   | [`Message`](#model-Message)         | Anyone who is a member of the game             |
-| `games.<gameId>.map.{created,updated,deleted}`                    | [`Map`](#model-Map)                 | Anyone who is a member of the game             |
-| `games.<gameId>.state.{created,updated,deleted}`                  | [`State`](#model-State)             | Anyone who is a member of the game             |
-| `games.<gameId>.players.<userId>.{created,updated,deleted}`       | [`Player`](#model-Player)           | Anyone who is a member of the game<sup>3</sup> |
-| `games.<gameId>.moves.<moveId>.created`                           | [`Move`](#model-Move)               | Anyone who is a member of the game             |
-| `games.<gameId>.buildings.<buildingId>.{created,updated,deleted}` | [`Building`](#model-Building)       | Anyone who is a member of the game             |
-| `maps.<mapId>.{created,updated,deleted}`                          | [`MapTemplate`](#model-MapTemplate) | Everyone                                       |
-| `maps.<mapId>.votes.<userId>.{created,updated,deleted}`           | [`Vote`](#model-Vote)               | Everyone                                       |
 
 <sup>1</sup>: The shorthand notation `foo.{bar,baz}` means "either `foo.bar` or `foo.baz`" **in this table**. You **cannot** use this notation to subscribe to or unsubscribe from events!
 

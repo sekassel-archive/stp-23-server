@@ -45,16 +45,12 @@ All delete operations, whether manual, cleanup or cascading, trigger the same ev
 | User          | Games they are the owner of           |
 | User          | Their Membership in Games they joined |
 | User          | Their Achievements                    |
-| User          | Their casted Votes for Maps           |
 | Group         | All Messages sent within the Group    |
 | Game          | All Members of the Game               |
 | Game          | All Messages sent within the Game     |
 | Game          | All Moves of the game                 |
-| Map           | All Votes cast for the Map            |
-| Map           | All Messages sent for the Map         |
 
 Cascading deletes do not apply to some resources:
 
 * Deleting a User does not delete any of their Messages.
 * Deleting a User does not delete any Group in which they are a Member.
-* Deleting a User does not delete any of their Maps.
