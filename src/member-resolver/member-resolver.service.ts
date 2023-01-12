@@ -1,12 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { GroupService } from '../group/group.service';
-import { MemberService } from '../member/member.service';
+import {Injectable} from '@nestjs/common';
+import {GroupService} from '../group/group.service';
+import {MemberService} from '../member/member.service';
 
 export enum Namespace {
   groups = 'groups',
   games = 'games',
   global = 'global',
-  maps = 'maps',
 }
 
 export type UserFilter = string[] | 'global';
@@ -26,7 +25,6 @@ export class MemberResolverService {
         return group?.members ?? [];
       case Namespace.games:
         return this.getGameMembers(id);
-      case Namespace.maps:
       case Namespace.global:
         return 'global';
       default:
