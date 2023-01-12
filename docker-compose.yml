@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  nats:
+    image: nats:2.8
+    ports:
+      - "4222:4222"
+  database:
+    image: mongo:5
+    ports:
+      - "27018:27017"
+    volumes:
+      - data:/data/db
+volumes:
+  data:
