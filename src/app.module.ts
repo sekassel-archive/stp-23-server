@@ -6,7 +6,6 @@ import {ThrottlerModule} from '@nestjs/throttler';
 import {AchievementSummaryModule} from './achievement-summary/achievement-summary.module';
 import {AchievementModule} from './achievement/achievement.module';
 
-import {AppService} from './app.service';
 import {AuthModule} from './auth/auth.module';
 import {environment} from './environment';
 import {EventModule} from './event/event.module';
@@ -34,7 +33,6 @@ import {UserModule} from './user/user.module';
     GameModule,
     MemberModule,
   ],
-  providers: [AppService],
 })
 export class AppModule {
 }
