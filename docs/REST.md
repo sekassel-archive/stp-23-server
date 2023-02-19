@@ -29,7 +29,6 @@ The following resources will be deleted automatically under certain conditions.
 |---------|-----------------------------------------------------|-------------------------------------------|
 | User    | ${environment.cleanup.tempUserLifetimeHours} h      | they seem to be for temporary use         |
 | Group   | ${environment.cleanup.emptyGroupLifetimeHours} h    | it has no messages                        |
-| Game    | ${environment.cleanup.gameLifetimeHours} h          | no members joined or left in the meantime |
 | Message | ${environment.cleanup.globalMessageLifetimeHours} h | it was posted in a global channel         |
 | Message | ${environment.cleanup.spamMessageLifetimeHours} h   | it appears to be spam                     |
 | Message | ${environment.cleanup.orphanMessageLifetimeHours} h | the sender was deleted                    |
@@ -40,15 +39,11 @@ The following table shows which delete operations trigger other deletes.
 Cascading deletes are transitive, meaning a cascading deletion can trigger more cascading deletions.
 All delete operations, whether manual, cleanup or cascading, trigger the same events.
 
-| Deleting a... | Also deletes...                       |
-|---------------|---------------------------------------|
-| User          | Games they are the owner of           |
-| User          | Their Membership in Games they joined |
-| User          | Their Achievements                    |
-| Group         | All Messages sent within the Group    |
-| Game          | All Members of the Game               |
-| Game          | All Messages sent within the Game     |
-| Game          | All Moves of the game                 |
+| Deleting a... | Also deletes...                         |
+|---------------|-----------------------------------------|
+| User          | Their Membership in Regions they joined |
+| User          | Their Achievements                      |
+| Group         | All Messages sent within the Group      |
 
 Cascading deletes do not apply to some resources:
 
