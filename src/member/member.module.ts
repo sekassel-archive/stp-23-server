@@ -2,19 +2,19 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { EventModule } from '../event/event.module';
-import { GameModule } from '../game/game.module';
+import { RegionModule } from '../region/region.module';
 import { MemberController } from './member.controller';
 import { MemberHandler } from './member.handler';
-import { MemberSchema } from './member.schema';
+import {Member, MemberSchema} from './member.schema';
 import { MemberService } from './member.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{
-      name: 'members',
+      name: Member.name,
       schema: MemberSchema,
     }]),
-    GameModule,
+    RegionModule,
     EventModule,
   ],
   controllers: [MemberController],
