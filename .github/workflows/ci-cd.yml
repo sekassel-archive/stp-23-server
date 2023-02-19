@@ -29,10 +29,10 @@ jobs:
     needs: [ deployment ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - name: Build the Docker Image
         if: needs.deployment.outputs.version
-        uses: whoan/docker-build-with-cache-action@v5
+        uses: whoan/docker-build-with-cache-action@v6
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -41,7 +41,7 @@ jobs:
           image_tag: ${{ needs.deployment.outputs.prefix }},${{ needs.deployment.outputs.version }}
       - name: Rancher Deploy
         if: needs.deployment.outputs.version
-        uses: sekassel-research/actions-rancher-update@2.0.2
+        uses: sekassel-research/actions-rancher-update@v3.0.0
         with:
           rancher_url: ${{ secrets.RANCHER_URL }}
           rancher_token: ${{ secrets.RANCHER_TOKEN }}
