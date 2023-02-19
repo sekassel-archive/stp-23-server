@@ -6,7 +6,7 @@ import { MemberAuthGuard } from './member-auth.guard';
 export function MemberAuth() {
   return applyDecorators(
     Auth(),
-    ApiForbiddenResponse({ description: 'Not a member of this game.' }),
+    ApiForbiddenResponse({ description: 'Not a member of this region.' }),
     UseGuards(MemberAuthGuard),
   );
 }

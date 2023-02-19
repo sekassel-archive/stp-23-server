@@ -13,13 +13,6 @@ export class MessageHandler {
   ) {
   }
 
-  /*
-  @OnEvent('games.*.deleted')
-  async onGameDeleted(game: Game): Promise<void> {
-    return this.onDelete(Namespace.games, game);
-  }
-   */
-
   @OnEvent('groups.*.deleted')
   async onGroupDeleted(group: Group): Promise<void> {
     return this.onDelete(Namespace.groups, group);

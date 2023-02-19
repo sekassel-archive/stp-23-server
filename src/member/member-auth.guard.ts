@@ -13,7 +13,7 @@ export class MemberAuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const req = context.switchToHttp().getRequest() as Request;
-    const id = req.params.gameId;
+    const id = req.params.regionId;
     const user = (req as any).user;
     return this.checkAuth(id, user);
   }

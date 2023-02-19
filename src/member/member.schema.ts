@@ -20,5 +20,5 @@ export class Member extends GlobalSchemaWithoutID {
 export type MemberDocument = Member & Document<Types.ObjectId, never, Member>;
 
 export const MemberSchema = SchemaFactory.createForClass(Member)
-  .index({gameId: 1, userId: 1}, {unique: true})
+  .index({region: 1, user: 1}, {unique: true})
 ;
