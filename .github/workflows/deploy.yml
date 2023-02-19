@@ -21,8 +21,8 @@ jobs:
               PREFIX="${GITHUB_REF:11:1}"
           ;;
           esac
-          echo "::set-output name=version::$VERSION"
-          echo "::set-output name=prefix::$PREFIX"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "prefix=$PREFIX" >> "$GITHUB_OUTPUT"
       - name: Build the Docker Image
         uses: whoan/docker-build-with-cache-action@v6
         with:
