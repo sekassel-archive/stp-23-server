@@ -29,7 +29,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: ${{ secrets.DOCKER_REGISTRY }}
-          image_name: stp/settlers
+          image_name: stp/server-23
           image_tag: ${{ steps.deployment.outputs.prefix }},${{ steps.deployment.outputs.version }}
       - name: Rancher Deploy
         uses: sekassel-research/actions-rancher-update@v3.0.0
@@ -40,7 +40,7 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
           namespace: ${{ secrets.NAMESPACE }}
           deployment: ${{ secrets.DEPLOYMENT }}-v${{ steps.deployment.outputs.prefix }}
-          docker_image: ${{ secrets.DOCKER_REGISTRY }}/stp/settlers:${{ steps.deployment.outputs.version }}
+          docker_image: ${{ secrets.DOCKER_REGISTRY }}/stp/server-23:${{ steps.deployment.outputs.version }}
       - name: Discord Notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
