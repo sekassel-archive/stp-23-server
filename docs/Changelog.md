@@ -1,4 +1,4 @@
-# v1.0.0 - Auth, Users, Games and Messages
+# v1.0.0 - Auth, Users, Regions and Messages
 
 ## New Features
 
@@ -8,8 +8,8 @@
 + Added Users.
 + Added Groups.
 + Added Messages.
-+ Added Games.
-+ Added Game Members.
++ Added Regions.
++ Added Region Members.
 
 ### Technical
 
