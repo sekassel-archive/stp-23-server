@@ -26,6 +26,10 @@ export class RegionService {
     return updated;
   }
 
+  async findByNameOrCreate(name: string): Promise<Region> {
+    return this.model.findOneAndUpdate({name}, {name}, {upsert: true, new: true});
+  }
+
   private emit(event: string, region: Region): void {
     this.eventService.emit(`regions.${region._id}.${event}`, region);
   }
