@@ -13,6 +13,6 @@ ENV NODE_ENV=production
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 COPY --from=builder /app/dist ./dist
-COPY docs ./docs
+COPY assets docs ./
 EXPOSE 3000
 CMD pnpm run start:prod
