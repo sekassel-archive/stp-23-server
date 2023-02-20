@@ -3,6 +3,7 @@ import {EventEmitterModule} from '@nestjs/event-emitter';
 import {MongooseModule} from '@nestjs/mongoose';
 import {ScheduleModule} from '@nestjs/schedule';
 import {ThrottlerModule} from '@nestjs/throttler';
+import {AreaModule} from './area/area.module';
 
 import {AuthModule} from './auth/auth.module';
 import {environment} from './environment';
@@ -30,6 +31,7 @@ import {UserModule} from './user/user.module';
     MessageModule,
     RegionModule,
     MemberModule,
+    AreaModule,
   ],
 })
 export class AppModule {
