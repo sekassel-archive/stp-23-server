@@ -19,6 +19,11 @@ export class Player extends GlobalSchema {
 
   @Prop()
   @ApiProperty()
+  @IsInt()
+  coins: number;
+
+  @Prop()
+  @ApiProperty()
   @IsString() // TODO IsMongoID?
   area: string;
 

@@ -20,6 +20,7 @@ export class PlayerService {
       region: member.region,
       user: member.user,
       area: '', // TODO find spawn area
+      coins: 0,
       x: 0,
       y: 0,
     });
