@@ -11,6 +11,8 @@ import {EventModule} from './event/event.module';
 import {GroupModule} from './group/group.module';
 import {MemberModule} from './member/member.module';
 import {MessageModule} from './message/message.module';
+import {MonsterModule} from './monster/monster.module';
+import {PlayerModule} from './player/player.module';
 import {RegionModule} from './region/region.module';
 import {UserModule} from './user/user.module';
 
@@ -32,6 +34,8 @@ import {UserModule} from './user/user.module';
     RegionModule,
     MemberModule,
     AreaModule,
+    PlayerModule,
+    MonsterModule,
   ],
 })
 export class AppModule {
