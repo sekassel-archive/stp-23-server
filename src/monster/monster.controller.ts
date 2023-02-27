@@ -22,10 +22,10 @@ export class MonsterController {
   @Get()
   @ApiOkResponse({type: [Monster]})
   async findAll(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
-    @Param('playerId', ParseObjectIdPipe) playerId: string,
+    @Param('regionId', ParseObjectIdPipe) region: string,
+    @Param('playerId', ParseObjectIdPipe) player: string,
   ): Promise<Monster[]> {
-    return this.monsterService.findAll(regionId, playerId);
+    return this.monsterService.findAll({region, player});
   }
 
   @Get(':id')

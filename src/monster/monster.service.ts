@@ -14,8 +14,8 @@ export class MonsterService {
   ) {
   }
 
-  async findAll(region: string, player: string, filter?: FilterQuery<Monster>): Promise<Monster[]> {
-    return this.model.find({...filter, region, player}).exec();
+  async findAll(filter: FilterQuery<Monster>): Promise<Monster[]> {
+    return this.model.find(filter).exec();
   }
 
   async findOne(id: string): Promise<Monster | null> {
@@ -38,6 +38,6 @@ export class MonsterService {
   }
 
   private emit(event: string, monster: Monster): void {
-    this.eventEmitter.emit(`regions.${monster.region}.monsters.${monster._id}.${event}`, monster);
+    this.eventEmitter.emit(`players.${monster.player}.monsters.${monster._id}.${event}`, monster);
   }
 }
