@@ -30,7 +30,31 @@ export class EncounterService {
       throw new ForbiddenException('Invalid ability');
     }
 
-    // TODO each effect
-    targetMonster.attributes[ability.effects[0].attribute as keyof MonsterAttributes] += ability.effects[0].amount;
+    ability.effects.forEach(function (value) {
+      if(value.chance == null || Math.random() <= value.chance){
+        const effectTarget = (value.self === true || (value.self == null && value.amount > 0)) ? currentMonster : targetMonster;
+        let effectAmount:number = value.amount;
+
+        if(value.attribute === "health"){
+          if(effectTarget.attributes.defense > value.amount + currentMonster.attributes.attack){
+            effectAmount = 0;
+          }
+          else{
+            effectAmount += currentMonster.attributes.attack - effectTarget.attributes.defense;
+          }
+
+          effectAmount *= 1; //TODO check effectiveness
+        }
+
+        effectTarget.attributes[value.attribute as keyof MonsterAttributes] += effectAmount;
+
+        // Null check
+        for(const key in effectTarget.attributes){
+          if(effectTarget.attributes[key as keyof MonsterAttributes] < 0) effectTarget.attributes[key as keyof MonsterAttributes] = 0;
+        }
+      }
+    });
+
+    // TODO update currentTurn
   }
 }

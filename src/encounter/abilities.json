@@ -74,7 +74,8 @@
       {
         "attribute": "attack",
         "amount": -1,
-        "chance": 0.5
+        "chance": 0.5,
+        "self": false
       }
     ]
   },
@@ -86,6 +87,10 @@
     "minLevel": 1,
     "maxUses": 25,
     "effects": [
+      {
+        "attribute": "health",
+        "amount": -10
+      },
       {
         "attribute": "health",
         "amount": -10
