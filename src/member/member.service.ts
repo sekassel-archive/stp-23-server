@@ -15,7 +15,7 @@ export class MemberService {
   }
 
   async create(region: string, user: string, member: CreateMemberDto): Promise<Member> {
-    const created = await this.model.create({...member, password: undefined, user, region});
+    const created = await this.model.create({...member, user, region});
     created && this.emit('created', created);
     return created;
   }

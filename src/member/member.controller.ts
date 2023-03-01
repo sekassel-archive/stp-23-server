@@ -5,7 +5,6 @@ import {
   Delete,
   ForbiddenException,
   Get,
-  NotFoundException,
   Param,
   Patch,
   Post,
@@ -19,7 +18,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import {Auth, AuthUser} from '../auth/auth.decorator';
-import {RegionService} from '../region/region.service';
 import {User} from '../user/user.schema';
 import {NotFound} from '../util/not-found.decorator';
 import {ParseObjectIdPipe} from '../util/parse-object-id.pipe';
@@ -37,7 +35,6 @@ import {MemberService} from './member.service';
 export class MemberController {
   constructor(
     private readonly memberService: MemberService,
-    private readonly regionService: RegionService,
   ) {
   }
 
@@ -50,17 +47,14 @@ export class MemberController {
     @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Body() member: CreateMemberDto,
   ): Promise<Member | null> {
-    const region = await this.regionService.findOne(regionId);
-    if (!region) {
-      throw new NotFoundException(regionId);
+    try {
+      return await this.memberService.create(regionId, user._id.toString(), member);
+    } catch (err: any) {
+      if (err.code === 11000) {
+        throw new ConflictException('User already joined');
+      }
+      throw err;
     }
-
-    const existing = await this.memberService.findOne(regionId, user._id.toString());
-    if (existing) {
-      throw new ConflictException('User already joined');
-    }
-
-    return this.memberService.create(regionId, user._id.toString(), member);
   }
 
   @Get()
@@ -85,17 +79,13 @@ export class MemberController {
   @ApiOperation({description: 'Change region membership for the current user.'})
   @ApiOkResponse({type: Member})
   @ApiForbiddenResponse({description: 'Attempt to change membership of someone else without being owner.'})
-  @NotFound('Region or membership not found.')
+  @NotFound('Membership not found.')
   async update(
     @AuthUser() user: User,
     @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Param('userId', ParseObjectIdPipe) userId: string,
     @Body() dto: UpdateMemberDto,
   ): Promise<Member | null> {
-    const region = await this.regionService.findOne(regionId);
-    if (!region) {
-      throw new NotFoundException(regionId);
-    }
     if (user._id.toString() !== userId) {
       throw new ForbiddenException('Cannot change membership of another user.');
     }
@@ -106,17 +96,12 @@ export class MemberController {
   @ApiOperation({description: 'Leave a region with the current user.'})
   @ApiOkResponse({type: Member})
   @ApiForbiddenResponse({description: 'Attempt to kick someone else without being owner.'})
-  @NotFound('Region or membership not found.')
+  @NotFound('Membership not found.')
   async delete(
     @AuthUser() user: User,
     @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Param('userId', ParseObjectIdPipe) userId: string,
   ): Promise<Member | null> {
-    const region = await this.regionService.findOne(regionId);
-    if (!region) {
-      throw new NotFoundException(regionId);
-    }
-
     const actorId = user._id.toString();
     if (actorId !== userId) {
       throw new ForbiddenException('Cannot kick another user.');
