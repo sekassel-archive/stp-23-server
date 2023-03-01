@@ -20,12 +20,6 @@ export class RegionService {
     return this.model.findById(id).exec();
   }
 
-  async changeMembers(id: string, delta: number): Promise<Region | null> {
-    const updated = await this.model.findByIdAndUpdate(id, {$inc: {members: delta}}, {new: true});
-    updated && this.emit('updated', updated);
-    return updated;
-  }
-
   private emit(event: string, region: Region): void {
     this.eventService.emit(`regions.${region._id}.${event}`, region);
   }
