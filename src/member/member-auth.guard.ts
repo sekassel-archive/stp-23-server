@@ -14,6 +14,9 @@ export class MemberAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const req = context.switchToHttp().getRequest() as Request;
     const id = req.params.regionId;
+    if (!id) {
+      throw new Error('No regionId path parameter - invalid endpoint for MemberAuth.');
+    }
     const user = (req as any).user;
     return this.checkAuth(id, user);
   }
