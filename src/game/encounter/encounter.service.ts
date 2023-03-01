@@ -6,6 +6,10 @@ import {MonsterService} from '../monster/monster.service';
 import {Encounter, EncounterDocument} from './encounter.schema';
 
 import * as abilities from '../../../assets/abilities.json';
+import * as types from '../../../assets/types.json';
+import * as monsterTypes from '../../../assets/monsters.json';
+
+type Type = keyof typeof types;
 
 @Injectable()
 export class EncounterService {
@@ -53,7 +57,12 @@ export class EncounterService {
             effectAmount += currentMonster.attributes.attack - effectTarget.attributes.defense;
           }
 
-          effectAmount *= 1; //TODO check effectiveness
+          const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
+          for (const targetType of targetTypes) {
+            const abilityType = ability.type as Type;
+            const type = types[abilityType];
+            effectAmount *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
+          }
         }
 
         effectTarget.attributes[value.attribute as keyof MonsterAttributes] += effectAmount;
