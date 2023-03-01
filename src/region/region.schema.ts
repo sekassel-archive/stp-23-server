@@ -18,6 +18,6 @@ export class Region extends GlobalSchema {
   members: number;
 }
 
-export type RegionDocument = Region & Document<Types.ObjectId, never, Region>;
+export type RegionDocument = Region & Document<Types.ObjectId, any, Region>;
 
 export const RegionSchema = SchemaFactory.createForClass(Region);
