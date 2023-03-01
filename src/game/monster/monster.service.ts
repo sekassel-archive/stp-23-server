@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model} from 'mongoose';
 
-import {EventService} from '../event/event.service';
+import {EventService} from '../../event/event.service';
 import {UpdateMonsterDto} from './monster.dto';
 import {Monster} from './monster.schema';
 

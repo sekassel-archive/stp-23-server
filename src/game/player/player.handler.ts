@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
-import {Member} from '../member/member.schema';
-import {User} from '../user/user.schema';
+import {Member} from '../../member/member.schema';
+import {User} from '../../user/user.schema';
 import {PlayerService} from './player.service';
 
 @Injectable()

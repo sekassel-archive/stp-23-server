@@ -1,4 +1,4 @@
-import {PartialType} from '../util/partial-type';
+import {PartialType} from '../../util/partial-type';
 
 export class CreateMonsterDto {
 }

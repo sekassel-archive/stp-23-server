@@ -3,7 +3,7 @@ import {ApiProperty} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
 import {ArrayMaxSize, IsArray, IsInt, IsMongoId, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../util/schema';
+import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
 
 export class MonsterAttributes {
   @ApiProperty()
