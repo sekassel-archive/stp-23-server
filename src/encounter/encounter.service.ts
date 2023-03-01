@@ -55,6 +55,9 @@ export class EncounterService {
       }
     });
 
+    await currentMonster.save();
+    await targetMonster.save();
+
     // TODO update currentTurn
   }
 }
