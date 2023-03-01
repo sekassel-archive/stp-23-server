@@ -13,7 +13,6 @@ import {MemberModule} from './member/member.module';
 import {MessageModule} from './message/message.module';
 import {RegionModule} from './region/region.module';
 import {UserModule} from './user/user.module';
-import { EncounterModule } from './encounter/encounter.module';
 
 @Module({
   imports: [
@@ -33,7 +32,6 @@ import { EncounterModule } from './encounter/encounter.module';
     RegionModule,
     MemberModule,
     GameModule,
-    EncounterModule,
   ],
 })
 export class AppModule {

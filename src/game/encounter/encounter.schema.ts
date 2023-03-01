@@ -2,7 +2,7 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty} from '@nestjs/swagger';
 import {ArrayMaxSize, IsArray, IsInt, IsMongoId} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_ARRAY_FORMAT} from '../util/schema';
+import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_ARRAY_FORMAT} from '../../util/schema';
 
 const MAX_OPPONENTS = 4;
 

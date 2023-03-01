@@ -5,7 +5,7 @@ import {MonsterAttributes} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
 import {Encounter, EncounterDocument} from './encounter.schema';
 
-import * as abilities from './abilities.json';
+import * as abilities from '../../../assets/abilities.json';
 
 @Injectable()
 export class EncounterService {
