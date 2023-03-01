@@ -1,11 +1,11 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import {ApiOkResponse, ApiTags} from '@nestjs/swagger';
-import {Auth} from '../auth/auth.decorator';
-import {RegionService} from '../region/region.service';
-import {NotFound} from '../util/not-found.decorator';
-import {ParseObjectIdPipe} from '../util/parse-object-id.pipe';
-import {Throttled} from '../util/throttled.decorator';
-import {Validated} from '../util/validated.decorator';
+import {Auth} from '../../auth/auth.decorator';
+import {RegionService} from '../../region/region.service';
+import {NotFound} from '../../util/not-found.decorator';
+import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
+import {Throttled} from '../../util/throttled.decorator';
+import {Validated} from '../../util/validated.decorator';
 import {Player} from './player.schema';
 import {PlayerService} from './player.service';
 

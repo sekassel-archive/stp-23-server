@@ -1,7 +1,7 @@
 import {Module} from '@nestjs/common';
 import {MongooseModule} from '@nestjs/mongoose';
 
-import {EventModule} from '../event/event.module';
+import {EventModule} from '../../event/event.module';
 import {MonsterController} from './monster.controller';
 import {MonsterHandler} from './monster.handler';
 import {Monster, MonsterSchema} from './monster.schema';

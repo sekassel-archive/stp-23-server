@@ -2,8 +2,8 @@ import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model} from 'mongoose';
 
-import {EventService} from '../event/event.service';
-import {Member} from '../member/member.schema';
+import {EventService} from '../../event/event.service';
+import {Member} from '../../member/member.schema';
 import {UpdatePlayerDto} from './player.dto';
 import {Player} from './player.schema';
 

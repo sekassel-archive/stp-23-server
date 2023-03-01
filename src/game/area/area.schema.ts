@@ -2,7 +2,7 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty} from '@nestjs/swagger';
 import {IsMongoId, IsNotEmpty, IsObject, MaxLength} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema} from '../util/schema';
+import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema} from '../../util/schema';
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 export class Area extends GlobalSchema {

@@ -1,8 +1,8 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model} from 'mongoose';
-import {Region} from '../region/region.schema';
-import {RegionService} from '../region/region.service';
+import {Region} from '../../region/region.schema';
+import {RegionService} from '../../region/region.service';
 import {Area, CreateAreaDto} from './area.schema';
 import * as fs from 'node:fs/promises';
 
