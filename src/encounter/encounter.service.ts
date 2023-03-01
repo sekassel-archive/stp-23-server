@@ -1,8 +1,9 @@
 import {ForbiddenException, Injectable} from '@nestjs/common';
-import {Types} from 'mongoose';
+import {InjectModel} from '@nestjs/mongoose';
+import {Model, Types} from 'mongoose';
 import {MonsterAttributes} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
-import {Encounter} from './encounter.schema';
+import {Encounter, EncounterDocument} from './encounter.schema';
 
 import * as abilities from './abilities.json';
 
@@ -10,7 +11,16 @@ import * as abilities from './abilities.json';
 export class EncounterService {
   constructor(
     private monsterService: MonsterService,
+    @InjectModel(Encounter.name) private model: Model<Encounter>,
   ) {
+  }
+
+  async findAll(region: string): Promise<EncounterDocument[]> {
+    return this.model.find({region}).exec();
+  }
+
+  async findOne(id: string): Promise<EncounterDocument | null> {
+    return this.model.findById(id).exec();
   }
 
   async playRound(encounter: Encounter, abilityId: number, target: number): Promise<void> {
