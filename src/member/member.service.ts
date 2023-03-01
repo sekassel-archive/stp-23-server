@@ -3,7 +3,6 @@ import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model} from 'mongoose';
 
 import {EventService} from '../event/event.service';
-import {RegionService} from '../region/region.service';
 import {CreateMemberDto, UpdateMemberDto} from './member.dto';
 import {Member} from './member.schema';
 
@@ -12,16 +11,12 @@ export class MemberService {
   constructor(
     @InjectModel(Member.name) private model: Model<Member>,
     private eventEmitter: EventService,
-    private regionService: RegionService,
   ) {
   }
 
   async create(region: string, user: string, member: CreateMemberDto): Promise<Member> {
     const created = await this.model.create({...member, password: undefined, user, region});
-    if (created) {
-      await this.regionService.changeMembers(region, +1);
-      this.emit('created', created);
-    }
+    created && this.emit('created', created);
     return created;
   }
 
@@ -44,17 +39,13 @@ export class MemberService {
     for (const member of members) {
       this.emit('deleted', member);
     }
-    await Promise.all(members.map(member => this.regionService.changeMembers(member.region, -1)));
     await this.model.deleteMany({user}).exec();
     return members;
   }
 
   async delete(region: string, user: string): Promise<Member | null> {
     const deleted = await this.model.findOneAndDelete({region, user}).exec();
-    if (deleted) {
-      await this.regionService.changeMembers(region, -1);
-      this.emit('deleted', deleted);
-    }
+    deleted && this.emit('deleted', deleted);
     return deleted;
   }
 
