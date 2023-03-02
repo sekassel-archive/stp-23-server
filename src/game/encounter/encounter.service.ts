@@ -60,12 +60,13 @@ export class EncounterService {
   }
 
   private playAbility(ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
-    ability.effects.forEach(function (value) {
+    for (const value of ability.effects) {
       if (value.chance == null || Math.random() <= value.chance) {
         const effectTarget = (value.self === true || (value.self == null && value.amount > 0)) ? currentMonster : targetMonster;
+        const attribute = value.attribute as keyof MonsterAttributes;
         let effectAmount: number = value.amount;
 
-        if (value.attribute === 'health') {
+        if (attribute === 'health') {
           if (effectTarget.attributes.defense > value.amount + currentMonster.attributes.attack) {
             effectAmount = 0;
           } else {
@@ -80,13 +81,12 @@ export class EncounterService {
           }
         }
 
-        effectTarget.attributes[value.attribute as keyof MonsterAttributes] += effectAmount;
-
+        effectTarget.attributes[attribute] += effectAmount;
         // Null check
-        for (const key in effectTarget.attributes) {
-          if (effectTarget.attributes[key as keyof MonsterAttributes] < 0) effectTarget.attributes[key as keyof MonsterAttributes] = 0;
+        if (effectTarget.attributes[attribute] < 0) {
+          effectTarget.attributes[attribute] = 0;
         }
       }
-    });
+    }
   }
 }
