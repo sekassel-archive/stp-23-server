@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import {Model} from 'mongoose';
+import {FilterQuery, Model} from 'mongoose';
 import {Opponent, OpponentDocument} from './opponent.schema';
 
 @Injectable()
@@ -16,5 +16,9 @@ export class OpponentService {
 
   async findOne(id: string): Promise<OpponentDocument | null> {
     return this.model.findById(id).exec();
+  }
+
+  async deleteAll(filter: FilterQuery<OpponentService>) {
+    await this.model.deleteMany(filter).exec();
   }
 }
