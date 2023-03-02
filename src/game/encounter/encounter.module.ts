@@ -1,6 +1,7 @@
 import {Module} from '@nestjs/common';
 import {MongooseModule} from '@nestjs/mongoose';
 import {MonsterModule} from '../monster/monster.module';
+import {OpponentModule} from '../opponent/opponent.module';
 import {EncounterController} from './encounter.controller';
 import {Encounter, EncounterSchema} from './encounter.schema';
 import {EncounterService} from './encounter.service';
@@ -14,6 +15,7 @@ import {EncounterService} from './encounter.service';
       },
     ]),
     MonsterModule,
+    OpponentModule,
   ],
   providers: [EncounterService],
   controllers: [EncounterController],

@@ -1,20 +1,17 @@
-import {ForbiddenException, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model, Types} from 'mongoose';
-import {MonsterAttributes} from '../monster/monster.schema';
+import {abilities, Ability, monsterTypes, Type, types} from '../constants';
+import {MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
+import {OpponentService} from '../opponent/opponent.service';
 import {Encounter, EncounterDocument} from './encounter.schema';
-
-import * as abilities from '../../../assets/abilities.json';
-import * as types from '../../../assets/types.json';
-import * as monsterTypes from '../../../assets/monsters.json';
-
-type Type = keyof typeof types;
 
 @Injectable()
 export class EncounterService {
   constructor(
     private monsterService: MonsterService,
+    private opponentService: OpponentService,
     @InjectModel(Encounter.name) private model: Model<Encounter>,
   ) {
   }
@@ -27,33 +24,47 @@ export class EncounterService {
     return this.model.findById(id).exec();
   }
 
-  async playRound(encounter: Encounter, abilityId: number, target: number): Promise<void> {
-    const monsters = await this.monsterService.findAll({_id: {$in: encounter.monsters.map(s => new Types.ObjectId(s))}});
-    const currentMonster = monsters[encounter.currentTurn % monsters.length];
-    if (!currentMonster.abilities.includes(abilityId)) {
-      throw new ForbiddenException('Your monster does not have this ability');
-    }
+  async playRound(encounter: Encounter): Promise<void> {
+    const opponents = await this.opponentService.findAll(encounter.region, encounter._id.toString());
+    const monsters = await this.monsterService.findAll({_id: {$in: opponents.map(o => new Types.ObjectId(o.monster))}});
 
-    if (target >= monsters.length) {
-      throw new ForbiddenException('Invalid target');
-    }
+    monsters.sort((a, b) => a.attributes.initiative - b.attributes.initiative);
 
-    const targetMonster = monsters[target];
-    const ability = abilities.find(a => a.id === abilityId);
-    if (!ability) {
-      throw new ForbiddenException('Invalid ability');
-    }
+    for (const monster of monsters) {
+      const opponent = opponents.find(o => o.monster === monster._id.toString());
+      const move = opponent?.move;
+      if (move && move.type === 'ability') {
+        if (!monster.abilities.includes(move.ability)) {
+          // TODO log error
+          continue;
+        }
+        const ability = abilities.find(a => a.id === move.ability);
+        if (!ability) {
+          // TODO log error
+          continue;
+        }
 
+        const target = monsters.find(m => m._id.toString() === move.target);
+        if (!target) {
+          // TODO log error
+          continue;
+        }
+
+        this.playAbility(ability, monster, target);
+      }
+    }
+  }
+
+  private playAbility(ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
     ability.effects.forEach(function (value) {
-      if(value.chance == null || Math.random() <= value.chance){
+      if (value.chance == null || Math.random() <= value.chance) {
         const effectTarget = (value.self === true || (value.self == null && value.amount > 0)) ? currentMonster : targetMonster;
-        let effectAmount:number = value.amount;
+        let effectAmount: number = value.amount;
 
-        if(value.attribute === "health"){
-          if(effectTarget.attributes.defense > value.amount + currentMonster.attributes.attack){
+        if (value.attribute === 'health') {
+          if (effectTarget.attributes.defense > value.amount + currentMonster.attributes.attack) {
             effectAmount = 0;
-          }
-          else{
+          } else {
             effectAmount += currentMonster.attributes.attack - effectTarget.attributes.defense;
           }
 
@@ -68,15 +79,10 @@ export class EncounterService {
         effectTarget.attributes[value.attribute as keyof MonsterAttributes] += effectAmount;
 
         // Null check
-        for(const key in effectTarget.attributes){
-          if(effectTarget.attributes[key as keyof MonsterAttributes] < 0) effectTarget.attributes[key as keyof MonsterAttributes] = 0;
+        for (const key in effectTarget.attributes) {
+          if (effectTarget.attributes[key as keyof MonsterAttributes] < 0) effectTarget.attributes[key as keyof MonsterAttributes] = 0;
         }
       }
     });
-
-    await currentMonster.save();
-    await targetMonster.save();
-
-    // TODO update currentTurn
   }
 }
