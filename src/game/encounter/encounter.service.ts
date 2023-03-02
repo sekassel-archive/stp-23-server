@@ -26,6 +26,10 @@ export class EncounterService {
 
   async playRound(encounter: Encounter): Promise<void> {
     const opponents = await this.opponentService.findAll(encounter.region, encounter._id.toString());
+    if (opponents.find(o => !o.move)) {
+      return;
+    }
+
     const monsters = await this.monsterService.findAll({_id: {$in: opponents.map(o => new Types.ObjectId(o.monster))}});
 
     monsters.sort((a, b) => a.attributes.initiative - b.attributes.initiative);
