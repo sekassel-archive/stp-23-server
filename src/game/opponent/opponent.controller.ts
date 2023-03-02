@@ -28,7 +28,7 @@ export class OpponentController {
     return this.opponentService.findAll(regionId, encounterId);
   }
 
-  @Get(':userId')
+  @Get(':id')
   @ApiOkResponse({type: Opponent})
   @NotFound()
   async findOne(

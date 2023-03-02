@@ -27,7 +27,7 @@ export class EncounterController {
     return this.encounterService.findAll(regionId);
   }
 
-  @Get(':userId')
+  @Get(':id')
   @ApiOkResponse({type: Encounter})
   @NotFound()
   async findOne(
