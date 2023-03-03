@@ -48,6 +48,7 @@ export class EncounterService {
           continue;
         }
 
+        // FIXME target may be new monster if one was defeated
         const target = monsters.find(m => m._id.toString() === move.target);
         if (!target) {
           // TODO log error
@@ -82,10 +83,27 @@ export class EncounterService {
         }
 
         effectTarget.attributes[attribute] += effectAmount;
-        // Null check
-        if (effectTarget.attributes[attribute] < 0) {
+        if (effectTarget.attributes[attribute] <= 0) {
           effectTarget.attributes[attribute] = 0;
+          if (attribute === 'health' && effectTarget !== currentMonster) {
+            this.gainExp(currentMonster, effectTarget);
+          }
         }
+      }
+    }
+  }
+
+  private gainExp(currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
+    // TODO improve experience gain
+    currentMonster.experience += (effectTarget.level * 10 * (0.9 + Math.random() * 0.2)) | 0;
+
+    while (true) {
+      const levelUp = currentMonster.level ** 3 - (currentMonster.level - 1) ** 3;
+      if (currentMonster.experience >= levelUp) {
+        currentMonster.level++;
+        currentMonster.experience -= levelUp;
+      } else {
+        break;
       }
     }
   }

@@ -10,7 +10,7 @@ export class EncounterHandler {
   ) {
   }
 
-  @OnEvent('encounter.*.opponents.*.updated')
+  @OnEvent('encounters.*.opponents.*.updated')
   async onOpponentUpdated(data: Opponent): Promise<void> {
     const encounter = await this.encounterService.findOne(data.encounter);
     if (!encounter) {
