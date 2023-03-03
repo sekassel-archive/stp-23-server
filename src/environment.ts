@@ -3,6 +3,7 @@ const port = +(process.env.PORT || 3000);
 export const environment = {
   version: process.env.API_VERSION || 'v2',
   port,
+  udpPort: +(process.env.UDP_PORT || 3001),
   baseUrl: process.env.BASE_URL || `http://localhost:${port}`,
   mongo: {
     uri: process.env.MONGO_URI || 'mongodb://localhost:27017/stp-23',

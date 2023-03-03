@@ -38,7 +38,7 @@ export class PlayerService {
     return this.model.findById(id).exec();
   }
 
-  async update(region: string, id: string, dto: UpdatePlayerDto): Promise<Player | null> {
+  async update(id: string, dto: UpdatePlayerDto): Promise<Player | null> {
     const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
