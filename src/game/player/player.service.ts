@@ -34,7 +34,7 @@ export class PlayerService {
     return this.model.find({...filter, region}).exec();
   }
 
-  async findOne(region: string, id: string): Promise<Player | null> {
+  async findOne(id: string): Promise<Player | null> {
     return this.model.findById(id).exec();
   }
 

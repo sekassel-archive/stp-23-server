@@ -1,6 +1,7 @@
-import {Injectable} from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
+import {MonsterService} from '../monster/monster.service';
 import {UpdateOpponentDto} from './opponent.dto';
 import {ChangeMonsterMove, Opponent, OpponentDocument} from './opponent.schema';
 
@@ -8,6 +9,7 @@ import {ChangeMonsterMove, Opponent, OpponentDocument} from './opponent.schema';
 export class OpponentService {
   constructor(
     @InjectModel(Opponent.name) private model: Model<Opponent>,
+    private monsterService: MonsterService,
   ) {
   }
 
@@ -22,7 +24,13 @@ export class OpponentService {
   async updateOne(id: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately
-      // TODO: validate that the monster is alive
+      const monster = await this.monsterService.findOne(dto.move.monster);
+      if (!monster) {
+        throw new NotFoundException(`Monster ${dto.move.monster} not found`);
+      }
+      if (monster.attributes.health <= 0) {
+        throw new ConflictException(`Monster ${dto.move.monster} is dead`);
+      }
       dto = {
         ...dto,
         monster: dto.move.monster,

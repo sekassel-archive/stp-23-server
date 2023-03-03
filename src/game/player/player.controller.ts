@@ -32,9 +32,8 @@ export class PlayerController {
   @ApiOkResponse({type: Player})
   @NotFound()
   async findOne(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Player | null> {
-    return this.playerService.findOne(regionId, id);
+    return this.playerService.findOne(id);
   }
 }
