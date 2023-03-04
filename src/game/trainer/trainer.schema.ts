@@ -31,19 +31,19 @@ export class Trainer extends GlobalSchema {
   region: string;
 
   @Prop()
-  @ApiPropertyOptional(MONGO_ID_FORMAT)
+  @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   user: string;
 
   @Prop()
   @ApiProperty()
   @IsString()
-  image: string;
+  name: string;
 
   @Prop()
   @ApiProperty()
   @IsString()
-  name: string;
+  image: string;
 
   @Prop()
   @ApiProperty()
