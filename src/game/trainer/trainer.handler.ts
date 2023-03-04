@@ -1,7 +1,6 @@
 import {Injectable, OnModuleDestroy} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Cron, CronExpression} from '@nestjs/schedule';
-import {Member} from '../../member/member.schema';
 import {SocketService} from '../../udp/socket.service';
 import {User} from '../../user/user.schema';
 import {MoveTrainerDto} from './trainer.dto';
@@ -16,11 +15,6 @@ export class TrainerHandler implements OnModuleDestroy {
   }
 
   locations = new Map<string, MoveTrainerDto>;
-
-  @OnEvent('members.*.created')
-  async onMemberCreated(member: Member): Promise<void> {
-    await this.trainerService.createFromMember(member);
-  }
 
   @OnEvent('users.*.deleted')
   async onUserDeleted(user: User): Promise<void> {

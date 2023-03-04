@@ -3,8 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
-import {Member} from '../../member/member.schema';
-import {MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 
 @Injectable()
@@ -15,10 +14,11 @@ export class TrainerService {
   ) {
   }
 
-  async createFromMember(member: Member): Promise<Trainer> {
+  async create(region: string, user: string, dto: CreateTrainerDto): Promise<Trainer> {
     const created = await this.model.create({
-      region: member.region,
-      user: member.user,
+      ...dto,
+      region,
+      user,
       area: '', // TODO find spawn area
       coins: 0,
       x: 0,

@@ -2,7 +2,10 @@ import {PickType} from '@nestjs/swagger';
 import {PartialType} from '../../util/partial-type';
 import {Trainer} from './trainer.schema';
 
-export class CreateTrainerDto {
+export class CreateTrainerDto extends PickType(Trainer, [
+  'name',
+  'image',
+]) {
 }
 
 export class UpdateTrainerDto extends PartialType(CreateTrainerDto) {
