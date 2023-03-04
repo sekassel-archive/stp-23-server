@@ -51,6 +51,7 @@ export class GameLoader implements OnModuleInit {
           region: region._id.toString(),
           area: area._id.toString(),
           name: object.name,
+          npc: {$exists: true},
         }, {
           $setOnInsert: {
             user: new Types.ObjectId(),
@@ -59,6 +60,7 @@ export class GameLoader implements OnModuleInit {
           area: area._id.toString(),
           name: object.name,
           image: this.getProperty<string>(object, 'Image') || 'Adam_16x16.png',
+          coins: this.getProperty<number>(object, 'Coins') || Infinity,
           x: (object.x / map.tilewidth) | 0,
           y: (object.y / map.tileheight) | 0,
           direction: this.getProperty<number>(object, 'Direction') || Direction.DOWN,
