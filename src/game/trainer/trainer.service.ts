@@ -4,7 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {Member} from '../../member/member.schema';
-import {UpdateTrainerDto} from './trainer.dto';
+import {MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 
 @Injectable()
@@ -46,6 +46,15 @@ export class TrainerService {
     const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
+  }
+
+  async saveLocations(locations: MoveTrainerDto[]): Promise<void> {
+    await this.model.bulkWrite(locations.map(({_id, ...update}) => ({
+      updateOne: {
+        filter: {_id},
+        update,
+      },
+    })));
   }
 
   async deleteUser(user: string): Promise<Trainer[]> {
