@@ -4,18 +4,18 @@ import {FilterQuery, Model} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {Member} from '../../member/member.schema';
-import {UpdatePlayerDto} from './player.dto';
-import {Player} from './player.schema';
+import {UpdateTrainerDto} from './trainer.dto';
+import {Trainer} from './trainer.schema';
 
 @Injectable()
-export class PlayerService {
+export class TrainerService {
   constructor(
-    @InjectModel(Player.name) private model: Model<Player>,
+    @InjectModel(Trainer.name) private model: Model<Trainer>,
     private eventEmitter: EventService,
   ) {
   }
 
-  async createFromMember(member: Member): Promise<Player> {
+  async createFromMember(member: Member): Promise<Trainer> {
     const created = await this.model.create({
       region: member.region,
       user: member.user,
@@ -30,30 +30,30 @@ export class PlayerService {
     return created;
   }
 
-  async findAll(region: string, filter?: FilterQuery<Player>): Promise<Player[]> {
+  async findAll(region: string, filter?: FilterQuery<Trainer>): Promise<Trainer[]> {
     return this.model.find({...filter, region}).exec();
   }
 
-  async findOne(id: string): Promise<Player | null> {
+  async findOne(id: string): Promise<Trainer | null> {
     return this.model.findById(id).exec();
   }
 
-  async update(id: string, dto: UpdatePlayerDto): Promise<Player | null> {
+  async update(id: string, dto: UpdateTrainerDto): Promise<Trainer | null> {
     const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
   }
 
-  async deleteUser(user: string): Promise<Player[]> {
-    const players = await this.model.find({user}).exec();
-    for (const player of players) {
-      this.emit('deleted', player);
+  async deleteUser(user: string): Promise<Trainer[]> {
+    const trainers = await this.model.find({user}).exec();
+    for (const trainer of trainers) {
+      this.emit('deleted', trainer);
     }
     await this.model.deleteMany({user}).exec();
-    return players;
+    return trainers;
   }
 
-  private emit(event: string, player: Player): void {
-    this.eventEmitter.emit(`regions.${player.region}.players.${player._id}.${event}`, player);
+  private emit(event: string, trainer: Trainer): void {
+    this.eventEmitter.emit(`regions.${trainer.region}.trainers.${trainer._id}.${event}`, trainer);
   }
 }

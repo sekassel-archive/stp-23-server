@@ -8,8 +8,8 @@ import {Validated} from '../../util/validated.decorator';
 import {Monster} from './monster.schema';
 import {MonsterService} from './monster.service';
 
-@Controller('regions/:regionId/players/:playerId/monsters')
-@ApiTags('Player Monsters')
+@Controller('regions/:regionId/trainers/:trainerId/monsters')
+@ApiTags('Trainer Monsters')
 @Validated()
 @Auth()
 @Throttled()
@@ -23,9 +23,9 @@ export class MonsterController {
   @ApiOkResponse({type: [Monster]})
   async findAll(
     @Param('regionId', ParseObjectIdPipe) regionId: string,
-    @Param('playerId', ParseObjectIdPipe) playerId: string,
+    @Param('trainerId', ParseObjectIdPipe) trainerId: string,
   ): Promise<Monster[]> {
-    return this.monsterService.findAll(regionId, playerId);
+    return this.monsterService.findAll(regionId, trainerId);
   }
 
   @Get(':id')

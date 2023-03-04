@@ -14,8 +14,8 @@ export class MonsterService {
   ) {
   }
 
-  async findAll(region: string, player: string, filter?: FilterQuery<Monster>): Promise<Monster[]> {
-    return this.model.find({...filter, region, player}).exec();
+  async findAll(region: string, trainer: string, filter?: FilterQuery<Monster>): Promise<Monster[]> {
+    return this.model.find({...filter, region, trainer}).exec();
   }
 
   async findOne(id: string): Promise<Monster | null> {
@@ -28,12 +28,12 @@ export class MonsterService {
     return updated;
   }
 
-  async deletePlayer(player: string): Promise<Monster[]> {
-    const monsters = await this.model.find({player}).exec();
+  async deleteTrainer(trainer: string): Promise<Monster[]> {
+    const monsters = await this.model.find({trainer}).exec();
     for (const monster of monsters) {
       this.emit('deleted', monster);
     }
-    await this.model.deleteMany({player}).exec();
+    await this.model.deleteMany({trainer}).exec();
     return monsters;
   }
 

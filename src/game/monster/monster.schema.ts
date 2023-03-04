@@ -30,7 +30,7 @@ export class Monster extends GlobalSchema {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
-  player: string;
+  trainer: string;
 
   @Prop()
   @ApiProperty()

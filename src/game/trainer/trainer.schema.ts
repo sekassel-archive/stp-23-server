@@ -1,11 +1,11 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
-import {IsInt, IsMongoId, IsOptional, IsString} from 'class-validator';
+import {IsInt, IsMongoId, IsOptional} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
-export class Player extends GlobalSchema {
+export class Trainer extends GlobalSchema {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
@@ -38,8 +38,8 @@ export class Player extends GlobalSchema {
   y: number;
 }
 
-export type PlayerDocument = Player & Document<Types.ObjectId, never, Player>;
+export type TrainerDocument = Trainer & Document<Types.ObjectId, never, Trainer>;
 
-export const PlayerSchema = SchemaFactory.createForClass(Player)
+export const TrainerSchema = SchemaFactory.createForClass(Trainer)
   .index({region: 1, user: 1}, {unique: true, ignoreUndefined: true})
 ;
