@@ -4,7 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
-import {Direction, Trainer} from './trainer.schema';
+import {Direction, Trainer, TrainerDocument} from './trainer.schema';
 
 @Injectable()
 export class TrainerService {
@@ -31,8 +31,14 @@ export class TrainerService {
     return created;
   }
 
-  async upsert(filter: FilterQuery<Trainer>, update: UpdateQuery<Trainer>): Promise<Trainer> {
-    return this.model.findOneAndUpdate(filter, update, {upsert: true, new: true}).exec();
+  async upsert(filter: FilterQuery<Trainer>, update: UpdateQuery<Trainer>): Promise<TrainerDocument> {
+    const result = await this.model.findOneAndUpdate(filter, update, {upsert: true, new: true, rawResult: true}).exec();
+    if (!result.value) {
+      throw new Error('Upsert failed');
+    }
+    const trainer = result.value;
+    this.emit(result.lastErrorObject?.updatedExisting ? 'updated' : 'created', trainer);
+    return trainer;
   }
 
   async findAll(region: string, filter?: FilterQuery<Trainer>): Promise<Trainer[]> {

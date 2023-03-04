@@ -79,7 +79,7 @@ export class Trainer extends GlobalSchema {
   npc?: NPCInfo;
 }
 
-export type TrainerDocument = Trainer & Document<Types.ObjectId, never, Trainer>;
+export type TrainerDocument = Trainer & Document<Types.ObjectId, any, Trainer>;
 
 export const TrainerSchema = SchemaFactory.createForClass(Trainer)
   .index({region: 1, user: 1}, {unique: true})
