@@ -1,40 +1,13 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import {FilterQuery, Model} from 'mongoose';
-import {Region} from '../../region/region.schema';
-import {RegionService} from '../../region/region.service';
-import {Area, CreateAreaDto} from './area.schema';
-import * as fs from 'node:fs/promises';
+import {FilterQuery, Model, UpdateQuery} from 'mongoose';
+import {Area, AreaDocument, CreateAreaDto} from './area.schema';
 
 @Injectable()
-export class AreaService implements OnModuleInit {
+export class AreaService {
   constructor(
     @InjectModel(Area.name) private model: Model<Area>,
-    private regionService: RegionService,
   ) {
-  }
-
-  async onModuleInit() {
-    for (const regionName of await fs.readdir('./assets/maps/')) {
-      const region = await this.regionService.findByNameOrCreate(regionName);
-      for (const areaFileName of await fs.readdir(`./assets/maps/${regionName}/`)) {
-        this.loadArea(areaFileName, region);
-      }
-    }
-  }
-
-  private async loadArea(areaFileName: string, region: Region) {
-    const name = areaFileName.replace('.json', '');
-    const area = await this.findAll({region: region._id, name});
-    if (area.length > 0) {
-      return;
-    }
-    const map = await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8');
-    await this.create({
-      region: region._id.toString(),
-      name,
-      map: JSON.parse(map),
-    });
   }
 
   async findAll(filter: FilterQuery<Area> = {}): Promise<Area[]> {
@@ -47,5 +20,9 @@ export class AreaService implements OnModuleInit {
 
   async create(dto: CreateAreaDto): Promise<Area> {
     return this.model.create(dto);
+  }
+
+  async upsert(filter: FilterQuery<Area>, update: UpdateQuery<Area>): Promise<AreaDocument> {
+    return this.model.findOneAndUpdate(filter, update, {upsert: true, new: true}).exec();
   }
 }
