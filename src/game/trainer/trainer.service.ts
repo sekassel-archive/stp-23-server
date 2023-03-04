@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import {FilterQuery, Model} from 'mongoose';
+import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {Member} from '../../member/member.schema';
@@ -28,6 +28,10 @@ export class TrainerService {
       this.emit('created', created);
     }
     return created;
+  }
+
+  async upsert(filter: FilterQuery<Trainer>, update: UpdateQuery<Trainer>): Promise<Trainer> {
+    return this.model.findOneAndUpdate(filter, update, {upsert: true, new: true}).exec();
   }
 
   async findAll(region: string, filter?: FilterQuery<Trainer>): Promise<Trainer[]> {
