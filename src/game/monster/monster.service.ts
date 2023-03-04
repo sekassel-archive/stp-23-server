@@ -38,6 +38,6 @@ export class MonsterService {
   }
 
   private emit(event: string, monster: Monster): void {
-    this.eventEmitter.emit(`monsters.${monster._id}.${event}`, monster);
+    this.eventEmitter.emit(`trainer.${monster.trainer}.monsters.${monster._id}.${event}`, monster);
   }
 }

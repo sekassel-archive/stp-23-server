@@ -62,15 +62,17 @@ However, the payload within the `data` field may contain any JSON value, not jus
 The following table shows which events may be sent.
 Some events are only visible to certain users for privacy reasons.
 
-| Event Name                                                          | Payload                             | Visible to                            |
-|---------------------------------------------------------------------|-------------------------------------|---------------------------------------|
-| `users.<userId>.{created,updated,deleted}`<sup>1, 2</sup>           | [`User`](#model-User)               | Everyone                              |
-| `users.<userId>.achievements.<id>.{created,updated,deleted}`        | [`Achievement`](#model-Achievement) | Everyone                              |
-| `groups.<groupId>.{created,updated,deleted}`                        | [`Group`](#model-Group)             | Anyone in the `members` array         |
-| `groups.<groupId>.messages.<messageId>.{created,updated,deleted}`   | [`Message`](#model-Message)         | Anyone in the group's `members` array |
-| `regions.<regionId>.updated`                                        | [`Region`](#model-Region)           | Everyone                              |
-| `regions.<regionId>.members.<userId>.{created,updated,deleted}`     | [`Member`](#model-Member)           | Everyone                              |
-| `regions.<regionId>.messages.<messageId>.{created,updated,deleted}` | [`Message`](#model-Message)         | Anyone who is a member of the region  |
+| Event Name                                                            | Payload                             | Visible to                            |
+|-----------------------------------------------------------------------|-------------------------------------|---------------------------------------|
+| `users.<userId>.{created,updated,deleted}`<sup>1, 2</sup>             | [`User`](#model-User)               | Everyone                              |
+| `users.<userId>.achievements.<id>.{created,updated,deleted}`          | [`Achievement`](#model-Achievement) | Everyone                              |
+| `groups.<groupId>.{created,updated,deleted}`                          | [`Group`](#model-Group)             | Anyone in the `members` array         |
+| `groups.<groupId>.messages.<messageId>.{created,updated,deleted}`     | [`Message`](#model-Message)         | Anyone in the group's `members` array |
+| `regions.<regionId>.updated`                                          | [`Region`](#model-Region)           | Everyone                              |
+| `regions.<regionId>.members.<userId>.{created,updated,deleted}`       | [`Member`](#model-Member)           | Everyone                              |
+| `regions.<regionId>.messages.<messageId>.{created,updated,deleted}`   | [`Message`](#model-Message)         | Anyone who is a member of the region  |
+| `regions.<regionId>.trainers.<trainerId>.{created,updated,deleted}`   | [`Trainer`](#model-Trainer)         | Anyone who is a member of the region  |
+| `trainers.<trainerId>.monsters.<monsterId>.{created,updated,deleted}` | [`Monster`](#model-Monster)         | Anyone who is a member of the region  |
 
 <sup>1</sup>: The shorthand notation `foo.{bar,baz}` means "either `foo.bar` or `foo.baz`" **in this table**. You **cannot** use this notation to subscribe to or unsubscribe from events!
 
