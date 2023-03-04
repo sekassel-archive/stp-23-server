@@ -27,7 +27,7 @@ export class TrainerController {
     return this.trainerService.findAll(regionId);
   }
 
-  @Get(':userId')
+  @Get(':id')
   @ApiOkResponse({type: Trainer})
   @NotFound()
   async findOne(
