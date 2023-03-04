@@ -1,7 +1,7 @@
 import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
 import {ApiCreatedResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
-import {UserToken} from '../../auth/auth.interface';
+import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
 import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {MONGO_ID_FORMAT} from '../../util/schema';
@@ -27,9 +27,9 @@ export class TrainerController {
   async create(
     @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Body() dto: CreateTrainerDto,
-    @AuthUser() user: UserToken,
+    @AuthUser() user: User,
   ): Promise<Trainer> {
-    return this.trainerService.create(regionId, user.sub, dto);
+    return this.trainerService.create(regionId, user._id.toString(), dto);
   }
 
   @Get()

@@ -4,7 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
-import {Trainer} from './trainer.schema';
+import {Direction, Trainer} from './trainer.schema';
 
 @Injectable()
 export class TrainerService {
@@ -23,6 +23,7 @@ export class TrainerService {
       coins: 0,
       x: 0,
       y: 0,
+      direction: Direction.DOWN,
     });
     if (created) {
       this.emit('created', created);
