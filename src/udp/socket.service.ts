@@ -57,8 +57,9 @@ export class SocketService implements OnModuleInit {
   }
 
   broadcast(event: string, data?: any): void {
+    const message = JSON.stringify({event, data});
     for (const remote of this.remotes.values()) {
-      this.socket.send(JSON.stringify({event, data}), remote.info.port, remote.info.address);
+      this.socket.send(message, remote.info.port, remote.info.address);
     }
   }
 }
