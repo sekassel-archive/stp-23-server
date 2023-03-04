@@ -1,6 +1,7 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
-import {IsEnum, IsInt, IsMongoId, IsOptional, IsString, Max, Min} from 'class-validator';
+import {Type} from 'class-transformer';
+import {IsArray, IsBoolean, IsEnum, IsInt, IsMongoId, IsOptional, IsString, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
 
@@ -9,6 +10,17 @@ export enum Direction {
   UP,
   LEFT,
   DOWN,
+}
+
+export class NPCInfo {
+  @ApiProperty()
+  @IsBoolean()
+  walkRandomly: boolean;
+
+  @ApiProperty()
+  @IsArray()
+  @IsInt({each: true})
+  path?: number[];
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
@@ -20,9 +32,8 @@ export class Trainer extends GlobalSchema {
 
   @Prop()
   @ApiPropertyOptional(MONGO_ID_FORMAT)
-  @IsOptional()
   @IsMongoId()
-  user?: string;
+  user: string;
 
   @Prop()
   @ApiProperty()
@@ -58,6 +69,13 @@ export class Trainer extends GlobalSchema {
   @ApiProperty()
   @IsEnum(Direction)
   direction: Direction;
+
+  @Prop()
+  @ApiPropertyOptional()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => NPCInfo)
+  npc?: NPCInfo;
 }
 
 export type TrainerDocument = Trainer & Document<Types.ObjectId, never, Trainer>;

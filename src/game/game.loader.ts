@@ -58,12 +58,20 @@ export class GameLoader implements OnModuleInit {
           region: region._id.toString(),
           area: area._id.toString(),
           name: object.name,
-          image: object.properties.find((p: any) => p.name === 'Image')?.value || 'Adam_16x16.png',
+          image: this.getProperty<string>(object, 'Image') || 'Adam_16x16.png',
           x: (object.x / map.tilewidth) | 0,
           y: (object.y / map.tileheight) | 0,
-          direction: object.properties.find((p: any) => p.name === 'Direction')?.value || Direction.DOWN,
+          direction: this.getProperty<number>(object, 'Direction') || Direction.DOWN,
+          npc: {
+            walkRandomly: this.getProperty<boolean>(object, 'WalkRandomly') || false,
+            path: this.getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s),
+          },
         });
       }
     }
+  }
+
+  private getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {
+    return object.properties.find((p: any) => p.name === name)?.value as K;
   }
 }
