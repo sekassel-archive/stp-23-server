@@ -8,7 +8,6 @@ import {AuthModule} from './auth/auth.module';
 import {environment} from './environment';
 import {EventModule} from './event/event.module';
 import {GroupModule} from './group/group.module';
-import {MemberModule} from './member/member.module';
 import {MessageModule} from './message/message.module';
 import {RegionModule} from './region/region.module';
 import {UserModule} from './user/user.module';
@@ -31,7 +30,6 @@ import {UserModule} from './user/user.module';
     GroupModule,
     MessageModule,
     RegionModule,
-    MemberModule,
   ],
 })
 export class AppModule {

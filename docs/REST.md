@@ -41,7 +41,6 @@ All delete operations, whether manual, cleanup or cascading, trigger the same ev
 
 | Deleting a... | Also deletes...                         |
 |---------------|-----------------------------------------|
-| User          | Their Membership in Regions they joined |
 | User          | Their Achievements                      |
 | Group         | All Messages sent within the Group      |
 
