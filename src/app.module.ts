@@ -17,7 +17,9 @@ import {UserModule} from './user/user.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(environment.mongo.uri),
+    MongooseModule.forRoot(environment.mongo.uri, {
+      ignoreUndefined: true,
+    }),
     ThrottlerModule.forRoot(environment.rateLimit),
     EventEmitterModule.forRoot({
       wildcard: true,
