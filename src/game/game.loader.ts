@@ -3,6 +3,7 @@ import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
 import {Region} from '../region/region.schema';
 import {RegionService} from '../region/region.service';
+import {AreaDocument} from './area/area.schema';
 import {AreaService} from './area/area.service';
 import {Direction} from './trainer/trainer.schema';
 import {TrainerService} from './trainer/trainer.service';
@@ -19,14 +20,27 @@ export class GameLoader implements OnModuleInit {
 
   async onModuleInit() {
     for (const regionName of await fs.readdir('./assets/maps/')) {
-      const region = await this.regionService.findByNameOrCreate(regionName);
-      for (const areaFileName of await fs.readdir(`./assets/maps/${regionName}/`)) {
-        this.loadArea(areaFileName, region);
+      if (regionName.endsWith('.json')) {
+        continue;
       }
+
+      const region = await this.regionService.findByNameOrCreate(regionName);
+      const regionMeta = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
+      for (const areaFileName of await fs.readdir(`./assets/maps/${regionName}/`)) {
+        const area = await this.loadArea(areaFileName, region);
+        if (regionMeta.spawn.area === area.name) {
+          region.spawn = {
+            area: area._id.toString(),
+            x: regionMeta.spawn.x,
+            y: regionMeta.spawn.y,
+          };
+        }
+      }
+      await region.save();
     }
   }
 
-  private async loadArea(areaFileName: string, region: Region) {
+  private async loadArea(areaFileName: string, region: Region): Promise<AreaDocument> {
     const name = areaFileName.replace('.json', '');
     const map = JSON.parse(await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8'));
     const area = await this.areaService.upsert({
@@ -71,6 +85,8 @@ export class GameLoader implements OnModuleInit {
         });
       }
     }
+
+    return area;
   }
 
   private getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {

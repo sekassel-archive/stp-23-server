@@ -1,8 +1,9 @@
-import {ConflictException, Injectable} from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
+import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
 import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
@@ -12,18 +13,24 @@ export class TrainerService {
   constructor(
     @InjectModel(Trainer.name) private model: Model<Trainer>,
     private eventEmitter: EventService,
+    private regionService: RegionService,
   ) {
   }
 
   async create(region: string, user: string, dto: CreateTrainerDto): Promise<Trainer> {
+    const regionDoc = await this.regionService.findOne(region);
+    if (!regionDoc) {
+      throw new NotFoundException('Region not found');
+    }
+    const {area, x, y} = regionDoc.spawn;
     const trainer: Omit<Trainer, keyof GlobalSchema> = {
       ...dto,
       region,
       user,
-      area: '', // TODO find spawn area
       coins: 0,
-      x: 0,
-      y: 0,
+      area,
+      x,
+      y,
       direction: Direction.DOWN,
     };
     try {
