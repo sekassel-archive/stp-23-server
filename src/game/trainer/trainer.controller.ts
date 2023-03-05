@@ -1,5 +1,5 @@
 import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
-import {ApiCreatedResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
+import {ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
 import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
@@ -24,6 +24,7 @@ export class TrainerController {
 
   @Post()
   @ApiCreatedResponse({type: Trainer})
+  @ApiConflictResponse({description: 'Trainer for current user already exists'})
   async create(
     @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Body() dto: CreateTrainerDto,

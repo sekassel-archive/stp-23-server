@@ -1,8 +1,9 @@
-import {Injectable} from '@nestjs/common';
+import {ConflictException, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
+import {GlobalSchema} from '../../util/schema';
 import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
 
@@ -15,7 +16,7 @@ export class TrainerService {
   }
 
   async create(region: string, user: string, dto: CreateTrainerDto): Promise<Trainer> {
-    const created = await this.model.create({
+    const trainer: Omit<Trainer, keyof GlobalSchema> = {
       ...dto,
       region,
       user,
@@ -24,11 +25,17 @@ export class TrainerService {
       x: 0,
       y: 0,
       direction: Direction.DOWN,
-    });
-    if (created) {
-      this.emit('created', created);
+    };
+    try {
+      const created = await this.model.create(trainer);
+      created && this.emit('created', created);
+      return created;
+    } catch (err: any) {
+      if (err.code === 11000) {
+        throw new ConflictException('Trainer already exists');
+      }
+      throw err;
     }
-    return created;
   }
 
   async upsert(filter: FilterQuery<Trainer>, update: UpdateQuery<Trainer>): Promise<TrainerDocument> {
