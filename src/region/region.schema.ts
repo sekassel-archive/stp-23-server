@@ -1,7 +1,7 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty, PickType} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {IsNotEmpty, IsNumber, MaxLength, ValidateNested} from 'class-validator';
+import {IsNotEmpty, MaxLength, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {MoveTrainerDto} from '../game/trainer/trainer.dto';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema} from '../util/schema';
@@ -16,11 +16,6 @@ export class Region extends GlobalSchema {
   @IsNotEmpty()
   @MaxLength(32)
   name: string;
-
-  @Prop({default: 0})
-  @ApiProperty()
-  @IsNumber()
-  members: number;
 
   @Prop()
   @ApiProperty()
