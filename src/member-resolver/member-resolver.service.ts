@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
+import {TrainerService} from '../game/trainer/trainer.service';
 import {GroupService} from '../group/group.service';
-import {MemberService} from '../member/member.service';
 
 export enum Namespace {
   groups = 'groups',
@@ -14,7 +14,7 @@ export type UserFilter = string[] | 'global';
 export class MemberResolverService {
   constructor(
     private groupService: GroupService,
-    private memberService: MemberService,
+    private trainerService: TrainerService,
   ) {
   }
 
@@ -24,16 +24,12 @@ export class MemberResolverService {
         const group = await this.groupService.find(id);
         return group?.members ?? [];
       case Namespace.regions:
-        return this.getRegionMembers(id);
+        const trainers = await this.trainerService.findAll(id);
+        return trainers.filter(t => !t.npc).map(member => member.user);
       case Namespace.global:
         return 'global';
       default:
         return [];
     }
-  }
-
-  private async getRegionMembers(id: string) {
-    const members = await this.memberService.findAll(id);
-    return members.map(member => member.user);
   }
 }

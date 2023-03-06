@@ -20,13 +20,13 @@ export const GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS: SchemaOptions = {
   },
 };
 
-export const MONGO_ID_FORMAT: ApiPropertyOptions = {
+export const MONGO_ID_FORMAT = {
   type: String,
   format: 'objectid',
   example: '507f191e810c19729de860ea',
 };
 
-export const MONGO_ID_ARRAY_FORMAT: ApiPropertyOptions = {
+export const MONGO_ID_ARRAY_FORMAT = {
   format: MONGO_ID_FORMAT.format,
   example: [MONGO_ID_FORMAT.example],
   type: [String],

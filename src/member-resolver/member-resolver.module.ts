@@ -1,12 +1,12 @@
 import {Module} from '@nestjs/common';
+import {TrainerModule} from '../game/trainer/trainer.module';
 import {GroupModule} from '../group/group.module';
-import {MemberModule} from '../member/member.module';
 import {MemberResolverService} from './member-resolver.service';
 
 @Module({
   imports: [
     GroupModule,
-    MemberModule,
+    TrainerModule,
   ],
   providers: [MemberResolverService],
   exports: [MemberResolverService],

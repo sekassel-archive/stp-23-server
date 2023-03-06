@@ -1,8 +1,13 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {ApiProperty} from '@nestjs/swagger';
-import {IsNotEmpty, IsNumber, MaxLength} from 'class-validator';
+import {ApiProperty, PickType} from '@nestjs/swagger';
+import {Type} from 'class-transformer';
+import {IsNotEmpty, MaxLength, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
+import {MoveTrainerDto} from '../game/trainer/trainer.dto';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema} from '../util/schema';
+
+export class Spawn extends PickType(MoveTrainerDto, ['area', 'x', 'y'] as const) {
+}
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 export class Region extends GlobalSchema {
@@ -12,10 +17,11 @@ export class Region extends GlobalSchema {
   @MaxLength(32)
   name: string;
 
-  @Prop({default: 0})
+  @Prop()
   @ApiProperty()
-  @IsNumber()
-  members: number;
+  @ValidateNested()
+  @Type(() => Spawn)
+  spawn: Spawn;
 }
 
 export type RegionDocument = Region & Document<Types.ObjectId, any, Region>;

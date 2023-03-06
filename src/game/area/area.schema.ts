@@ -26,6 +26,6 @@ export class Area extends GlobalSchema {
 
 export type CreateAreaDto = Omit<Area, keyof GlobalSchema>;
 
-export type AreaDocument = Area & Document<Types.ObjectId, never, Area>;
+export type AreaDocument = Area & Document<Types.ObjectId, any, Area>;
 
 export const AreaSchema = SchemaFactory.createForClass(Area);

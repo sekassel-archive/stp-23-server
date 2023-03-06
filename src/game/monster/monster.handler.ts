@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
-import {Player} from '../player/player.schema';
+import {Trainer} from '../trainer/trainer.schema';
 import {MonsterService} from './monster.service';
 
 @Injectable()
@@ -10,8 +10,8 @@ export class MonsterHandler {
   ) {
   }
 
-  @OnEvent('regions.*.players.*.deleted')
-  async onUserDeleted(player: Player): Promise<void> {
-    await this.monsterService.deletePlayer(player._id.toString());
+  @OnEvent('regions.*.trainers.*.deleted')
+  async onTrainerDeleted(trainer: Trainer): Promise<void> {
+    await this.monsterService.deleteTrainer(trainer._id.toString());
   }
 }

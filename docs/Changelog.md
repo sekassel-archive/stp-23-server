@@ -9,7 +9,6 @@
 + Added Groups.
 + Added Messages.
 + Added Regions.
-+ Added Region Members.
 
 ### Technical
 

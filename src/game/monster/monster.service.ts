@@ -28,16 +28,16 @@ export class MonsterService {
     return updated;
   }
 
-  async deletePlayer(player: string): Promise<Monster[]> {
-    const monsters = await this.model.find({player}).exec();
+  async deleteTrainer(trainer: string): Promise<Monster[]> {
+    const monsters = await this.model.find({trainer}).exec();
     for (const monster of monsters) {
       this.emit('deleted', monster);
     }
-    await this.model.deleteMany({player}).exec();
+    await this.model.deleteMany({trainer}).exec();
     return monsters;
   }
 
   private emit(event: string, monster: Monster): void {
-    this.eventEmitter.emit(`players.${monster.player}.monsters.${monster._id}.${event}`, monster);
+    this.eventEmitter.emit(`trainers.${monster.trainer}.monsters.${monster._id}.${event}`, monster);
   }
 }
