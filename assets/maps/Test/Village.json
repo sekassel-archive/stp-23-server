@@ -1121,7 +1121,7 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"house"
+                         "value":"House"
                         }, 
                         {
                          "name":"X",
@@ -1192,7 +1192,7 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"forest"
+                         "value":"Forest"
                         }, 
                         {
                          "name":"X",
