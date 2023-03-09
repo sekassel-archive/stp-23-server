@@ -5,7 +5,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
-import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
 
 @Injectable()
@@ -67,6 +67,10 @@ export class TrainerService {
     const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
+  }
+
+  async getLocations(): Promise<MoveTrainerDto[]> {
+    return this.model.find().select(MOVE_TRAINER_PROPS).exec();
   }
 
   async saveLocations(locations: MoveTrainerDto[]): Promise<void> {

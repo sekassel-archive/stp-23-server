@@ -11,11 +11,13 @@ export class CreateTrainerDto extends PickType(Trainer, [
 export class UpdateTrainerDto extends PartialType(CreateTrainerDto) {
 }
 
-export class MoveTrainerDto extends PickType(Trainer, [
+export const MOVE_TRAINER_PROPS = [
   '_id',
   'area',
   'x',
   'y',
   'direction',
-] as const) {
+] as const;
+
+export class MoveTrainerDto extends PickType(Trainer, MOVE_TRAINER_PROPS) {
 }
