@@ -1,6 +1,5 @@
-import {Injectable, OnModuleDestroy, OnModuleInit} from '@nestjs/common';
+import {Injectable, OnModuleInit} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
-import {Cron, CronExpression} from '@nestjs/schedule';
 import {SocketService} from '../../udp/socket.service';
 import {User} from '../../user/user.schema';
 import {Area} from '../area/area.schema';
@@ -22,7 +21,7 @@ interface Portal {
 }
 
 @Injectable()
-export class TrainerHandler implements OnModuleInit, OnModuleDestroy {
+export class TrainerHandler implements OnModuleInit {
   constructor(
     private trainerService: TrainerService,
     private socketService: SocketService,
@@ -30,16 +29,9 @@ export class TrainerHandler implements OnModuleInit, OnModuleDestroy {
   ) {
   }
 
-  locations = new Map<string, MoveTrainerDto>;
-
   portals = new Map<string, Portal[]>;
 
   async onModuleInit() {
-    const locations = await this.trainerService.getLocations();
-    for (const location of locations) {
-      this.locations.set(location._id.toString(), location);
-    }
-
     const areas = await this.areaService.findAll();
     for (const area of areas) {
       const portals = this.loadPortals(area, areas);
@@ -91,9 +83,9 @@ export class TrainerHandler implements OnModuleInit, OnModuleDestroy {
   @OnEvent('areas.*.trainers.*.moved')
   async onTrainerMoved(dto: MoveTrainerDto) {
     // TODO validate movement
-    const oldLocation = this.locations.get(dto._id.toString());
+    const oldLocation = this.trainerService.getLocation(dto._id.toString());
 
-    for (const location of this.locations.values()) {
+    for (const location of this.trainerService.getLocations()) {
       if (location.x === dto.x && location.y === dto.y) {
         // Someone is already at this location
         dto.x = oldLocation!.x;
@@ -114,15 +106,6 @@ export class TrainerHandler implements OnModuleInit, OnModuleDestroy {
     }
 
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
-    this.locations.set(dto._id.toString(), dto);
-  }
-
-  async onModuleDestroy() {
-    await this.flushLocations();
-  }
-
-  @Cron(CronExpression.EVERY_MINUTE)
-  async flushLocations() {
-    await this.trainerService.saveLocations(Array.from(this.locations.values()));
+    this.trainerService.setLocation(dto._id.toString(), dto);
   }
 }
