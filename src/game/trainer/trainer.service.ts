@@ -74,10 +74,10 @@ export class TrainerService {
   }
 
   async saveLocations(locations: MoveTrainerDto[]): Promise<void> {
-    await this.model.bulkWrite(locations.map(({_id, ...update}) => ({
+    await this.model.bulkWrite(locations.map(({_id, ...rest}) => ({
       updateOne: {
         filter: {_id},
-        update,
+        update: {$set: rest},
       },
     })));
   }
