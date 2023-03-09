@@ -100,6 +100,8 @@ export class TrainerHandler implements OnModuleInit {
         dto.area = area;
         dto.x = x;
         dto.y = y;
+        // inform old area that the trainer left
+        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
         await this.trainerService.saveLocations([dto]);
         break;
       }
