@@ -6,7 +6,7 @@ import {NotFound} from '../../util/not-found.decorator';
 import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
-import {PlayerService} from '../player/player.service';
+import {TrainerService} from '../trainer/trainer.service';
 import {UpdateOpponentDto} from './opponent.dto';
 import {Opponent} from './opponent.schema';
 import {OpponentService} from './opponent.service';
@@ -19,7 +19,7 @@ import {OpponentService} from './opponent.service';
 export class OpponentController {
   constructor(
     private readonly opponentService: OpponentService,
-    private readonly playerService: PlayerService,
+    private readonly trainerService: TrainerService,
   ) {
   }
 
@@ -53,7 +53,7 @@ export class OpponentController {
     if (!opponent) {
       return null;
     }
-    const trainer = await this.playerService.findOne(opponent.trainer);
+    const trainer = await this.trainerService.findOne(opponent.trainer);
     if (!trainer) {
       return null;
     }
