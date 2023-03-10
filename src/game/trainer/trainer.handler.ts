@@ -86,7 +86,7 @@ export class TrainerHandler implements OnModuleInit {
     const oldLocation = this.trainerService.getLocation(dto._id.toString());
 
     for (const location of this.trainerService.getLocations()) {
-      if (location.x === dto.x && location.y === dto.y) {
+      if (location.area === dto.area && location.x === dto.x && location.y === dto.y) {
         // Someone is already at this location
         dto.x = oldLocation!.x;
         dto.y = oldLocation!.y;
