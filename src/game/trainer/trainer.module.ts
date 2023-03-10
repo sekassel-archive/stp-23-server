@@ -4,6 +4,7 @@ import {MongooseModule} from '@nestjs/mongoose';
 import {EventModule} from '../../event/event.module';
 import {RegionModule} from '../../region/region.module';
 import {SocketModule} from '../../udp/socket.module';
+import {AreaModule} from '../area/area.module';
 import {TrainerController} from './trainer.controller';
 import {TrainerHandler} from './trainer.handler';
 import {Trainer, TrainerSchema} from './trainer.schema';
@@ -18,6 +19,7 @@ import {TrainerService} from './trainer.service';
     EventModule,
     SocketModule,
     RegionModule,
+    AreaModule,
   ],
   controllers: [TrainerController],
   providers: [TrainerService, TrainerHandler],

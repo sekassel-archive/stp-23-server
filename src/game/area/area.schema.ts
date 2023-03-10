@@ -21,7 +21,7 @@ export class Area extends GlobalSchema {
   @Prop({type: Object})
   @ApiProperty()
   @IsObject()
-  map: Record<string, unknown>;
+  map: any;
 }
 
 export type CreateAreaDto = Omit<Area, keyof GlobalSchema>;
