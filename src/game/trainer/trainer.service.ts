@@ -39,6 +39,13 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     try {
       const created = await this.model.create(trainer);
       created && this.emit('created', created);
+      created && this.setLocation(created._id.toString(), {
+        _id: created._id,
+        area,
+        x,
+        y,
+        direction: created.direction,
+      });
       return created;
     } catch (err: any) {
       if (err.code === 11000) {
@@ -74,6 +81,9 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
 
   addLocation(doc: Trainer) {
     const location = this.getLocation(doc._id.toString());
+    if (!location) {
+      return;
+    }
     for (const key of MOVE_TRAINER_PROPS) {
       // @ts-ignore
       doc[key] = location[key];
