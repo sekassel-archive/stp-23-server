@@ -7,6 +7,7 @@ import {AreaService} from '../area/area.service';
 import {getProperty} from '../game.loader';
 import {MoveTrainerDto} from './trainer.dto';
 import {TrainerService} from './trainer.service';
+import {Direction, Trainer} from "./trainer.schema";
 
 interface Portal {
   x: number;
@@ -104,6 +105,22 @@ export class TrainerHandler implements OnModuleInit {
       await this.trainerService.saveLocations([dto]);
     }
 
+    this.checkAllNPCsOnSight(dto);
+
+    const portals = this.portals.get(dto.area) || [];
+    for (const portal of portals) {
+      if (dto.x >= portal.x && dto.x < portal.x + portal.width && dto.y >= portal.y && dto.y < portal.y + portal.height) {
+        const {area, x, y} = portal.target;
+        dto.area = area;
+        dto.x = x;
+        dto.y = y;
+        // inform old area that the trainer left
+        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+        await this.trainerService.saveLocations([dto]);
+        break;
+      }
+    }
+
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
     this.trainerService.setLocation(dto._id.toString(), dto);
   }
@@ -116,5 +133,66 @@ export class TrainerHandler implements OnModuleInit {
       }
     }
     return null;
+  }
+
+  async checkAllNPCsOnSight(dto: MoveTrainerDto) {
+    const npcs = await this.trainerService.findAll({npc: {$exists: true}});
+    for (const npc of npcs) {
+      if(this.checkNPConSight(dto, npc, 5)){
+        // TODO: Player blockieren
+        // Finds the movement direction of the npc towards the player
+        let x = 0;
+        if(npc.direction === Direction.LEFT){
+          x = -1;
+        }
+        else if(npc.direction === Direction.RIGHT){
+          x = 1;
+        }
+
+        let y = 0;
+        if(npc.direction === Direction.UP){
+          y = -1;
+        }
+        else if(npc.direction === Direction.DOWN){
+          y = 1;
+        }
+
+        // Finds how many steps the npc has to walk to the player
+        const moveRange = Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y) - 1;
+
+        // Add path points for moving npc towards player
+        for(let i = 0; i < moveRange; i++){
+          npc.npc?.path?.push(npc.x + (i+1)*x, npc.y + (i+1)*y);
+        }
+      }
+    }
+  }
+
+  checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number) : boolean {
+    const xDifference = player.x - npc.x;
+    const yDifference = player.y - npc.y;
+
+    //Check if x or y is equals for npc and player
+    if(xDifference !== 0 && yDifference !== 0) return false;
+
+    //Check maxRange
+    if(xDifference > maxRange || yDifference > maxRange) return false;
+
+    // Check if NPC is looking at the player
+    if(xDifference === 0){
+      if((yDifference < 0 && npc.direction !== Direction.UP)
+      || (yDifference > 0 && npc.direction !== Direction.DOWN)){
+        return false;
+      }
+    }
+    else{
+      if((xDifference < 0 && npc.direction !== Direction.RIGHT)
+        || (xDifference > 0 && npc.direction !== Direction.LEFT)){
+        return false;
+      }
+    }
+
+    // TODO: Check if objects are in the way of the npc
+    return true;
   }
 }
