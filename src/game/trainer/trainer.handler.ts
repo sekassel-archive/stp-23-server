@@ -84,30 +84,37 @@ export class TrainerHandler implements OnModuleInit {
   async onTrainerMoved(dto: MoveTrainerDto) {
     // TODO validate movement
     const oldLocation = this.trainerService.getLocation(dto._id.toString());
+    const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
-    for (const location of this.trainerService.getLocations()) {
-      if (location.area === dto.area && location.x === dto.x && location.y === dto.y) {
-        // Someone is already at this location
-        dto.x = oldLocation!.x;
-        dto.y = oldLocation!.y;
-      }
+    if (Math.abs(dto.x - oldLocation!.x) + Math.abs(dto.y - oldLocation!.y) > 1 // Invalid movement
+      || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
+    ) {
+      dto.x = oldLocation!.x;
+      dto.y = oldLocation!.y;
     }
 
-    const portals = this.portals.get(dto.area) || [];
-    for (const portal of portals) {
-      if (dto.x >= portal.x && dto.x < portal.x + portal.width && dto.y >= portal.y && dto.y < portal.y + portal.height) {
-        const {area, x, y} = portal.target;
-        dto.area = area;
-        dto.x = x;
-        dto.y = y;
-        // inform old area that the trainer left
-        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
-        await this.trainerService.saveLocations([dto]);
-        break;
-      }
+    const portal = this.getPortal(dto.area, dto.x, dto.y);
+    if (portal) {
+      const {area, x, y} = portal.target;
+      dto.area = area;
+      dto.x = x;
+      dto.y = y;
+      // inform old area that the trainer left
+      this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+      await this.trainerService.saveLocations([dto]);
     }
 
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
     this.trainerService.setLocation(dto._id.toString(), dto);
+  }
+
+  getPortal(area: string, x: number, y: number) {
+    const portals = this.portals.get(area) || [];
+    for (const portal of portals) {
+      if (x >= portal.x && x < portal.x + portal.width && y >= portal.y && y < portal.y + portal.height) {
+        return portal;
+      }
+    }
+    return null;
   }
 }
