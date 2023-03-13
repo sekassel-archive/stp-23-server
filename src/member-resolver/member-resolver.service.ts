@@ -24,7 +24,7 @@ export class MemberResolverService {
         const group = await this.groupService.find(id);
         return group?.members ?? [];
       case Namespace.regions:
-        const trainers = await this.trainerService.findAll(id);
+        const trainers = await this.trainerService.findAll({region: id});
         return trainers.filter(t => !t.npc).map(member => member.user);
       case Namespace.global:
         return 'global';

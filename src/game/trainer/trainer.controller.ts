@@ -38,11 +38,11 @@ export class TrainerController {
   @ApiQuery({...MONGO_ID_FORMAT, name: 'area', required: false, description: 'Filter by area'})
   @ApiQuery({...MONGO_ID_FORMAT, name: 'user', required: false, description: 'Filter by user'})
   async findAll(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
+    @Param('regionId', ParseObjectIdPipe) region: string,
     @Query('area', ParseObjectIdPipe) area?: string,
     @Query('user', ParseObjectIdPipe) user?: string,
   ): Promise<Trainer[]> {
-    return this.trainerService.findAll(regionId, {area, user});
+    return this.trainerService.findAll({region, area, user});
   }
 
   @Get(':id')

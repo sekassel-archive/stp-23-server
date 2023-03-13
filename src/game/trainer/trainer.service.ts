@@ -65,8 +65,8 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     return trainer;
   }
 
-  async findAll(region: string, filter?: FilterQuery<Trainer>): Promise<Trainer[]> {
-    const results = await this.model.find({...filter, region}).exec();
+  async findAll(filter: FilterQuery<Trainer>): Promise<Trainer[]> {
+    const results = await this.model.find(filter).exec();
     for (const result of results) {
       this.addLocation(result);
     }
