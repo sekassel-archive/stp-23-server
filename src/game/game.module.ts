@@ -4,6 +4,7 @@ import {AreaModule} from './area/area.module';
 import {GameLoader} from './game.loader';
 import {MonsterModule} from './monster/monster.module';
 import {TrainerModule} from './trainer/trainer.module';
+import { PresetsModule } from './presets/presets.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import {TrainerModule} from './trainer/trainer.module';
     AreaModule,
     TrainerModule,
     MonsterModule,
+    PresetsModule,
   ],
   providers: [
     GameLoader,
