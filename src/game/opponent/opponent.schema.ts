@@ -56,13 +56,7 @@ export class Opponent extends GlobalSchema {
   @IsMongoId()
   monster: string;
 
-  @Prop({
-    discriminatorKey: 'type',
-    discriminators: {
-      [AbilityMove.type]: AbilityMove,
-      [ChangeMonsterMove.type]: ChangeMonsterMove,
-    },
-  })
+  @Prop({type: Object})
   @ApiProperty()
   @ValidateNested()
   @Type(() => Object, {
