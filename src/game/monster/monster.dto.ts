@@ -1,7 +1,7 @@
-import {PartialType} from '../../util/partial-type';
+import {PickType} from '@nestjs/swagger';
+import {Monster} from './monster.schema';
 
-export class CreateMonsterDto {
-}
-
-export class UpdateMonsterDto extends PartialType(CreateMonsterDto) {
+export class CreateMonsterDto extends PickType(Monster, [
+  'type',
+]) {
 }
