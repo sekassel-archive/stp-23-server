@@ -47,6 +47,11 @@ export class PresetsController {
 
   private maskAbility(ability: Ability): AbilityDto {
     const {minLevel, effects, ...masked} = ability;
-    return masked;
+    const damageEffect = effects.find(e => e.attribute === 'health' && e.amount < 0);
+    return {
+      ...masked,
+      accuracy: Math.max(...effects.map(e => e.chance ?? 1)),
+      power: damageEffect ? -damageEffect.amount : 0,
+    };
   }
 }
