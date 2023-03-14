@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "name": "Tackle",
+    "description": "A physical attack in which the user charges and slams into the target with its whole body.",
+    "type": "normal",
+    "minLevel": 1,
+    "maxUses": 35,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -5
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Quick Attack",
+    "description": "A physical attack in which the user charges and slams into the target with its whole body.",
+    "type": "normal",
+    "minLevel": 1,
+    "maxUses": 30,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -10
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Take Down",
+    "description": "A physical attack in which the user charges and slams into the target with its whole body.",
+    "type": "normal",
+    "minLevel": 1,
+    "maxUses": 20,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -7
+      },
+      {
+        "attribute": "attack",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Razor Leaf",
+    "description": "Sharp edged leaves are launched to slash at the opponent.",
+    "type": "plant",
+    "minLevel": 1,
+    "maxUses": 25,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -12
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Vine Whip",
+    "description": "A whip-like vine is used to lash the opponent. It may also lower the target's Defense stat.",
+    "type": "plant",
+    "minLevel": 1,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -7
+      },
+      {
+        "attribute": "attack",
+        "amount": -1,
+        "chance": 0.5,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Ember",
+    "description": "The target is attacked with small flames.",
+    "type": "fire",
+    "minLevel": 1,
+    "maxUses": 25,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -10
+      },
+      {
+        "attribute": "health",
+        "amount": -10
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Flamethrower",
+    "description": "The target is scorched with an intense blast of fire.",
+    "type": "fire",
+    "minLevel": 1,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -15
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Water Gun",
+    "description": "The target is blasted with a forceful shot of water.",
+    "type": "water",
+    "minLevel": 1,
+    "maxUses": 25,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -10
+      }
+    ]
+  }
+]

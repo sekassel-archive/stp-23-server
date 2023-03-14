@@ -19,7 +19,7 @@ async function loadDescription(): Promise<string> {
     'WebSocket',
     'UDPSocket',
     'Changelog',
-  ].map(fileName => readFile(`${__dirname}/../docs/${fileName}.md`).then(content => {
+  ].map(fileName => readFile(`docs/${fileName}.md`).then(content => {
     const replacedContent = content.toString()
       .replace(/\$\{environment\.(\w+)}/g, (fullMatch, key) => (environment as any)[key])
       .replace(/\$\{environment\.(\w+)\.(\w+)}/g, (fullMatch, category, key) => (environment as any)[category]?.[key]);

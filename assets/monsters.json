@@ -1,0 +1,215 @@
+[
+  {
+    "id": 1,
+    "image": "01",
+    "name": "Nutchick",
+    "type": ["normal"],
+    "evolution": 2
+  },
+  {
+    "id": 2,
+    "image": "02",
+    "name": "Hardchick",
+    "type": ["fight"],
+    "evolution": 3
+  },
+  {
+    "id": 3,
+    "image": "03",
+    "name": "Battlechick",
+    "type": ["fight"]
+  },
+  {
+    "id": 4,
+    "image": "04",
+    "name": "Crurtle",
+    "type": ["earth"],
+    "evolution": 5
+  },
+  {
+    "id": 5,
+    "image": "05",
+    "name": "Mirrortle",
+    "type": ["earth"],
+    "evolution": 6
+  },
+  {
+    "id": 6,
+    "image": "06",
+    "name": "Batturtle",
+    "type": ["earth", "flight"]
+  },
+  {
+    "id": 7,
+    "image": "07",
+    "name": "Fencior",
+    "type": ["metal", "fight"],
+    "evolution": 8
+  },
+  {
+    "id": 8,
+    "image": "08",
+    "name": "Shieldior",
+    "type": ["metal", "fight"],
+    "evolution": 9
+  },
+  {
+    "id": 9,
+    "image": "09",
+    "name": "Shieldamor",
+    "type": ["metal", "fight"]
+  },
+  {
+    "id": 10,
+    "image": "10",
+    "name": "Candeer",
+    "type": ["normal"],
+    "evolution": 11
+  },
+  {
+    "id": 11,
+    "image": "11",
+    "name": "Candamech",
+    "type": ["normal", "metal"]
+  },
+  {
+    "id": 12,
+    "image": "12",
+    "name": "Poigosst",
+    "type": ["ghost", "poison"],
+    "evolution": 13
+  },
+  {
+    "id": 13,
+    "image": "13",
+    "name": "Poisoggost",
+    "type": ["ghost", "poison"],
+    "evolution": 14
+  },
+  {
+    "id": 14,
+    "image": "14",
+    "name": "Poisofearst",
+    "type": ["ghost", "poison"],
+    "evolution": 15
+  },
+  {
+    "id": 15,
+    "image": "15",
+    "name": "Fearamor",
+    "type": ["ghost", "metal"]
+  },
+  {
+    "id": 16,
+    "image": "16",
+    "name": "Digsi",
+    "type": ["earth", "poison"],
+    "evolution": 17
+  },
+  {
+    "id": 17,
+    "image": "17",
+    "name": "Digseye",
+    "type": ["earth", "poison"],
+    "evolution": 18
+  },
+  {
+    "id": 18,
+    "image": "18",
+    "name": "Digsacle",
+    "type": ["earth", "poison"]
+  },
+  {
+    "id": 19,
+    "image": "19",
+    "name": "Eggsoli",
+    "type": ["psycho"],
+    "evolution": 20
+  },
+  {
+    "id": 20,
+    "image": "20",
+    "name": "Eggsiori",
+    "type": ["psycho"],
+    "evolution": 21
+  },
+  {
+    "id": 21,
+    "image": "21",
+    "name": "Eggscrawli",
+    "type": ["psycho"]
+  },
+  {
+    "id": 22,
+    "image": "22",
+    "name": "Shelli",
+    "type": ["water"],
+    "evolution": 24
+  },
+  {
+    "id": 23,
+    "image": "23",
+    "name": "Tentaclam",
+    "type": ["water"]
+  },
+  {
+    "id": 24,
+    "image": "24",
+    "name": "Shellout",
+    "type": ["water"],
+    "evolution": 25
+  },
+  {
+    "id": 25,
+    "image": "25",
+    "name": "Shellover",
+    "type": ["water"]
+  },
+  {
+    "id": 26,
+    "image": "26",
+    "name": "Dragolegg",
+    "type": ["fire"],
+    "evolution": 27
+  },
+  {
+    "id": 27,
+    "image": "27",
+    "name": "Dragolite",
+    "type": ["fire"],
+    "evolution": 28
+  },
+  {
+    "id": 28,
+    "image": "28",
+    "name": "Dragomax",
+    "type": ["fire"]
+  },
+  {
+    "id": 29,
+    "image": "29",
+    "name": "Shroomi",
+    "type": ["plant"],
+    "evolution": 30
+  },
+  {
+    "id": 30,
+    "image": "30",
+    "name": "Shroomking",
+    "type": ["plant"],
+    "evolution": 31
+  },
+  {
+    "id": 31,
+    "image": "31",
+    "name": "Shroomagus",
+    "type": ["plant"]
+  },
+  {
+    "id": 32,
+    "image": "32",
+    "name": "Shroomi",
+    "type": ["plant"],
+    "evolution": 30
+  }
+]
