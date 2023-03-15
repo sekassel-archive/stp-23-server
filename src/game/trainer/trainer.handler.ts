@@ -135,7 +135,7 @@ export class TrainerHandler implements OnModuleInit {
     const npcs = await this.trainerService.findAll({
       _id: {$ne: new Types.ObjectId(dto._id)},
       area: dto.area,
-      npc: {$exists: true},
+      'npc.encounterOnSight': true,
       'npc.encountered': {$ne: trainerId}},
     );
     for (const npc of npcs) {

@@ -17,6 +17,10 @@ export class NPCInfo {
   @IsBoolean()
   walkRandomly: boolean;
 
+  @ApiProperty()
+  @IsBoolean()
+  encounterOnSight: boolean;
+
   @ApiPropertyOptional({type: [Number]})
   @IsOptional()
   @IsArray()
@@ -24,9 +28,10 @@ export class NPCInfo {
   path?: number[];
 
   @ApiProperty()
+  @IsOptional()
   @IsArray()
   @IsMongoId({each: true})
-  encountered: string[];
+  encountered?: string[];
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
