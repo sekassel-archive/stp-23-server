@@ -22,6 +22,11 @@ export class NPCInfo {
   @IsArray()
   @IsInt({each: true})
   path?: number[];
+
+  @ApiProperty()
+  @IsArray()
+  @IsMongoId({each: true})
+  encountered: string[];
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)

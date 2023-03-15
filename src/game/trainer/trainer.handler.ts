@@ -1,5 +1,6 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
+import {Types} from 'mongoose';
 import {SocketService} from '../../udp/socket.service';
 import {User} from '../../user/user.schema';
 import {Area} from '../area/area.schema';
@@ -125,7 +126,12 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {
-    const npcs = await this.trainerService.findAll({area: dto.area, npc: {$exists: true}});
+    const trainerId = dto._id.toString();
+    const npcs = await this.trainerService.findAll({
+      _id: {$ne: new Types.ObjectId(dto._id)},
+      area: dto.area,
+      'npc.encountered': {$ne: trainerId}},
+    );
     for (const npc of npcs) {
       if(this.checkNPConSight(dto, npc, 5)){
         // TODO: Player blockieren
@@ -138,11 +144,14 @@ export class TrainerHandler implements OnModuleInit {
 
         // Add path points for moving npc towards player
         const path: number[] = [];
-        for (let i = 1; i <= moveRange; i++){
+        for (let i = 0; i <= moveRange; i++){
           path.push(npc.x + i * x, npc.y + i * y);
         }
-        await this.trainerService.update(npc._id.toString(), {'npc.path': path});
-        await this.encounterService.create(npc.region, [dto._id.toString(), npc._id.toString()]);
+        await this.trainerService.update(npc._id.toString(), {
+          'npc.path': path,
+          $addToSet: {'npc.encountered': trainerId},
+        });
+        await this.encounterService.create(npc.region, [trainerId, npc._id.toString()]);
       }
     }
   }
@@ -163,14 +172,14 @@ export class TrainerHandler implements OnModuleInit {
 
     // Check if NPC is looking at the player
     if(xDifference === 0){
-      if((yDifference < 0 && npc.direction !== Direction.UP)
-      || (yDifference > 0 && npc.direction !== Direction.DOWN)){
+      if((yDifference < 0 && npc.direction !== Direction.DOWN)
+      || (yDifference > 0 && npc.direction !== Direction.UP)){
         return false;
       }
     }
     else{
-      if((xDifference < 0 && npc.direction !== Direction.RIGHT)
-        || (xDifference > 0 && npc.direction !== Direction.LEFT)){
+      if((xDifference < 0 && npc.direction !== Direction.LEFT)
+        || (xDifference > 0 && npc.direction !== Direction.RIGHT)){
         return false;
       }
     }
