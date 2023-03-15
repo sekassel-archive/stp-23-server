@@ -40,7 +40,7 @@ export class EncounterService {
   }
 
   async playRound(encounter: Encounter): Promise<void> {
-    const opponents = await this.opponentService.findAll(encounter.region, encounter._id.toString());
+    const opponents = await this.opponentService.findAll({region: encounter.region, encounter: encounter._id.toString()});
     if (opponents.find(o => !o.move)) {
       return;
     }

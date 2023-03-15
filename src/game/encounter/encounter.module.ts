@@ -1,5 +1,6 @@
 import {Module} from '@nestjs/common';
 import {MongooseModule} from '@nestjs/mongoose';
+import {EventModule} from '../../event/event.module';
 import {MonsterModule} from '../monster/monster.module';
 import {OpponentModule} from '../opponent/opponent.module';
 import {EncounterController} from './encounter.controller';
@@ -14,6 +15,7 @@ import {EncounterService} from './encounter.service';
         schema: EncounterSchema,
       },
     ]),
+    EventModule,
     MonsterModule,
     OpponentModule,
   ],

@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {forwardRef, Module} from '@nestjs/common';
 import {MongooseModule} from '@nestjs/mongoose';
 
 import {EventModule} from '../../event/event.module';
@@ -22,7 +22,7 @@ import {TrainerService} from './trainer.service';
     SocketModule,
     RegionModule,
     AreaModule,
-    EncounterModule,
+    forwardRef(() => EncounterModule),
   ],
   controllers: [TrainerController],
   providers: [TrainerService, TrainerHandler, TrainerScheduler],

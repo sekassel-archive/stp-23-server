@@ -22,13 +22,21 @@ export class OpponentService {
   }
 
   async create(encounter: string, trainer: string): Promise<OpponentDocument> {
-    const created = await this.model.create({
-      encounter,
-      trainer,
-      monster: await this.monsterService.findAll({trainer}).then(monsters => monsters[0]._id.toString()),
-    });
-    created && this.emit('created', created);
-    return created;
+    const monsters = await this.monsterService.findAll({trainer});
+    try {
+      const created = await this.model.create({
+        encounter,
+        trainer,
+        monster: monsters[0]?._id?.toString(),
+      });
+      created && this.emit('created', created);
+      return created;
+    } catch (err: any) {
+      if (err.code === 11000) {
+        throw new ConflictException(`Opponent ${trainer} already exists in encounter ${encounter}`);
+      }
+      throw err;
+    }
   }
 
   async updateOne(encounter: string, trainer: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
