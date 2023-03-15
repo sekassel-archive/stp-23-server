@@ -69,7 +69,7 @@ Some events are only visible to certain users for privacy reasons.
 | `groups.<groupId>.{created,updated,deleted}`                          | [`Group`](#model-Group)             | Anyone in the `members` array         |
 | `groups.<groupId>.messages.<messageId>.{created,updated,deleted}`     | [`Message`](#model-Message)         | Anyone in the group's `members` array |
 | `regions.<regionId>.updated`                                          | [`Region`](#model-Region)           | Everyone                              |
-| `regions.<regionId>.messages.<messageId>.{created,updated,deleted}`   | [`Message`](#model-Message)         | Anyone   |
+| `regions.<regionId>.messages.<messageId>.{created,updated,deleted}`   | [`Message`](#model-Message)         | Anyone                                |
 | `regions.<regionId>.trainers.<trainerId>.{created,updated,deleted}`   | [`Trainer`](#model-Trainer)         | Anyone who is a member of the region  |
 | `trainers.<trainerId>.monsters.<monsterId>.{created,updated,deleted}` | [`Monster`](#model-Monster)         | Anyone who is a member of the region  |
 
