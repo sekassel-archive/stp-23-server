@@ -2,7 +2,7 @@ const port = +(process.env.PORT || 3000);
 const udpPort = +(process.env.UDP_PORT || 3001);
 
 export const environment = {
-  version: process.env.API_VERSION || 'v2',
+  version: process.env.API_VERSION || 'v3',
   port,
   udpPort,
   baseUrl: process.env.BASE_URL || `http://localhost:${port}`,
