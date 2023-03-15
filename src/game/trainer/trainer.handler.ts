@@ -148,6 +148,10 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number) : boolean {
+    if (npc._id.equals(player._id)) {
+      return false;
+    }
+
     const xDifference = player.x - npc.x;
     const yDifference = player.y - npc.y;
 
