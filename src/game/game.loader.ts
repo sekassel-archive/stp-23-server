@@ -84,7 +84,7 @@ export class GameLoader implements OnModuleInit {
           direction: getProperty<number>(object, 'Direction') || Direction.DOWN,
           'npc.encountered': [], // TODO this should be in $setOnInsert above
           'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
-          'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s),
+          'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
         });
       }
     }

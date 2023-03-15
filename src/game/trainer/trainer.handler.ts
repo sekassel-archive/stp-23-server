@@ -127,9 +127,15 @@ export class TrainerHandler implements OnModuleInit {
 
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
+    const trainer = await this.trainerService.findOne(trainerId);
+    if (trainer?.npc) {
+      return;
+    }
+
     const npcs = await this.trainerService.findAll({
       _id: {$ne: new Types.ObjectId(dto._id)},
       area: dto.area,
+      npc: {$exists: true},
       'npc.encountered': {$ne: trainerId}},
     );
     for (const npc of npcs) {
