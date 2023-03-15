@@ -1,5 +1,12 @@
 import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
-import {ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
+import {
+  ApiConflictResponse,
+  ApiCreatedResponse,
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
 import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
@@ -7,12 +14,13 @@ import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
-import {CreateTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MoveTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
 @Controller('regions/:regionId/trainers')
 @ApiTags('Region Trainers')
+@ApiExtraModels(MoveTrainerDto)
 @Validated()
 @Auth()
 @Throttled()
