@@ -107,20 +107,6 @@ export class TrainerHandler implements OnModuleInit {
 
     this.checkAllNPCsOnSight(dto);
 
-    const portals = this.portals.get(dto.area) || [];
-    for (const portal of portals) {
-      if (dto.x >= portal.x && dto.x < portal.x + portal.width && dto.y >= portal.y && dto.y < portal.y + portal.height) {
-        const {area, x, y} = portal.target;
-        dto.area = area;
-        dto.x = x;
-        dto.y = y;
-        // inform old area that the trainer left
-        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
-        await this.trainerService.saveLocations([dto]);
-        break;
-      }
-    }
-
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
     this.trainerService.setLocation(dto._id.toString(), dto);
   }
@@ -141,29 +127,18 @@ export class TrainerHandler implements OnModuleInit {
       if(this.checkNPConSight(dto, npc, 5)){
         // TODO: Player blockieren
         // Finds the movement direction of the npc towards the player
-        let x = 0;
-        if(npc.direction === Direction.LEFT){
-          x = -1;
-        }
-        else if(npc.direction === Direction.RIGHT){
-          x = 1;
-        }
-
-        let y = 0;
-        if(npc.direction === Direction.UP){
-          y = -1;
-        }
-        else if(npc.direction === Direction.DOWN){
-          y = 1;
-        }
+        const x = npc.direction === Direction.LEFT ? -1 : npc.direction === Direction.RIGHT ? 1 : 0;
+        const y = npc.direction === Direction.UP ? -1 : npc.direction === Direction.DOWN ? 1 : 0;
 
         // Finds how many steps the npc has to walk to the player
         const moveRange = Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y) - 1;
 
         // Add path points for moving npc towards player
-        for(let i = 0; i < moveRange; i++){
-          npc.npc?.path?.push(npc.x + (i+1)*x, npc.y + (i+1)*y);
+        const path: number[] = [];
+        for (let i = 1; i <= moveRange; i++){
+          path.push(npc.x + i * x, npc.y + i * y);
         }
+        await this.trainerService.update(npc._id.toString(), {'npc.path': path});
       }
     }
   }

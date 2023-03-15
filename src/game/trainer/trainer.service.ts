@@ -90,7 +90,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  async update(id: string, dto: UpdateTrainerDto): Promise<Trainer | null> {
+  async update(id: string, dto: UpdateQuery<Trainer>): Promise<Trainer | null> {
     const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
