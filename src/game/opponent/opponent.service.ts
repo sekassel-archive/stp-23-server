@@ -13,12 +13,12 @@ export class OpponentService {
   ) {
   }
 
-  async findAll(region: string, encounter: string): Promise<OpponentDocument[]> {
-    return this.model.find({region, encounter}).exec();
+  async findAll(filter: FilterQuery<Opponent>): Promise<OpponentDocument[]> {
+    return this.model.find(filter).exec();
   }
 
-  async findOne(id: string): Promise<OpponentDocument | null> {
-    return this.model.findById(id).exec();
+  async findOne(encounter: string, trainer: string): Promise<OpponentDocument | null> {
+    return this.model.findOne({encounter, trainer}).exec();
   }
 
   async create(encounter: string, trainer: string): Promise<OpponentDocument> {
@@ -31,7 +31,7 @@ export class OpponentService {
     return created;
   }
 
-  async updateOne(id: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
+  async updateOne(encounter: string, trainer: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately
       const monster = await this.monsterService.findOne(dto.move.monster);
@@ -46,7 +46,7 @@ export class OpponentService {
         monster: dto.move.monster,
       };
     }
-    const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
+    const updated = await this.model.findOneAndUpdate({encounter, trainer}, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
   }
@@ -56,6 +56,6 @@ export class OpponentService {
   }
 
   emit(event: string, opponent: Opponent) {
-    this.model.emit(`encounters.${opponent.encounter}.opponents.${opponent._id}.${event}`, opponent);
+    this.model.emit(`encounters.${opponent.encounter}.opponents.${opponent.trainer}.${event}`, opponent);
   }
 }

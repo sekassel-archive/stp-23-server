@@ -3,7 +3,12 @@ import {ApiProperty} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
 import {Equals, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
+import {
+  GLOBAL_SCHEMA_OPTIONS,
+  GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
+  GlobalSchema, GlobalSchemaWithoutID,
+  MONGO_ID_FORMAT,
+} from '../../util/schema';
 import {abilities} from '../constants';
 
 @Schema()
@@ -39,8 +44,8 @@ export class ChangeMonsterMove {
 
 export type Move = AbilityMove | ChangeMonsterMove;
 
-@Schema(GLOBAL_SCHEMA_OPTIONS)
-export class Opponent extends GlobalSchema {
+@Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
+export class Opponent extends GlobalSchemaWithoutID {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()

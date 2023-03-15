@@ -26,40 +26,42 @@ export class OpponentController {
   @Get()
   @ApiOkResponse({type: [Opponent]})
   async findAll(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
-    @Param('encounterId', ParseObjectIdPipe) encounterId: string,
+    @Param('regionId', ParseObjectIdPipe) region: string,
+    @Param('encounterId', ParseObjectIdPipe) encounter: string,
   ): Promise<Opponent[]> {
-    return this.opponentService.findAll(regionId, encounterId);
+    return this.opponentService.findAll({region, encounter});
   }
 
-  @Get(':id')
+  @Get(':trainerId')
   @ApiOkResponse({type: Opponent})
   @NotFound()
   async findOne(
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('encounterId', ParseObjectIdPipe) encounter: string,
+    @Param('trainerId', ParseObjectIdPipe) trainer: string,
   ): Promise<Opponent | null> {
-    return this.opponentService.findOne(id);
+    return this.opponentService.findOne(encounter, trainer);
   }
 
-  @Patch(':id')
+  @Patch(':trainerId')
   @ApiOkResponse({type: Opponent})
   @NotFound()
   async updateOne(
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('encounterId', ParseObjectIdPipe) encounter: string,
+    @Param('trainerId', ParseObjectIdPipe) trainer: string,
     @Body() dto: UpdateOpponentDto,
     @AuthUser() user: UserToken,
   ): Promise<Opponent | null> {
-    const opponent = await this.opponentService.findOne(id);
+    const opponent = await this.opponentService.findOne(encounter, trainer);
     if (!opponent) {
       return null;
     }
-    const trainer = await this.trainerService.findOne(opponent.trainer);
-    if (!trainer) {
+    const trainerDoc = await this.trainerService.findOne(opponent.trainer);
+    if (!trainerDoc) {
       return null;
     }
-    if (trainer.user?.toString() !== user.sub) {
+    if (trainerDoc.user?.toString() !== user.sub) {
       throw new ForbiddenException('You are not the trainer of this opponent');
     }
-    return this.opponentService.updateOne(id, dto);
+    return this.opponentService.updateOne(encounter, trainer, dto);
   }
 }
