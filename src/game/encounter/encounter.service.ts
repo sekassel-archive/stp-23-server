@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model, Types} from 'mongoose';
+import {EventService} from '../../event/event.service';
 import {abilities, Ability, monsterTypes, Type, types} from '../constants';
 import {MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
@@ -12,6 +13,7 @@ export class EncounterService {
   constructor(
     private monsterService: MonsterService,
     private opponentService: OpponentService,
+    private eventService: EventService,
     @InjectModel(Encounter.name) private model: Model<Encounter>,
   ) {
   }
@@ -28,8 +30,13 @@ export class EncounterService {
     const encounter = await this.model.create({
       region,
     });
+    encounter && this.emit('create', encounter);
     await Promise.all(trainerIds.map(trainerId => this.opponentService.create(encounter._id.toString(), trainerId)));
     return encounter;
+  }
+
+  private emit(event: string, encounter: Encounter) {
+    this.eventService.emit(`regions.${encounter.region}.encounters.${encounter._id.toString()}.${event}`, encounter);
   }
 
   async playRound(encounter: Encounter): Promise<void> {

@@ -125,7 +125,7 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {
-    const npcs = await this.trainerService.findAll({npc: {$exists: true}});
+    const npcs = await this.trainerService.findAll({area: dto.area, npc: {$exists: true}});
     for (const npc of npcs) {
       if(this.checkNPConSight(dto, npc, 5)){
         // TODO: Player blockieren

@@ -22,11 +22,13 @@ export class OpponentService {
   }
 
   async create(encounter: string, trainer: string): Promise<OpponentDocument> {
-    return this.model.create({
+    const created = await this.model.create({
       encounter,
       trainer,
       monster: await this.monsterService.findAll({trainer}).then(monsters => monsters[0]._id.toString()),
     });
+    created && this.emit('created', created);
+    return created;
   }
 
   async updateOne(id: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
