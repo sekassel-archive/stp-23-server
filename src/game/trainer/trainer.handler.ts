@@ -4,7 +4,9 @@ import {SocketService} from '../../udp/socket.service';
 import {User} from '../../user/user.schema';
 import {Area} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
+import {EncounterService} from '../encounter/encounter.service';
 import {getProperty} from '../game.loader';
+import {OpponentService} from '../opponent/opponent.service';
 import {MoveTrainerDto} from './trainer.dto';
 import {TrainerService} from './trainer.service';
 import {Direction, Trainer} from "./trainer.schema";
@@ -27,6 +29,7 @@ export class TrainerHandler implements OnModuleInit {
     private trainerService: TrainerService,
     private socketService: SocketService,
     private areaService: AreaService,
+    private encounterService: EncounterService,
   ) {
   }
 
@@ -139,6 +142,7 @@ export class TrainerHandler implements OnModuleInit {
           path.push(npc.x + i * x, npc.y + i * y);
         }
         await this.trainerService.update(npc._id.toString(), {'npc.path': path});
+        await this.encounterService.create(npc.region, [dto._id.toString(), npc._id.toString()]);
       }
     }
   }

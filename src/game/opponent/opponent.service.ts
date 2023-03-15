@@ -21,6 +21,14 @@ export class OpponentService {
     return this.model.findById(id).exec();
   }
 
+  async create(encounter: string, trainer: string): Promise<OpponentDocument> {
+    return this.model.create({
+      encounter,
+      trainer,
+      monster: await this.monsterService.findAll({trainer}).then(monsters => monsters[0]._id.toString()),
+    });
+  }
+
   async updateOne(id: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately

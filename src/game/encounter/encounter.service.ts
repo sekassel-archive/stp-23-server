@@ -24,6 +24,14 @@ export class EncounterService {
     return this.model.findById(id).exec();
   }
 
+  async create(region: string, trainerIds: string[]): Promise<EncounterDocument> {
+    const encounter = await this.model.create({
+      region,
+    });
+    await Promise.all(trainerIds.map(trainerId => this.opponentService.create(encounter._id.toString(), trainerId)));
+    return encounter;
+  }
+
   async playRound(encounter: Encounter): Promise<void> {
     const opponents = await this.opponentService.findAll(encounter.region, encounter._id.toString());
     if (opponents.find(o => !o.move)) {

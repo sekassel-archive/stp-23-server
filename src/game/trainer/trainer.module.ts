@@ -5,6 +5,7 @@ import {EventModule} from '../../event/event.module';
 import {RegionModule} from '../../region/region.module';
 import {SocketModule} from '../../udp/socket.module';
 import {AreaModule} from '../area/area.module';
+import {EncounterModule} from '../encounter/encounter.module';
 import {TrainerController} from './trainer.controller';
 import {TrainerHandler} from './trainer.handler';
 import {TrainerScheduler} from './trainer.scheduler';
@@ -21,6 +22,7 @@ import {TrainerService} from './trainer.service';
     SocketModule,
     RegionModule,
     AreaModule,
+    EncounterModule,
   ],
   controllers: [TrainerController],
   providers: [TrainerService, TrainerHandler, TrainerScheduler],
