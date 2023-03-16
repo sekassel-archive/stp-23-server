@@ -1,6 +1,7 @@
 import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
+import {EventService} from '../../event/event.service';
 import {MonsterService} from '../monster/monster.service';
 import {UpdateOpponentDto} from './opponent.dto';
 import {ChangeMonsterMove, Opponent, OpponentDocument} from './opponent.schema';
@@ -10,6 +11,7 @@ export class OpponentService {
   constructor(
     @InjectModel(Opponent.name) private model: Model<Opponent>,
     private monsterService: MonsterService,
+    private eventService: EventService,
   ) {
   }
 
@@ -64,6 +66,6 @@ export class OpponentService {
   }
 
   emit(event: string, opponent: Opponent) {
-    this.model.emit(`encounters.${opponent.encounter}.opponents.${opponent.trainer}.${event}`, opponent);
+    this.eventService.emit(`encounters.${opponent.encounter}.opponents.${opponent.trainer}.${event}`, opponent);
   }
 }
