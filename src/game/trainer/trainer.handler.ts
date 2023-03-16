@@ -7,10 +7,9 @@ import {Area} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {EncounterService} from '../encounter/encounter.service';
 import {getProperty} from '../game.loader';
-import {OpponentService} from '../opponent/opponent.service';
 import {MoveTrainerDto} from './trainer.dto';
+import {Direction, Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
-import {Direction, Trainer} from "./trainer.schema";
 
 interface Portal {
   x: number;
@@ -136,10 +135,10 @@ export class TrainerHandler implements OnModuleInit {
       _id: {$ne: new Types.ObjectId(dto._id)},
       area: dto.area,
       'npc.encounterOnSight': true,
-      'npc.encountered': {$ne: trainerId}},
-    );
+      'npc.encountered': {$ne: trainerId},
+    });
     for (const npc of npcs) {
-      if(this.checkNPConSight(dto, npc, 5)){
+      if (this.checkNPConSight(dto, npc, 5)) {
         // TODO: Player blockieren
         // Finds the movement direction of the npc towards the player
         const x = npc.direction === Direction.LEFT ? -1 : npc.direction === Direction.RIGHT ? 1 : 0;
@@ -150,7 +149,7 @@ export class TrainerHandler implements OnModuleInit {
 
         // Add path points for moving npc towards player
         const path: number[] = [];
-        for (let i = 0; i <= moveRange; i++){
+        for (let i = 0; i <= moveRange; i++) {
           path.push(npc.x + i * x, npc.y + i * y);
         }
         await this.trainerService.update(npc._id.toString(), {
@@ -162,35 +161,21 @@ export class TrainerHandler implements OnModuleInit {
     }
   }
 
-  checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number) : boolean {
+  checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number): boolean {
     if (npc._id.equals(player._id)) {
       return false;
     }
 
-    const xDifference = player.x - npc.x;
-    const yDifference = player.y - npc.y;
-
-    //Check if x or y is equals for npc and player
-    if(xDifference !== 0 && yDifference !== 0) return false;
-
-    //Check maxRange
-    if(xDifference > maxRange || yDifference > maxRange) return false;
-
-    // Check if NPC is looking at the player
-    if(xDifference === 0){
-      if((yDifference < 0 && npc.direction !== Direction.DOWN)
-      || (yDifference > 0 && npc.direction !== Direction.UP)){
-        return false;
-      }
+    switch (npc.direction) {
+      case Direction.UP:
+        return player.x === npc.x && player.y < npc.y && Math.abs(player.y - npc.y) <= maxRange;
+      case Direction.DOWN:
+        return player.x === npc.x && player.y > npc.y && Math.abs(player.y - npc.y) <= maxRange;
+      case Direction.LEFT:
+        return player.y === npc.y && player.x < npc.x && Math.abs(player.x - npc.x) <= maxRange;
+      case Direction.RIGHT:
+        return player.y === npc.y && player.x > npc.x && Math.abs(player.x - npc.x) <= maxRange;
     }
-    else{
-      if((xDifference < 0 && npc.direction !== Direction.LEFT)
-        || (xDifference > 0 && npc.direction !== Direction.RIGHT)){
-        return false;
-      }
-    }
-
-    // TODO: Check if objects are in the way of the npc
-    return true;
+    return false;
   }
 }
