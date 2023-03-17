@@ -1226,7 +1226,12 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Bob_16x16.png"
-                        }],
+                        },
+                   {
+                     "name":"EncounterOnSight",
+                     "type":"bool",
+                     "value":true
+                   }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -1249,7 +1254,12 @@
                          "name":"Path",
                          "type":"string",
                          "value":"46,24;47,24;47,25;46,25;46,24"
-                        }],
+                        },
+                   {
+                     "name":"EncounterOnSight",
+                     "type":"bool",
+                     "value":true
+                   }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -1271,8 +1281,13 @@
                         {
                          "name":"WalkRandomly",
                          "type":"bool",
-                         "value":true
-                        }],
+                         "value":false
+                        },
+                   {
+                     "name":"EncounterOnSight",
+                     "type":"bool",
+                     "value":true
+                   }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
