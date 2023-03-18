@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { environment } from '../environment';
 
-import { EventModule } from '../event/event.module';
+import { EventModule } from '@clashsoft/nestx';
 import { GroupController } from './group.controller';
 import { GroupScheduler } from './group.scheduler';
 import { GroupSchema } from './group.schema';

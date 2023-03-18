@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@clashsoft/nestx": "^0.3.0",
+    "@clashsoft/nestx": "^0.3.4",
     "@nestjs/common": "^9.3.10",
     "@nestjs/core": "^9.3.10",
     "@nestjs/event-emitter": "^1.4.1",

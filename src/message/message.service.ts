@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as memoizee from 'memoizee';
 import { FilterQuery, Model } from 'mongoose';
 
-import { EventService } from '../event/event.service';
+import { EventService } from '@clashsoft/nestx';
 import { MemberResolverService, Namespace, UserFilter } from '../member-resolver/member-resolver.service';
 import { CreateMessageDto, UpdateMessageDto } from './message.dto';
 import { Message, MessageDocument } from './message.schema';

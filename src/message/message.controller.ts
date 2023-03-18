@@ -24,7 +24,7 @@ import { FilterQuery } from 'mongoose';
 import { Auth, AuthUser } from '../auth/auth.decorator';
 import { MemberResolverService, Namespace, UserFilter } from '../member-resolver/member-resolver.service';
 import { User } from '../user/user.schema';
-import { NotFound } from '../util/not-found.decorator';
+import { NotFound } from '@clashsoft/nestx';
 import { ParseObjectIdPipe } from '../util/parse-object-id.pipe';
 import { Throttled } from '../util/throttled.decorator';
 import { Validated } from '../util/validated.decorator';

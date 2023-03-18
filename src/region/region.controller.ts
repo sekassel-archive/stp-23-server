@@ -1,7 +1,7 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import {ApiOkResponse, ApiTags} from '@nestjs/swagger';
 import {Auth} from '../auth/auth.decorator';
-import {NotFound} from '../util/not-found.decorator';
+import {NotFound} from '@clashsoft/nestx';
 import {ParseObjectIdPipe} from '../util/parse-object-id.pipe';
 import {Throttled} from '../util/throttled.decorator';
 import {Validated} from '../util/validated.decorator';

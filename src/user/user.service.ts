@@ -8,7 +8,7 @@ import { FilterQuery, Model } from 'mongoose';
 import { RefreshToken } from '../auth/auth.interface';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { environment } from '../environment';
-import { EventService } from '../event/event.service';
+import { EventService } from '@clashsoft/nestx';
 import { CreateUserDto, LoginDto, LoginResult, RefreshDto, UpdateUserDto } from './user.dto';
 import { Status, User, UserDocument } from './user.schema';
 

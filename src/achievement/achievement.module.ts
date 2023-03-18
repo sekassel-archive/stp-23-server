@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { EventModule } from '../event/event.module';
+import { EventModule } from '@clashsoft/nestx';
 import { UserModule } from '../user/user.module';
 import { AchievementController } from './achievement.controller';
 import { AchievementHandler } from './achievement.handler';

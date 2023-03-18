@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from '../auth/auth.module';
 import { environment } from '../environment';
-import { EventModule } from '../event/event.module';
+import { EventModule } from '@clashsoft/nestx';
 import { AuthController } from './auth.controller';
 import { UserController } from './user.controller';
 import { UserScheduler } from './user.scheduler';

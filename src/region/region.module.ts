@@ -1,6 +1,6 @@
 import {Module} from '@nestjs/common';
 import {MongooseModule} from '@nestjs/mongoose';
-import {EventModule} from '../event/event.module';
+import {EventModule} from '@clashsoft/nestx';
 import {RegionController} from './region.controller';
 import {Region, RegionSchema} from './region.schema';
 import {RegionService} from './region.service';

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { EventService } from '../event/event.service';
+import { EventService } from '@clashsoft/nestx';
 import { CreateGroupDto, UpdateGroupDto } from './group.dto';
 import { Group } from './group.schema';
 

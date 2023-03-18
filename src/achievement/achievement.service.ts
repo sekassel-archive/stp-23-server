@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { AchievementSummary } from '../achievement-summary/achievement-summary.dto';
 
-import { EventService } from '../event/event.service';
+import { EventService } from '@clashsoft/nestx';
 import { CreateAchievementDto, UpdateAchievementDto } from './achievement.dto';
 import { Achievement } from './achievement.schema';
 

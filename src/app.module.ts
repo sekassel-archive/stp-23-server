@@ -1,12 +1,13 @@
+import {EventModule} from '@clashsoft/nestx';
 import {Module} from '@nestjs/common';
-import {EventEmitterModule} from '@nestjs/event-emitter';
+import {Transport} from '@nestjs/microservices';
 import {MongooseModule} from '@nestjs/mongoose';
 import {ScheduleModule} from '@nestjs/schedule';
 import {ThrottlerModule} from '@nestjs/throttler';
 
 import {AuthModule} from './auth/auth.module';
+import {AuthService} from './auth/auth.service';
 import {environment} from './environment';
-import {EventModule} from './event/event.module';
 import {GroupModule} from './group/group.module';
 import {MessageModule} from './message/message.module';
 import {RegionModule} from './region/region.module';
@@ -18,12 +19,17 @@ import {UserModule} from './user/user.module';
       ignoreUndefined: true,
     }),
     ThrottlerModule.forRoot(environment.rateLimit),
-    EventEmitterModule.forRoot({
-      wildcard: true,
-    }),
     ScheduleModule.forRoot(),
     AuthModule,
-    EventModule,
+    EventModule.forRootAsync({
+      imports: [AuthModule],
+      inject: [AuthService],
+      useFactory: (authService: AuthService) => ({
+        transport: Transport.TCP,
+        transportOptions: environment.nats,
+        userIdProvider: async msg => (await authService.parseUserForWebSocket(msg))?._id?.toString(),
+      }),
+    }),
     UserModule,
     // AchievementSummaryModule,
     // AchievementModule,

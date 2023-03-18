@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { environment } from '../environment';
 
-import { EventModule } from '../event/event.module';
+import { EventModule } from '@clashsoft/nestx';
 import { MemberResolverModule } from '../member-resolver/member-resolver.module';
 import { MessageController } from './message.controller';
 import { MessageHandler } from './message.handler';

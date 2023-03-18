@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@clashsoft/nestx': ^0.3.0
+  '@clashsoft/nestx': ^0.3.4
   '@nestjs/cli': ^9.2.0
   '@nestjs/common': ^9.3.10
   '@nestjs/core': ^9.3.10
@@ -53,7 +53,7 @@ specifiers:
   webpack: ^5.76.2
 
 dependencies:
-  '@clashsoft/nestx': 0.3.0_zndyo2gczjm3hokggnmincvepy
+  '@clashsoft/nestx': 0.3.4_zndyo2gczjm3hokggnmincvepy
   '@nestjs/common': 9.3.10_ufuujcqbszwis444rmt5m3dshy
   '@nestjs/core': 9.3.10_3mihgddxggoa6khgpkh6u45bde
   '@nestjs/event-emitter': 1.4.1_l47c26rusno2nzu2di7dysoove
@@ -1369,8 +1369,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@clashsoft/nestx/0.3.0_zndyo2gczjm3hokggnmincvepy:
-    resolution: {integrity: sha512-nLJLmABS67oVtlkDMstaKc4w3dbGGCER+RmXyVtN6ix6KVIK7YJ7fEbZ2HUZGSiQ/5C3iNGlFfTnlrk+dc75lA==}
+  /@clashsoft/nestx/0.3.4_zndyo2gczjm3hokggnmincvepy:
+    resolution: {integrity: sha512-Ls+gQ1Mtuvyf+MW6VGK2kgna+ObPvvO/kyiQxL17ZSALuF460d8hi9eEVPlz8bSvOp2BlGpRmV7+DAbT/ex+SA==}
     peerDependencies:
       '@nestjs/common': ^9.0.0
       '@nestjs/core': ^9.0.0
