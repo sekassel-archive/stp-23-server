@@ -24,13 +24,13 @@ export class GameLoader implements OnModuleInit {
 
   async onModuleInit() {
     for (const regionName of await fs.readdir('./assets/maps/')) {
-      if (regionName.endsWith('.json')) {
+      if (regionName.startsWith('.') || regionName.endsWith('.json')) {
         continue;
       }
 
       const region = await this.regionService.findByNameOrCreate(regionName);
       const regionMeta = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
-      for (const areaFileName of await fs.readdir(`./assets/maps/${regionName}/`)) {
+      for (const areaFileName of await fs.readdir(`./assets/maps/${regionName}/`).catch(() => [])) {
         const area = await this.loadArea(areaFileName, region);
         if (regionMeta.spawn.area === area.name) {
           region.spawn = {
