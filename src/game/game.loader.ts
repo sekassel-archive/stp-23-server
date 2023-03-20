@@ -9,7 +9,7 @@ import {Direction} from './trainer/trainer.schema';
 import {TrainerService} from './trainer/trainer.service';
 
 export function getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {
-  return object.properties.find((p: any) => p.name === name)?.value as K;
+  return object.properties?.find((p: any) => p.name === name)?.value as K;
 }
 
 @Injectable()
