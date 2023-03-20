@@ -1294,7 +1294,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Serene_Village_32x32.json"
+         "source":"../../tilesets/Serene_Village_32x32.json"
         }],
  "tilewidth":32,
  "type":"map",

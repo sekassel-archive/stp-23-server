@@ -165,7 +165,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Fungus_Cave_16x16.json"
+         "source":"../../tilesets/Fungus_Cave_16x16.json"
         }],
  "tilewidth":16,
  "type":"map",
