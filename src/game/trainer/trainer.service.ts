@@ -115,8 +115,8 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     return this.locations.values();
   }
 
-  getLocation(id: string): MoveTrainerDto {
-    return this.locations.get(id)!;
+  getLocation(id: string): MoveTrainerDto | undefined {
+    return this.locations.get(id);
   }
 
   getTrainerAt(area: string, x: number, y: number): MoveTrainerDto | undefined {
