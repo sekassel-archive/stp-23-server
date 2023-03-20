@@ -1126,12 +1126,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":5
+                         "value":14
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":8
+                         "value":15
                         }],
                  "rotation":0,
                  "visible":true,
@@ -1309,7 +1309,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Serene_Village_32x32.json"
+         "source":"../../tilesets/Serene_Village_32x32.json"
         }],
  "tilewidth":32,
  "type":"map",

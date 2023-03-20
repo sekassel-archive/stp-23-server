@@ -69,6 +69,4 @@ export class Monster extends GlobalSchema {
 
 export type MonsterDocument = Monster & Document<Types.ObjectId, any, Monster>;
 
-export const MonsterSchema = SchemaFactory.createForClass(Monster)
-  .index({region: 1, user: 1}, {unique: true, ignoreUndefined: true})
-;
+export const MonsterSchema = SchemaFactory.createForClass(Monster);

@@ -968,11 +968,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Pixel_Woods_16x16.json"
+         "source":"../../tilesets/Pixel_Woods_16x16.json"
         }, 
         {
          "firstgid":1377,
-         "source":"Fungus_Cave_16x16.json"
+         "source":"../../tilesets/Fungus_Cave_16x16.json"
         }],
  "tilewidth":16,
  "type":"map",

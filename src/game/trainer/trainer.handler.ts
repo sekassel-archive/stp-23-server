@@ -87,14 +87,18 @@ export class TrainerHandler implements OnModuleInit {
   @OnEvent('areas.*.trainers.*.moved')
   async onTrainerMoved(dto: MoveTrainerDto) {
     // TODO validate movement
-    const oldLocation = this.trainerService.getLocation(dto._id.toString());
+    const oldLocation = this.trainerService.getLocation(dto._id.toString())
+      || await this.trainerService.findOne(dto._id.toString());
+    if (!oldLocation) {
+      return;
+    }
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
-    if (Math.abs(dto.x - oldLocation!.x) + Math.abs(dto.y - oldLocation!.y) > 1 // Invalid movement
+    if (Math.abs(dto.x - oldLocation.x) + Math.abs(dto.y - oldLocation.y) > 1 // Invalid movement
       || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
     ) {
-      dto.x = oldLocation!.x;
-      dto.y = oldLocation!.y;
+      dto.x = oldLocation.x;
+      dto.y = oldLocation.y;
     }
 
     const portal = this.getPortal(dto.area, dto.x, dto.y);
