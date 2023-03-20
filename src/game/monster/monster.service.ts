@@ -35,7 +35,7 @@ export class MonsterService {
       trainer,
       level: 1,
       experience: 0,
-      abilities: [],
+      abilities: [1],
       attributes,
       currentAttributes: attributes,
     };
