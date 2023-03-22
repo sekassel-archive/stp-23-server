@@ -1223,15 +1223,20 @@
                          "value":2
                         }, 
                         {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Bob_16x16.png"
-                        },
-                   {
-                     "name":"EncounterOnSight",
-                     "type":"bool",
-                     "value":true
-                   }],
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[1,2,[1,2],[10,12,8,9]]]"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -1246,6 +1251,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Adam_16x16.png"
@@ -1254,12 +1264,7 @@
                          "name":"Path",
                          "type":"string",
                          "value":"46,24;47,24;47,25;46,25;46,24"
-                        },
-                   {
-                     "name":"EncounterOnSight",
-                     "type":"bool",
-                     "value":true
-                   }],
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -1274,6 +1279,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Amelia_16x16.png"
@@ -1282,12 +1292,7 @@
                          "name":"WalkRandomly",
                          "type":"bool",
                          "value":false
-                        },
-                   {
-                     "name":"EncounterOnSight",
-                     "type":"bool",
-                     "value":true
-                   }],
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -1309,7 +1314,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../../tilesets/Serene_Village_32x32.json"
+         "source":"..\/..\/tilesets\/Serene_Village_32x32.json"
         }],
  "tilewidth":32,
  "type":"map",

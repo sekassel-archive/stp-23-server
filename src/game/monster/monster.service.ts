@@ -44,6 +44,16 @@ export class MonsterService {
     return created;
   }
 
+  async upsert(filter: FilterQuery<Monster>, update: UpdateQuery<Monster>) {
+    const result = await this.model.findOneAndUpdate(filter, update, {upsert: true, new: true, rawResult: true}).exec();
+    if (!result.value) {
+      throw new Error('Upsert failed');
+    }
+    const monster = result.value;
+    this.emit(result.lastErrorObject?.updatedExisting ? 'updated' : 'created', monster);
+    return monster;
+  }
+
   async update(id: string, dto: UpdateQuery<Monster>): Promise<MonsterDocument | null> {
     const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
     updated && this.emit('updated', updated);

@@ -5,6 +5,8 @@ import {Region} from '../region/region.schema';
 import {RegionService} from '../region/region.service';
 import {AreaDocument} from './area/area.schema';
 import {AreaService} from './area/area.service';
+import {MonsterAttributes} from './monster/monster.schema';
+import {MonsterService} from './monster/monster.service';
 import {Direction} from './trainer/trainer.schema';
 import {TrainerService} from './trainer/trainer.service';
 
@@ -18,6 +20,7 @@ export class GameLoader implements OnModuleInit {
     private areaService: AreaService,
     private regionService: RegionService,
     private trainerService: TrainerService,
+    private monsterService: MonsterService,
   ) {
   }
 
@@ -65,31 +68,51 @@ export class GameLoader implements OnModuleInit {
           continue;
         }
 
-        await this.trainerService.upsert({
-          region: region._id.toString(),
-          area: area._id.toString(),
-          name: object.name,
-          npc: {$exists: true},
-        }, {
-          $setOnInsert: {
-            user: new Types.ObjectId(),
-          },
-          region: region._id.toString(),
-          area: area._id.toString(),
-          name: object.name,
-          image: getProperty<string>(object, 'Image') || 'Adam_16x16.png',
-          coins: getProperty<number>(object, 'Coins') || Infinity,
-          x: (object.x / map.tilewidth) | 0,
-          y: (object.y / map.tileheight) | 0,
-          direction: getProperty<number>(object, 'Direction') || Direction.DOWN,
-          'npc.encountered': [], // TODO this should be in $setOnInsert above
-          'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
-          'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
-          'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
-        });
+        await this.loadTrainer(region, area, object, map);
       }
     }
 
     return area;
+  }
+
+  private async loadTrainer(region: Region, area: AreaDocument, object: any, map: any) {
+    const trainer = await this.trainerService.upsert({
+      region: region._id.toString(),
+      area: area._id.toString(),
+      name: object.name,
+      npc: {$exists: true},
+    }, {
+      $setOnInsert: {
+        user: new Types.ObjectId(),
+      },
+      region: region._id.toString(),
+      area: area._id.toString(),
+      name: object.name,
+      image: getProperty<string>(object, 'Image') || 'Adam_16x16.png',
+      coins: getProperty<number>(object, 'Coins') || Infinity,
+      x: (object.x / map.tilewidth) | 0,
+      y: (object.y / map.tileheight) | 0,
+      direction: getProperty<number>(object, 'Direction') || Direction.DOWN,
+      'npc.encountered': [], // TODO this should be in $setOnInsert above
+      'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
+      'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
+      'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
+    });
+
+    const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
+    for (const monsterSpec of monsterSpecs) {
+      const [type, level, abilities, [health, attack, defense, initiative]] = monsterSpec;
+      const attributes: MonsterAttributes = {health, attack, defense, initiative};
+      await this.monsterService.upsert({
+        trainer: trainer._id.toString(),
+        type,
+      }, {
+        level,
+        experience: 0,
+        abilities,
+        attributes,
+        currentAttributes: attributes,
+      });
+    }
   }
 }
