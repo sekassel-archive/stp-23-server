@@ -24,7 +24,7 @@ export class AreaController {
   async findAll(
     @Param('region', ParseObjectIdPipe) region: string,
   ): Promise<Area[]> {
-    return this.areaService.findAll({region});
+    return this.areaService.findAll({region}, {'map.layers.objects': 0});
   }
 
   @Get(':id')
@@ -34,6 +34,6 @@ export class AreaController {
     @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Area | null> {
-    return this.areaService.findOne(id);
+    return this.areaService.findOne(id, {'map.layers.objects': 0});
   }
 }
