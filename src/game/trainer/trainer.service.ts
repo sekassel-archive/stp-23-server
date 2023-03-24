@@ -96,6 +96,12 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     return updated;
   }
 
+  async delete(id: string): Promise<Trainer | null> {
+    const deleted = await this.model.findByIdAndDelete(id).exec();
+    deleted && this.emit('deleted', deleted);
+    return deleted;
+  }
+
   async deleteUser(user: string): Promise<Trainer[]> {
     const trainers = await this.model.find({user}).exec();
     for (const trainer of trainers) {
