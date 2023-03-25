@@ -913,12 +913,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":59
+                         "value":54
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":13
+                         "value":24
                         }],
                  "rotation":0,
                  "visible":true,
@@ -968,11 +968,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../../tilesets/Pixel_Woods_16x16.json"
+         "source":"..\/..\/tilesets\/Pixel_Woods_16x16.json"
         }, 
         {
          "firstgid":1377,
-         "source":"../../tilesets/Fungus_Cave_16x16.json"
+         "source":"..\/..\/tilesets\/Fungus_Cave_16x16.json"
         }],
  "tilewidth":16,
  "type":"map",

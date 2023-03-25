@@ -305,12 +305,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":44
+                         "value":45
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":22
+                         "value":23
                         }],
                  "rotation":0,
                  "visible":true,
