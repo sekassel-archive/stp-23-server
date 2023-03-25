@@ -6,6 +6,7 @@ import {RegionModule} from '../../region/region.module';
 import {SocketModule} from '../../udp/socket.module';
 import {AreaModule} from '../area/area.module';
 import {EncounterModule} from '../encounter/encounter.module';
+import {MonsterModule} from '../monster/monster.module';
 import {OpponentModule} from '../opponent/opponent.module';
 import {TrainerController} from './trainer.controller';
 import {TrainerHandler} from './trainer.handler';
@@ -23,6 +24,7 @@ import {TrainerService} from './trainer.service';
     SocketModule,
     RegionModule,
     AreaModule,
+    MonsterModule,
     forwardRef(() => EncounterModule),
     forwardRef(() => OpponentModule),
   ],
