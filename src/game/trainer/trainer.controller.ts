@@ -1,8 +1,9 @@
-import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
+import {Body, Controller, Delete, ForbiddenException, Get, Param, Post, Query} from '@nestjs/common';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiExtraModels,
+  ApiForbiddenResponse,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
@@ -60,5 +61,20 @@ export class TrainerController {
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Trainer | null> {
     return this.trainerService.findOne(id);
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({type: Trainer})
+  @ApiForbiddenResponse({description: 'Cannot delete someone else\'s trainer'})
+  @NotFound()
+  async deleteOne(
+    @Param('id', ParseObjectIdPipe) id: string,
+    @AuthUser() user: User,
+  ): Promise<Trainer | null> {
+    const trainer = await this.trainerService.findOne(id);
+    if (trainer?.user !== user._id.toString()) {
+      throw new ForbiddenException('Cannot delete someone else\'s trainer');
+    }
+    return this.trainerService.delete(id);
   }
 }
