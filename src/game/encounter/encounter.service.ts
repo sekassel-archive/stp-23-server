@@ -26,12 +26,11 @@ export class EncounterService {
     return this.model.findById(id).exec();
   }
 
-  async create(region: string, trainerIds: string[]): Promise<EncounterDocument> {
+  async create(region: string): Promise<EncounterDocument> {
     const encounter = await this.model.create({
       region,
     });
     encounter && this.emit('create', encounter);
-    await Promise.all(trainerIds.map(trainerId => this.opponentService.create(encounter._id.toString(), trainerId)));
     return encounter;
   }
 

@@ -7,6 +7,7 @@ import {Area} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {EncounterService} from '../encounter/encounter.service';
 import {getProperty} from '../game.loader';
+import {OpponentService} from '../opponent/opponent.service';
 import {MoveTrainerDto} from './trainer.dto';
 import {Direction, Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
@@ -30,6 +31,7 @@ export class TrainerHandler implements OnModuleInit {
     private socketService: SocketService,
     private areaService: AreaService,
     private encounterService: EncounterService,
+    private opponentService: OpponentService,
   ) {
   }
 
@@ -131,7 +133,7 @@ export class TrainerHandler implements OnModuleInit {
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
     const trainer = await this.trainerService.findOne(trainerId);
-    if (trainer?.npc) {
+    if (!trainer || trainer.npc) {
       return;
     }
 
@@ -141,6 +143,7 @@ export class TrainerHandler implements OnModuleInit {
       'npc.encounterOnSight': true,
       'npc.encountered': {$ne: trainerId},
     });
+    const attackers: string[] = [];
     for (const npc of npcs) {
       if (this.checkNPConSight(dto, npc, 5)) {
         // TODO: Player blockieren
@@ -160,9 +163,17 @@ export class TrainerHandler implements OnModuleInit {
           'npc.path': path,
           $addToSet: {'npc.encountered': trainerId},
         });
-        await this.encounterService.create(npc.region, [trainerId, npc._id.toString()]);
+        attackers.push(npc._id.toString());
       }
     }
+
+    if (attackers.length <= 0) {
+      return;
+    }
+
+    const encounter = await this.encounterService.create(trainer.region);
+    await this.opponentService.create(encounter._id.toString(), trainerId, false);
+    await Promise.all(attackers.map(attacker => this.opponentService.create(encounter._id.toString(), attacker, true)));
   }
 
   checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number): boolean {
