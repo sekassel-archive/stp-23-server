@@ -1162,10 +1162,26 @@
                  "y":286.667
                 }, 
                 {
-                 "class":"",
+                 "class":"Portal",
                  "height":96,
                  "id":8,
-                 "name":"Mayor's House",
+                 "name":"Moncenter",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Moncenter"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":9
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":134.667,
