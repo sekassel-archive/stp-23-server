@@ -15,13 +15,13 @@ import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
-import {CreateTrainerDto, MoveTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MoveTrainerDto, TalkTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
 @Controller('regions/:regionId/trainers')
 @ApiTags('Region Trainers')
-@ApiExtraModels(MoveTrainerDto)
+@ApiExtraModels(MoveTrainerDto, TalkTrainerDto)
 @Validated()
 @Auth()
 @Throttled()

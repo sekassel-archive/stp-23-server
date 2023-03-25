@@ -60,6 +60,15 @@ export class MonsterService {
     return updated;
   }
 
+  async healAll(trainer: string): Promise<void> {
+    const monsters = await this.findAll({trainer});
+    for (const monster of monsters) {
+      monster.currentAttributes = monster.attributes;
+      this.emit('updated', monster);
+    }
+    await this.model.bulkSave(monsters);
+  }
+
   async deleteTrainer(trainer: string): Promise<Monster[]> {
     const monsters = await this.model.find({trainer}).exec();
     for (const monster of monsters) {

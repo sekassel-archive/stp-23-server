@@ -7,8 +7,9 @@ import {Area} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {EncounterService} from '../encounter/encounter.service';
 import {getProperty} from '../game.loader';
+import {MonsterService} from '../monster/monster.service';
 import {OpponentService} from '../opponent/opponent.service';
-import {MoveTrainerDto} from './trainer.dto';
+import {MoveTrainerDto, TalkTrainerDto} from './trainer.dto';
 import {Direction, Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
@@ -32,6 +33,7 @@ export class TrainerHandler implements OnModuleInit {
     private areaService: AreaService,
     private encounterService: EncounterService,
     private opponentService: OpponentService,
+    private monsterService: MonsterService,
   ) {
   }
 
@@ -96,7 +98,7 @@ export class TrainerHandler implements OnModuleInit {
     }
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
-    if (Math.abs(dto.x - oldLocation.x) + Math.abs(dto.y - oldLocation.y) > 1 // Invalid movement
+    if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
     ) {
       dto.x = oldLocation.x;
@@ -152,7 +154,7 @@ export class TrainerHandler implements OnModuleInit {
         const y = npc.direction === Direction.UP ? -1 : npc.direction === Direction.DOWN ? 1 : 0;
 
         // Finds how many steps the npc has to walk to the player
-        const moveRange = Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y) - 1;
+        const moveRange = this.getDistance(dto, npc) - 1;
 
         // Add path points for moving npc towards player
         const path: number[] = [];
@@ -171,9 +173,17 @@ export class TrainerHandler implements OnModuleInit {
       return;
     }
 
-    const encounter = await this.encounterService.create(trainer.region);
-    await this.opponentService.create(encounter._id.toString(), trainerId, false);
+    await this.createEncounter(trainer.region, trainerId, attackers);
+  }
+
+  private async createEncounter(region: string, defender: string, attackers: string[]) {
+    const encounter = await this.encounterService.create(region);
+    await this.opponentService.create(encounter._id.toString(), defender, false);
     await Promise.all(attackers.map(attacker => this.opponentService.create(encounter._id.toString(), attacker, true)));
+  }
+
+  private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
+    return Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y);
   }
 
   checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number): boolean {
@@ -192,5 +202,27 @@ export class TrainerHandler implements OnModuleInit {
         return player.y === npc.y && player.x > npc.x && Math.abs(player.x - npc.x) <= maxRange;
     }
     return false;
+  }
+
+  @OnEvent('areas.*.trainers.*.talked')
+  async onTrainerTalked(dto: TalkTrainerDto) {
+    const trainerId = dto._id.toString();
+    const targetId = dto.target;
+    const [trainer, target] = await Promise.all([
+      this.trainerService.findOne(trainerId),
+      this.trainerService.findOne(targetId),
+    ]);
+    if (!trainer || !target || trainer.area !== target.area || this.getDistance(trainer, target) > 2) {
+      return;
+    }
+
+    if (target.npc?.canHeal) {
+      await this.monsterService.healAll(targetId);
+    } else if (target.npc?.encounterOnSight) {
+      await this.trainerService.update(targetId, {
+        $addToSet: {'npc.encountered': trainerId},
+      });
+      await this.createEncounter(trainer.region, targetId, [trainerId]);
+    }
   }
 }

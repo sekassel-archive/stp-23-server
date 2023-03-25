@@ -21,6 +21,10 @@ export class NPCInfo {
   @IsBoolean()
   encounterOnSight: boolean;
 
+  @ApiProperty()
+  @IsBoolean()
+  canHeal: boolean;
+
   @ApiPropertyOptional({type: [Number]})
   @IsOptional()
   @IsArray()
