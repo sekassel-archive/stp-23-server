@@ -217,7 +217,7 @@ export class TrainerHandler implements OnModuleInit {
     }
 
     if (target.npc?.canHeal) {
-      await this.monsterService.healAll(targetId);
+      await this.monsterService.healAll(trainerId);
     } else if (target.npc?.encounterOnSight) {
       await this.trainerService.update(targetId, {
         $addToSet: {'npc.encountered': trainerId},
