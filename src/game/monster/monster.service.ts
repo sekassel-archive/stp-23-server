@@ -5,7 +5,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterAttributes} from './monster.schema';
+import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
 
 @Injectable()
 export class MonsterService {
@@ -15,11 +15,11 @@ export class MonsterService {
   ) {
   }
 
-  async findAll(region: string, trainer: string, filter?: FilterQuery<Monster>): Promise<Monster[]> {
-    return this.model.find({...filter, region, trainer}).exec();
+  async findAll(filter: FilterQuery<Monster>): Promise<MonsterDocument[]> {
+    return this.model.find(filter).exec();
   }
 
-  async findOne(id: string): Promise<Monster | null> {
+  async findOne(id: string): Promise<MonsterDocument | null> {
     return this.model.findById(id).exec();
   }
 

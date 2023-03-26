@@ -90,7 +90,7 @@ export class TrainerHandler implements OnModuleInit {
     }
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
-    if (Math.abs(dto.x - oldLocation.x) + Math.abs(dto.y - oldLocation.y) > 1 // Invalid movement
+    if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
     ) {
       dto.x = oldLocation.x;
@@ -120,5 +120,9 @@ export class TrainerHandler implements OnModuleInit {
       }
     }
     return null;
+  }
+
+  private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
+    return Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y);
   }
 }

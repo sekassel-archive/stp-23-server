@@ -45,6 +45,11 @@ export class TrainerScheduler {
     const next = (index + 2) % path.length;
     const newX = path[next];
     const newY = path[next + 1];
+    if (Math.abs(newX - x) + Math.abs(newY - y) > 1) {
+      // Path cannot be followed, probably because it was not intended to loop
+      return;
+    }
+
     const direction = this.getDirection(x, y, newX, newY);
     this.move(_id, area, newX, newY, direction);
   }
