@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "image": "MissingPicture",
+    "name": "Pokeball",
+    "price": 69,
+    "effects": [],
+    "description": "A ball for catching PMons."
+  },
+  {
+    "id": 2,
+    "image": "MissingPicture",
+    "name": "Chocolate bar",
+    "price": 1,
+    "effects": [],
+    "description": "Totally useless, but hey.. now you have a chocolate bar."
+  }
+]

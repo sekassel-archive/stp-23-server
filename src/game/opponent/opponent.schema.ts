@@ -4,9 +4,8 @@ import {Type} from 'class-transformer';
 import {Equals, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {
-  GLOBAL_SCHEMA_OPTIONS,
   GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
-  GlobalSchema, GlobalSchemaWithoutID,
+  GlobalSchemaWithoutID,
   MONGO_ID_FORMAT,
 } from '../../util/schema';
 import {abilities} from '../constants';

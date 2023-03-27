@@ -2,10 +2,33 @@ import {ApiProperty, ApiPropertyOptional, OmitType} from '@nestjs/swagger';
 import {Max, Min} from 'class-validator';
 import * as _abilities from '../../assets/abilities.json';
 import * as _monsterTypes from '../../assets/monsters.json';
+import * as _itemTypes from '../../assets/items.json';
 import * as _types from '../../assets/types.json';
 
 export const types = _types;
 export type Type = keyof typeof types;
+
+export class ItemType {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  image: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  price: number;
+
+  @ApiProperty()
+  effects: Effect[];
+
+  @ApiProperty()
+  description: string;
+}
+
+export const itemTypes: ItemType[] = _itemTypes;
 
 export class MonsterType {
   @ApiProperty()
