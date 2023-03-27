@@ -5,7 +5,8 @@ import {EncounterModule} from './encounter/encounter.module';
 import {GameLoader} from './game.loader';
 import {MonsterModule} from './monster/monster.module';
 import {TrainerModule} from './trainer/trainer.module';
-import { PresetsModule } from './presets/presets.module';
+import {PresetsModule} from './presets/presets.module';
+import {ItemModule} from "./item/item.module";
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PresetsModule } from './presets/presets.module';
     MonsterModule,
     PresetsModule,
     EncounterModule,
+    ItemModule,
   ],
   providers: [
     GameLoader,

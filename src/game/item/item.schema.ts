@@ -8,12 +8,8 @@ import {Document, Types} from "mongoose";
 export class Item extends GlobalSchema {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
-  trainer: string;
-
-  @Prop()
-  @ApiProperty()
   @IsMongoId()
-  id: string;
+  trainer: string;
 
   @Prop()
   @ApiProperty()

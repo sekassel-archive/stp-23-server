@@ -2,7 +2,16 @@ import {Controller, Get, Param, ParseIntPipe, StreamableFile} from '@nestjs/comm
 import {ApiOkResponse, ApiParam, ApiTags} from '@nestjs/swagger';
 import * as  fs from 'node:fs';
 import {NotFound} from '../../util/not-found.decorator';
-import {abilities, Ability, AbilityDto, MonsterType, MonsterTypeDto, monsterTypes} from '../constants';
+import {
+  abilities,
+  Ability,
+  AbilityDto, ItemType,
+  ItemTypeDto,
+  itemTypes,
+  MonsterType,
+  MonsterTypeDto,
+  monsterTypes
+} from '../constants';
 
 @Controller('presets')
 @ApiTags('Presets')
@@ -21,6 +30,12 @@ export class PresetsController {
     return monsterTypes.map(m => this.maskMonster(m));
   }
 
+  @Get('items')
+  @ApiOkResponse({type: [ItemTypeDto]})
+  getItems(): ItemTypeDto[] {
+    return itemTypes.map(i => this.maskItem(i));
+  }
+
   @Get('monsters/:id')
   @NotFound()
   @ApiOkResponse({type: MonsterTypeDto})
@@ -32,8 +47,24 @@ export class PresetsController {
     return monster && this.maskMonster(monster);
   }
 
+  @Get('items/:id')
+  @NotFound()
+  @ApiOkResponse({type: ItemTypeDto})
+  @ApiParam({name: 'id', type: 'number'})
+  getItem(
+    @Param('id', ParseIntPipe) id: number,
+  ): ItemTypeDto | undefined {
+    const item = itemTypes.find(i => i.id === id);
+    return item && this.maskItem(item);
+  }
+
   private maskMonster(monster: MonsterType): MonsterTypeDto {
     const {evolution, ...masked} = monster;
+    return masked;
+  }
+
+  private maskItem(item: ItemType): ItemTypeDto {
+    const {...masked} = item;
     return masked;
   }
 

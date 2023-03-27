@@ -24,8 +24,11 @@ export class ItemType {
   @ApiProperty()
   effects: Effect[];
 
-  @ApiProperty()
-  description: string;
+  @ApiPropertyOptional()
+  description?: string;
+}
+
+export class ItemTypeDto extends OmitType(ItemType, ['description'] as const) {
 }
 
 export const itemTypes: ItemType[] = _itemTypes;
