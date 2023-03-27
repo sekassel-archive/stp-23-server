@@ -46,6 +46,15 @@ export class PresetsController {
     return monster && this.maskMonster(monster);
   }
 
+  @Get('monsters/:id/image')
+  @NotFound()
+  getMonsterImage(
+    @Param('id', ParseIntPipe) id: number,
+  ): StreamableFile | undefined {
+    const monster = monsterTypes.find(m => m.id === id);
+    return monster && new StreamableFile(fs.createReadStream('assets/monsters/' + monster.image));
+  }
+
   private maskMonster(monster: MonsterType): MonsterTypeDto {
     const {evolution, ...masked} = monster;
     return masked;

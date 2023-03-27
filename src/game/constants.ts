@@ -18,6 +18,9 @@ export class MonsterType {
   name: string;
 
   @ApiProperty()
+  image: string;
+
+  @ApiProperty()
   type: string[];
 
   @ApiPropertyOptional()
