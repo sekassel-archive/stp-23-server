@@ -1,8 +1,8 @@
-import {Controller, Get, Param, ParseIntPipe, StreamableFile} from '@nestjs/common';
+import {Controller, Get, Header, Param, ParseIntPipe, StreamableFile} from '@nestjs/common';
 import {ApiOkResponse, ApiParam, ApiTags} from '@nestjs/swagger';
 import * as  fs from 'node:fs';
 import {NotFound} from '../../util/not-found.decorator';
-import {abilities, Ability, AbilityDto, MonsterType, MonsterTypeDto, monsterTypes} from '../constants';
+import {abilities, Ability, AbilityDto, characters, MonsterType, MonsterTypeDto, monsterTypes} from '../constants';
 
 @Controller('presets')
 @ApiTags('Presets')
@@ -13,6 +13,20 @@ export class PresetsController {
   ): StreamableFile {
     filename = filename.substring(filename.lastIndexOf('/') + 1);
     return new StreamableFile(fs.createReadStream('assets/tilesets/' + filename));
+  }
+
+  @Get('characters')
+  @ApiOkResponse({type: [String]})
+  getCharacters(): string[] {
+    return characters;
+  }
+
+  @Get('characters/:filename')
+  getCharacter(
+    @Param('filename') filename: string,
+  ): StreamableFile {
+    filename = filename.substring(filename.lastIndexOf('/') + 1);
+    return new StreamableFile(fs.createReadStream('assets/characters/' + filename));
   }
 
   @Get('monsters')

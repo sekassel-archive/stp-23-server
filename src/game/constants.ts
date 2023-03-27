@@ -3,6 +3,9 @@ import {Max, Min} from 'class-validator';
 import * as _abilities from '../../assets/abilities.json';
 import * as _monsterTypes from '../../assets/monsters.json';
 import * as _types from '../../assets/types.json';
+import * as _characters from '../../assets/characters.json';
+
+export const characters = _characters;
 
 export const types = _types;
 export type Type = keyof typeof types;
