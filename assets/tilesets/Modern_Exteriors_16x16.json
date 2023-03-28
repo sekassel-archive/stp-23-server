@@ -6,7 +6,7 @@
  "name":"Modern_Exteriors_16x16",
  "spacing":0,
  "tilecount":36432,
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tiles":[
         {
@@ -2197,6 +2197,24 @@
                 }]
         }, 
         {
+         "id":3463,
+         "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":3464,
+         "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":3562,
          "properties":[
                 {
@@ -2264,6 +2282,24 @@
          "properties":[
                 {
                  "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":3639,
+         "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":3640,
+         "properties":[
+                {
+                 "name":"TallGrass",
                  "type":"bool",
                  "value":true
                 }]
@@ -2990,7 +3026,7 @@
         }],
  "tilewidth":16,
  "type":"tileset",
- "version":"1.9",
+ "version":"1.10",
  "wangsets":[
         {
          "colors":[

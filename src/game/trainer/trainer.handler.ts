@@ -16,17 +16,28 @@ import {MoveTrainerDto, TalkTrainerDto} from './trainer.dto';
 import {Direction, Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
-interface Portal {
+export interface BaseGameObject {
   x: number;
   y: number;
   width: number;
   height: number;
+}
+
+export interface Portal extends BaseGameObject {
+  type: 'Portal';
   target: {
     area: string;
     x: number;
     y: number;
   };
 }
+
+export interface TallGrass extends BaseGameObject {
+  type: 'TallGrass';
+  monsters: [number, number];
+}
+
+export type GameObject = Portal | TallGrass;
 
 @Injectable()
 export class TrainerHandler implements OnModuleInit {
@@ -40,15 +51,15 @@ export class TrainerHandler implements OnModuleInit {
   ) {
   }
 
-  portals = new Map<string, Portal[]>;
+  objects = new Map<string, GameObject[]>;
   tilelayers = new Map<string, Layer[]>;
   tiles = new Map<string, Tile[]>;
 
   async onModuleInit() {
     const areas = await this.areaService.findAll();
     for (const area of areas) {
-      const portals = this.loadPortals(area, areas);
-      this.portals.set(area._id.toString(), portals);
+      const portals = this.loadObjects(area, areas);
+      this.objects.set(area._id.toString(), portals);
 
       this.tilelayers.set(area._id.toString(), area.map.layers);
 
@@ -57,40 +68,45 @@ export class TrainerHandler implements OnModuleInit {
     }
   }
 
-  private loadPortals(area: Area, areas: Area[]) {
-    const portals: Portal[] = [];
+  private loadObjects(area: Area, areas: Area[]) {
+    const objects: GameObject[] = [];
 
     for (const layer of area.map.layers) {
       if (layer.type !== 'objectgroup') {
         continue;
       }
       for (const object of layer.objects) {
-        if (object.type !== 'Portal') {
-          continue;
+        const x = object.x / area.map.tilewidth;
+        const y = object.y / area.map.tileheight;
+        const width = object.width / area.map.tilewidth;
+        const height = object.height / area.map.tileheight;
+        switch (object.type) {
+          case 'Portal':
+            const targetName = getProperty(object, 'Map');
+            const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
+            if (!targetArea) {
+              console.log('Invalid portal target:', targetName, 'in area', area.name, 'object', object.id);
+              continue;
+            }
+            objects.push({
+              type: 'Portal', x, y, width, height,
+              target: {
+                area: targetArea._id.toString(),
+                x: getProperty<number>(object, 'X') || 0,
+                y: getProperty<number>(object, 'Y') || 0,
+              },
+            });
+            break;
+          case 'TallGrass':
+            objects.push({
+              type: 'TallGrass', x, y, width, height,
+              monsters: JSON.parse(getProperty<string>(object, 'Monsters') || '[]'),
+            });
+            break;
         }
-
-        const targetName = getProperty(object, 'Map');
-        const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
-        if (!targetArea) {
-          console.log('Invalid portal target:', targetName, 'in area', area.name, 'object', object.id);
-          continue;
-        }
-
-        const portal: Portal = {
-          x: object.x / area.map.tilewidth,
-          y: object.y / area.map.tileheight,
-          width: object.width / area.map.tilewidth,
-          height: object.height / area.map.tileheight,
-          target: {
-            area: targetArea._id.toString(),
-            x: getProperty<number>(object, 'X') || 0,
-            y: getProperty<number>(object, 'Y') || 0,
-          },
-        };
-        portals.push(portal);
       }
     }
-    return portals;
+    return objects;
   }
 
   private async loadTiles(area: Area): Promise<Tile[]> {
@@ -130,15 +146,19 @@ export class TrainerHandler implements OnModuleInit {
       dto.y = oldLocation.y;
     }
 
-    const portal = this.getPortal(dto.area, dto.x, dto.y);
-    if (portal) {
-      const {area, x, y} = portal.target;
-      dto.area = area;
-      dto.x = x;
-      dto.y = y;
-      // inform old area that the trainer left
-      this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
-      await this.trainerService.saveLocations([dto]);
+    const gameObject = this.getGameObject(dto.area, dto.x, dto.y);
+    switch (gameObject?.type) {
+      case 'Portal':
+        const {area, x, y} = gameObject.target;
+        dto.area = area;
+        dto.x = x;
+        dto.y = y;
+        // inform old area that the trainer left
+        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+        await this.trainerService.saveLocations([dto]);
+        break;
+      case 'TallGrass':
+        // TODO
     }
 
     this.checkAllNPCsOnSight(dto);
@@ -182,8 +202,8 @@ export class TrainerHandler implements OnModuleInit {
     return tile && getProperty<boolean>(tile, 'Walkable') || false;
   }
 
-  getPortal(area: string, x: number, y: number) {
-    const portals = this.portals.get(area) || [];
+  getGameObject(area: string, x: number, y: number) {
+    const portals = this.objects.get(area) || [];
     for (const portal of portals) {
       if (x >= portal.x && x < portal.x + portal.width && y >= portal.y && y < portal.y + portal.height) {
         return portal;
