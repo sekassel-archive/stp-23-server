@@ -5,6 +5,7 @@ import {Region} from '../region/region.schema';
 import {RegionService} from '../region/region.service';
 import {AreaDocument} from './area/area.schema';
 import {AreaService} from './area/area.service';
+import {TiledMap} from './tiled-map.interface';
 import {Direction} from './trainer/trainer.schema';
 import {TrainerService} from './trainer/trainer.service';
 
@@ -46,7 +47,7 @@ export class GameLoader implements OnModuleInit {
 
   private async loadArea(areaFileName: string, region: Region): Promise<AreaDocument> {
     const name = areaFileName.replace('.json', '');
-    const map = JSON.parse(await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8'));
+    const map: TiledMap = JSON.parse(await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8'));
     const area = await this.areaService.upsert({
       region: region._id.toString(),
       name,
@@ -61,7 +62,7 @@ export class GameLoader implements OnModuleInit {
         continue;
       }
       for (const object of layer.objects) {
-        if (!(object.point && object.class === 'Trainer')) {
+        if (!(object.point && object.type === 'Trainer')) {
           continue;
         }
 

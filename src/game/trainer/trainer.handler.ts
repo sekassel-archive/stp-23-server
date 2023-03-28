@@ -47,7 +47,7 @@ export class TrainerHandler implements OnModuleInit {
         continue;
       }
       for (const object of layer.objects) {
-        if (object.class !== 'Portal') {
+        if (object.type !== 'Portal') {
           continue;
         }
 
