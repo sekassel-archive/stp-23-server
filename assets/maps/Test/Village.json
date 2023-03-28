@@ -303,7 +303,7 @@
                  "width":16,
                  "x":0,
                  "y":0
-                }, 
+                },
                 {
                  "data":[18990, 18991, 18992, 18993, 18994, 18995, 18996, 18997, 18990, 18991, 18992, 18993, 18994, 18995, 18996, 18997,
                     19166, 19167, 19168, 19169, 19170, 19171, 19172, 19173, 19166, 19167, 19168, 19169, 19170, 19171, 19172, 19173,
@@ -325,7 +325,7 @@
                  "width":16,
                  "x":16,
                  "y":0
-                }, 
+                },
                 {
                  "data":[18990, 18991, 18992, 18993, 18994, 18995, 18996, 18997, 18990, 18991, 18992, 18993, 18994, 18995, 18996, 18997,
                     19166, 19167, 19168, 19169, 19170, 19171, 19172, 19173, 19166, 19167, 19168, 19169, 19170, 19171, 19172, 19173,
@@ -599,12 +599,12 @@
                          "name":"Map",
                          "type":"string",
                          "value":"Moncenter"
-                        }, 
+                        },
                         {
                          "name":"X",
                          "type":"int",
                          "value":9
-                        }, 
+                        },
                         {
                          "name":"Y",
                          "type":"int",
@@ -659,12 +659,12 @@
                          "name":"EncounterOnSight",
                          "type":"bool",
                          "value":true
-                        }, 
+                        },
                         {
                          "name":"Image",
                          "type":"string",
                          "value":"Bob_16x16.png"
-                        }, 
+                        },
                         {
                          "name":"Monsters",
                          "type":"string",
@@ -687,7 +687,7 @@
                          "name":"EncounterOnSight",
                          "type":"bool",
                          "value":true
-                        }, 
+                        },
                         {
                          "name":"Image",
                          "type":"string",
@@ -714,8 +714,8 @@
                         {
                          "name":"EncounterOnSight",
                          "type":"bool",
-                         "value":true
-                        }, 
+                         "value":false
+                        },
                         {
                          "name":"Image",
                          "type":"string",
@@ -732,7 +732,7 @@
                  "width":0,
                  "x":384,
                  "y":528
-                }, 
+                },
                 {
                  "height":0,
                  "id":10,
@@ -743,7 +743,7 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Old_man_Josh_16x16.png"
-                        }, 
+                        },
                         {
                          "name":"Monsters",
                          "type":"string",

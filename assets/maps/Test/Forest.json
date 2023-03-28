@@ -900,7 +900,6 @@
          "name":"Object Layer 1",
          "objects":[
                 {
-                 "class":"Portal",
                  "height":48,
                  "id":1,
                  "name":"",
@@ -921,13 +920,13 @@
                          "value":24
                         }],
                  "rotation":0,
+                 "type":"Portal",
                  "visible":true,
                  "width":16,
                  "x":96,
                  "y":144
                 }, 
                 {
-                 "class":"Portal",
                  "height":32,
                  "id":2,
                  "name":"",
@@ -948,6 +947,7 @@
                          "value":3
                         }],
                  "rotation":0,
+                 "type":"Portal",
                  "visible":true,
                  "width":32,
                  "x":368,
@@ -963,7 +963,7 @@
  "nextobjectid":3,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
@@ -976,6 +976,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.9",
+ "version":"1.10",
  "width":30
 }
