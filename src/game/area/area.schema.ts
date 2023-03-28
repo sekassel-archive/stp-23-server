@@ -3,6 +3,7 @@ import {ApiProperty} from '@nestjs/swagger';
 import {IsMongoId, IsNotEmpty, IsObject, MaxLength} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema} from '../../util/schema';
+import {TiledMap} from '../tiled-map.interface';
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 export class Area extends GlobalSchema {
@@ -21,7 +22,7 @@ export class Area extends GlobalSchema {
   @Prop({type: Object})
   @ApiProperty()
   @IsObject()
-  map: any;
+  map: TiledMap;
 }
 
 export type CreateAreaDto = Omit<Area, keyof GlobalSchema>;

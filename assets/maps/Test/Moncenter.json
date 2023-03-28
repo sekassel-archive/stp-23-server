@@ -314,7 +314,6 @@
          "name":"Objects",
          "objects":[
                 {
-                 "class":"Portal",
                  "height":16,
                  "id":1,
                  "name":"Village",
@@ -335,13 +334,13 @@
                          "value":34
                         }],
                  "rotation":0,
+                 "type":"Portal",
                  "visible":true,
                  "width":64,
                  "x":128,
                  "y":272
                 }, 
                 {
-                 "class":"Trainer",
                  "height":0,
                  "id":3,
                  "name":"Nurse",
@@ -358,6 +357,7 @@
                          "value":"Nurse_2_16x16.png"
                         }],
                  "rotation":0,
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":160,
@@ -373,7 +373,7 @@
  "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
@@ -386,6 +386,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.9",
+ "version":"1.10",
  "width":30
 }

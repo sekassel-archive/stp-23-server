@@ -292,7 +292,6 @@
          "name":"Objects",
          "objects":[
                 {
-                 "class":"Portal",
                  "height":16,
                  "id":1,
                  "name":"Village",
@@ -313,6 +312,7 @@
                          "value":23
                         }],
                  "rotation":0,
+                 "type":"Portal",
                  "visible":true,
                  "width":64,
                  "x":208,
@@ -328,7 +328,7 @@
  "nextobjectid":3,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
@@ -341,6 +341,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.9",
+ "version":"1.10",
  "width":30
 }
