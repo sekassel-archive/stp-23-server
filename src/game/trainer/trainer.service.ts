@@ -8,6 +8,7 @@ import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
 import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
+import {Item} from "../item/item.schema";
 
 @Injectable()
 export class TrainerService implements OnModuleInit, OnModuleDestroy {
@@ -31,6 +32,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
       region,
       user,
       coins: 0,
+      items: [],
       area,
       x,
       y,

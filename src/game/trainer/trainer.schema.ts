@@ -4,6 +4,7 @@ import {Type} from 'class-transformer';
 import {IsArray, IsBoolean, IsEnum, IsInt, IsMongoId, IsOptional, IsString, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
+import {Item} from "../item/item.schema";
 
 export enum Direction {
   RIGHT,
@@ -60,6 +61,11 @@ export class Trainer extends GlobalSchema {
   @ApiProperty()
   @IsInt()
   coins: number;
+
+  @Prop()
+  @ApiProperty()
+  @IsArray()
+  items: Item[];
 
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
