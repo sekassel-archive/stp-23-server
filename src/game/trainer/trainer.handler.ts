@@ -1,10 +1,13 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
+import * as fs from 'node:fs/promises';
 import {SocketService} from '../../udp/socket.service';
 import {User} from '../../user/user.schema';
 import {Area} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {getProperty} from '../game.loader';
+import {Layer} from '../tiled-map.interface';
+import {Tile} from '../tileset.interface';
 import {MoveTrainerDto} from './trainer.dto';
 import {TrainerService} from './trainer.service';
 
@@ -30,12 +33,19 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   portals = new Map<string, Portal[]>;
+  tilelayers = new Map<string, Layer[]>;
+  tiles = new Map<string, Tile[]>;
 
   async onModuleInit() {
     const areas = await this.areaService.findAll();
     for (const area of areas) {
       const portals = this.loadPortals(area, areas);
       this.portals.set(area._id.toString(), portals);
+
+      this.tilelayers.set(area._id.toString(), area.map.layers);
+
+      const tiles = await this.loadTiles(area);
+      this.tiles.set(area._id.toString(), tiles);
     }
   }
 
@@ -75,6 +85,20 @@ export class TrainerHandler implements OnModuleInit {
     return portals;
   }
 
+  private async loadTiles(area: Area): Promise<Tile[]> {
+    const tiles: Tile[] = [];
+
+    await Promise.all(area.map.tilesets.map(async tsr => {
+      const text = await fs.readFile(`./assets/maps/Test/${tsr.source}`, 'utf8').catch(() => '{}');
+      const tileset = JSON.parse(text);
+      for (const tile of tileset.tiles) {
+        tiles[tsr.firstgid + tile.id] = tile;
+      }
+    }));
+
+    return tiles;
+  }
+
   @OnEvent('users.*.deleted')
   async onUserDeleted(user: User): Promise<void> {
     await this.trainerService.deleteUser(user._id.toString());
@@ -92,6 +116,7 @@ export class TrainerHandler implements OnModuleInit {
 
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
+      || !this.isWalkable(dto)
     ) {
       dto.x = oldLocation.x;
       dto.y = oldLocation.y;
@@ -110,6 +135,41 @@ export class TrainerHandler implements OnModuleInit {
 
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
     this.trainerService.setLocation(dto._id.toString(), dto);
+  }
+
+  getTopTile({area, x, y}: MoveTrainerDto): number {
+    const layers = this.tilelayers.get(area);
+    if (!layers) {
+      return 0;
+    }
+
+    for (let i = (layers.length || 0) - 1; i >= 0; i--) {
+      const layer = layers[i];
+      if (layer.type !== 'tilelayer') {
+        continue;
+      }
+      if (!(x >= layer.startx && x < layer.startx + layer.width && y >= layer.starty && y < layer.starty + layer.height)) {
+        continue;
+      }
+
+      for (const chunk of layer.chunks) {
+        if (x >= chunk.x && x < chunk.x + chunk.width && y >= chunk.y && y < chunk.y + chunk.height) {
+          const tile = chunk.data[(y - chunk.y) * chunk.width + (x - chunk.x)];
+          if (tile != 0) {
+            return tile;
+          }
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  isWalkable(dto: MoveTrainerDto): boolean {
+    const topTile = this.getTopTile(dto);
+    if (topTile === 0) return false;
+    const tile = this.tiles.get(dto.area)?.[topTile];
+    return tile && getProperty<boolean>(tile, 'Walkable') || false;
   }
 
   getPortal(area: string, x: number, y: number) {
