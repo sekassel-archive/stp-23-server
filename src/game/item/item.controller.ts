@@ -32,6 +32,8 @@ export class ItemController {
   @ApiOkResponse({type: Item})
   @NotFound()
   async findOne(
+    @Param('regionId', ParseObjectIdPipe) region: string,
+    @Param('trainerId', ParseObjectIdPipe) trainer: string,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Item | null> {
     return this.itemService.findOne(id);

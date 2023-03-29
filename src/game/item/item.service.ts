@@ -18,7 +18,7 @@ export class ItemService {
     const create: Omit<Item, keyof GlobalSchema> = {
       ...dto,
       trainer,
-      amount: 1,
+      amount: 20,
     };
     const created = await this.model.create(create);
     this.emit('created', created);
