@@ -12,7 +12,7 @@ export class MonsterHandler {
 
   @OnEvent('regions.*.trainers.*.created')
   async onTrainerCreated(trainer: Trainer): Promise<void> {
-    await this.monsterService.create(trainer._id.toString(), {type: 1});
+    await this.monsterService.createAuto(trainer._id.toString(), 1, 1);
   }
 
   @OnEvent('regions.*.trainers.*.deleted')
