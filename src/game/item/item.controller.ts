@@ -32,6 +32,9 @@ export class ItemController {
     @Body() dto: CreateItemDto,
     @AuthUser() user: User,
   ): Promise<Item> {
+    if (dto.amount <= 0) {
+      throw new ForbiddenException('Amount must be a number greater than 0');
+    }
     const trainer = await this.trainerService.findOne(trainerId);
     if (!(trainer?.user.toString() === user._id.toString())) {
       throw new ForbiddenException('You are not the owner of this trainer');

@@ -3,7 +3,6 @@ import {FilterQuery, Model} from "mongoose";
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {CreateItemDto} from "./item.dto";
-import {GlobalSchema} from "../../util/schema";
 import {Injectable} from "@nestjs/common";
 
 @Injectable()
@@ -15,11 +14,10 @@ export class ItemService {
   }
 
   async create(trainer: string, dto: CreateItemDto): Promise<Item> {
-    const create: Omit<Item, keyof GlobalSchema> = {
-      ...dto,
-      trainer,
-    };
-    const created = await this.model.create(create);
+    const created = await this.model.findOneAndUpdate({
+      trainer: trainer,
+      type: dto.type
+    }, {$inc: {amount: dto.amount}}, {upsert: true, new: true, setDefaultsOnInsert: true});
     this.emit('created', created);
     return created;
   }

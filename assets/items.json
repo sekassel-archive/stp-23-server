@@ -32,5 +32,13 @@
       }
     ],
     "description": "Heals 25 health"
+  },
+  {
+    "id": 4,
+    "image": "item04",
+    "name": "Apple",
+    "price": 0,
+    "effects": [],
+    "description": "An apple a day.."
   }
 ]
