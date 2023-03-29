@@ -1,12 +1,15 @@
 import {ItemService} from "./item.service";
-import {Controller, Get, Param} from "@nestjs/common";
-import {ApiOkResponse, ApiTags} from "@nestjs/swagger";
+import {Body, Controller, ForbiddenException, Get, Param, Post} from "@nestjs/common";
+import {ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {Validated} from "../../util/validated.decorator";
-import {Auth} from "../../auth/auth.decorator";
+import {Auth, AuthUser} from "../../auth/auth.decorator";
 import {Throttled} from "../../util/throttled.decorator";
 import {ParseObjectIdPipe} from "../../util/parse-object-id.pipe";
 import {NotFound} from "../../util/not-found.decorator";
 import {Item} from "./item.schema";
+import {CreateItemDto} from "./item.dto";
+import {User} from "../../user/user.schema";
+import {TrainerService} from "../trainer/trainer.service";
 
 @Controller('regions/:regionId/trainers/:trainerId/items')
 @ApiTags('Trainer Items')
@@ -16,7 +19,24 @@ import {Item} from "./item.schema";
 export class ItemController {
   constructor(
     private readonly itemService: ItemService,
+    private readonly trainerService: TrainerService,
   ) {
+  }
+
+  @Post()
+  @ApiCreatedResponse({type: Item})
+  @ApiConflictResponse({description: 'Can\'t add item to the trainer\'s inventory'})
+  async create(
+    @Param('regionId', ParseObjectIdPipe) regionId: string,
+    @Param('trainerId', ParseObjectIdPipe) trainerId: string,
+    @Body() dto: CreateItemDto,
+    @AuthUser() user: User,
+  ): Promise<Item> {
+    const trainer = await this.trainerService.findOne(trainerId);
+    if (!(trainer?.user.toString() === user._id.toString())) {
+      throw new ForbiddenException('You are not the owner of this trainer');
+    }
+    return this.itemService.create(trainerId, dto);
   }
 
   @Get()

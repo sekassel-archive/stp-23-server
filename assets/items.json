@@ -1,15 +1,15 @@
 [
   {
     "id": 1,
-    "image": "MissingPicture",
+    "image": "item01",
     "name": "Monball",
     "price": 20,
     "effects": [],
-    "description": "A ball for catching PMons."
+    "description": "A ball for catching PMons"
   },
   {
     "id": 2,
-    "image": "MissingPicture",
+    "image": "item02",
     "name": "Chocolate bar",
     "price": 2,
     "effects": [
@@ -18,6 +18,19 @@
         "amount": 1
       }
     ],
-    "description": "Heals 1 health and tastes good."
+    "description": "Heals 1 health and tastes good"
+  },
+  {
+    "id": 3,
+    "image": "item03",
+    "name": "Health potion",
+    "price": 50,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 25
+      }
+    ],
+    "description": "Heals 25 health"
   }
 ]

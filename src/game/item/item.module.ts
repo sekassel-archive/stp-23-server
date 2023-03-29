@@ -5,6 +5,7 @@ import {EventModule} from "../../event/event.module";
 import {ItemService} from "./item.service";
 import {ItemController} from "./item.controller";
 import {ItemHandler} from "./item.handler";
+import {TrainerModule} from "../trainer/trainer.module";
 
 @Module({
   imports: [
@@ -13,11 +14,11 @@ import {ItemHandler} from "./item.handler";
       schema: ItemSchema,
     }]),
     EventModule,
+    TrainerModule,
   ],
   controllers: [ItemController],
   providers: [ItemService, ItemHandler],
   exports: [ItemService],
 })
 export class ItemModule {
-
 }
