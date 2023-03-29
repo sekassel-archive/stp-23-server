@@ -34,7 +34,7 @@ export interface Portal extends BaseGameObject {
 
 export interface TallGrass extends BaseGameObject {
   type: 'TallGrass';
-  monsters: [number, number];
+  monsters: [number, number][];
 }
 
 export type GameObject = Portal | TallGrass;
@@ -131,16 +131,17 @@ export class TrainerHandler implements OnModuleInit {
   @OnEvent('areas.*.trainers.*.moved')
   async onTrainerMoved(dto: MoveTrainerDto) {
     // TODO validate movement
-    const oldLocation = this.trainerService.getLocation(dto._id.toString())
-      || await this.trainerService.findOne(dto._id.toString());
+    const trainerId = dto._id.toString();
+    const oldLocation = this.trainerService.getLocation(trainerId)
+      || await this.trainerService.findOne(trainerId);
     if (!oldLocation) {
       return;
     }
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
-      || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
-      || !this.isWalkable(dto)
+      || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
+      || !this.getTopTileProperty(dto, 'Walkable') // Tile not walkable
     ) {
       dto.x = oldLocation.x;
       dto.y = oldLocation.y;
@@ -158,13 +159,18 @@ export class TrainerHandler implements OnModuleInit {
         await this.trainerService.saveLocations([dto]);
         break;
       case 'TallGrass':
-        // TODO
+        if (this.getTopTileProperty(dto, 'TallGrass')) {
+          const trainer = await this.trainerService.findOne(trainerId);
+          const [type, level] = gameObject.monsters[Math.floor(Math.random() * gameObject.monsters.length)];
+          trainer && await this.createMonsterEncounter(trainer.region, trainerId, type, level);
+        }
+        break;
     }
 
     this.checkAllNPCsOnSight(dto);
 
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
-    this.trainerService.setLocation(dto._id.toString(), dto);
+    this.trainerService.setLocation(trainerId, dto);
   }
 
   getTopTile({area, x, y}: MoveTrainerDto): number {
@@ -195,11 +201,11 @@ export class TrainerHandler implements OnModuleInit {
     return 0;
   }
 
-  isWalkable(dto: MoveTrainerDto): boolean {
+  getTopTileProperty(dto: MoveTrainerDto, property: string): boolean {
     const topTile = this.getTopTile(dto);
     if (topTile === 0) return false;
     const tile = this.tiles.get(dto.area)?.[topTile];
-    return tile && getProperty<boolean>(tile, 'Walkable') || false;
+    return tile && getProperty<boolean>(tile, property) || false;
   }
 
   getGameObject(area: string, x: number, y: number) {
@@ -253,13 +259,20 @@ export class TrainerHandler implements OnModuleInit {
       return;
     }
 
-    await this.createEncounter(trainer.region, trainerId, attackers);
+    await this.createTrainerBattle(trainer.region, trainerId, attackers);
   }
 
-  private async createEncounter(region: string, defender: string, attackers: string[]) {
+  private async createTrainerBattle(region: string, defender: string, attackers: string[]) {
     const encounter = await this.encounterService.create(region);
     await this.opponentService.create(encounter._id.toString(), defender, false);
     await Promise.all(attackers.map(attacker => this.opponentService.create(encounter._id.toString(), attacker, true)));
+  }
+
+  private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
+    const encounter = await this.encounterService.create(region);
+    const monster = await this.monsterService.createAuto('', type, level);
+    await this.opponentService.create(encounter._id.toString(), defender, false);
+    await this.opponentService.create(encounter._id.toString(), '', true, monster._id.toString());
   }
 
   private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
@@ -302,7 +315,7 @@ export class TrainerHandler implements OnModuleInit {
       await this.trainerService.update(targetId, {
         $addToSet: {'npc.encountered': trainerId},
       });
-      await this.createEncounter(trainer.region, targetId, [trainerId]);
+      await this.createTrainerBattle(trainer.region, targetId, [trainerId]);
     }
   }
 }

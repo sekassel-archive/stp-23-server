@@ -23,13 +23,12 @@ export class OpponentService {
     return this.model.findOne({encounter, trainer}).exec();
   }
 
-  async create(encounter: string, trainer: string, isAttacker: boolean): Promise<OpponentDocument> {
-    const monsters = await this.monsterService.findAll({trainer});
+  async create(encounter: string, trainer: string, isAttacker: boolean, monster?: string): Promise<OpponentDocument> {
     try {
       const created = await this.model.create({
         encounter,
         trainer,
-        monster: monsters[0]?._id?.toString(),
+        monster: monster || (await this.monsterService.findAll({trainer}))[0]?._id?.toString(),
         isAttacker,
       });
       created && this.emit('created', created);
