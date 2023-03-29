@@ -267,13 +267,13 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   private async createTrainerBattle(region: string, defender: string, attackers: string[]) {
-    const encounter = await this.encounterService.create(region);
+    const encounter = await this.encounterService.create(region, {isWild: false});
     await this.opponentService.create(encounter._id.toString(), defender, false);
     await Promise.all(attackers.map(attacker => this.opponentService.create(encounter._id.toString(), attacker, true)));
   }
 
   private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
-    const encounter = await this.encounterService.create(region);
+    const encounter = await this.encounterService.create(region, {isWild: true});
     const monster = await this.monsterService.createAuto(TALL_GRASS_TRAINER, type, level);
     await this.opponentService.create(encounter._id.toString(), defender, false);
     await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, true, monster._id.toString());
