@@ -39,6 +39,10 @@ export interface TallGrass extends BaseGameObject {
 
 export type GameObject = Portal | TallGrass;
 
+const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
+
+const TALL_GRASS_TRAINER = '0'.repeat(24);
+
 @Injectable()
 export class TrainerHandler implements OnModuleInit {
   constructor(
@@ -159,7 +163,7 @@ export class TrainerHandler implements OnModuleInit {
         await this.trainerService.saveLocations([dto]);
         break;
       case 'TallGrass':
-        if (this.getTopTileProperty(dto, 'TallGrass')) {
+        if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
           const trainer = await this.trainerService.findOne(trainerId);
           const [type, level] = gameObject.monsters[Math.floor(Math.random() * gameObject.monsters.length)];
           trainer && await this.createMonsterEncounter(trainer.region, trainerId, type, level);
@@ -270,9 +274,9 @@ export class TrainerHandler implements OnModuleInit {
 
   private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
     const encounter = await this.encounterService.create(region);
-    const monster = await this.monsterService.createAuto('', type, level);
+    const monster = await this.monsterService.createAuto(TALL_GRASS_TRAINER, type, level);
     await this.opponentService.create(encounter._id.toString(), defender, false);
-    await this.opponentService.create(encounter._id.toString(), '', true, monster._id.toString());
+    await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, true, monster._id.toString());
   }
 
   private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
