@@ -1,6 +1,6 @@
 import {ItemService} from "./item.service";
-import {Body, Controller, ForbiddenException, Get, Param, Patch, Post} from "@nestjs/common";
-import {ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
+import {Body, Controller, ForbiddenException, Get, Param, Patch} from "@nestjs/common";
+import {ApiConflictResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {Validated} from "../../util/validated.decorator";
 import {Auth, AuthUser} from "../../auth/auth.decorator";
 import {Throttled} from "../../util/throttled.decorator";
@@ -43,8 +43,7 @@ export class ItemController {
     if (!(trainer?.user.toString() === user._id.toString())) {
       throw new ForbiddenException('You are not the owner of this trainer');
     }
-    // TODO: Check if trainer has enough items to be subtracted / enough coins to buy
-    return this.itemService.updateOne(trainerId, dto);
+    return this.itemService.updateOne(trainer, dto);
   }
 
   @Get()
@@ -56,14 +55,14 @@ export class ItemController {
     return this.itemService.findAll({region, trainer});
   }
 
-  @Get(':id')
+  @Get(':type')
   @ApiOkResponse({type: Item})
   @NotFound()
   async findOne(
     @Param('regionId', ParseObjectIdPipe) region: string,
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('type', ParseObjectIdPipe) type: string,
   ): Promise<Item | null> {
-    return this.itemService.findOne(id);
+    return this.itemService.findOne(trainer, type);
   }
 }
