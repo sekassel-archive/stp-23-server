@@ -61,6 +61,12 @@ export class OpponentService {
     return updated;
   }
 
+  async deleteOne(encounter: string, trainer: string): Promise<OpponentDocument | null> {
+    const deleted = await this.model.findOneAndDelete({encounter, trainer}).exec();
+    deleted && this.emit('deleted', deleted);
+    return deleted;
+  }
+
   async deleteAll(filter: FilterQuery<OpponentService>) {
     await this.model.deleteMany(filter).exec();
   }
