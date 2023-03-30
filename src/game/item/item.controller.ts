@@ -23,28 +23,10 @@ export class ItemController {
   ) {
   }
 
-  @Post()
-  @ApiCreatedResponse({type: Item})
-  @ApiConflictResponse({description: 'Can\'t add item to the trainer\'s inventory'})
-  async create(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
-    @Param('trainerId', ParseObjectIdPipe) trainerId: string,
-    @Body() dto: CreateItemDto,
-    @AuthUser() user: User,
-  ): Promise<Item> {
-    if (dto.amount <= 0) {
-      throw new ForbiddenException('Amount must be greater than 0');
-    }
-    const trainer = await this.trainerService.findOne(trainerId);
-    if (!(trainer?.user.toString() === user._id.toString())) {
-      throw new ForbiddenException('You are not the owner of this trainer');
-    }
-    return this.itemService.create(trainerId, dto);
-  }
-
-  // TODO: Patch endpoint for selling or adding (check for player near merchant?)
+  // TODO: Check for player near merchant
   @Patch()
   @ApiOkResponse({type: Item})
+  @ApiConflictResponse({description: 'Can\'t add item to the trainer\'s inventory'})
   async updateOne(
     @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Param('trainerId', ParseObjectIdPipe) trainerId: string,
@@ -52,7 +34,7 @@ export class ItemController {
     @AuthUser() user: User,
   ): Promise<Item | null> {
     if (dto.amount === 0) {
-      return null;
+      throw new ForbiddenException('Amount must be not 0');
     }
     const trainer = await this.trainerService.findOne(trainerId);
     if (!trainer) {

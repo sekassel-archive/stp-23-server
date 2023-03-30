@@ -12,7 +12,7 @@ export class ItemHandler {
 
   @OnEvent('regions.*.trainers.*.created')
   async onTrainerCreated(trainer: Trainer): Promise<void> {
-    await this.itemService.create(trainer._id.toString(), {type: 1, amount: 20});
+    await this.itemService.updateOne(trainer._id.toString(), {type: 1, amount: 20});
   }
 
   @OnEvent('regions.*.trainers.*.deleted')

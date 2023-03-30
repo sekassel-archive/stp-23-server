@@ -14,21 +14,7 @@ export class ItemService {
   ) {
   }
 
-  async create(trainer: string, dto: CreateItemDto): Promise<Item> {
-    const create: Omit<Item, keyof GlobalSchema> = {
-      ...dto,
-      trainer,
-    };
-    const exist = await this.model.findOne({trainer: trainer, type: dto.type});
-    if (exist) {
-      throw new ForbiddenException('ItemType already exists on trainer. Use PATCH');
-    }
-    const created = await this.model.create(create);
-    this.emit('created', created);
-    return created;
-  }
-
-  async updateOne(trainer: string, dto: CreateItemDto) {
+  async updateOne(trainer: string, dto: CreateItemDto): Promise<Item> {
     const created = await this.model.findOneAndUpdate({
       trainer: trainer,
       type: dto.type
