@@ -34,12 +34,12 @@ export class ItemService {
       throw new ForbiddenException('Trainer does not have enough items or coins');
     }
 
-    await this.trainerService.update(trainer._id.toString(), { $inc: { coins: moneyChange } });
+    await this.trainerService.update(trainer._id.toString(), {$inc: {coins: moneyChange}});
 
     const created = await this.model.findOneAndUpdate(
-      { trainer: trainer._id, type: dto.type },
-      { $inc: { amount: dto.amount } },
-      { upsert: true, new: true, setDefaultsOnInsert: true }
+      {trainer: trainer._id, type: dto.type},
+      {$inc: {amount: dto.amount}},
+      {upsert: true, new: true, setDefaultsOnInsert: true}
     );
 
     this.emit('created', created);
