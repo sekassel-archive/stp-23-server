@@ -18,29 +18,30 @@ export class ItemService {
   }
 
   async updateOne(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
-    const price = itemTypes.find(item => item.id === dto.type)?.price;
-    let money = 0;
+    const itemType = itemTypes.find(item => item.id === dto.type);
+    const price = itemType?.price;
+    let moneyChange = 0;
 
-    // Trainer has enough coins to buy the amount of items
-    if (price && dto.amount > 0 && trainer.coins >= price * dto.amount) {
-      money = -price * dto.amount;
-    }
-
-    // Trainer has enough items to sell
+    const hasEnoughCoinsToBuy = price != null && dto.amount > 0 && trainer.coins >= price * dto.amount;
     const item = await this.findOne(trainer._id.toString(), dto.type);
-    if (price && item && dto.amount < 0 && item.amount >= dto.amount) {
-      money = -price * dto.amount / 2;
-    }
+    const hasEnoughItemsToSell = price != null && dto.amount < 0 && item?.amount != null && item.amount >= dto.amount;
 
-    if (money == 0) {
+    if (hasEnoughCoinsToBuy) {
+      moneyChange = -price * dto.amount;
+    } else if (hasEnoughItemsToSell) {
+      moneyChange = -price * dto.amount / 2;
+    } else {
       throw new ForbiddenException('Trainer does not have enough items or coins');
     }
-    await this.trainerService.update(trainer._id.toString(), {$inc: {coins: money}});
 
-    const created = await this.model.findOneAndUpdate({
-      trainer: trainer._id,
-      type: dto.type
-    }, {$inc: {amount: dto.amount}}, {upsert: true, new: true, setDefaultsOnInsert: true});
+    await this.trainerService.update(trainer._id.toString(), { $inc: { coins: moneyChange } });
+
+    const created = await this.model.findOneAndUpdate(
+      { trainer: trainer._id, type: dto.type },
+      { $inc: { amount: dto.amount } },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+
     this.emit('created', created);
     return created;
   }

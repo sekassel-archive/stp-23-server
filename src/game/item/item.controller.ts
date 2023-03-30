@@ -1,5 +1,14 @@
 import {ItemService} from "./item.service";
-import {Body, Controller, ForbiddenException, Get, Param, Patch} from "@nestjs/common";
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  ForbiddenException,
+  Get,
+  NotFoundException,
+  Param,
+  Patch
+} from "@nestjs/common";
 import {ApiConflictResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {Validated} from "../../util/validated.decorator";
 import {Auth, AuthUser} from "../../auth/auth.decorator";
@@ -33,17 +42,12 @@ export class ItemController {
     @Body() dto: CreateItemDto,
     @AuthUser() user: User,
   ): Promise<Item | null> {
-    if (dto.amount === 0) {
-      throw new ForbiddenException('Amount must be not 0');
-    }
-    if (dto.type === 5 || dto.type === 7) {
-      throw new ForbiddenException('This item can\'t be bought or sold');
-    }
+    this.validateInput(dto);
     const trainer = await this.trainerService.findOne(trainerId);
     if (!trainer) {
-      return null;
+      throw new NotFoundException('Trainer not found');
     }
-    if (!(trainer?.user.toString() === user._id.toString())) {
+    if (trainer.user.toString() !== user._id.toString()) {
       throw new ForbiddenException('You are not the owner of this trainer');
     }
     return this.itemService.updateOne(trainer, dto);
@@ -67,5 +71,15 @@ export class ItemController {
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Item | null> {
     return this.itemService.findById(id);
+  }
+
+  private validateInput(dto: CreateItemDto): void {
+    if (dto.amount === 0) {
+      throw new BadRequestException('Amount must not be 0');
+    }
+    const unsupportedTypes = [5, 7];
+    if (unsupportedTypes.includes(dto.type)) {
+      throw new ForbiddenException('This item cannot be bought or sold');
+    }
   }
 }
