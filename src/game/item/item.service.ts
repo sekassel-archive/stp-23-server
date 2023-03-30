@@ -18,7 +18,6 @@ export class ItemService {
   }
 
   async updateOne(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
-    // TODO: Check if trainer has enough items to be subtracted / enough coins to buy
     const price = itemTypes.find(item => item.id === dto.type)?.price;
     let money = 0;
 
@@ -28,7 +27,7 @@ export class ItemService {
     }
 
     // Trainer has enough items to sell
-    const item = await this.findOne(trainer._id.toString(), dto.type.toString());
+    const item = await this.findOne(trainer._id.toString(), dto.type);
     if (price && item && dto.amount < 0 && item.amount >= dto.amount) {
       money = -price * dto.amount / 2;
     }
@@ -63,7 +62,11 @@ export class ItemService {
     return this.model.find(filter).exec();
   }
 
-  async findOne(trainer: string, type: string): Promise<ItemDocument | null> {
-    return this.model.findOne({type: type});
+  async findOne(trainer: string, type: number): Promise<ItemDocument | null> {
+    return this.model.findOne({trainer: trainer, type: type});
+  }
+
+  async findById(id: string): Promise<ItemDocument | null> {
+    return this.model.findById(id).exec();
   }
 }

@@ -55,14 +55,14 @@ export class ItemController {
     return this.itemService.findAll({region, trainer});
   }
 
-  @Get(':type')
+  @Get(':id')
   @ApiOkResponse({type: Item})
   @NotFound()
   async findOne(
     @Param('regionId', ParseObjectIdPipe) region: string,
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
-    @Param('type', ParseObjectIdPipe) type: string,
+    @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Item | null> {
-    return this.itemService.findOne(trainer, type);
+    return this.itemService.findById(id);
   }
 }
