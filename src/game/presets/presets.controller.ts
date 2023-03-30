@@ -40,27 +40,10 @@ export class PresetsController {
     return new StreamableFile(fs.createReadStream('assets/characters/' + filename));
   }
 
-  @Get('monsters')
-  @ApiOkResponse({type: [MonsterTypeDto]})
-  getMonsters(): MonsterTypeDto[] {
-    return monsterTypes.map(m => this.maskMonster(m));
-  }
-
   @Get('items')
   @ApiOkResponse({type: [ItemTypeDto]})
   getItems(): ItemTypeDto[] {
     return itemTypes.map(i => this.maskItem(i));
-  }
-
-  @Get('monsters/:id')
-  @NotFound()
-  @ApiOkResponse({type: MonsterTypeDto})
-  @ApiParam({name: 'id', type: 'number'})
-  getMonster(
-    @Param('id', ParseIntPipe) id: number,
-  ): MonsterTypeDto | undefined {
-    const monster = monsterTypes.find(m => m.id === id);
-    return monster && this.maskMonster(monster);
   }
 
   @Get('items/:id')
@@ -72,6 +55,32 @@ export class PresetsController {
   ): ItemTypeDto | undefined {
     const item = itemTypes.find(i => i.id === id);
     return item && this.maskItem(item);
+  }
+
+  @Get('items/:id/image')
+  @NotFound()
+  getItemImage(
+    @Param('id', ParseIntPipe) id: number,
+  ): StreamableFile | undefined {
+    const item = itemTypes.find(m => m.id === id);
+    return item && new StreamableFile(fs.createReadStream('assets/items/' + item.image));
+  }
+
+  @Get('monsters')
+  @ApiOkResponse({type: [MonsterTypeDto]})
+  getMonsters(): MonsterTypeDto[] {
+    return monsterTypes.map(m => this.maskMonster(m));
+  }
+
+  @Get('monsters/:id')
+  @NotFound()
+  @ApiOkResponse({type: MonsterTypeDto})
+  @ApiParam({name: 'id', type: 'number'})
+  getMonster(
+    @Param('id', ParseIntPipe) id: number,
+  ): MonsterTypeDto | undefined {
+    const monster = monsterTypes.find(m => m.id === id);
+    return monster && this.maskMonster(monster);
   }
 
   @Get('monsters/:id/image')
