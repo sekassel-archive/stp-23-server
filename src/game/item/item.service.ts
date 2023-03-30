@@ -3,7 +3,8 @@ import {FilterQuery, Model} from "mongoose";
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {CreateItemDto} from "./item.dto";
-import {Injectable} from "@nestjs/common";
+import {ForbiddenException, Injectable} from "@nestjs/common";
+import {GlobalSchema} from "../../util/schema";
 
 @Injectable()
 export class ItemService {
@@ -14,6 +15,20 @@ export class ItemService {
   }
 
   async create(trainer: string, dto: CreateItemDto): Promise<Item> {
+    const create: Omit<Item, keyof GlobalSchema> = {
+      ...dto,
+      trainer,
+    };
+    const exist = await this.model.findOne({trainer: trainer, type: dto.type});
+    if (exist) {
+      throw new ForbiddenException('ItemType already exists on trainer. Use PATCH');
+    }
+    const created = await this.model.create(create);
+    this.emit('created', created);
+    return created;
+  }
+
+  async updateOne(trainer: string, dto: CreateItemDto) {
     const created = await this.model.findOneAndUpdate({
       trainer: trainer,
       type: dto.type

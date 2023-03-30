@@ -1,5 +1,5 @@
 import {ItemService} from "./item.service";
-import {Body, Controller, ForbiddenException, Get, Param, Post} from "@nestjs/common";
+import {Body, Controller, ForbiddenException, Get, Param, Patch, Post} from "@nestjs/common";
 import {ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {Validated} from "../../util/validated.decorator";
 import {Auth, AuthUser} from "../../auth/auth.decorator";
@@ -33,7 +33,7 @@ export class ItemController {
     @AuthUser() user: User,
   ): Promise<Item> {
     if (dto.amount <= 0) {
-      throw new ForbiddenException('Amount must be a number greater than 0');
+      throw new ForbiddenException('Amount must be greater than 0');
     }
     const trainer = await this.trainerService.findOne(trainerId);
     if (!(trainer?.user.toString() === user._id.toString())) {
@@ -42,8 +42,31 @@ export class ItemController {
     return this.itemService.create(trainerId, dto);
   }
 
+  // TODO: Patch endpoint for selling or adding (check for player near merchant?)
+  @Patch()
+  @ApiOkResponse({type: Item})
+  async updateOne(
+    @Param('regionId', ParseObjectIdPipe) regionId: string,
+    @Param('trainerId', ParseObjectIdPipe) trainerId: string,
+    @Body() dto: CreateItemDto,
+    @AuthUser() user: User,
+  ): Promise<Item | null> {
+    if (dto.amount === 0) {
+      return null;
+    }
+    const trainer = await this.trainerService.findOne(trainerId);
+    if (!trainer) {
+      return null;
+    }
+    if (!(trainer?.user.toString() === user._id.toString())) {
+      throw new ForbiddenException('You are not the owner of this trainer');
+    }
+    // TODO: Check if trainer has enough items to be subtracted / enough coins to buy
+    return this.itemService.updateOne(trainerId, dto);
+  }
+
   @Get()
-  @ApiOkResponse({type: [Item]})
+  @ApiOkResponse({type: Item})
   async findAll(
     @Param('regionId', ParseObjectIdPipe) region: string,
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
