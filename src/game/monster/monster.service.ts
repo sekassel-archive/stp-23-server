@@ -1,9 +1,10 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
+import {abilities, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
 
@@ -23,21 +24,30 @@ export class MonsterService {
     return this.model.findById(id).exec();
   }
 
+  async createAuto(trainer: string, type: number, level: number) {
+    const monsterType = monsterTypes.find(t => t.id === type);
+    if (!monsterType) {
+      throw new NotFoundException('Invalid monster type');
+    }
+    return this.create(trainer, {
+      type,
+      level,
+      attributes: {
+        health: 7 + Math.round(level * 2.8),
+        attack: 5 + Math.round(level * 2.5),
+        defense: 5 + Math.round(level * 2.5),
+        initiative: 5 + Math.round(level * 2.2),
+      },
+      abilities: abilities.filter(a => monsterType.type.includes(a.type) && a.minLevel >= level).map(a => a.id).slice(0, 4),
+    });
+  }
+
   async create(trainer: string, dto: CreateMonsterDto): Promise<Monster> {
-    const attributes: MonsterAttributes = {
-      health: 10,
-      attack: 1,
-      defense: 1,
-      initiative: 1,
-    };
     const create: Omit<Monster, keyof GlobalSchema> = {
       ...dto,
       trainer,
-      level: 1,
       experience: 0,
-      abilities: [1],
-      attributes,
-      currentAttributes: attributes,
+      currentAttributes: dto.attributes,
     };
     const created = await this.model.create(create);
     this.emit('created', created);
@@ -58,6 +68,15 @@ export class MonsterService {
     const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
+  }
+
+  async healAll(trainer: string): Promise<void> {
+    const monsters = await this.findAll({trainer});
+    for (const monster of monsters) {
+      monster.currentAttributes = monster.attributes;
+      this.emit('updated', monster);
+    }
+    await this.model.bulkSave(monsters);
   }
 
   async deleteTrainer(trainer: string): Promise<Monster[]> {

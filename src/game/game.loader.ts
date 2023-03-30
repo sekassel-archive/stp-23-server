@@ -7,6 +7,7 @@ import {AreaDocument} from './area/area.schema';
 import {AreaService} from './area/area.service';
 import {MonsterAttributes} from './monster/monster.schema';
 import {MonsterService} from './monster/monster.service';
+import {TiledMap} from './tiled-map.interface';
 import {Direction} from './trainer/trainer.schema';
 import {TrainerService} from './trainer/trainer.service';
 
@@ -49,7 +50,7 @@ export class GameLoader implements OnModuleInit {
 
   private async loadArea(areaFileName: string, region: Region): Promise<AreaDocument> {
     const name = areaFileName.replace('.json', '');
-    const map = JSON.parse(await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8'));
+    const map: TiledMap = JSON.parse(await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8'));
     const area = await this.areaService.upsert({
       region: region._id.toString(),
       name,
@@ -64,7 +65,7 @@ export class GameLoader implements OnModuleInit {
         continue;
       }
       for (const object of layer.objects) {
-        if (!(object.point && object.class === 'Trainer')) {
+        if (!(object.point && object.type === 'Trainer')) {
           continue;
         }
 
@@ -89,12 +90,13 @@ export class GameLoader implements OnModuleInit {
       area: area._id.toString(),
       name: object.name,
       image: getProperty<string>(object, 'Image') || 'Adam_16x16.png',
-      coins: getProperty<number>(object, 'Coins') || Infinity,
+      coins: getProperty<number>(object, 'Coins') ?? Infinity,
       x: (object.x / map.tilewidth) | 0,
       y: (object.y / map.tileheight) | 0,
-      direction: getProperty<number>(object, 'Direction') || Direction.DOWN,
+      direction: getProperty<number>(object, 'Direction') ?? Direction.DOWN,
       'npc.encountered': [], // TODO this should be in $setOnInsert above
       'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
+      'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
       'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
     });

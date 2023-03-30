@@ -1,27 +1,47 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
+import * as fs from 'node:fs/promises';
 import {SocketService} from '../../udp/socket.service';
 import {User} from '../../user/user.schema';
 import {Area} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {EncounterService} from '../encounter/encounter.service';
 import {getProperty} from '../game.loader';
-import {MoveTrainerDto} from './trainer.dto';
+import {MonsterService} from '../monster/monster.service';
+import {OpponentService} from '../opponent/opponent.service';
+import {Layer} from '../tiled-map.interface';
+import {Tile} from '../tileset.interface';
+import {MoveTrainerDto, TalkTrainerDto} from './trainer.dto';
 import {Direction, Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
-interface Portal {
+export interface BaseGameObject {
   x: number;
   y: number;
   width: number;
   height: number;
+}
+
+export interface Portal extends BaseGameObject {
+  type: 'Portal';
   target: {
     area: string;
     x: number;
     y: number;
   };
 }
+
+export interface TallGrass extends BaseGameObject {
+  type: 'TallGrass';
+  monsters: [number, number][];
+}
+
+export type GameObject = Portal | TallGrass;
+
+const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
+
+const TALL_GRASS_TRAINER = '0'.repeat(24);
 
 @Injectable()
 export class TrainerHandler implements OnModuleInit {
@@ -30,53 +50,81 @@ export class TrainerHandler implements OnModuleInit {
     private socketService: SocketService,
     private areaService: AreaService,
     private encounterService: EncounterService,
+    private opponentService: OpponentService,
+    private monsterService: MonsterService,
   ) {
   }
 
-  portals = new Map<string, Portal[]>;
+  objects = new Map<string, GameObject[]>;
+  tilelayers = new Map<string, Layer[]>;
+  tiles = new Map<string, Tile[]>;
 
   async onModuleInit() {
     const areas = await this.areaService.findAll();
     for (const area of areas) {
-      const portals = this.loadPortals(area, areas);
-      this.portals.set(area._id.toString(), portals);
+      const portals = this.loadObjects(area, areas);
+      this.objects.set(area._id.toString(), portals);
+
+      this.tilelayers.set(area._id.toString(), area.map.layers);
+
+      const tiles = await this.loadTiles(area);
+      this.tiles.set(area._id.toString(), tiles);
     }
   }
 
-  private loadPortals(area: Area, areas: Area[]) {
-    const portals: Portal[] = [];
+  private loadObjects(area: Area, areas: Area[]) {
+    const objects: GameObject[] = [];
 
     for (const layer of area.map.layers) {
       if (layer.type !== 'objectgroup') {
         continue;
       }
       for (const object of layer.objects) {
-        if (object.class !== 'Portal') {
-          continue;
+        const x = object.x / area.map.tilewidth;
+        const y = object.y / area.map.tileheight;
+        const width = object.width / area.map.tilewidth;
+        const height = object.height / area.map.tileheight;
+        switch (object.type) {
+          case 'Portal':
+            const targetName = getProperty(object, 'Map');
+            const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
+            if (!targetArea) {
+              console.log('Invalid portal target:', targetName, 'in area', area.name, 'object', object.id);
+              continue;
+            }
+            objects.push({
+              type: 'Portal', x, y, width, height,
+              target: {
+                area: targetArea._id.toString(),
+                x: getProperty<number>(object, 'X') || 0,
+                y: getProperty<number>(object, 'Y') || 0,
+              },
+            });
+            break;
+          case 'TallGrass':
+            objects.push({
+              type: 'TallGrass', x, y, width, height,
+              monsters: JSON.parse(getProperty<string>(object, 'Monsters') || '[]'),
+            });
+            break;
         }
-
-        const targetName = getProperty(object, 'Map');
-        const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
-        if (!targetArea) {
-          console.log('Invalid portal target:', targetName, 'in area', area.name, 'object', object.id);
-          continue;
-        }
-
-        const portal: Portal = {
-          x: object.x / area.map.tilewidth,
-          y: object.y / area.map.tileheight,
-          width: object.width / area.map.tilewidth,
-          height: object.height / area.map.tileheight,
-          target: {
-            area: targetArea._id.toString(),
-            x: getProperty<number>(object, 'X') || 0,
-            y: getProperty<number>(object, 'Y') || 0,
-          },
-        };
-        portals.push(portal);
       }
     }
-    return portals;
+    return objects;
+  }
+
+  private async loadTiles(area: Area): Promise<Tile[]> {
+    const tiles: Tile[] = [];
+
+    await Promise.all(area.map.tilesets.map(async tsr => {
+      const text = await fs.readFile(`./assets/maps/Test/${tsr.source}`, 'utf8').catch(() => '{}');
+      const tileset = JSON.parse(text);
+      for (const tile of tileset.tiles) {
+        tiles[tsr.firstgid + tile.id] = tile;
+      }
+    }));
+
+    return tiles;
   }
 
   @OnEvent('users.*.deleted')
@@ -87,39 +135,85 @@ export class TrainerHandler implements OnModuleInit {
   @OnEvent('areas.*.trainers.*.moved')
   async onTrainerMoved(dto: MoveTrainerDto) {
     // TODO validate movement
-    const oldLocation = this.trainerService.getLocation(dto._id.toString())
-      || await this.trainerService.findOne(dto._id.toString());
+    const trainerId = dto._id.toString();
+    const oldLocation = this.trainerService.getLocation(trainerId)
+      || await this.trainerService.findOne(trainerId);
     if (!oldLocation) {
       return;
     }
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
-    if (Math.abs(dto.x - oldLocation.x) + Math.abs(dto.y - oldLocation.y) > 1 // Invalid movement
-      || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
+    if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
+      || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
+      || !this.getTopTileProperty(dto, 'Walkable') // Tile not walkable
     ) {
       dto.x = oldLocation.x;
       dto.y = oldLocation.y;
     }
 
-    const portal = this.getPortal(dto.area, dto.x, dto.y);
-    if (portal) {
-      const {area, x, y} = portal.target;
-      dto.area = area;
-      dto.x = x;
-      dto.y = y;
-      // inform old area that the trainer left
-      this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
-      await this.trainerService.saveLocations([dto]);
+    const gameObject = this.getGameObject(dto.area, dto.x, dto.y);
+    switch (gameObject?.type) {
+      case 'Portal':
+        const {area, x, y} = gameObject.target;
+        dto.area = area;
+        dto.x = x;
+        dto.y = y;
+        // inform old area that the trainer left
+        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+        await this.trainerService.saveLocations([dto]);
+        break;
+      case 'TallGrass':
+        if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
+          const trainer = await this.trainerService.findOne(trainerId);
+          const [type, level] = gameObject.monsters[Math.floor(Math.random() * gameObject.monsters.length)];
+          trainer && await this.createMonsterEncounter(trainer.region, trainerId, type, level);
+        }
+        break;
     }
 
     this.checkAllNPCsOnSight(dto);
 
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
-    this.trainerService.setLocation(dto._id.toString(), dto);
+    this.trainerService.setLocation(trainerId, dto);
   }
 
-  getPortal(area: string, x: number, y: number) {
-    const portals = this.portals.get(area) || [];
+  getTopTile({area, x, y}: MoveTrainerDto): number {
+    const layers = this.tilelayers.get(area);
+    if (!layers) {
+      return 0;
+    }
+
+    for (let i = (layers.length || 0) - 1; i >= 0; i--) {
+      const layer = layers[i];
+      if (layer.type !== 'tilelayer') {
+        continue;
+      }
+      if (!(x >= layer.startx && x < layer.startx + layer.width && y >= layer.starty && y < layer.starty + layer.height)) {
+        continue;
+      }
+
+      for (const chunk of layer.chunks) {
+        if (x >= chunk.x && x < chunk.x + chunk.width && y >= chunk.y && y < chunk.y + chunk.height) {
+          const tile = chunk.data[(y - chunk.y) * chunk.width + (x - chunk.x)];
+          if (tile != 0) {
+            return tile;
+          }
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  getTopTileProperty(dto: MoveTrainerDto, property: string): boolean {
+    const topTile = this.getTopTile(dto);
+    if (topTile === 0) return false;
+    const tile = this.tiles.get(dto.area)?.[topTile];
+    return tile && getProperty<boolean>(tile, property) || false;
+  }
+
+  getGameObject(area: string, x: number, y: number) {
+    const portals = this.objects.get(area) || [];
     for (const portal of portals) {
       if (x >= portal.x && x < portal.x + portal.width && y >= portal.y && y < portal.y + portal.height) {
         return portal;
@@ -131,7 +225,7 @@ export class TrainerHandler implements OnModuleInit {
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
     const trainer = await this.trainerService.findOne(trainerId);
-    if (trainer?.npc) {
+    if (!trainer || trainer.npc) {
       return;
     }
 
@@ -141,6 +235,7 @@ export class TrainerHandler implements OnModuleInit {
       'npc.encounterOnSight': true,
       'npc.encountered': {$ne: trainerId},
     });
+    const attackers: string[] = [];
     for (const npc of npcs) {
       if (this.checkNPConSight(dto, npc, 5)) {
         // TODO: Player blockieren
@@ -149,7 +244,7 @@ export class TrainerHandler implements OnModuleInit {
         const y = npc.direction === Direction.UP ? -1 : npc.direction === Direction.DOWN ? 1 : 0;
 
         // Finds how many steps the npc has to walk to the player
-        const moveRange = Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y) - 1;
+        const moveRange = this.getDistance(dto, npc) - 1;
 
         // Add path points for moving npc towards player
         const path: number[] = [];
@@ -160,9 +255,32 @@ export class TrainerHandler implements OnModuleInit {
           'npc.path': path,
           $addToSet: {'npc.encountered': trainerId},
         });
-        await this.encounterService.create(npc.region, [trainerId, npc._id.toString()]);
+        attackers.push(npc._id.toString());
       }
     }
+
+    if (attackers.length <= 0) {
+      return;
+    }
+
+    await this.createTrainerBattle(trainer.region, trainerId, attackers);
+  }
+
+  private async createTrainerBattle(region: string, defender: string, attackers: string[]) {
+    const encounter = await this.encounterService.create(region, {isWild: false});
+    await this.opponentService.create(encounter._id.toString(), defender, false);
+    await Promise.all(attackers.map(attacker => this.opponentService.create(encounter._id.toString(), attacker, true)));
+  }
+
+  private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
+    const encounter = await this.encounterService.create(region, {isWild: true});
+    const monster = await this.monsterService.createAuto(TALL_GRASS_TRAINER, type, level);
+    await this.opponentService.create(encounter._id.toString(), defender, false);
+    await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, true, monster._id.toString());
+  }
+
+  private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
+    return Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y);
   }
 
   checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number): boolean {
@@ -181,5 +299,27 @@ export class TrainerHandler implements OnModuleInit {
         return player.y === npc.y && player.x > npc.x && Math.abs(player.x - npc.x) <= maxRange;
     }
     return false;
+  }
+
+  @OnEvent('areas.*.trainers.*.talked')
+  async onTrainerTalked(dto: TalkTrainerDto) {
+    const trainerId = dto._id.toString();
+    const targetId = dto.target;
+    const [trainer, target] = await Promise.all([
+      this.trainerService.findOne(trainerId),
+      this.trainerService.findOne(targetId),
+    ]);
+    if (!trainer || !target || trainer.area !== target.area || this.getDistance(trainer, target) > 2) {
+      return;
+    }
+
+    if (target.npc?.canHeal) {
+      await this.monsterService.healAll(trainerId);
+    } else if (target.npc?.encounterOnSight) {
+      await this.trainerService.update(targetId, {
+        $addToSet: {'npc.encountered': trainerId},
+      });
+      await this.createTrainerBattle(trainer.region, targetId, [trainerId]);
+    }
   }
 }

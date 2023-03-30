@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {forwardRef, Module} from '@nestjs/common';
 import {MongooseModule} from '@nestjs/mongoose';
 import {EventModule} from '../../event/event.module';
 import {MonsterModule} from '../monster/monster.module';
@@ -17,7 +17,7 @@ import {EncounterService} from './encounter.service';
     ]),
     EventModule,
     MonsterModule,
-    OpponentModule,
+    forwardRef(() => OpponentModule),
   ],
   providers: [EncounterService],
   controllers: [EncounterController],

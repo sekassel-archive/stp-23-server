@@ -5,7 +5,9 @@ import {NotFound} from '../../util/not-found.decorator';
 import {
   abilities,
   Ability,
-  AbilityDto, ItemType,
+  AbilityDto,
+  characters,
+  ItemType,
   ItemTypeDto,
   itemTypes,
   MonsterType,
@@ -22,6 +24,20 @@ export class PresetsController {
   ): StreamableFile {
     filename = filename.substring(filename.lastIndexOf('/') + 1);
     return new StreamableFile(fs.createReadStream('assets/tilesets/' + filename));
+  }
+
+  @Get('characters')
+  @ApiOkResponse({type: [String]})
+  getCharacters(): string[] {
+    return characters;
+  }
+
+  @Get('characters/:filename')
+  getCharacter(
+    @Param('filename') filename: string,
+  ): StreamableFile {
+    filename = filename.substring(filename.lastIndexOf('/') + 1);
+    return new StreamableFile(fs.createReadStream('assets/characters/' + filename));
   }
 
   @Get('monsters')
@@ -56,6 +72,15 @@ export class PresetsController {
   ): ItemTypeDto | undefined {
     const item = itemTypes.find(i => i.id === id);
     return item && this.maskItem(item);
+  }
+
+  @Get('monsters/:id/image')
+  @NotFound()
+  getMonsterImage(
+    @Param('id', ParseIntPipe) id: number,
+  ): StreamableFile | undefined {
+    const monster = monsterTypes.find(m => m.id === id);
+    return monster && new StreamableFile(fs.createReadStream('assets/monsters/' + monster.image));
   }
 
   private maskMonster(monster: MonsterType): MonsterTypeDto {

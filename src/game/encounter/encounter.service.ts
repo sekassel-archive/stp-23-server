@@ -6,6 +6,7 @@ import {abilities, Ability, monsterTypes, Type, types} from '../constants';
 import {MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
 import {OpponentService} from '../opponent/opponent.service';
+import {CreateEncounterDto} from './encounter.dto';
 import {Encounter, EncounterDocument} from './encounter.schema';
 
 @Injectable()
@@ -26,12 +27,12 @@ export class EncounterService {
     return this.model.findById(id).exec();
   }
 
-  async create(region: string, trainerIds: string[]): Promise<EncounterDocument> {
+  async create(region: string, dto: CreateEncounterDto): Promise<EncounterDocument> {
     const encounter = await this.model.create({
+      ...dto,
       region,
     });
     encounter && this.emit('create', encounter);
-    await Promise.all(trainerIds.map(trainerId => this.opponentService.create(encounter._id.toString(), trainerId)));
     return encounter;
   }
 

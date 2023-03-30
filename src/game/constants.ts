@@ -4,6 +4,9 @@ import * as _abilities from '../../assets/abilities.json';
 import * as _monsterTypes from '../../assets/monsters.json';
 import * as _itemTypes from '../../assets/items.json';
 import * as _types from '../../assets/types.json';
+import * as _characters from '../../assets/characters.json';
+
+export const characters = _characters;
 
 export const types = _types;
 export type Type = keyof typeof types;
@@ -39,6 +42,9 @@ export class MonsterType {
 
   @ApiProperty()
   name: string;
+
+  @ApiProperty()
+  image: string;
 
   @ApiProperty()
   type: string[];
