@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image": "item01",
+    "image": "tile025.png",
     "name": "Monball",
     "price": 20,
     "effects": [],
@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "image": "item02",
+    "image": "chocolate.png",
     "name": "Chocolate bar",
     "price": 2,
     "effects": [
@@ -22,8 +22,21 @@
   },
   {
     "id": 3,
-    "image": "item03",
-    "name": "Health potion",
+    "image": "tile024.png",
+    "name": "Large health potion",
+    "price": 80,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 50
+      }
+    ],
+    "description": "Heals 50 health"
+  },
+  {
+    "id": 3,
+    "image": "pot.png",
+    "name": "Small health potion",
     "price": 50,
     "effects": [
       {
@@ -35,10 +48,47 @@
   },
   {
     "id": 4,
-    "image": "item04",
-    "name": "Apple",
+    "image": "mondex.png",
+    "name": "Mondex",
+    "price": 1000,
+    "effects": [],
+    "description": "A handheld device"
+  },
+  {
+    "id": 5,
+    "image": "purse.png",
+    "name": "Money bag",
     "price": 0,
     "effects": [],
-    "description": "An apple a day.."
+    "description": "A purse for valuable and shiny coins"
+  },
+  {
+    "id": 6,
+    "image": "chicken.png",
+    "name": "Chicken leg",
+    "price": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 5
+      }
+    ],
+    "description": "A grilled chicken leg. Tasty"
+  },
+  {
+    "id": 7,
+    "image": "backpack_brown.png",
+    "name": "Backpack",
+    "price": 0,
+    "effects": [],
+    "description": "A travelpack to store stuff"
+  },
+  {
+    "id": 8,
+    "image": "package.png",
+    "name": "Mystery box",
+    "price": 200,
+    "effects": [],
+    "description": "A mysterious package. What is in it?"
   }
 ]

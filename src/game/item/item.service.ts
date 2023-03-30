@@ -32,10 +32,10 @@ export class ItemService {
       money = -price * dto.amount / 2;
     }
 
-    const response = await this.trainerService.update(trainer._id.toString(), {$inc: {coins: money}});
-    if (!response) {
+    if (money == 0) {
       throw new ForbiddenException('Trainer does not have enough items or coins');
     }
+    await this.trainerService.update(trainer._id.toString(), {$inc: {coins: money}});
 
     const created = await this.model.findOneAndUpdate({
       trainer: trainer._id,

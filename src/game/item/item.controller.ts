@@ -36,6 +36,9 @@ export class ItemController {
     if (dto.amount === 0) {
       throw new ForbiddenException('Amount must be not 0');
     }
+    if (dto.type === 5 || dto.type === 7) {
+      throw new ForbiddenException('This item can\'t be bought or sold');
+    }
     const trainer = await this.trainerService.findOne(trainerId);
     if (!trainer) {
       return null;
