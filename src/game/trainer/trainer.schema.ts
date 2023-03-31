@@ -36,6 +36,10 @@ export class NPCInfo {
   @IsBoolean()
   canHeal: boolean;
 
+  @ApiProperty()
+  @IsBoolean()
+  isMerchant: boolean;
+
   @ApiPropertyOptional({type: [Number]})
   @IsOptional()
   @IsArray()
