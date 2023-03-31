@@ -8,7 +8,7 @@ export interface Tileset {
   tileheight: number;
   tilecount: number;
   columns: number;
-  tiles: Tile[];
+  tiles?: Tile[];
 }
 
 export interface Tile {

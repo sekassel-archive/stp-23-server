@@ -91,7 +91,7 @@ export class TrainerHandler implements OnModuleInit {
     await Promise.all(area.map.tilesets.map(async tsr => {
       const text = await fs.readFile(`./assets/maps/Test/${tsr.source}`, 'utf8').catch(() => '{}');
       const tileset = JSON.parse(text);
-      for (const tile of tileset.tiles) {
+      for (const tile of tileset.tiles || []) {
         tiles[tsr.firstgid + tile.id] = tile;
       }
     }));
