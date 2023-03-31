@@ -301,7 +301,7 @@ export class TrainerHandler implements OnModuleInit {
     return false;
   }
 
-  @OnEvent('areas.*.trainers.*.talked')
+  @OnEvent('udp:areas.*.trainers.*.talked')
   async onTrainerTalked(dto: TalkTrainerDto) {
     const trainerId = dto._id.toString();
     const targetId = dto.target;
