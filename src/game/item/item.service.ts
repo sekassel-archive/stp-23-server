@@ -18,13 +18,23 @@ export class ItemService {
   }
 
   async updateOne(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
+    const filteredTrainers = await this.trainerService.findAll({
+      area: trainer.area,
+      'npc.isMerchant': true,
+      x: {$gte: trainer.x - 2, $lte: trainer.x + 2},
+      y: {$gte: trainer.y - 2, $lte: trainer.y + 2},
+    });
+
+    if (filteredTrainers.length === 0) {
+      throw new ForbiddenException('Trainer is not near a merchant');
+    }
+
     const itemType = itemTypes.find(item => item.id === dto.type);
     const price = itemType?.price;
-    let moneyChange = 0;
-
     const hasEnoughCoinsToBuy = price != null && dto.amount > 0 && trainer.coins >= price * dto.amount;
     const item = await this.findOne(trainer._id.toString(), dto.type);
     const hasEnoughItemsToSell = price != null && dto.amount < 0 && item?.amount != null && item.amount >= dto.amount;
+    let moneyChange = 0;
 
     if (hasEnoughCoinsToBuy) {
       moneyChange = -price * dto.amount;
@@ -35,13 +45,21 @@ export class ItemService {
     }
 
     await this.trainerService.update(trainer._id.toString(), {$inc: {coins: moneyChange}});
-
     const created = await this.model.findOneAndUpdate(
       {trainer: trainer._id, type: dto.type},
       {$inc: {amount: dto.amount}},
       {upsert: true, new: true, setDefaultsOnInsert: true}
     );
+    this.emit('created', created);
+    return created;
+  }
 
+  async getStarterItems(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
+    const created = await this.model.findOneAndUpdate(
+      {trainer: trainer._id, type: dto.type},
+      {$inc: {amount: dto.amount}},
+      {upsert: true, new: true, setDefaultsOnInsert: true}
+    );
     this.emit('created', created);
     return created;
   }

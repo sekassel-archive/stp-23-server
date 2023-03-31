@@ -87,8 +87,32 @@
     "id": 8,
     "image": "package.png",
     "name": "Mystery box",
-    "price": 200,
+    "price": 250,
     "effects": [],
-    "description": "A mysterious package. What is in it?"
+    "description": "A mysterious package. What item is in it?"
+  },
+  {
+    "id": 9,
+    "image": "present_1.png",
+    "name": "Monbox",
+    "price": 250,
+    "effects": [],
+    "description": "A mysterious box containing a standard monster"
+  },
+  {
+    "id": 10,
+    "image": "present_2.png",
+    "name": "Monbox Premium",
+    "price": 500,
+    "effects": [],
+    "description": "A mysterious box containing a premium monster"
+  },
+  {
+    "id": 10,
+    "image": "present_3.png",
+    "name": "Monbox Elite",
+    "price": 1000,
+    "effects": [],
+    "description": "A mysterious box containing an elite monster"
   }
 ]
