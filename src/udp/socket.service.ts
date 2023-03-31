@@ -59,7 +59,7 @@ export class SocketService implements OnModuleInit {
         break;
       }
       default:
-        this.eventEmitter.emit(message.event, message.data);
+        this.eventEmitter.emit('udp:' + message.event, message.data);
         break;
     }
   }

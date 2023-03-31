@@ -132,7 +132,7 @@ export class TrainerHandler implements OnModuleInit {
     await this.trainerService.deleteUser(user._id.toString());
   }
 
-  @OnEvent('areas.*.trainers.*.moved')
+  @OnEvent('udp:areas.*.trainers.*.moved')
   async onTrainerMoved(dto: MoveTrainerDto) {
     // TODO validate movement
     const trainerId = dto._id.toString();
@@ -301,7 +301,7 @@ export class TrainerHandler implements OnModuleInit {
     return false;
   }
 
-  @OnEvent('areas.*.trainers.*.talked')
+  @OnEvent('udp:areas.*.trainers.*.talked')
   async onTrainerTalked(dto: TalkTrainerDto) {
     const trainerId = dto._id.toString();
     const targetId = dto.target;
