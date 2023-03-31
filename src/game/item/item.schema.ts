@@ -1,8 +1,9 @@
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from "../../util/schema";
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsInt, IsMongoId} from "class-validator";
+import {IsIn, IsInt, IsMongoId} from 'class-validator';
 import {Document, Types} from "mongoose";
+import {itemTypes} from '../constants';
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 export class Item extends GlobalSchema {
@@ -14,6 +15,7 @@ export class Item extends GlobalSchema {
   @Prop()
   @ApiProperty()
   @IsInt()
+  @IsIn(itemTypes.map(i => i.id))
   type: number;
 
   @Prop()
