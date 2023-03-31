@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image": "tile025.png",
+    "image": "ball.png",
     "name": "Monball",
     "price": 20,
     "effects": [],
@@ -22,7 +22,7 @@
   },
   {
     "id": 3,
-    "image": "tile024.png",
+    "image": "pot_gold.png",
     "name": "Large health potion",
     "price": 80,
     "effects": [
