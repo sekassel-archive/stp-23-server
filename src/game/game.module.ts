@@ -14,9 +14,9 @@ import {ItemModule} from "./item/item.module";
     AreaModule,
     TrainerModule,
     MonsterModule,
+    ItemModule,
     PresetsModule,
     EncounterModule,
-    ItemModule,
   ],
   providers: [
     GameLoader,
