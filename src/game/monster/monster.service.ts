@@ -6,7 +6,7 @@ import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
 import {abilities, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
+import {Monster, MonsterDocument} from './monster.schema';
 
 @Injectable()
 export class MonsterService {
