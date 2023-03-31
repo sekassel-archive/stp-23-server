@@ -1,5 +1,5 @@
 import {Body, Controller, ForbiddenException, Get, NotFoundException, Param, Patch} from '@nestjs/common';
-import {ApiForbiddenResponse, ApiOkResponse, ApiTags} from '@nestjs/swagger';
+import {ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
 import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
@@ -26,6 +26,7 @@ export class ItemController {
 
   // TODO: Check for player near merchant
   @Patch()
+  @ApiOperation({description: 'Buy or sell an item'})
   @ApiOkResponse({type: Item})
   @ApiForbiddenResponse({description: 'This item cannot be bought or sold, or you are not the owner of this trainer'})
   @NotFound()
