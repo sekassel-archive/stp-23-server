@@ -1,9 +1,20 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {IsArray, IsBoolean, IsEnum, IsInt, IsMongoId, IsOptional, IsString, ValidateNested} from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsIn,
+  IsInt,
+  IsMongoId,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
+import {characters} from '../constants';
 
 export enum Direction {
   RIGHT,
@@ -20,6 +31,10 @@ export class NPCInfo {
   @ApiProperty()
   @IsBoolean()
   encounterOnSight: boolean;
+
+  @ApiProperty()
+  @IsBoolean()
+  canHeal: boolean;
 
   @ApiPropertyOptional({type: [Number]})
   @IsOptional()
@@ -53,7 +68,7 @@ export class Trainer extends GlobalSchema {
 
   @Prop()
   @ApiProperty()
-  @IsString()
+  @IsIn(characters)
   image: string;
 
   @Prop()

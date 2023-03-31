@@ -23,13 +23,13 @@ export class OpponentService {
     return this.model.findOne({encounter, trainer}).exec();
   }
 
-  async create(encounter: string, trainer: string): Promise<OpponentDocument> {
-    const monsters = await this.monsterService.findAll({trainer});
+  async create(encounter: string, trainer: string, isAttacker: boolean, monster?: string): Promise<OpponentDocument> {
     try {
       const created = await this.model.create({
         encounter,
         trainer,
-        monster: monsters[0]?._id?.toString(),
+        monster: monster || (await this.monsterService.findAll({trainer}))[0]?._id?.toString(),
+        isAttacker,
       });
       created && this.emit('created', created);
       return created;
@@ -59,6 +59,12 @@ export class OpponentService {
     const updated = await this.model.findOneAndUpdate({encounter, trainer}, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
     return updated;
+  }
+
+  async deleteOne(encounter: string, trainer: string): Promise<OpponentDocument | null> {
+    const deleted = await this.model.findOneAndDelete({encounter, trainer}).exec();
+    deleted && this.emit('deleted', deleted);
+    return deleted;
   }
 
   async deleteAll(filter: FilterQuery<OpponentService>) {

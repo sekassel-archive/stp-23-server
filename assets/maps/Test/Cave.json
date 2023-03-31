@@ -48,12 +48,12 @@
                  "x":16,
                  "y":0
                 }],
-         "height":32,
+         "height":16,
          "id":1,
          "name":"Ground",
          "opacity":1,
          "startx":0,
-         "starty":-16,
+         "starty":0,
          "type":"tilelayer",
          "visible":true,
          "width":32,
@@ -124,7 +124,6 @@
          "name":"Objects",
          "objects":[
                 {
-                 "class":"Portal",
                  "height":48,
                  "id":1,
                  "name":"",
@@ -145,6 +144,7 @@
                          "value":17
                         }],
                  "rotation":0,
+                 "type":"Portal",
                  "visible":true,
                  "width":16,
                  "x":32,
@@ -160,15 +160,15 @@
  "nextobjectid":2,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../../tilesets/Fungus_Cave_16x16.json"
+         "source":"..\/..\/tilesets\/Fungus_Cave_16x16.json"
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.9",
+ "version":"1.10",
  "width":30
 }

@@ -1,213 +1,213 @@
 [
   {
     "id": 1,
-    "image": "01",
+    "image": "01.png",
     "name": "Nutchick",
     "type": ["normal"],
     "evolution": 2
   },
   {
     "id": 2,
-    "image": "02",
+    "image": "02.png",
     "name": "Hardchick",
     "type": ["fight"],
     "evolution": 3
   },
   {
     "id": 3,
-    "image": "03",
+    "image": "03.png",
     "name": "Battlechick",
     "type": ["fight"]
   },
   {
     "id": 4,
-    "image": "04",
+    "image": "04.png",
     "name": "Crurtle",
     "type": ["earth"],
     "evolution": 5
   },
   {
     "id": 5,
-    "image": "05",
+    "image": "05.png",
     "name": "Mirrortle",
     "type": ["earth"],
     "evolution": 6
   },
   {
     "id": 6,
-    "image": "06",
+    "image": "06.png",
     "name": "Batturtle",
     "type": ["earth", "flight"]
   },
   {
     "id": 7,
-    "image": "07",
+    "image": "07.png",
     "name": "Fencior",
     "type": ["metal", "fight"],
     "evolution": 8
   },
   {
     "id": 8,
-    "image": "08",
+    "image": "08.png",
     "name": "Shieldior",
     "type": ["metal", "fight"],
     "evolution": 9
   },
   {
     "id": 9,
-    "image": "09",
+    "image": "09.png",
     "name": "Shieldamor",
     "type": ["metal", "fight"]
   },
   {
     "id": 10,
-    "image": "10",
+    "image": "10.png",
     "name": "Candeer",
     "type": ["normal"],
     "evolution": 11
   },
   {
     "id": 11,
-    "image": "11",
+    "image": "11.png",
     "name": "Candamech",
     "type": ["normal", "metal"]
   },
   {
     "id": 12,
-    "image": "12",
+    "image": "12.png",
     "name": "Poigosst",
     "type": ["ghost", "poison"],
     "evolution": 13
   },
   {
     "id": 13,
-    "image": "13",
+    "image": "13.png",
     "name": "Poisoggost",
     "type": ["ghost", "poison"],
     "evolution": 14
   },
   {
     "id": 14,
-    "image": "14",
+    "image": "14.png",
     "name": "Poisofearst",
     "type": ["ghost", "poison"],
     "evolution": 15
   },
   {
     "id": 15,
-    "image": "15",
+    "image": "15.png",
     "name": "Fearamor",
     "type": ["ghost", "metal"]
   },
   {
     "id": 16,
-    "image": "16",
+    "image": "16.png",
     "name": "Digsi",
     "type": ["earth", "poison"],
     "evolution": 17
   },
   {
     "id": 17,
-    "image": "17",
+    "image": "17.png",
     "name": "Digseye",
     "type": ["earth", "poison"],
     "evolution": 18
   },
   {
     "id": 18,
-    "image": "18",
+    "image": "18.png",
     "name": "Digsacle",
     "type": ["earth", "poison"]
   },
   {
     "id": 19,
-    "image": "19",
+    "image": "19.png",
     "name": "Eggsoli",
     "type": ["psycho"],
     "evolution": 20
   },
   {
     "id": 20,
-    "image": "20",
+    "image": "20.png",
     "name": "Eggsiori",
     "type": ["psycho"],
     "evolution": 21
   },
   {
     "id": 21,
-    "image": "21",
+    "image": "21.png",
     "name": "Eggscrawli",
     "type": ["psycho"]
   },
   {
     "id": 22,
-    "image": "22",
+    "image": "22.png",
     "name": "Shelli",
     "type": ["water"],
     "evolution": 24
   },
   {
     "id": 23,
-    "image": "23",
+    "image": "23.png",
     "name": "Tentaclam",
     "type": ["water"]
   },
   {
     "id": 24,
-    "image": "24",
+    "image": "24.png",
     "name": "Shellout",
     "type": ["water"],
     "evolution": 25
   },
   {
     "id": 25,
-    "image": "25",
+    "image": "25.png",
     "name": "Shellover",
     "type": ["water"]
   },
   {
     "id": 26,
-    "image": "26",
+    "image": "26.png",
     "name": "Dragolegg",
     "type": ["fire"],
     "evolution": 27
   },
   {
     "id": 27,
-    "image": "27",
+    "image": "27.png",
     "name": "Dragolite",
     "type": ["fire"],
     "evolution": 28
   },
   {
     "id": 28,
-    "image": "28",
+    "image": "28.png",
     "name": "Dragomax",
     "type": ["fire"]
   },
   {
     "id": 29,
-    "image": "29",
+    "image": "29.png",
     "name": "Shroomi",
     "type": ["plant"],
     "evolution": 30
   },
   {
     "id": 30,
-    "image": "30",
+    "image": "30.png",
     "name": "Shroomking",
     "type": ["plant"],
     "evolution": 31
   },
   {
     "id": 31,
-    "image": "31",
+    "image": "31.png",
     "name": "Shroomagus",
     "type": ["plant"]
   },
   {
     "id": 32,
-    "image": "32",
+    "image": "32.png",
     "name": "Shroomi",
     "type": ["plant"],
     "evolution": 30

@@ -1,8 +1,9 @@
-import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
+import {Body, Controller, Delete, ForbiddenException, Get, Param, Post, Query} from '@nestjs/common';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiExtraModels,
+  ApiForbiddenResponse,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
@@ -14,13 +15,13 @@ import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
-import {CreateTrainerDto, MoveTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MoveTrainerDto, TalkTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
 @Controller('regions/:regionId/trainers')
 @ApiTags('Region Trainers')
-@ApiExtraModels(MoveTrainerDto)
+@ApiExtraModels(MoveTrainerDto, TalkTrainerDto)
 @Validated()
 @Auth()
 @Throttled()
@@ -60,5 +61,20 @@ export class TrainerController {
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Trainer | null> {
     return this.trainerService.findOne(id);
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({type: Trainer})
+  @ApiForbiddenResponse({description: 'Cannot delete someone else\'s trainer'})
+  @NotFound()
+  async deleteOne(
+    @Param('id', ParseObjectIdPipe) id: string,
+    @AuthUser() user: User,
+  ): Promise<Trainer | null> {
+    const trainer = await this.trainerService.findOne(id);
+    if (trainer?.user !== user._id.toString()) {
+      throw new ForbiddenException('Cannot delete someone else\'s trainer');
+    }
+    return this.trainerService.delete(id);
   }
 }
