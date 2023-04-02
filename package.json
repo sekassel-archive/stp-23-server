@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@clashsoft/nestx": "^0.3.5",
+    "@clashsoft/nestx": "^0.3.6",
     "@nestjs/common": "^9.3.12",
     "@nestjs/core": "^9.3.12",
     "@nestjs/event-emitter": "^1.4.1",
@@ -46,7 +46,8 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "tslib": "^2.5.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.3.0",

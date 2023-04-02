@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@clashsoft/nestx': ^0.3.5
+  '@clashsoft/nestx': ^0.3.6
   '@nestjs/cli': ^9.3.0
   '@nestjs/common': ^9.3.12
   '@nestjs/core': ^9.3.12
@@ -49,11 +49,12 @@ specifiers:
   ts-loader: ^9.4.2
   ts-node: ^10.9.1
   tsconfig-paths: ^4.2.0
+  tslib: ^2.5.0
   typescript: ^4.9.5
   webpack: ^5.77.0
 
 dependencies:
-  '@clashsoft/nestx': 0.3.5_l6x7wvikjnzyzoqbywwpfnbe4q
+  '@clashsoft/nestx': 0.3.6_ralehtoz7zgj5skxp3lv5todze
   '@nestjs/common': 9.3.12_ufuujcqbszwis444rmt5m3dshy
   '@nestjs/core': 9.3.12_bbwljr2ug3zctmvfubmbaxnfxy
   '@nestjs/event-emitter': 1.4.1_bgmtsjzu2jyijhogwtog4e3a6e
@@ -80,6 +81,7 @@ dependencies:
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.8.0
+  tslib: 2.5.0
 
 devDependencies:
   '@nestjs/cli': 9.3.0
@@ -1331,38 +1333,45 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@clashsoft/nestx/0.3.5_l6x7wvikjnzyzoqbywwpfnbe4q:
-    resolution: {integrity: sha512-IHkuIt5W4RygvBj8MV1vqaelz+W0rTnTbjeKXVyS2APpx+oQO+6+XdiJX1PP3Byj35/2nxBrjlDWOASaNbr6pw==}
+  /@clashsoft/nestx/0.3.6_ralehtoz7zgj5skxp3lv5todze:
+    resolution: {integrity: sha512-5DjWwy8GTG8adnHA3mck4EsNmnjPACEge3KMOBNNNaXGZ9rb0H3QIjdEbTjHMDkQ/bpuGailiS+Q+F6MnVFsVQ==}
     peerDependencies:
       '@nestjs/common': ^9.0.0
       '@nestjs/core': ^9.0.0
+      '@nestjs/event-emitter': ^1.0.0
+      '@nestjs/microservices': ^9.0.0
+      '@nestjs/platform-express': ^9.0.0
+      '@nestjs/swagger': ^6.0.0
+      '@nestjs/websockets': ^9.0.0
+      nats: ^2.13.0
+      reflect-metadata: ^0.1.0
       rxjs: ^7.0.0
       tslib: ^2.4.1
+    peerDependenciesMeta:
+      '@nestjs/event-emitter':
+        optional: true
+      '@nestjs/microservices':
+        optional: true
+      '@nestjs/platform-express':
+        optional: true
+      '@nestjs/swagger':
+        optional: true
+      '@nestjs/websockets':
+        optional: true
+      nats:
+        optional: true
     dependencies:
       '@nestjs/common': 9.3.12_ufuujcqbszwis444rmt5m3dshy
       '@nestjs/core': 9.3.12_bbwljr2ug3zctmvfubmbaxnfxy
+      '@nestjs/event-emitter': 1.4.1_bgmtsjzu2jyijhogwtog4e3a6e
+      '@nestjs/microservices': 9.3.12_6guh2vjzzcpibhntomacnglive
       '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
+      '@nestjs/swagger': 6.3.0_tbpnzbocvyk7i3t3t4zvogwboq
+      '@nestjs/websockets': 9.3.12_of4akadhszyqq4nremfoaw2364
       nats: 2.13.1
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
-    optionalDependencies:
-      '@nestjs/event-emitter': 1.4.1_bgmtsjzu2jyijhogwtog4e3a6e
-      '@nestjs/microservices': 9.3.12_6guh2vjzzcpibhntomacnglive
-      '@nestjs/swagger': 6.3.0_tbpnzbocvyk7i3t3t4zvogwboq
-      '@nestjs/websockets': 9.3.12_of4akadhszyqq4nremfoaw2364
-    transitivePeerDependencies:
-      - '@fastify/static'
-      - '@grpc/grpc-js'
-      - '@nestjs/platform-socket.io'
-      - amqp-connection-manager
-      - amqplib
-      - cache-manager
-      - class-transformer
-      - class-validator
-      - ioredis
-      - kafkajs
-      - mqtt
-      - supports-color
+      tslib: 2.5.0
     dev: false
 
   /@colors/colors/1.5.0:
