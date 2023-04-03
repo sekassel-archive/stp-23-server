@@ -124,5 +124,200 @@
         "amount": -10
       }
     ]
+  },
+  {
+    "id": 9,
+    "name": "Thunder Shock",
+    "description": "A jolt of electricity is hurled at the target to inflict damage. It may also leave the target with paralysis.",
+    "type": "electric",
+    "minLevel": 1,
+    "maxUses": 20,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -8
+      },
+      {
+        "attribute": "status",
+        "status": "paralysis",
+        "chance": 0.3,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Psybeam",
+    "description": "The target is attacked with a peculiar ray. It may also cause confusion.",
+    "type": "psychic",
+    "minLevel": 1,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -12
+      },
+      {
+        "attribute": "status",
+        "status": "confusion",
+        "chance": 0.4,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Ice Beam",
+    "description": "The target is struck with an icy-cold beam of energy. It may also freeze the target solid.",
+    "type": "ice",
+    "minLevel": 1,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -15
+      },
+      {
+        "attribute": "status",
+        "status": "freeze",
+        "chance": 0.2,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Earthquake",
+    "description": "The monster sets off an earthquake that strikes every Pmon around it.",
+    "type": "ground",
+    "minLevel": 1,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -20,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Shadow Ball",
+    "description": "The monster hurls a shadowy blob at the target. It may also lower the target's Sp. Def stat.",
+    "type": "ghost",
+    "minLevel": 1,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -12
+      },
+      {
+        "attribute": "specialDefense",
+        "amount": -1,
+        "chance": 0.5,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Hydro Pump",
+    "description": "The target is blasted by a huge volume of water launched under great pressure.",
+    "type": "water",
+    "minLevel": 1,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -25
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Electric Surge",
+    "description": "The monster releases a powerful electric surge that damages the target and lowers its speed.",
+    "type": "electric",
+    "minLevel": 1,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -20
+      },
+      {
+        "attribute": "speed",
+        "amount": -1,
+        "chance": 0.5,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Toxic Spray",
+    "description": "The monster sprays a toxic substance on the target, which gradually poisons it.",
+    "type": "poison",
+    "minLevel": 1,
+    "maxUses": 20,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -5
+      },
+      {
+        "attribute": "poison",
+        "chance": 0.7,
+        "self": false
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Shadow Sneak",
+    "description": "The monster sneaks up on the target from behind and strikes it with a shadowy force.",
+    "type": "ghost",
+    "minLevel": 1,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -15
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Aqua Tail",
+    "description": "The monster attacks by swinging its tail as if it were a vicious wave in a raging storm.",
+    "type": "water",
+    "minLevel": 1,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -15
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Frost Breath",
+    "description": "The monster exhales a freezing-cold breath that may freeze the target.",
+    "type": "ice",
+    "minLevel": 1,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -10
+      },
+      {
+        "attribute": "freeze",
+        "chance": 0.3,
+        "self": false
+      }
+    ]
   }
 ]
