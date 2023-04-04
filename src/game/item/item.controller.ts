@@ -1,4 +1,13 @@
-import {Body, Controller, ForbiddenException, Get, NotFoundException, Param, Patch} from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  ForbiddenException,
+  Get,
+  NotFoundException,
+  Param,
+  Patch
+} from '@nestjs/common';
 import {ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
 import {User} from '../../user/user.schema';
@@ -8,9 +17,10 @@ import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
 import {itemTypes} from '../constants';
 import {TrainerService} from '../trainer/trainer.service';
-import {CreateItemDto} from './item.dto';
+import {UpdateItemDto} from './item.dto';
 import {Item} from './item.schema';
 import {ItemService} from './item.service';
+import {ItemAction} from "./item.action";
 
 @Controller('regions/:regionId/trainers/:trainerId/items')
 @ApiTags('Trainer Items')
@@ -24,19 +34,19 @@ export class ItemController {
   ) {
   }
 
-  // TODO: Check for player near merchant
   @Patch()
-  @ApiOperation({description: 'Buy or sell an item'})
-  @ApiOkResponse({type: Item})
-  @ApiForbiddenResponse({description: 'This item cannot be bought or sold, or you are not the owner of this trainer'})
+  @ApiOperation({ description: 'Buy or sell an item' })
+  @ApiOkResponse({ type: Item })
+  @ApiForbiddenResponse({ description: 'This item cannot be bought or sold, or you are not the owner of this trainer' })
   @NotFound()
   async updateOne(
     @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Param('trainerId', ParseObjectIdPipe) trainerId: string,
-    @Body() dto: CreateItemDto,
+    @Body() dto: UpdateItemDto,
     @AuthUser() user: User,
   ): Promise<Item | null> {
-    const itemType = itemTypes.find(type => type.id === dto.type);
+    const { type, amount, action } = dto;
+    const itemType = itemTypes.find(itemType => itemType.id === type);
     if (!itemType?.price) {
       throw new ForbiddenException('This item cannot be bought or sold');
     }
@@ -47,8 +57,15 @@ export class ItemController {
     if (trainer.user.toString() !== user._id.toString()) {
       throw new ForbiddenException('You are not the owner of this trainer');
     }
+    if (action === ItemAction.USE && amount < 0) {
+      throw new BadRequestException('Amount must be greater than 0 when using items');
+    }
+    if (action === ItemAction.USE) {
+      return this.itemService.useItem(trainer, dto);
+    }
     return this.itemService.updateOne(trainer, dto);
   }
+
 
   @Get()
   @ApiOkResponse({type: Item})

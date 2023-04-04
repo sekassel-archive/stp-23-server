@@ -2,8 +2,8 @@ import {InjectModel} from "@nestjs/mongoose";
 import {FilterQuery, Model} from "mongoose";
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
-import {CreateItemDto} from "./item.dto";
-import {ForbiddenException, Injectable} from "@nestjs/common";
+import {UpdateItemDto} from "./item.dto";
+import {ForbiddenException, Injectable, NotFoundException} from "@nestjs/common";
 import {Trainer} from "../trainer/trainer.schema";
 import {itemTypes} from "../constants";
 import {TrainerService} from "../trainer/trainer.service";
@@ -17,7 +17,7 @@ export class ItemService {
   ) {
   }
 
-  async updateOne(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
+  async updateOne(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
     const filteredTrainers = await this.trainerService.findAll({
       area: trainer.area,
       'npc.isMerchant': true,
@@ -54,7 +54,12 @@ export class ItemService {
     return created;
   }
 
-  async getStarterItems(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
+  async useItem(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
+    // TODO: Give monster id to method to heal / update monster
+    throw new NotFoundException('Item usage is not possible at the moment');
+  }
+
+  async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
     const created = await this.model.findOneAndUpdate(
       {trainer: trainer._id, type: dto.type},
       {$inc: {amount: dto.amount}},

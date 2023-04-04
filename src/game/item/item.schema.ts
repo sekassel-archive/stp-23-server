@@ -1,7 +1,7 @@
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from "../../util/schema";
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsIn, IsInt, IsMongoId} from 'class-validator';
+import {IsIn, IsInt, IsMongoId, IsString} from 'class-validator';
 import {Document, Types} from "mongoose";
 import {itemTypes} from '../constants';
 

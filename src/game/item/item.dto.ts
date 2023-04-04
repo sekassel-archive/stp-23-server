@@ -1,11 +1,21 @@
-import {PickType} from '@nestjs/swagger';
-import {NotEquals} from 'class-validator';
-import {Item} from './item.schema';
+import {ApiProperty} from '@nestjs/swagger';
+import {IsEnum, IsNotEmpty, IsNumber, NotEquals} from 'class-validator';
+import {ItemAction} from "./item.action";
 
-export class CreateItemDto extends PickType(Item, [
-  'type',
-  'amount',
-]) {
-  @NotEquals(0)
+export class UpdateItemDto {
+  @ApiProperty()
+  @IsEnum(ItemAction, {message: 'Action must be `use` or `trade`'})
+  @IsNotEmpty()
+  action: ItemAction;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  @NotEquals(0, {message: 'Amount must not be 0'})
   amount: number;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  type: number;
 }
