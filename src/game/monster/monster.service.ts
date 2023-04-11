@@ -42,8 +42,19 @@ export class MonsterService {
     };
   }
 
-  async createAuto(trainer: string, type: number, level: number) {
-    return this.create(trainer, this.autofill(type, level));
+  async createAuto(trainer: string, type: number, level: number): Promise<MonsterDocument> {
+    const dto = this.autofill(type, level);
+    return this.upsert({
+      trainer,
+      // TODO this ensures that the same monster is not added twice,
+      //      but maybe it should be possible to have multiple monsters of the same type
+      type,
+    }, {
+      ...dto,
+      trainer,
+      experience: 0,
+      currentAttributes: dto.attributes,
+    });
   }
 
   async create(trainer: string, dto: CreateMonsterDto): Promise<Monster> {
@@ -58,7 +69,7 @@ export class MonsterService {
     return created;
   }
 
-  async upsert(filter: FilterQuery<Monster>, update: UpdateQuery<Monster>) {
+  async upsert(filter: FilterQuery<Monster>, update: UpdateQuery<Monster>): Promise<MonsterDocument> {
     const result = await this.model.findOneAndUpdate(filter, update, {upsert: true, new: true, rawResult: true}).exec();
     if (!result.value) {
       throw new Error('Upsert failed');
