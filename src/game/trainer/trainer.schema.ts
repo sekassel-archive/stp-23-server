@@ -77,6 +77,12 @@ export class Trainer extends GlobalSchema {
   coins: number;
 
   @Prop()
+  @ApiProperty({type: [Number]})
+  @IsArray()
+  @IsInt({each: true})
+  encounteredMonsterTypes: number[];
+
+  @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   area: string;

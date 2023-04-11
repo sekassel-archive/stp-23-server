@@ -277,6 +277,11 @@ export class TrainerHandler implements OnModuleInit {
     const monster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterService.autofill(type, level));
     await this.opponentService.create(encounter._id.toString(), defender, false);
     await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, true, monster._id.toString());
+    await this.trainerService.update(defender, {
+      $addToSet: {
+        'encounteredMonsterTypes': type,
+      },
+    });
   }
 
   private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
