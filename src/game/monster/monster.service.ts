@@ -4,7 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities as allAbilities, monsterTypes} from '../constants';
+import {abilities as allAbilities, Ability, MonsterType, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterDocument} from './monster.schema';
 
@@ -29,16 +29,7 @@ export class MonsterService {
     if (!monsterType) {
       throw new NotFoundException('Invalid monster type');
     }
-    const abilities = allAbilities
-      // filter by minLevel and type (normal or one of monster types)
-      .filter(a => level >= a.minLevel && (a.type === 'normal' || monsterType.type.includes(a.type)))
-      // bring some randomness
-      .shuffle()
-      // sort by minLevel descending - we want the best abilities
-      .sort((a, b) => b.minLevel - a.minLevel)
-      // take the best 4
-      .slice(0, 4)
-      .map(a => a.id);
+    const abilities = this.findBestAbilities(this.getPossibleAbilities(level, monsterType.type)).map(a => a.id);
     return {
       type,
       level,
@@ -50,6 +41,21 @@ export class MonsterService {
       },
       abilities,
     };
+  }
+
+  getPossibleAbilities(level: number, types: string[]) {
+    // filter by minLevel and type (normal or one of monster types)
+    return allAbilities.filter(a => level >= a.minLevel && (a.type === 'normal' || types.includes(a.type)));
+  }
+
+  findBestAbilities(abilities: Ability[]) {
+    return abilities
+      // bring some randomness
+      .shuffle()
+      // sort by minLevel descending - we want the best abilities
+      .sort((a, b) => b.minLevel - a.minLevel)
+      // take the best 4
+      .slice(0, 4);
   }
 
   async createAuto(trainer: string, type: number, level: number): Promise<MonsterDocument> {

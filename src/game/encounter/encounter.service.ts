@@ -139,5 +139,32 @@ export class EncounterService {
     currentMonster.attributes.attack += 2 + Math.round(Math.random());
     currentMonster.attributes.defense += 2 + Math.round(Math.random());
     currentMonster.attributes.initiative += 1 + Math.round(Math.random() * 2);
+
+    let monsterType = monsterTypes.find(m => m.id === currentMonster.type);
+    if (!monsterType) {
+      // TODO log error
+      return;
+    }
+
+    // Evolution
+    if (currentMonster.level === 10 || currentMonster.level === 20) {
+      const evolution = monsterType.evolution;
+      const newMonsterType = monsterTypes.find(m => m.id === evolution);
+      if (evolution && newMonsterType) {
+        currentMonster.type = evolution;
+        monsterType = newMonsterType;
+      }
+    }
+
+    // Learn new ability
+    const newAbilities = this.monsterService.getPossibleAbilities(currentMonster.level, monsterType.type)
+      .filter(a => !currentMonster.abilities.includes(a.id));
+    if (newAbilities.length) {
+      const ability = newAbilities[Math.floor(Math.random() * newAbilities.length)];
+      currentMonster.abilities.push(ability.id);
+      while (currentMonster.abilities.length > 4) {
+        currentMonster.abilities.shift();
+      }
+    }
   }
 }
