@@ -41,7 +41,10 @@ export class EncounterService {
   }
 
   async playRound(encounter: Encounter): Promise<void> {
-    const opponents = await this.opponentService.findAll({region: encounter.region, encounter: encounter._id.toString()});
+    const opponents = await this.opponentService.findAll({
+      region: encounter.region,
+      encounter: encounter._id.toString(),
+    });
     if (opponents.find(o => !o.move)) {
       return;
     }
@@ -122,11 +125,19 @@ export class EncounterService {
     while (true) {
       const levelUp = currentMonster.level ** 3 - (currentMonster.level - 1) ** 3;
       if (currentMonster.experience >= levelUp) {
-        currentMonster.level++;
         currentMonster.experience -= levelUp;
+        this.levelUp(currentMonster);
       } else {
         break;
       }
     }
+  }
+
+  private levelUp(currentMonster: MonsterDocument) {
+    currentMonster.level++;
+    currentMonster.attributes.health += 2 + Math.round(Math.random() * 2);
+    currentMonster.attributes.attack += 2 + Math.round(Math.random());
+    currentMonster.attributes.defense += 2 + Math.round(Math.random());
+    currentMonster.attributes.initiative += 1 + Math.round(Math.random() * 2);
   }
 }
