@@ -12,6 +12,7 @@ export class MonsterHandler {
 
   @OnEvent('regions.*.trainers.*.created')
   async onTrainerCreated(trainer: Trainer): Promise<void> {
+    // TODO when changing this type, update TrainerService.create() as well
     await this.monsterService.createAuto(trainer._id.toString(), 1, 1);
   }
 
