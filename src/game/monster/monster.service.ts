@@ -43,10 +43,10 @@ export class MonsterService {
       type,
       level,
       attributes: {
-        health: 7 + Math.round(level * 2.8),
+        health: 7 + Math.round(level * 3),
         attack: 5 + Math.round(level * 2.5),
         defense: 5 + Math.round(level * 2.5),
-        initiative: 5 + Math.round(level * 2.2),
+        initiative: 3 + Math.round(level * 2),
       },
       abilities,
     };
