@@ -602,7 +602,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[2,2,[1,2],[10,12,8,9]]]"
+                         "value":"[[2,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -635,7 +635,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[3,2,[1,2],[10,12,8,9]]]"
+                         "value":"[[3,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",

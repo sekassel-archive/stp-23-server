@@ -103,18 +103,13 @@ export class GameLoader implements OnModuleInit {
 
     const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
     for (const monsterSpec of monsterSpecs) {
-      const [type, level, abilities, [health, attack, defense, initiative]] = monsterSpec;
-      const attributes: MonsterAttributes = {health, attack, defense, initiative};
+      const [type, level] = monsterSpec;
       await this.monsterService.upsert({
         trainer: trainer._id.toString(),
+        // TODO this ensures that the same monster is not added twice,
+        //      but maybe it should be possible to have multiple monsters of the same type
         type,
-      }, {
-        level,
-        experience: 0,
-        abilities,
-        attributes,
-        currentAttributes: attributes,
-      });
+      }, this.monsterService.autofill(type, level));
     }
   }
 }
