@@ -4,9 +4,9 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities as allAbilities, Ability, MonsterType, monsterTypes} from '../constants';
+import {abilities as allAbilities, Ability, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterDocument} from './monster.schema';
+import {MAX_ABILITIES, Monster, MonsterDocument} from './monster.schema';
 
 @Injectable()
 export class MonsterService {
@@ -54,8 +54,8 @@ export class MonsterService {
       .shuffle()
       // sort by minLevel descending - we want the best abilities
       .sort((a, b) => b.minLevel - a.minLevel)
-      // take the best 4
-      .slice(0, 4);
+      // take the best
+      .slice(0, MAX_ABILITIES);
   }
 
   async createAuto(trainer: string, type: number, level: number): Promise<MonsterDocument> {

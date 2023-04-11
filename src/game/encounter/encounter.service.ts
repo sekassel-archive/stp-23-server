@@ -3,7 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {Model, Types} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '../constants';
-import {MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
+import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
 import {OpponentService} from '../opponent/opponent.service';
 import {CreateEncounterDto} from './encounter.dto';
@@ -162,7 +162,7 @@ export class EncounterService {
     if (newAbilities.length) {
       const ability = newAbilities[Math.floor(Math.random() * newAbilities.length)];
       currentMonster.abilities.push(ability.id);
-      while (currentMonster.abilities.length > 4) {
+      while (currentMonster.abilities.length > MAX_ABILITIES) {
         currentMonster.abilities.shift();
       }
     }
