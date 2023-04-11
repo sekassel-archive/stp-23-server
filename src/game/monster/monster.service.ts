@@ -5,6 +5,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
 import {abilities as allAbilities, Ability, monsterTypes} from '../constants';
+import {attackAtLevel, defenseAtLevel, healthAtLevel, initiativeAtLevel} from '../formulae';
 import {CreateMonsterDto} from './monster.dto';
 import {MAX_ABILITIES, Monster, MonsterDocument} from './monster.schema';
 
@@ -34,10 +35,10 @@ export class MonsterService {
       type,
       level,
       attributes: {
-        health: 7 + Math.round(level * 3),
-        attack: 5 + Math.round(level * 2.5),
-        defense: 5 + Math.round(level * 2.5),
-        initiative: 3 + Math.round(level * 2),
+        health: healthAtLevel(level),
+        attack: attackAtLevel(level),
+        defense: defenseAtLevel(level),
+        initiative: initiativeAtLevel(level),
       },
       abilities,
     };
