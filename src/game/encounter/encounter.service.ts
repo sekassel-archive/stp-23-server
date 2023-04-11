@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model, Types} from 'mongoose';
 import {EventService} from '../../event/event.service';
-import {abilities, Ability, monsterTypes, Type, types} from '../constants';
+import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '../constants';
 import {MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
 import {OpponentService} from '../opponent/opponent.service';
@@ -79,32 +79,38 @@ export class EncounterService {
   private playAbility(ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
     for (const value of ability.effects) {
       if (value.chance == null || Math.random() <= value.chance) {
-        const effectTarget = (value.self === true || (value.self == null && value.amount > 0)) ? currentMonster : targetMonster;
-        const attribute = value.attribute as keyof MonsterAttributes;
-        let effectAmount: number = value.amount;
-
-        if (attribute === 'health') {
-          if (effectTarget.attributes.defense > value.amount + currentMonster.attributes.attack) {
-            effectAmount = 0;
-          } else {
-            effectAmount += currentMonster.attributes.attack - effectTarget.attributes.defense;
-          }
-
-          const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
-          for (const targetType of targetTypes) {
-            const abilityType = ability.type as Type;
-            const type = types[abilityType];
-            effectAmount *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
-          }
+        if ('attribute' in value) {
+          this.applyAttributeEffect(value, currentMonster, targetMonster, ability);
         }
+      }
+    }
+  }
 
-        effectTarget.attributes[attribute] += effectAmount;
-        if (effectTarget.attributes[attribute] <= 0) {
-          effectTarget.attributes[attribute] = 0;
-          if (attribute === 'health' && effectTarget !== currentMonster) {
-            this.gainExp(currentMonster, effectTarget);
-          }
-        }
+  private applyAttributeEffect(value: AttributeEffect, currentMonster: MonsterDocument, targetMonster: MonsterDocument, ability: Ability) {
+    const effectTarget = (value.self === true || (value.self == null && value.amount > 0)) ? currentMonster : targetMonster;
+    const attribute = value.attribute as keyof MonsterAttributes;
+    let effectAmount: number = value.amount;
+
+    if (attribute === 'health') {
+      if (effectTarget.attributes.defense > value.amount + currentMonster.attributes.attack) {
+        effectAmount = 0;
+      } else {
+        effectAmount += currentMonster.attributes.attack - effectTarget.attributes.defense;
+      }
+
+      const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
+      for (const targetType of targetTypes) {
+        const abilityType = ability.type as Type;
+        const type = types[abilityType];
+        effectAmount *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
+      }
+    }
+
+    effectTarget.attributes[attribute] += effectAmount;
+    if (effectTarget.attributes[attribute] <= 0) {
+      effectTarget.attributes[attribute] = 0;
+      if (attribute === 'health' && effectTarget !== currentMonster) {
+        this.gainExp(currentMonster, effectTarget);
       }
     }
   }

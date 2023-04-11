@@ -2,7 +2,16 @@ import {Controller, Get, Header, Param, ParseIntPipe, StreamableFile} from '@nes
 import {ApiOkResponse, ApiParam, ApiTags} from '@nestjs/swagger';
 import * as  fs from 'node:fs';
 import {NotFound} from '../../util/not-found.decorator';
-import {abilities, Ability, AbilityDto, characters, MonsterType, MonsterTypeDto, monsterTypes} from '../constants';
+import {
+  abilities,
+  Ability,
+  AbilityDto,
+  AttributeEffect,
+  characters,
+  MonsterType,
+  MonsterTypeDto,
+  monsterTypes,
+} from '../constants';
 
 @Controller('presets')
 @ApiTags('Presets')
@@ -79,7 +88,7 @@ export class PresetsController {
 
   private maskAbility(ability: Ability): AbilityDto {
     const {minLevel, effects, ...masked} = ability;
-    const damageEffect = effects.find(e => e.attribute === 'health' && e.amount < 0);
+    const damageEffect = effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health' && e.amount < 0);
     return {
       ...masked,
       accuracy: Math.max(...effects.map(e => e.chance ?? 1)),
