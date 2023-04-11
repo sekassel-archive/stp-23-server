@@ -3,6 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {Model, Types} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '../constants';
+import {attackGain, defenseGain, expGain, expRequired, healthGain, initiativeGain} from '../formulae';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
 import {OpponentService} from '../opponent/opponent.service';
@@ -120,12 +121,12 @@ export class EncounterService {
 
   private gainExp(currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
     // TODO improve experience gain
-    currentMonster.experience += (effectTarget.level * 10 * (0.9 + Math.random() * 0.2)) | 0;
+    currentMonster.experience += expGain(effectTarget.level);
 
     while (true) {
-      const levelUp = currentMonster.level ** 3 - (currentMonster.level - 1) ** 3;
-      if (currentMonster.experience >= levelUp) {
-        currentMonster.experience -= levelUp;
+      const levelUpExp = expRequired(currentMonster.level);
+      if (currentMonster.experience >= levelUpExp) {
+        currentMonster.experience -= levelUpExp;
         this.levelUp(currentMonster);
       } else {
         break;
@@ -135,10 +136,10 @@ export class EncounterService {
 
   private levelUp(currentMonster: MonsterDocument) {
     currentMonster.level++;
-    currentMonster.attributes.health += 2 + Math.round(Math.random() * 2);
-    currentMonster.attributes.attack += 2 + Math.round(Math.random());
-    currentMonster.attributes.defense += 2 + Math.round(Math.random());
-    currentMonster.attributes.initiative += 1 + Math.round(Math.random() * 2);
+    currentMonster.attributes.health += healthGain(currentMonster.level);
+    currentMonster.attributes.attack += attackGain(currentMonster.level);
+    currentMonster.attributes.defense += defenseGain(currentMonster.level);
+    currentMonster.attributes.initiative += initiativeGain(currentMonster.level);
 
     let monsterType = monsterTypes.find(m => m.id === currentMonster.type);
     if (!monsterType) {
