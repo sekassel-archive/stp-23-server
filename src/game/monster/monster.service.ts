@@ -4,7 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities, monsterTypes} from '../constants';
+import {abilities as allAbilities, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterDocument} from './monster.schema';
 
@@ -29,6 +29,16 @@ export class MonsterService {
     if (!monsterType) {
       throw new NotFoundException('Invalid monster type');
     }
+    const abilities = allAbilities
+      // filter by minLevel and type (normal or one of monster types)
+      .filter(a => level >= a.minLevel && (a.type === 'normal' || monsterType.type.includes(a.type)))
+      // bring some randomness
+      .shuffle()
+      // sort by minLevel descending - we want the best abilities
+      .sort((a, b) => b.minLevel - a.minLevel)
+      // take the best 4
+      .slice(0, 4)
+      .map(a => a.id);
     return {
       type,
       level,
@@ -38,7 +48,7 @@ export class MonsterService {
         defense: 5 + Math.round(level * 2.5),
         initiative: 5 + Math.round(level * 2.2),
       },
-      abilities: abilities.filter(a => monsterType.type.includes(a.type) && a.minLevel >= level).map(a => a.id).slice(0, 4),
+      abilities,
     };
   }
 
