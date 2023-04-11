@@ -1,215 +1,667 @@
 [
   {
     "id": 1,
-    "image": "01.png",
-    "name": "Nutchick",
-    "type": ["normal"],
+    "image": "Flamander_1.png",
+    "name": "Flamander",
+    "type": ["fire"],
     "evolution": 2
   },
   {
     "id": 2,
-    "image": "02.png",
-    "name": "Hardchick",
-    "type": ["fight"],
-    "evolution": 3
+    "image": "Flamander_2.png",
+    "name": "Flamurtle",
+    "type": ["fire"]
   },
   {
     "id": 3,
-    "image": "03.png",
-    "name": "Battlechick",
-    "type": ["fight"]
+    "image": "Octi_1.png",
+    "name": "Octi",
+    "type": ["water"],
+    "evolution": 4
   },
   {
     "id": 4,
-    "image": "04.png",
-    "name": "Crurtle",
-    "type": ["earth"],
-    "evolution": 5
+    "image": "Octi_2.png",
+    "name": "Octopod",
+    "type": ["water"]
   },
   {
     "id": 5,
-    "image": "05.png",
-    "name": "Mirrortle",
-    "type": ["earth"],
+    "image": "Caterpi_1.png",
+    "name": "Caterpi",
+    "type": ["grass"],
     "evolution": 6
   },
   {
     "id": 6,
-    "image": "06.png",
-    "name": "Batturtle",
-    "type": ["earth", "flight"]
+    "image": "Caterpi_2.png",
+    "name": "Cyclopi",
+    "type": ["grass"]
   },
   {
     "id": 7,
-    "image": "07.png",
-    "name": "Fencior",
-    "type": ["metal", "fight"],
+    "image": "Frogrik_1.png",
+    "name": "Frogrik",
+    "type": ["electric"],
     "evolution": 8
   },
   {
     "id": 8,
-    "image": "08.png",
-    "name": "Shieldior",
-    "type": ["metal", "fight"],
-    "evolution": 9
+    "image": "Frogrik_2.png",
+    "name": "Frogspike",
+    "type": ["electric"]
   },
   {
     "id": 9,
-    "image": "09.png",
-    "name": "Shieldamor",
-    "type": ["metal", "fight"]
+    "image": "Amogus_1.png",
+    "name": "Amogus",
+    "type": ["psychic"]
   },
   {
     "id": 10,
-    "image": "10.png",
-    "name": "Candeer",
-    "type": ["normal"],
+    "image": "Angrian_1.png",
+    "name": "Angrian",
+    "type": ["ground"],
     "evolution": 11
   },
   {
     "id": 11,
-    "image": "11.png",
-    "name": "Candamech",
-    "type": ["normal", "metal"]
+    "image": "Angrian_2.png",
+    "name": "Madrian",
+    "type": ["ground"]
   },
   {
     "id": 12,
-    "image": "12.png",
-    "name": "Poigosst",
-    "type": ["ghost", "poison"],
+    "image": "Batmon_1.png",
+    "name": "Batmon",
+    "type": ["fire", "dragon"],
     "evolution": 13
   },
   {
     "id": 13,
-    "image": "13.png",
-    "name": "Poisoggost",
-    "type": ["ghost", "poison"],
+    "image": "Batmon_2.png",
+    "name": "Vampiron",
+    "type": ["fire", "dragon"],
     "evolution": 14
   },
   {
     "id": 14,
-    "image": "14.png",
-    "name": "Poisofearst",
-    "type": ["ghost", "poison"],
-    "evolution": 15
+    "image": "Batmon_3.png",
+    "name": "Draculon",
+    "type": ["fire", "dragon"]
   },
   {
     "id": 15,
-    "image": "15.png",
-    "name": "Fearamor",
-    "type": ["ghost", "metal"]
+    "image": "Carnoxic_1.png",
+    "name": "Carnoxic",
+    "type": ["poison"],
+    "evolution": 16
   },
   {
     "id": 16,
-    "image": "16.png",
-    "name": "Digsi",
-    "type": ["earth", "poison"],
+    "image": "Carnoxic_2.png",
+    "name": "Carnoxopod",
+    "type": ["poison"],
     "evolution": 17
   },
   {
     "id": 17,
-    "image": "17.png",
-    "name": "Digseye",
-    "type": ["earth", "poison"],
-    "evolution": 18
+    "image": "Carnoxic_3.png",
+    "name": "Carnoxopodion",
+    "type": ["poison"]
   },
   {
     "id": 18,
-    "image": "18.png",
-    "name": "Digsacle",
-    "type": ["earth", "poison"]
+    "image": "Clemontle_1.png",
+    "name": "Clemontel",
+    "type": ["fire"],
+    "evolution": 19
   },
   {
     "id": 19,
-    "image": "19.png",
-    "name": "Eggsoli",
-    "type": ["psycho"],
-    "evolution": 20
+    "image": "Clemontle_2.png",
+    "name": "Clemontelle",
+    "type": ["fire"]
   },
   {
     "id": 20,
-    "image": "20.png",
-    "name": "Eggsiori",
-    "type": ["psycho"],
+    "image": "Crystorm_1.png",
+    "name": "Crystorm",
+    "type": ["psychic"],
     "evolution": 21
   },
   {
     "id": 21,
-    "image": "21.png",
-    "name": "Eggscrawli",
-    "type": ["psycho"]
+    "image": "Crystorm_2.png",
+    "name": "Crystormium",
+    "type": ["psychic"]
   },
   {
     "id": 22,
-    "image": "22.png",
-    "name": "Shelli",
-    "type": ["water"],
-    "evolution": 24
+    "image": "Curtle_1.png",
+    "name": "Curtle",
+    "type": ["normal"]
   },
   {
     "id": 23,
-    "image": "23.png",
-    "name": "Tentaclam",
-    "type": ["water"]
+    "image": "Darkluff_1.png",
+    "name": "Darkluff",
+    "type": ["dark"]
   },
   {
     "id": 24,
-    "image": "24.png",
-    "name": "Shellout",
-    "type": ["water"],
+    "image": "Darksludge_1.png",
+    "name": "Sludgie",
+    "type": ["normal"],
     "evolution": 25
   },
   {
     "id": 25,
-    "image": "25.png",
-    "name": "Shellover",
-    "type": ["water"]
+    "image": "Darksludge_2.png",
+    "name": "Darksludge",
+    "type": ["dark"],
+    "evolution": 26
   },
   {
     "id": 26,
-    "image": "26.png",
-    "name": "Dragolegg",
-    "type": ["fire"],
-    "evolution": 27
+    "image": "Darksludge_3.png",
+    "name": "Sludgiefiend",
+    "type": ["dark"]
   },
   {
     "id": 27,
-    "image": "27.png",
-    "name": "Dragolite",
-    "type": ["fire"],
-    "evolution": 28
-  },
-  {
-    "id": 28,
-    "image": "28.png",
-    "name": "Dragomax",
+    "image": "DBoy_1.png",
+    "name": "DBoy",
     "type": ["fire"]
   },
   {
+    "id": 28,
+    "image": "Earthlion_1.png",
+    "name": "Earthlion",
+    "type": ["grass"]
+  },
+  {
     "id": 29,
-    "image": "29.png",
-    "name": "Shroomi",
-    "type": ["plant"],
+    "image": "Erabos_1.png",
+    "name": "Erabos",
+    "type": ["dark"],
     "evolution": 30
   },
   {
     "id": 30,
-    "image": "30.png",
-    "name": "Shroomking",
-    "type": ["plant"],
+    "image": "Erabos_2.png",
+    "name": "Erabonia",
+    "type": ["dark"],
     "evolution": 31
   },
   {
     "id": 31,
-    "image": "31.png",
-    "name": "Shroomagus",
-    "type": ["plant"]
+    "image": "Erabos_3.png",
+    "name": "Erabatos",
+    "type": ["dark"]
   },
   {
     "id": 32,
-    "image": "32.png",
-    "name": "Shroomi",
-    "type": ["plant"],
-    "evolution": 30
+    "image": "Phatnix_1.png",
+    "name": "Phatnix",
+    "type": ["flying"]
+  },
+  {
+    "id": 33,
+    "image": "Feazor_1.png",
+    "name": "Feazor",
+    "type": ["normal"],
+    "evolution": 34
+  },
+  {
+    "id": 34,
+    "image": "Feazor_2.png",
+    "name": "Feazoritus",
+    "type": ["normal"]
+  },
+  {
+    "id": 35,
+    "image": "Flamonky_1.png",
+    "name": "Flamonky",
+    "type": ["fighting"],
+    "evolution": 36
+  },
+  {
+    "id": 36,
+    "image": "Flamonky_2.png",
+    "name": "Flamonkitu",
+    "type": ["normal"]
+  },
+  {
+    "id": 37,
+    "image": "Flowey_1.png",
+    "name": "Flowey",
+    "type": ["psychic"]
+  },
+  {
+    "id": 38,
+    "image": "Gioliath_1.png",
+    "name": "Gioliath",
+    "type": ["rock"],
+    "evolution": 39
+  },
+  {
+    "id": 39,
+    "image": "Gioliath_2.png",
+    "name": "Giolio",
+    "type": ["rock"]
+  },
+  {
+    "id": 40,
+    "image": "Hornbun_1.png",
+    "name": "Hornbun",
+    "type": ["normal"]
+  },
+  {
+    "id": 41,
+    "image": "Hotlin_1.png",
+    "name": "Hotlin",
+    "type": ["fire"]
+  },
+  {
+    "id": 42,
+    "image": "Houndrian_1.png",
+    "name": "Houndrian",
+    "type": ["dark"]
+  },
+  {
+    "id": 43,
+    "image": "Hydra_1.png",
+    "name": "Hydron",
+    "type": ["dragon"],
+    "evolution": 44
+  },
+  {
+    "id": 44,
+    "image": "Hydra_2.png",
+    "name": "Hydrax",
+    "type": ["dragon"],
+    "evolution": 45
+  },
+  {
+    "id": 45,
+    "image": "Hydra_3.png",
+    "name": "Hydrerior",
+    "type": ["dragon"]
+  },
+  {
+    "id": 46,
+    "image": "Ician_1.png",
+    "name": "Ician",
+    "type": ["flying", "ice"],
+    "evolution": 47
+  },
+  {
+    "id": 47,
+    "image": "Ician_2.png",
+    "name": "Icieju",
+    "type": ["flying", "ice"]
+  },
+  {
+    "id": 48,
+    "image": "Icicle_1.png",
+    "name": "Icicle",
+    "type": ["ice"],
+    "evolution": 49
+  },
+  {
+    "id": 49,
+    "image": "Icicle_2.png",
+    "name": "Icitarius",
+    "type": ["ice"],
+    "evolution": 50
+  },
+  {
+    "id": 50,
+    "image": "Icicle_3.png",
+    "name": "Icing",
+    "type": ["ice", "flying"]
+  },
+  {
+    "id": 51,
+    "image": "Inferni_1.png",
+    "name": "Inferni",
+    "type": ["fire", "steel"]
+  },
+  {
+    "id": 52,
+    "image": "Sprouty_1.png",
+    "name": "Kosisprout",
+    "type": ["ground"],
+    "evolution": 53
+  },
+  {
+    "id": 53,
+    "image": "Sprouty_2.png",
+    "name": "Kositree",
+    "type": ["ground", "grass"]
+  },
+  {
+    "id": 60,
+    "image": "Julibun_1.png",
+    "name": "Julibun",
+    "type": ["psychic"]
+  },
+  {
+    "id": 61,
+    "image": "Kannnix_1.png",
+    "name": "Kannix",
+    "type": ["normal"]
+  },
+  {
+    "id": 62,
+    "image": "Kuenssrave_1.png",
+    "name": "Kuenssrave",
+    "type": ["water"],
+    "evolution": 63
+  },
+  {
+    "id": 63,
+    "image": "Kuenssrave_2.png",
+    "name": "Kuenssclaw",
+    "type": ["water"]
+  },
+  {
+    "id": 64,
+    "image": "Mandrakemon_1.png",
+    "name": "Mandrakos",
+    "type": ["grass"]
+  },
+  {
+    "id": 65,
+    "image": "Manti_1.png",
+    "name": "Manti",
+    "type": ["bug", "grass"],
+    "evolution": 66
+  },
+  {
+    "id": 66,
+    "image": "Manti_2.png",
+    "name": "Mantara",
+    "type": ["bug", "grass"],
+    "evolution": 67
+  },
+  {
+    "id": 67,
+    "image": "Manti_3.png",
+    "name": "Manticut",
+    "type": ["bug", "grass"]
+  },
+  {
+    "id": 68,
+    "image": "Mosquitaesch_1.png",
+    "name": "Leetaesch",
+    "type": ["bug", "flying"],
+    "evolution": 69
+  },
+  {
+    "id": 69,
+    "image": "Mosquitaesch_2.png",
+    "name": "Mosquitaesch",
+    "type": ["bug", "flying"]
+  },
+  {
+    "id": 70,
+    "image": "Painovorous_1.png",
+    "name": "Purchomp",
+    "type": ["grass"],
+    "evolution": 71
+  },
+  {
+    "id": 71,
+    "image": "Painovorous_2.png",
+    "name": "Splichomp",
+    "type": ["grass"],
+    "evolution": 72
+  },
+  {
+    "id": 72,
+    "image": "Painovorous_3.png",
+    "name": "Toxichomp",
+    "type": ["grass", "poison"]
+  },
+  {
+    "id": 73,
+    "image": "Piranos_1.png",
+    "name": "Piranos",
+    "type": ["water", "electric"]
+  },
+  {
+    "id": 74,
+    "image": "Po_1.png",
+    "name": "Po",
+    "type": ["fighting"]
+  },
+  {
+    "id": 75,
+    "image": "Prixic_1.png",
+    "name": "Prixic",
+    "type": ["fighting", "poison"],
+    "evolution": 76
+  },
+  {
+    "id": 76,
+    "image": "Prixic_2.png",
+    "name": "Spiktus",
+    "type": ["fighting", "poison"],
+    "evolution": 77
+  },
+  {
+    "id": 77,
+    "image": "Prixic_3.png",
+    "name": "Venoprix",
+    "type": ["fighting", "poison"]
+  },
+  {
+    "id": 78,
+    "image": "Sandrorm_1.png",
+    "name": "Sandrorm",
+    "type": ["ground"]
+  },
+  {
+    "id": 79,
+    "image": "Sebkun_1.png",
+    "name": "Sebkun",
+    "type": ["dragon", "dark"],
+    "evolution": 80
+  },
+  {
+    "id": 80,
+    "image": "Sebkun_2.png",
+    "name": "Sebrogon",
+    "type": ["dragon", "dark"]
+  },
+  {
+    "id": 81,
+    "image": "Shroomy_1.png",
+    "name": "Shroomy",
+    "type": ["ground", "grass"],
+    "evolution": 82
+  },
+  {
+    "id": 82,
+    "image": "Shroomy_2.png",
+    "name": "Shrumba",
+    "type": ["ground", "grass"]
+  },
+  {
+    "id": 83,
+    "image": "Simock_1.png",
+    "name": "Simock",
+    "type": ["fire", "rock"]
+  },
+  {
+    "id": 84,
+    "image": "Skupike_1.png",
+    "name": "Skulgoo",
+    "type": ["poison"],
+    "evolution": 85
+  },
+  {
+    "id": 85,
+    "image": "Skupike_2.png",
+    "name": "Skulpike",
+    "type": ["poison"]
+  },
+  {
+    "id": 86,
+    "image": "Slimeimon_1.png",
+    "name": "Hydroslug",
+    "type": ["water"],
+    "evolution": 87
+  },
+  {
+    "id": 87,
+    "image": "Slimeimon_2.png",
+    "name": "Waterslob",
+    "type": ["water"],
+    "evolution": 88
+  },
+  {
+    "id": 88,
+    "image": "Slimeimon_3.png",
+    "name": "Aquamorph",
+    "type": ["water"]
+  },
+  {
+    "id": 89,
+    "image": "Snek_1.png",
+    "name": "Snek",
+    "type": ["normal"]
+  },
+  {
+    "id": 90,
+    "image": "Storky_1.png",
+    "name": "Storky",
+    "type": ["flying"]
+  },
+  {
+    "id": 91,
+    "image": "Sublime_1.png",
+    "name": "Sublime",
+    "type": ["grass"],
+    "evolution": 92
+  },
+  {
+    "id": 92,
+    "image": "Sublime_2.png",
+    "name": "Verdigoo",
+    "type": ["grass"],
+    "evolution": 93
+  },
+  {
+    "id": 93,
+    "image": "Sublime_3.png",
+    "name": "Leafglob",
+    "type": ["grass"]
+  },
+  {
+    "id": 94,
+    "image": "Tenteye_1.png",
+    "name": "Tenteye",
+    "type": ["water", "poison"]
+  },
+  {
+    "id": 95,
+    "image": "Thunderblob_1.png",
+    "name": "Voltooze",
+    "type": ["electric"],
+    "evolution": 96
+  },
+  {
+    "id": 96,
+    "image": "Thunderblob_2.png",
+    "name": "Goobolt",
+    "type": ["electric"],
+    "evolution": 97
+  },
+  {
+    "id": 97,
+    "image": "Thunderblob_3.png",
+    "name": "Shockmuck",
+    "type": ["electric"]
+  },
+  {
+    "id": 98,
+    "image": "Toroot_1.png",
+    "name": "Rootix",
+    "type": ["ground"],
+    "evolution": 99
+  },
+  {
+    "id": 99,
+    "image": "Toroot_2.png",
+    "name": "Toroot",
+    "type": ["ground", "poison"]
+  },
+  {
+    "id": 100,
+    "image": "Toxotom_1.png",
+    "name": "Toxitom",
+    "type": ["poison", "ground"],
+    "evolution": 101
+  },
+  {
+    "id": 101,
+    "image": "Toxotom_2.png",
+    "name": "Spikytom",
+    "type": ["poison", "ground"],
+    "evolution": 102
+  },
+  {
+    "id": 102,
+    "image": "Toxotom_3.png",
+    "name": "Aggretom",
+    "type": ["poison", "ground"]
+  },
+  {
+    "id": 103,
+    "image": "Turchin_1.png",
+    "name": "Thorchin",
+    "type": ["dark"],
+    "evolution": 104
+  },
+  {
+    "id": 104,
+    "image": "Turchin_2.png",
+    "name": "Thortle",
+    "type": ["dark"],
+    "evolution": 105
+  },
+  {
+    "id": 105,
+    "image": "Turchin_3.png",
+    "name": "Golados",
+    "type": ["dark"]
+  },
+  {
+    "id": 106,
+    "image": "Wernerus_1.png",
+    "name": "Wernerus",
+    "type": ["dragon"]
+  },
+  {
+    "id": 107,
+    "image": "Yeeti_1.png",
+    "name": "Snobol",
+    "type": ["ice"],
+    "evolution": 108
+  },
+  {
+    "id": 108,
+    "image": "Yeeti_2.png",
+    "name": "Yeeti",
+    "type": ["ice"]
+  },
+  {
+    "id": 109,
+    "image": "Zuendorm_1.png",
+    "name": "Zuendorm",
+    "type": ["fire"]
   }
 ]
