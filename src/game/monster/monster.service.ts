@@ -24,12 +24,12 @@ export class MonsterService {
     return this.model.findById(id).exec();
   }
 
-  async createAuto(trainer: string, type: number, level: number) {
+  autofill(type: number, level: number): CreateMonsterDto {
     const monsterType = monsterTypes.find(t => t.id === type);
     if (!monsterType) {
       throw new NotFoundException('Invalid monster type');
     }
-    return this.create(trainer, {
+    return {
       type,
       level,
       attributes: {
@@ -39,7 +39,11 @@ export class MonsterService {
         initiative: 5 + Math.round(level * 2.2),
       },
       abilities: abilities.filter(a => monsterType.type.includes(a.type) && a.minLevel >= level).map(a => a.id).slice(0, 4),
-    });
+    };
+  }
+
+  async createAuto(trainer: string, type: number, level: number) {
+    return this.create(trainer, this.autofill(type, level));
   }
 
   async create(trainer: string, dto: CreateMonsterDto): Promise<Monster> {
