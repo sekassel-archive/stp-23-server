@@ -1,21 +1,16 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {ApiProperty} from '@nestjs/swagger';
+import {ApiExtraModels, ApiProperty, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
 import {Equals, IsBoolean, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {
-  GLOBAL_SCHEMA_OPTIONS,
-  GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
-  GlobalSchema, GlobalSchemaWithoutID,
-  MONGO_ID_FORMAT,
-} from '../../util/schema';
+import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
 import {abilities} from '../constants';
 
 @Schema()
 export class AbilityMove {
   static type = 'ability' as const;
 
-  @ApiProperty()
+  @ApiProperty({enum: [AbilityMove.type]})
   @Equals(AbilityMove.type)
   type: typeof AbilityMove.type;
 
@@ -33,7 +28,7 @@ export class AbilityMove {
 export class ChangeMonsterMove {
   static type = 'change-monster' as const;
 
-  @ApiProperty()
+  @ApiProperty({enum: [ChangeMonsterMove.type]})
   @Equals(ChangeMonsterMove.type)
   type: typeof ChangeMonsterMove.type;
 
@@ -45,6 +40,7 @@ export class ChangeMonsterMove {
 export type Move = AbilityMove | ChangeMonsterMove;
 
 @Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
+@ApiExtraModels(AbilityMove, ChangeMonsterMove)
 export class Opponent extends GlobalSchemaWithoutID {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
@@ -67,7 +63,7 @@ export class Opponent extends GlobalSchemaWithoutID {
   monster: string;
 
   @Prop({type: Object})
-  @ApiProperty()
+  @ApiProperty({oneOf: refs(AbilityMove, ChangeMonsterMove)})
   @ValidateNested()
   @Type(() => Object, {
     discriminator: {
