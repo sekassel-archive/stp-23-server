@@ -3,7 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {Model, Types} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '../constants';
-import {attackGain, defenseGain, expGain, expRequired, healthGain, initiativeGain} from '../formulae';
+import {attackGain, defenseGain, EVOLUTION_LEVELS, expGain, expRequired, healthGain, initiativeGain} from '../formulae';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
 import {OpponentService} from '../opponent/opponent.service';
@@ -148,7 +148,7 @@ export class EncounterService {
     }
 
     // Evolution
-    if (currentMonster.level === 10 || currentMonster.level === 20) {
+    if (EVOLUTION_LEVELS.includes(currentMonster.level)) {
       const evolution = monsterType.evolution;
       const newMonsterType = monsterTypes.find(m => m.id === evolution);
       if (evolution && newMonsterType) {
