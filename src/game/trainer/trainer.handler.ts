@@ -9,6 +9,7 @@ import {AreaService} from '../area/area.service';
 import {EncounterService} from '../encounter/encounter.service';
 import {getProperty} from '../game.loader';
 import {MonsterService} from '../monster/monster.service';
+import {OpponentDocument} from '../opponent/opponent.schema';
 import {OpponentService} from '../opponent/opponent.service';
 import {Layer} from '../tiled-map.interface';
 import {Tile} from '../tileset.interface';
@@ -277,11 +278,6 @@ export class TrainerHandler implements OnModuleInit {
     const monster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterService.autofill(type, level));
     await this.opponentService.create(encounter._id.toString(), defender, false);
     await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, true, monster._id.toString());
-    await this.trainerService.update(defender, {
-      $addToSet: {
-        'encounteredMonsterTypes': type,
-      },
-    });
   }
 
   private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
@@ -325,6 +321,29 @@ export class TrainerHandler implements OnModuleInit {
         $addToSet: {'npc.encountered': trainerId},
       });
       await this.createTrainerBattle(trainer.region, targetId, [trainerId]);
+    }
+  }
+
+  @OnEvent('encounters.*.opponents.*.created')
+  @OnEvent('encounters.*.opponents.*.updated')
+  async onOpponent(opponent: OpponentDocument) {
+    const monster = await this.monsterService.findOne(opponent.monster);
+    if (!monster) {
+      return;
+    }
+
+    const otherOpponents = await this.opponentService.findAll({
+      encounter: opponent.encounter,
+      $id: {$ne: opponent._id},
+    });
+    const otherTrainers = await this.trainerService.findAll({_id: {$in: otherOpponents.map(o => new Types.ObjectId(o.trainer))}});
+
+    for (const trainer of otherTrainers) {
+      await this.trainerService.update(trainer._id.toString(), {
+        $addToSet: {
+          encounteredMonsterTypes: monster.type,
+        },
+      });
     }
   }
 }
