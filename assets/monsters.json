@@ -241,14 +241,14 @@
   {
     "id": 38,
     "image": "Gioliath_1.png",
-    "name": "Gioliath",
+    "name": "Giodude",
     "type": ["rock"],
     "evolution": 39
   },
   {
     "id": 39,
     "image": "Gioliath_2.png",
-    "name": "Giolio",
+    "name": "Gioliath",
     "type": ["rock"]
   },
   {
