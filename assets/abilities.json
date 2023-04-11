@@ -74,8 +74,7 @@
       {
         "attribute": "attack",
         "amount": -1,
-        "chance": 0.5,
-        "self": false
+        "chance": 0.5
       }
     ]
   },
@@ -138,10 +137,8 @@
         "amount": -8
       },
       {
-        "attribute": "status",
         "status": "paralysis",
-        "chance": 0.3,
-        "self": false
+        "chance": 0.3
       }
     ]
   },
@@ -158,10 +155,8 @@
         "amount": -12
       },
       {
-        "attribute": "status",
         "status": "confusion",
-        "chance": 0.4,
-        "self": false
+        "chance": 0.4
       }
     ]
   },
@@ -178,10 +173,8 @@
         "amount": -15
       },
       {
-        "attribute": "status",
         "status": "freeze",
-        "chance": 0.2,
-        "self": false
+        "chance": 0.2
       }
     ]
   },
@@ -195,15 +188,14 @@
     "effects": [
       {
         "attribute": "health",
-        "amount": -20,
-        "self": false
+        "amount": -20
       }
     ]
   },
   {
     "id": 13,
     "name": "Shadow Ball",
-    "description": "The monster hurls a shadowy blob at the target. It may also lower the target's Sp. Def stat.",
+    "description": "The monster hurls a shadowy blob at the target. It may also lower the target's Def stat.",
     "type": "ghost",
     "minLevel": 1,
     "maxUses": 15,
@@ -213,10 +205,9 @@
         "amount": -12
       },
       {
-        "attribute": "specialDefense",
+        "attribute": "defense",
         "amount": -1,
-        "chance": 0.5,
-        "self": false
+        "chance": 0.5
       }
     ]
   },
@@ -249,8 +240,7 @@
       {
         "attribute": "speed",
         "amount": -1,
-        "chance": 0.5,
-        "self": false
+        "chance": 0.5
       }
     ]
   },
@@ -267,9 +257,8 @@
         "amount": -5
       },
       {
-        "attribute": "poison",
-        "chance": 0.7,
-        "self": false
+        "status": "poison",
+        "chance": 0.7
       }
     ]
   },
@@ -314,9 +303,8 @@
         "amount": -10
       },
       {
-        "attribute": "freeze",
-        "chance": 0.3,
-        "self": false
+        "status": "freeze",
+        "chance": 0.3
       }
     ]
   }

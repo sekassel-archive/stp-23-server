@@ -32,7 +32,7 @@ export class MonsterTypeDto extends OmitType(MonsterType, ['evolution'] as const
 
 export const monsterTypes: MonsterType[] = _monsterTypes;
 
-export class Effect {
+export class AttributeEffect {
   @ApiProperty()
   attribute: string;
 
@@ -48,6 +48,21 @@ export class Effect {
   self?: boolean;
 }
 
+export class StatusEffect {
+  @ApiProperty()
+  status: string;
+
+  @ApiPropertyOptional({minimum: 0, maximum: 1})
+  @Min(0)
+  @Max(1)
+  chance?: number;
+
+  @ApiProperty()
+  self?: boolean;
+}
+
+export type Effect = AttributeEffect | StatusEffect;
+
 export class Ability {
   @ApiProperty()
   id: number;
@@ -62,12 +77,9 @@ export class Ability {
   type: string;
 
   @ApiProperty()
-  minLevel: number;
-
-  @ApiProperty()
   maxUses: number;
 
-  @ApiProperty()
+  minLevel: number;
   effects: Effect[];
 }
 
