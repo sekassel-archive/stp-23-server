@@ -48,7 +48,7 @@ export class Monster extends GlobalSchema {
   experience: number;
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty({type: [Number]})
   @IsArray()
   @IsInt({each: true})
   @ArrayMaxSize(MAX_ABILITIES)
