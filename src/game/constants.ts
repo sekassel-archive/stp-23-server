@@ -23,6 +23,9 @@ export class MonsterType {
   @ApiProperty()
   type: string[];
 
+  @ApiProperty()
+  description: string;
+
   @ApiPropertyOptional()
   evolution?: number;
 }
