@@ -1,0 +1,10 @@
+Toxitom: Toxitom is a poisonous ground-type creature with a potent venom that can cause paralysis.
+Spikytom: Spikytom is the evolved form of Toxitom, and has developed sharp spikes on its body for defense.
+Aggretom: Aggretom is a poisonous ground-type creature with a foul odor that can make opponents nauseous.
+Thorchin: Thorchin is a dark-type creature with a coat of black flames that can burn opponents on contact.
+Thortle: Thortle is the evolved form of Thorchin, and can create a dark aura that lowers the accuracy of opponents' attacks.
+Golados: Golados is a dark-type creature that can absorb the life force of opponents to heal itself.
+Wernerus: Wernerus is a dragon-type creature that can breathe powerful jets of flame from its mouth.
+Snobol: Snobol is an ice-type creature with a coat of thick fur that keeps it warm even in the coldest environments.
+Yeeti: Yeeti is the evolved form of Snobol, and can create blizzards that can freeze opponents solid.
+Zuendorm: Zuendorm is a fire-type creature with a body made of living flame, and can ignite anything it touches.
