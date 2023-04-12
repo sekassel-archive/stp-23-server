@@ -31,7 +31,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
       region,
       user,
       coins: 0,
-      encounteredMonsterTypes: [1],
+      encounteredMonsterTypes: [],
       area,
       x,
       y,
