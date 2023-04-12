@@ -310,13 +310,28 @@ export class TrainerHandler implements OnModuleInit {
       this.trainerService.findOne(trainerId),
       this.trainerService.findOne(targetId),
     ]);
-    if (!trainer || !target || trainer.area !== target.area || this.getDistance(trainer, target) > 2) {
+    if (!trainer || !target || trainer.area !== target.area || this.getDistance(trainer, target) > 2 || !target.npc) {
       return;
     }
 
-    if (target.npc?.canHeal) {
+    if (target.npc.canHeal) {
       await this.monsterService.healAll(trainerId);
-    } else if (target.npc?.encounterOnSight) {
+    }
+    if (target.npc.starters && dto.selection != null && !target.npc.encountered?.includes(trainerId)) {
+      const starterId = target.npc.starters[dto.selection];
+      if (starterId) {
+        await this.trainerService.update(targetId, {
+          $addToSet: {'npc.encountered': trainerId},
+        });
+        await this.monsterService.createAuto(trainerId, starterId, 1);
+        await this.trainerService.update(trainerId, {
+          $addToSet: {
+            encounteredMonsterTypes: starterId,
+          },
+        });
+      }
+    }
+    if (target.npc.encounterOnSight) {
       await this.trainerService.update(targetId, {
         $addToSet: {'npc.encountered': trainerId},
       });

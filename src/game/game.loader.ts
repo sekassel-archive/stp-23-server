@@ -77,6 +77,7 @@ export class GameLoader implements OnModuleInit {
   }
 
   private async loadTrainer(region: Region, area: AreaDocument, object: any, map: any) {
+    const starters = getProperty<string>(object, 'Starters');
     const trainer = await this.trainerService.upsert({
       region: region._id.toString(),
       area: area._id.toString(),
@@ -99,6 +100,7 @@ export class GameLoader implements OnModuleInit {
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
       'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
+      'npc.starters': starters ? JSON.parse(starters) : undefined,
     });
 
     const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
