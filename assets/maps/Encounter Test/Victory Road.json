@@ -384,6 +384,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Alex_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[4,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -412,6 +417,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Adam_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[1,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -419,6 +429,29 @@
                  "width":0,
                  "x":176,
                  "y":96
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"Nurse",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"CanHeal",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Nurse_2_16x16.png"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":112,
+                 "y":64
                 }, 
                 {
                  "height":0,
@@ -435,6 +468,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Amelia_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[6,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -463,6 +501,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Ash_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[5,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -491,6 +534,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Bob_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[7,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -514,6 +562,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Bouncer_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[8,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -542,6 +595,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Bruce_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[9,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -570,6 +628,11 @@
                          "name":"Image",
                          "type":"string",
                          "value":"Butcher_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[10,2]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -651,7 +714,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":15,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.0",
