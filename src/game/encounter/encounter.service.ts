@@ -3,7 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {Model, Types} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '../constants';
-import {attackGain, defenseGain, EVOLUTION_LEVELS, expGain, expRequired, healthGain, initiativeGain} from '../formulae';
+import {attackGain, defenseGain, EVOLUTION_LEVELS, expGain, expRequired, healthGain, speedGain} from '../formulae';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
 import {OpponentService} from '../opponent/opponent.service';
@@ -52,7 +52,7 @@ export class EncounterService {
 
     const monsters = await this.monsterService.findAll({_id: {$in: opponents.map(o => new Types.ObjectId(o.monster))}});
 
-    monsters.sort((a, b) => a.attributes.initiative - b.attributes.initiative);
+    monsters.sort((a, b) => a.attributes.speed - b.attributes.speed);
 
     for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
@@ -139,7 +139,7 @@ export class EncounterService {
     currentMonster.attributes.health += healthGain(currentMonster.level);
     currentMonster.attributes.attack += attackGain(currentMonster.level);
     currentMonster.attributes.defense += defenseGain(currentMonster.level);
-    currentMonster.attributes.initiative += initiativeGain(currentMonster.level);
+    currentMonster.attributes.speed += speedGain(currentMonster.level);
 
     let monsterType = monsterTypes.find(m => m.id === currentMonster.type);
     if (!monsterType) {

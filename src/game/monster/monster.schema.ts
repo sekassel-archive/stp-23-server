@@ -20,7 +20,7 @@ export class MonsterAttributes {
 
   @ApiProperty()
   @IsInt()
-  initiative: number;
+  speed: number;
 }
 
 export const MAX_ABILITIES = 4;
