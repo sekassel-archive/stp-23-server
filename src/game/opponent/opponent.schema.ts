@@ -68,7 +68,13 @@ export class Opponent extends GlobalSchemaWithoutID {
   monster: string;
 
   @Prop({type: Object})
-  @ApiProperty({oneOf: refs(AbilityMove, ChangeMonsterMove)})
+  @ApiProperty({
+    oneOf: refs(AbilityMove, ChangeMonsterMove),
+    description: 'Patch this value to make your move. ' +
+      'Once all players have made a move, the server will make a move for all NPCs. ' +
+      'After that, the server will play the round and reset all moves to undefined. ' +
+      'You can then make a move again.',
+  })
   @ValidateNested()
   @Type(() => Object, {
     keepDiscriminatorProperty: true,
