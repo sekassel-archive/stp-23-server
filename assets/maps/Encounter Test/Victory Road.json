@@ -450,7 +450,7 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":112,
+                 "x":128,
                  "y":64
                 }, 
                 {
@@ -706,6 +706,29 @@
                  "width":0,
                  "x":128,
                  "y":160
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"Prof. Albert",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Albert_16x16.png"
+                        }, 
+                        {
+                         "name":"Starters",
+                         "type":"string",
+                         "value":"[1,3,5]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":112,
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -714,7 +737,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":16,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.0",
