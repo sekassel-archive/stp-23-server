@@ -66,7 +66,7 @@ export class EncounterService {
         }
 
         // FIXME target may be new monster if one was defeated
-        const target = monsters.find(m => m._id.toString() === move.target);
+        const target = monsters.find(m => m.trainer === move.target);
         if (!target) {
           // TODO log error
           continue;
