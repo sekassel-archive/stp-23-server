@@ -94,7 +94,7 @@ export class EncounterService {
     for (const targetType of targetTypes) {
       const abilityType = ability.type as Type;
       const type = types[abilityType];
-      multiplier *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
+      multiplier *= type?.multipliers?.[targetType] || 1;
     }
 
     for (const value of ability.effects) {

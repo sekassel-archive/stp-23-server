@@ -7,8 +7,12 @@ import * as _characters from '../../assets/characters.json';
 
 export const characters = _characters;
 
-export const types = _types;
-export type Type = keyof typeof types;
+export type Type = keyof typeof _types;
+export const types: Record<Type, TypeDefinition> = _types;
+
+export interface TypeDefinition {
+  multipliers: Partial<Record<string, number>>;
+}
 
 export class MonsterType {
   @ApiProperty()
