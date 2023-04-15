@@ -31,14 +31,14 @@ export class OpponentHandler {
     // check if all player opponents have made a move
 
     const opponents = await this.opponentService.findAll({encounter: opponent.encounter.toString()});
-    if (!opponents.every(t => t.move && !t.isNPC)) {
+    if (!opponents.every(t => t.isNPC || t.move)) {
       // not all players have made a move
       return;
     }
 
     // make a move for all NPCs
     for (const opponent of opponents) {
-      if (!opponent.isNPC) {
+      if (!opponent.isNPC || opponent.move) {
         continue;
       }
 
