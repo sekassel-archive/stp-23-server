@@ -261,10 +261,10 @@ export class TrainerHandler implements OnModuleInit {
       return;
     }
 
-    await this.createTrainerBattle(trainer.region, trainerId, attackers);
+    await this.createTrainerBattle(trainer.region, trainerId, false, attackers);
   }
 
-  private async createTrainerBattle(region: string, defender: string, attackers: string[]) {
+  private async createTrainerBattle(region: string, defender: string, defenderIsNPC: boolean, attackers: string[]) {
     const monsters = await this.monsterService.findAll({trainer: {$in: [defender, ...attackers]}});
     const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString();
     if (!defenderMonster) {
@@ -274,7 +274,7 @@ export class TrainerHandler implements OnModuleInit {
     const encounter = await this.encounterService.create(region, {isWild: false});
     await this.opponentService.create(encounter._id.toString(), defender, {
       isAttacker: false,
-      isNPC: false,
+      isNPC: defenderIsNPC,
       monster: defenderMonster,
     });
 
@@ -282,7 +282,7 @@ export class TrainerHandler implements OnModuleInit {
       const monster = monsters.find(m => m.trainer === attacker)?._id?.toString();
       monster && this.opponentService.create(encounter._id.toString(), attacker, {
         isAttacker: true,
-        isNPC: true,
+        isNPC: !defenderIsNPC,
         monster,
       });
     }));
@@ -363,7 +363,7 @@ export class TrainerHandler implements OnModuleInit {
       await this.trainerService.update(targetId, {
         $addToSet: {'npc.encountered': trainerId},
       });
-      await this.createTrainerBattle(trainer.region, targetId, [trainerId]);
+      await this.createTrainerBattle(trainer.region, targetId, true, [trainerId]);
     }
   }
 
