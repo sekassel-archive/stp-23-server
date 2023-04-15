@@ -58,6 +58,11 @@ export class Opponent extends GlobalSchemaWithoutID {
   isAttacker: boolean;
 
   @Prop()
+  @ApiProperty()
+  @IsBoolean()
+  isNPC: boolean;
+
+  @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   monster: string;

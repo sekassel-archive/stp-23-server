@@ -265,16 +265,47 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   private async createTrainerBattle(region: string, defender: string, attackers: string[]) {
+    const monsters = await this.monsterService.findAll({trainer: {$in: attackers}});
+    const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString();
+    if (!defenderMonster) {
+      return;
+    }
+
     const encounter = await this.encounterService.create(region, {isWild: false});
-    await this.opponentService.create(encounter._id.toString(), defender, false);
-    await Promise.all(attackers.map(attacker => this.opponentService.create(encounter._id.toString(), attacker, true)));
+    await this.opponentService.create(encounter._id.toString(), defender, {
+      isAttacker: false,
+      isNPC: false,
+      monster: defenderMonster,
+    });
+
+    await Promise.all(attackers.map(attacker => {
+      const monster = monsters.find(m => m.trainer === attacker)?._id?.toString();
+      monster && this.opponentService.create(encounter._id.toString(), attacker, {
+        isAttacker: true,
+        isNPC: true,
+        monster,
+      });
+    }));
   }
 
   private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
+    const defenderMonster = (await this.monsterService.findAll({trainer: defender}))[0]?._id?.toString();
+    if (!defenderMonster) {
+      return;
+    }
+
     const encounter = await this.encounterService.create(region, {isWild: true});
-    const monster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterService.autofill(type, level));
-    await this.opponentService.create(encounter._id.toString(), defender, false);
-    await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, true, monster._id.toString());
+    await this.opponentService.create(encounter._id.toString(), defender, {
+      isAttacker: false,
+      isNPC: true,
+      monster: defenderMonster,
+    });
+    const wildMonster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterService.autofill(type, level));
+    await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, {
+      isAttacker: true,
+      isNPC: true,
+      monster: wildMonster._id.toString(),
+    });
   }
 
   private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
