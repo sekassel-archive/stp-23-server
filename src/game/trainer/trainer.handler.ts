@@ -6,6 +6,7 @@ import {SocketService} from '../../udp/socket.service';
 import {User} from '../../user/user.schema';
 import {Area} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
+import {TALL_GRASS_ENCOUNTER_CHANCE, TALL_GRASS_TRAINER} from '../constants';
 import {EncounterService} from '../encounter/encounter.service';
 import {getProperty} from '../game.loader';
 import {MonsterService} from '../monster/monster.service';
@@ -39,10 +40,6 @@ export interface TallGrass extends BaseGameObject {
 }
 
 export type GameObject = Portal | TallGrass;
-
-const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
-
-const TALL_GRASS_TRAINER = '0'.repeat(24);
 
 @Injectable()
 export class TrainerHandler implements OnModuleInit {

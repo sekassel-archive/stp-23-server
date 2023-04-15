@@ -96,3 +96,6 @@ export class AbilityDto extends OmitType(Ability, ['minLevel', 'effects'] as con
 
 export const abilities: Ability[] = _abilities;
 
+export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
+
+export const TALL_GRASS_TRAINER = '0'.repeat(24);
