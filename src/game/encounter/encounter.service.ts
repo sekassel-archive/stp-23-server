@@ -6,7 +6,7 @@ import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '..
 import {attackGain, defenseGain, EVOLUTION_LEVELS, expGain, expRequired, healthGain, speedGain} from '../formulae';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
-import {Opponent} from '../opponent/opponent.schema';
+import {OpponentDocument} from '../opponent/opponent.schema';
 import {OpponentService} from '../opponent/opponent.service';
 import {CreateEncounterDto} from './encounter.dto';
 import {Encounter, EncounterDocument} from './encounter.schema';
@@ -42,7 +42,7 @@ export class EncounterService {
     this.eventService.emit(`regions.${encounter.region}.encounters.${encounter._id.toString()}.${event}`, encounter);
   }
 
-  async playRound(opponents: Opponent[]): Promise<void> {
+  async playRound(opponents: OpponentDocument[]): Promise<void> {
     if (opponents.find(o => !o.move)) {
       return;
     }
@@ -55,41 +55,50 @@ export class EncounterService {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
       const move = opponent?.move;
       if (move && move.type === 'ability') {
+        if (monster.currentAttributes.health <= 0) {
+          opponent.results = ['monster-dead'];
+          continue;
+        }
+
         if (!monster.abilities.includes(move.ability)) {
-          // TODO log error
+          opponent.results = ['ability-unknown'];
           continue;
         }
         const ability = abilities.find(a => a.id === move.ability);
         if (!ability) {
-          // TODO log error
+          opponent.results = ['ability-unknown'];
           continue;
         }
 
-        // FIXME target may be new monster if one was defeated
         const target = monsters.find(m => m.trainer === move.target);
         if (!target) {
-          // TODO log error
+          opponent.results = ['target-unknown'];
           continue;
         }
 
-        this.playAbility(ability, monster, target);
+        if (target.currentAttributes.health <= 0) {
+          opponent.results = ['target-dead'];
+          continue;
+        }
+
+        this.playAbility(opponent, ability, monster, target);
       }
     }
 
     await this.monsterService.saveMany(monsters);
   }
 
-  private playAbility(ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
+  private playAbility(opponent: OpponentDocument, ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
     for (const value of ability.effects) {
       if (value.chance == null || Math.random() <= value.chance) {
         if ('attribute' in value) {
-          this.applyAttributeEffect(value, currentMonster, targetMonster, ability);
+          this.applyAttributeEffect(opponent, value, currentMonster, targetMonster, ability);
         }
       }
     }
   }
 
-  private applyAttributeEffect(value: AttributeEffect, currentMonster: MonsterDocument, targetMonster: MonsterDocument, ability: Ability) {
+  private applyAttributeEffect(opponent: OpponentDocument, value: AttributeEffect, currentMonster: MonsterDocument, targetMonster: MonsterDocument, ability: Ability) {
     const effectTarget = (value.self === true || (value.self == null && value.amount > 0)) ? currentMonster : targetMonster;
     const attribute = value.attribute as keyof MonsterAttributes;
     let effectAmount: number = value.amount;
@@ -103,24 +112,33 @@ export class EncounterService {
       }
 
       const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
+      let multiplier = 1;
       for (const targetType of targetTypes) {
         const abilityType = ability.type as Type;
         const type = types[abilityType];
-        effectAmount *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
+        multiplier *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
+      }
+      effectAmount *= multiplier;
+
+      if (multiplier > 1) {
+        opponent.results.push('ability-effective');
+      } else if (multiplier < 1) {
+        opponent.results.push('ability-ineffective');
       }
     }
 
     effectTarget.currentAttributes[attribute] += effectAmount;
     if (effectTarget.currentAttributes[attribute] <= 0) {
       effectTarget.currentAttributes[attribute] = 0;
+      opponent.results.push(effectTarget === currentMonster ? 'monster-defeated' : 'target-defeated');
       if (attribute === 'health' && effectTarget !== currentMonster) {
-        this.gainExp(currentMonster, effectTarget);
+        this.gainExp(opponent, currentMonster, effectTarget);
       }
     }
     effectTarget.markModified(`currentAttributes.${attribute}`);
   }
 
-  private gainExp(currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
+  private gainExp(opponent: OpponentDocument, currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
     // TODO improve experience gain
     currentMonster.experience += expGain(effectTarget.level);
 
@@ -128,14 +146,16 @@ export class EncounterService {
       const levelUpExp = expRequired(currentMonster.level);
       if (currentMonster.experience >= levelUpExp) {
         currentMonster.experience -= levelUpExp;
-        this.levelUp(currentMonster);
+        this.levelUp(opponent, currentMonster);
       } else {
         break;
       }
     }
   }
 
-  private levelUp(currentMonster: MonsterDocument) {
+  private levelUp(opponent: OpponentDocument, currentMonster: MonsterDocument) {
+    opponent.results.push('monster-levelup');
+
     currentMonster.level++;
     currentMonster.attributes.health += healthGain(currentMonster.level);
     currentMonster.attributes.attack += attackGain(currentMonster.level);
@@ -145,7 +165,7 @@ export class EncounterService {
 
     let monsterType = monsterTypes.find(m => m.id === currentMonster.type);
     if (!monsterType) {
-      // TODO log error
+      console.error(`Monster ${currentMonster._id} has unknown type ${currentMonster.type}!`);
       return;
     }
 
@@ -154,6 +174,7 @@ export class EncounterService {
       const evolution = monsterType.evolution;
       const newMonsterType = monsterTypes.find(m => m.id === evolution);
       if (evolution && newMonsterType) {
+        opponent.results.push('monster-evolved');
         currentMonster.type = evolution;
         monsterType = newMonsterType;
       }
@@ -168,6 +189,7 @@ export class EncounterService {
       while (currentMonster.abilities.length > MAX_ABILITIES) {
         currentMonster.abilities.shift();
       }
+      opponent.results.push('monster-learned');
       currentMonster.markModified('abilities');
     }
   }

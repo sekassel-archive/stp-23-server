@@ -1,10 +1,10 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiExtraModels, ApiProperty, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {Equals, IsBoolean, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
+import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities} from '../constants';
+import {abilities, Result, RESULTS, RESULTS_WITH_DESCRIPTION} from '../constants';
 
 @Schema()
 export class AbilityMove {
@@ -87,6 +87,17 @@ export class Opponent extends GlobalSchemaWithoutID {
     },
   })
   move?: Move;
+
+  @Prop()
+  @ApiProperty({
+    enum: RESULTS,
+    isArray: true,
+    description: 'The results of the last round.\n\n' +
+      Object.entries(RESULTS_WITH_DESCRIPTION).map(([key, value]) => `- ${key}: ${value}`).join('\n'),
+  })
+  @IsArray()
+  @IsIn(RESULTS, {each: true})
+  results: Result[];
 }
 
 export type OpponentDocument = Opponent & Document<Types.ObjectId, any, Opponent>;

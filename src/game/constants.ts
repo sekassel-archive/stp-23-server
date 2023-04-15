@@ -99,3 +99,21 @@ export const abilities: Ability[] = _abilities;
 export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
 
 export const TALL_GRASS_TRAINER = '0'.repeat(24);
+
+export const RESULTS_WITH_DESCRIPTION = {
+  'ability-effective': 'The ability was super effective',
+  'ability-ineffective': 'The ability was not very effective',
+  'target-defeated': 'The target monster was defeated',
+  'monster-defeated': 'The monster was defeated',
+  'monster-levelup': 'The monster leveled up',
+  'monster-evolved': 'The monster evolved',
+  'monster-learned': 'The monster learned a new ability',
+  // Error cases
+  'monster-dead': 'The monster is dead',
+  'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
+  'target-unknown': 'The target trainer does not exist or has fled',
+  'target-dead': 'The target monster is already dead',
+} as const;
+
+export const RESULTS = Object.keys(RESULTS_WITH_DESCRIPTION);
+export type Result = keyof typeof RESULTS_WITH_DESCRIPTION;
