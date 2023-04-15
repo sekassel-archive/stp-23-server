@@ -110,9 +110,9 @@ export class EncounterService {
       }
     }
 
-    effectTarget.attributes[attribute] += effectAmount;
-    if (effectTarget.attributes[attribute] <= 0) {
-      effectTarget.attributes[attribute] = 0;
+    effectTarget.currentAttributes[attribute] += effectAmount;
+    if (effectTarget.currentAttributes[attribute] <= 0) {
+      effectTarget.currentAttributes[attribute] = 0;
       if (attribute === 'health' && effectTarget !== currentMonster) {
         this.gainExp(currentMonster, effectTarget);
       }
