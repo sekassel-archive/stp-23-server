@@ -49,7 +49,7 @@
     "id": 4,
     "name": "Razor Leaf",
     "description": "Sharp edged leaves are launched to slash at the opponent.",
-    "type": "plant",
+    "type": "grass",
     "minLevel": 1,
     "maxUses": 25,
     "effects": [
@@ -63,7 +63,7 @@
     "id": 5,
     "name": "Vine Whip",
     "description": "A whip-like vine is used to lash the opponent. It may also lower the target's Defense stat.",
-    "type": "plant",
+    "type": "grass",
     "minLevel": 1,
     "maxUses": 10,
     "effects": [
@@ -89,10 +89,6 @@
       {
         "attribute": "health",
         "amount": -10
-      },
-      {
-        "attribute": "health",
-        "amount": -10
       }
     ]
   },
@@ -107,6 +103,10 @@
       {
         "attribute": "health",
         "amount": -15
+      },
+      {
+        "attribute": "burn",
+        "chance": 0.1
       }
     ]
   },
@@ -156,7 +156,7 @@
       },
       {
         "status": "confusion",
-        "chance": 0.4
+        "chance": 0.2
       }
     ]
   },
@@ -240,7 +240,7 @@
       {
         "attribute": "speed",
         "amount": -1,
-        "chance": 0.5
+        "chance": 0.2
       }
     ]
   },
@@ -258,7 +258,7 @@
       },
       {
         "status": "poison",
-        "chance": 0.7
+        "chance": 0.1
       }
     ]
   },
@@ -305,6 +305,1461 @@
       {
         "status": "freeze",
         "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Grass Touch",
+    "description": "The monster touches the target with its leafy arms and cuts it with sharp thorns.",
+    "type": "grass",
+    "minLevel": 1,
+    "maxUses": 35,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -5
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Grass Punch",
+    "description": "The target is punched with a leafy fist. It may also lower the target's defense.",
+    "type": "grass",
+    "minLevel": 4,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -30
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.5
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Steel Kick",
+    "description": "The monster kicks the target with a steel-hard foot.",
+    "type": "steel",
+    "minLevel": 4,
+    "maxUses": 20,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -25
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Fair Wind",
+    "description": "The monster summons a fair wind that damages the target and lowers its speed.",
+    "type": "fairy",
+    "minLevel": 4,
+    "maxUses": 20,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -20
+      },
+      {
+        "attribute": "speed",
+        "amount": -1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Thunderbolt",
+    "description": "A strong electric blast crashes down on the target. It may also leave the target with paralysis.",
+    "type": "electric",
+    "minLevel": 4,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -30
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Fire Punch",
+    "description": "The target is punched with a fiery fist. It may also leave the target with a burn.",
+    "type": "fire",
+    "minLevel": 4,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -20
+      },
+      {
+        "status": "burn",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Ice Punch",
+    "description": "The target is punched with an icy fist. It may also leave the target frozen.",
+    "type": "ice",
+    "minLevel": 4,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -20
+      },
+      {
+        "status": "freeze",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Thunder Punch",
+    "description": "The target is punched with an electrified fist. It may also leave the target with paralysis.",
+    "type": "electric",
+    "minLevel": 4,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -20
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Grass Cannon",
+    "description": "The monster fires a grassy cannon at the target. It may also lower the target's defense.",
+    "type": "grass",
+    "minLevel": 6,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -40
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Sludge",
+    "description": "The target is attacked with a discharge of filthy sludge. It may also poison the target.",
+    "type": "poison",
+    "minLevel": 6,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -35
+      },
+      {
+        "status": "poison",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Shadow Punch",
+    "description": "The target is punched with a fist wrapped in shadows. It may also lower the target's Attack stat.",
+    "type": "ghost",
+    "minLevel": 6,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -30
+      },
+      {
+        "attribute": "attack",
+        "amount": -1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Sludge Bomb",
+    "description": "The target is hit with a bomb filled with a filthy sludge. It may also poison the target.",
+    "type": "poison",
+    "minLevel": 6,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -40
+      },
+      {
+        "status": "poison",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Mud-Slap",
+    "description": "The target is hit with a sludge-filled attack. It may also lower the target's accuracy.",
+    "type": "ground",
+    "minLevel": 6,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -35
+      },
+      {
+        "attribute": "accuracy",
+        "amount": -1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Ice Beam",
+    "description": "A beam of ice is launched at the target. It may also leave the target frozen.",
+    "type": "ice",
+    "minLevel": 9,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -50
+      },
+      {
+        "status": "freeze",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Blizzard",
+    "description": "A howling blizzard is summoned to strike the target. It may also leave the target frozen.",
+    "type": "ice",
+    "minLevel": 9,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -50
+      },
+      {
+        "status": "freeze",
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Hyper Beam",
+    "description": "The target is attacked with a powerful beam. The user can't move on the next turn.",
+    "type": "normal",
+    "minLevel": 9,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -50
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Poison Fang",
+    "description": "The target is bitten with viciously sharp fangs. It may also poison the target.",
+    "type": "poison",
+    "minLevel": 9,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -38
+      },
+      {
+        "status": "poison",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Fire Blast",
+    "description": "The target is attacked with an intense blast of all-consuming fire. It may also leave the target with a burn.",
+    "type": "fire",
+    "minLevel": 9,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -50
+      },
+      {
+        "status": "burn",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Waterfall",
+    "description": "The target is hit with a giant wave of water crashing down from above.",
+    "type": "water",
+    "minLevel": 9,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -40
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Surf",
+    "description": "The user attacks everything around it by swamping its surroundings with a giant wave. It may also lower the targets' accuracy.",
+    "type": "water",
+    "minLevel": 9,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -45
+      },
+      {
+        "attribute": "accuracy",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Fairy Yell",
+    "description": "The user starts yelling at the target in a high-pitched voice. It may also lower the target's Attack stat.",
+    "type": "fairy",
+    "minLevel": 9,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -45
+      },
+      {
+        "attribute": "attack",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Giant Claw",
+    "description": "The user slashes the target with huge, sharp claws.",
+    "type": "normal",
+    "minLevel": 9,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -50
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Aqua Bomb",
+    "description": "The user attacks everything around it by swamping its surroundings with a giant wave.",
+    "type": "water",
+    "minLevel": 11,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -50
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Bite",
+    "description": "The target is bitten with viciously sharp fangs.",
+    "type": "dark",
+    "minLevel": 11,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -45
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Crunch",
+    "description": "The target is bitten with viciously sharp fangs. It may also lower the target's Defense stat.",
+    "type": "dark",
+    "minLevel": 11,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -45
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Dragon Breath",
+    "description": "The target is attacked with an intense blast of hot breath. It may also leave the target with paralysis.",
+    "type": "dragon",
+    "minLevel": 11,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -45
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Dragon Claw",
+    "description": "The target is slashed with huge, sharp claws. It may also lower the target's Defense stat.",
+    "type": "dragon",
+    "minLevel": 13,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -55
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Dragon Pulse",
+    "description": "The target is attacked with a shock wave generated by the user's gaping mouth.",
+    "type": "dragon",
+    "minLevel": 13,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -60
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Dragon Rush",
+    "description": "The target is slammed with a long tail, vines, or the like to inflict damage. It may also leave the target with paralysis.",
+    "type": "dragon",
+    "minLevel": 13,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -60
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Grass Claw",
+    "description": "The user slashes the target with huge, sharp claws. It may also lower the target's Attack stat.",
+    "type": "grass",
+    "minLevel": 13,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -70
+      },
+      {
+        "attribute": "attack",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Draco Meteor",
+    "description": "The user gathers all its light energy and releases it at once. It may also lower the target's Defense stat.",
+    "type": "dragon",
+    "minLevel": 13,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -70
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Thunder Shock",
+    "description": "The target is jolted with a jolt of electricity. It may also leave the target with paralysis.",
+    "type": "electric",
+    "minLevel": 13,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -55
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Thunder",
+    "description": "A wicked thunderbolt is dropped on the target to inflict damage. It may also leave the target with paralysis.",
+    "type": "electric",
+    "minLevel": 13,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -65
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Thunder Punch",
+    "description": "The target is punched with an electrified fist. It may also leave the target with paralysis.",
+    "type": "electric",
+    "minLevel": 15,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -65
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Thunder Wave",
+    "description": "The target is hit by a weak jolt of electricity. It may also leave the target with paralysis.",
+    "type": "electric",
+    "minLevel": 15,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -65
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Twister",
+    "description": "The target is attacked with a fierce whirlwind that may also make the defence stat fall.",
+    "type": "dragon",
+    "minLevel": 15,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Water Pulse",
+    "description": "The target is attacked with a pulsing blast of water. It may also confuse the target.",
+    "type": "water",
+    "minLevel": 15,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -60
+      },
+      {
+        "status": "confusion",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Water Blast",
+    "description": "The target is blasted by a huge volume of water launched under great pressure. It may also confuse the target.",
+    "type": "water",
+    "minLevel": 15,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -65
+      },
+      {
+        "status": "confusion",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Aerial Ace",
+    "description": "The user confounds the target with speed, then slashes. Critical hits land more easily.",
+    "type": "flying",
+    "minLevel": 17,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Air Cutter",
+    "description": "The target is sliced with a scythe-like wind. Critical hits land more easily.",
+    "type": "flying",
+    "minLevel": 17,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Air Slash",
+    "description": "The user attacks with a blade of air that slices even the sky. It may also make the target confused.",
+    "type": "flying",
+    "minLevel": 17,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -70
+      },
+      {
+        "status": "confusion",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Ancient Power",
+    "description": "The user attacks with a prehistoric power. It may also raise the user's defence stat.",
+    "type": "rock",
+    "minLevel": 17,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      },
+      {
+        "attribute": "defense",
+        "amount": 1,
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Steel Fist",
+    "description": "The user slams the target with a steel fist. It may also raise the user's defence stat.",
+    "type": "steel",
+    "minLevel": 17,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      },
+      {
+        "attribute": "defense",
+        "amount": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "name": "Insect Bite",
+    "description": "The user bites the target. It may also poison the target.",
+    "type": "bug",
+    "minLevel": 17,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      },
+      {
+        "status": "poison",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Earthy Fist",
+    "description": "The user slams the target with a fist made of earth. It may also lower the target's defence stat.",
+    "type": "ground",
+    "minLevel": 17,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Psycho Cut",
+    "description": "The user tears at the target with blades formed by psychic power. The target's may also become confused.",
+    "type": "psychic",
+    "minLevel": 17,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -70
+      },
+      {
+        "status": "confusion",
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Scream of Pain",
+    "description": "The user attacks the target with a horrible sound wave. It may also lower the target's defence stat. and confuse it.",
+    "type": "normal",
+    "minLevel": 17,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.3
+      },
+      {
+        "status": "confusion",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Gold Rush",
+    "description": "The user attacks the target with a flurry of gold coins.",
+    "type": "steel",
+    "minLevel": 17,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Aqua Jet",
+    "description": "The user lunges at the target at a speed that makes it almost invisible. It is sure to strike first.",
+    "type": "water",
+    "minLevel": 20,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "name": "Aqua Fist",
+    "description": "The user slams the target with a water fist. It may also lower the target's defence stat.",
+    "type": "water",
+    "minLevel": 20,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "name": "Astonish",
+    "description": "The user attacks the target while shouting in a startling fashion. It may also make the target confused.",
+    "type": "ghost",
+    "minLevel": 21,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      },
+      {
+        "status": "confusion",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Psycho Blast",
+    "description": "The user attacks the target with a powerful psychic blast. It may also make the target fall asleep.",
+    "type": "psychic",
+    "minLevel": 21,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -75
+      },
+      {
+        "status": "sleep",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Blizzard Blast",
+    "description": "A blast of freezing cold air is blown at the target. It may also leave the target frozen.",
+    "type": "ice",
+    "minLevel": 23,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -100
+      },
+      {
+        "status": "freeze",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "name": "Salt Blast",
+    "description": "The user gets salty and blasts the target with salt. It may also leave the target confused.",
+    "type": "rock",
+    "minLevel": 23,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -90
+      },
+      {
+        "status": "confusion",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Brick Break",
+    "description": "The user attacks with a swift chop. It can also break any barrier such as Light Screen and Reflect.",
+    "type": "fighting",
+    "minLevel": 23,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Brine",
+    "description": "If the target's HP is down to about half, this attack will hit with double the power.",
+    "type": "water",
+    "minLevel": 23,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -85
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Bug Bite",
+    "description": "The user bites the target. If the target is holding a Berry, the user eats it and gains its effect.",
+    "type": "bug",
+    "minLevel": 23,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Bug Buzz",
+    "description": "The user generates a damaging sound wave by vigorously shaking its body. It may also lower the target's special defence stat.",
+    "type": "bug",
+    "minLevel": 23,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -85
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Candy Crush",
+    "description": "The user crushes the target with a candy cane from Reuters Kiosk. It may also lower the target's defence stat.",
+    "type": "rock",
+    "minLevel": 23,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -85
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Charge Beam",
+    "description": "The user attacks with an electric charge. The target may be left with paralysis.",
+    "type": "electric",
+    "minLevel": 23,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -85
+      },
+      {
+        "attribute": "paralysis",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Clamp",
+    "description": "The target is clamped and squeezed by the user's very thick and sturdy shell. It may increase the user's defence stat.",
+    "type": "water",
+    "minLevel": 23,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -85
+      },
+      {
+        "attribute": "defense",
+        "amount": 1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Comet Punch",
+    "description": "The user throws a flurry of punches that strike the target.",
+    "type": "normal",
+    "minLevel": 23,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "name": "Iron Shield",
+    "description": "The user protects itself with a hard shell. It may also raise the user's defence stat.",
+    "type": "steel",
+    "minLevel": 23,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "defense",
+        "amount": 3,
+        "chance": 0.9
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "name": "Psycho Edge",
+    "description": "The user attacks with a blade of psychic energy. The user may also confuse the target.",
+    "type": "psychic",
+    "minLevel": 23,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -85
+      },
+      {
+        "status": "confusion",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "name": "Insect Wave",
+    "description": "The user attacks with a wave of insects. It may poison the target.",
+    "type": "bug",
+    "minLevel": 23,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -80
+      },
+      {
+        "status": "poison",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "name": "Confuse Ray",
+    "description": "A sinister ray that induces confusion in the target.",
+    "type": "ghost",
+    "minLevel": 26,
+    "maxUses": 10,
+    "effects": [
+      {
+        "status": "confusion",
+        "chance": 0.8
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "name": "Crabhammer",
+    "description": "The user hits the target with a pincer attack.",
+    "type": "water",
+    "minLevel": 26,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -100
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "name": "Cross Chop",
+    "description": "The user delivers a double chop with its forearms crossed. It may also lower the target's defence stat.",
+    "type": "fighting",
+    "minLevel": 29,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -115
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "name": "Crunch Punch",
+    "description": "The user throws a punch with the power to shatter a rock. It may also lower the target's defence stat.",
+    "type": "dark",
+    "minLevel": 29,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -100
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "name": "Dark Pulse",
+    "description": "The user releases a horrible aura imbued with dark thoughts. It may also make the target confused.",
+    "type": "dark",
+    "minLevel": 31,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -110
+      },
+      {
+        "status": "confusion",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "name": "Dark Void",
+    "description": "The user lets loose a pitch-black shock wave at the target. It may also make the target confused.",
+    "type": "dark",
+    "minLevel": 31,
+    "maxUses": 12,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -110
+      },
+      {
+        "status": "consusion",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "name": "Defend Order",
+    "description": "The user focuses its mind and calms its spirit to raise its defence stat.",
+    "type": "fighting",
+    "minLevel": 31,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "defense",
+        "amount": 3,
+        "chance": 0.8
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "name": "Discharge",
+    "description": "The user strikes everything around it by letting loose a flare of electricity. It may also leave those it hits with paralysis.",
+    "type": "electric",
+    "minLevel": 33,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -120
+      },
+      {
+        "attribute": "paralysis",
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Double Kick",
+    "description": "The user delivers two kicks in a row. It may also lower the target's defence stat.",
+    "type": "fighting",
+    "minLevel": 33,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -115
+      },
+      {
+        "status": "defense",
+        "amount": -1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Fairy Ray",
+    "description": "The user shoots a ray of light at the target. It may also lower the target's defence stat. and make it confused.",
+    "type": "fairy",
+    "minLevel": 33,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -119
+      },
+      {
+        "status": "defense",
+        "amount": -1,
+        "chance": 0.2
+      },
+      {
+        "status": "confusion",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "name": "Double Slap",
+    "description": "The user slaps the target with its open palm two to five times in a row.",
+    "type": "fighting",
+    "minLevel": 35,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -120
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "name": "Double Team",
+    "description": "The user creates illusory copies of itself to confuse the target.",
+    "type": "normal",
+    "minLevel": 35,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "confusion",
+        "chance": 0.8
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "name": "Draco Punch",
+    "description": "The user gathers all its power and slams the target with its punch. It may also lower the target's defence stat.",
+    "type": "dragon",
+    "minLevel": 37,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -150
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "name": "Dragon Smash",
+    "description": "The user slams the target with its tail. It may also lower the target's defence stat.",
+    "type": "dragon",
+    "minLevel": 40,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -150
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "name": "Dragon Dance",
+    "description": "The user vigorously performs a mystic, powerful dance that boosts its attack and defense stats.",
+    "type": "dragon",
+    "minLevel": 40,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "attack",
+        "amount": 3,
+        "chance": 0.8
+      },
+      {
+        "attribute": "defense",
+        "amount": 3,
+        "chance": 0.8
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "name": "Fairy Spin",
+    "description": "The user spins around and creates a whirlwind that hits the target. It may make the enemy fall asleep.",
+    "type": "fairy",
+    "minLevel": 40,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -150
+      },
+      {
+        "status": "sleep",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "name": "Wings of Chaos",
+    "description": "The user flys around the target and hits it with its wings. It may lower the target's defence stat.",
+    "type": "flying",
+    "minLevel": 40,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -150
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "name": "Meteor Smash",
+    "description": "The user creates a meteor and smashes it into the target.",
+    "type": "rock",
+    "minLevel": 40,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -160
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "name": "Tunnel Retreat",
+    "description": "The user digs a hole and retreats into it. It may also increase the user's defence stat. and heal the user.",
+    "type": "ground",
+    "minLevel": 40,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 50
+      },
+      {
+        "attribute": "defense",
+        "amount": 1,
+        "chance": 0.8
       }
     ]
   }
