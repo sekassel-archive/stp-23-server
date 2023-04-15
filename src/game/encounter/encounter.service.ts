@@ -116,6 +116,7 @@ export class EncounterService {
         this.gainExp(currentMonster, effectTarget);
       }
     }
+    effectTarget.markModified(`currentAttributes.${attribute}`);
   }
 
   private gainExp(currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
@@ -139,6 +140,7 @@ export class EncounterService {
     currentMonster.attributes.attack += attackGain(currentMonster.level);
     currentMonster.attributes.defense += defenseGain(currentMonster.level);
     currentMonster.attributes.speed += speedGain(currentMonster.level);
+    currentMonster.markModified('attributes');
 
     let monsterType = monsterTypes.find(m => m.id === currentMonster.type);
     if (!monsterType) {
@@ -165,6 +167,7 @@ export class EncounterService {
       while (currentMonster.abilities.length > MAX_ABILITIES) {
         currentMonster.abilities.shift();
       }
+      currentMonster.markModified('abilities');
     }
   }
 }
