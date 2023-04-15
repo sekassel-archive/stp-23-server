@@ -44,6 +44,9 @@ export class OpponentHandler {
 
     await this.opponentService.saveMany(opponents);
 
+    for (const opponent of opponents) {
+      opponent.results = [];
+    }
     await this.encounterService.playRound(opponents);
 
     for (const opponent of opponents) {
