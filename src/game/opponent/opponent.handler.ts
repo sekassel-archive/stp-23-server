@@ -72,6 +72,8 @@ export class OpponentHandler {
       opponent.move = move;
     }
 
+    await this.opponentService.saveMany(opponents);
+
     await this.encounterService.playRound(opponents);
 
     for (const opponent of opponents) {

@@ -75,6 +75,8 @@ export class EncounterService {
         this.playAbility(ability, monster, target);
       }
     }
+
+    await this.monsterService.saveMany(monsters);
   }
 
   private playAbility(ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {

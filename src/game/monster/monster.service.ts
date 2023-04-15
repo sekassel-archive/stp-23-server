@@ -120,6 +120,17 @@ export class MonsterService {
     return monsters;
   }
 
+  async saveMany(monsters: MonsterDocument[]) {
+    await this.model.bulkSave(monsters);
+    for (const monster of monsters) {
+      if (monster.isNew) {
+        this.emit('created', monster);
+      } else if (monster.isModified()){
+        this.emit('updated', monster);
+      }
+    }
+  }
+
   private emit(event: string, monster: Monster): void {
     this.eventEmitter.emit(`trainers.${monster.trainer}.monsters.${monster._id}.${event}`, monster);
   }
