@@ -163,7 +163,7 @@ export class TrainerHandler implements OnModuleInit {
       case 'TallGrass':
         if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
           const trainer = await this.trainerService.findOne(trainerId);
-          const [type, level] = gameObject.monsters[Math.floor(Math.random() * gameObject.monsters.length)];
+          const [type, level] = gameObject.monsters.random();
           trainer && await this.createMonsterEncounter(trainer.region, trainerId, type, level);
         }
         break;

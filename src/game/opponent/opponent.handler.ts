@@ -63,7 +63,7 @@ export class OpponentHandler {
       }
 
       const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker);
-      const target = targets[Math.floor(Math.random() * targets.length)];
+      const target = targets.random();
       const monster = await this.monsterService.findOne(opponent.monster);
       let move: Move;
       if (monster && monster.currentAttributes.health > 0) {

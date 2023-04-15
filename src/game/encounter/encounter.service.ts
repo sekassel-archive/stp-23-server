@@ -188,7 +188,7 @@ export class EncounterService {
     const newAbilities = this.monsterService.getPossibleAbilities(currentMonster.level, monsterType.type)
       .filter(a => !currentMonster.abilities.includes(a.id));
     if (newAbilities.length) {
-      const ability = newAbilities[Math.floor(Math.random() * newAbilities.length)];
+      const ability = newAbilities.random();
       currentMonster.abilities.push(ability.id);
       while (currentMonster.abilities.length > MAX_ABILITIES) {
         currentMonster.abilities.shift();
