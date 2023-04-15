@@ -94,11 +94,12 @@ export class EncounterService {
     const attribute = value.attribute as keyof MonsterAttributes;
     let effectAmount: number = value.amount;
 
-    if (attribute === 'health') {
-      if (effectTarget.attributes.defense > value.amount + currentMonster.attributes.attack) {
+    if (attribute === 'health' && effectAmount < 0) {
+      effectAmount -= currentMonster.currentAttributes.attack;
+      effectAmount += targetMonster.currentAttributes.defense;
+
+      if (effectAmount > 0) {
         effectAmount = 0;
-      } else {
-        effectAmount += currentMonster.attributes.attack - effectTarget.attributes.defense;
       }
 
       const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
