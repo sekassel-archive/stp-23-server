@@ -6,6 +6,7 @@ import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '..
 import {attackGain, defenseGain, EVOLUTION_LEVELS, expGain, expRequired, healthGain, speedGain} from '../formulae';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../monster/monster.schema';
 import {MonsterService} from '../monster/monster.service';
+import {Opponent} from '../opponent/opponent.schema';
 import {OpponentService} from '../opponent/opponent.service';
 import {CreateEncounterDto} from './encounter.dto';
 import {Encounter, EncounterDocument} from './encounter.schema';
@@ -41,11 +42,7 @@ export class EncounterService {
     this.eventService.emit(`regions.${encounter.region}.encounters.${encounter._id.toString()}.${event}`, encounter);
   }
 
-  async playRound(encounter: Encounter): Promise<void> {
-    const opponents = await this.opponentService.findAll({
-      region: encounter.region,
-      encounter: encounter._id.toString(),
-    });
+  async playRound(opponents: Opponent[]): Promise<void> {
     if (opponents.find(o => !o.move)) {
       return;
     }

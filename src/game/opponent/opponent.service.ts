@@ -70,6 +70,17 @@ export class OpponentService {
     await this.model.deleteMany(filter).exec();
   }
 
+  async saveMany(opponents: OpponentDocument[]) {
+    await this.model.bulkSave(opponents);
+    for (const opponent of opponents) {
+      if (opponent.isNew) {
+        this.emit('created', opponent);
+      } else if (opponent.isModified()) {
+        this.emit('updated', opponent);
+      }
+    }
+  }
+
   emit(event: string, opponent: Opponent) {
     this.eventService.emit(`encounters.${opponent.encounter}.opponents.${opponent.trainer}.${event}`, opponent);
   }
