@@ -121,14 +121,11 @@ export class MonsterService {
   }
 
   async saveMany(monsters: MonsterDocument[]) {
+    const newDocs = monsters.filter(o => o.isNew);
+    const modDocs = monsters.filter(o => o.isModified());
     await this.model.bulkSave(monsters);
-    for (const monster of monsters) {
-      if (monster.isNew) {
-        this.emit('created', monster);
-      } else if (monster.isModified()){
-        this.emit('updated', monster);
-      }
-    }
+    newDocs.forEach(o => this.emit('created', o));
+    modDocs.forEach(o => this.emit('updated', o));
   }
 
   private emit(event: string, monster: Monster): void {

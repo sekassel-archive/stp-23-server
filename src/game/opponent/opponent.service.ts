@@ -71,14 +71,11 @@ export class OpponentService {
   }
 
   async saveMany(opponents: OpponentDocument[]) {
+    const newDocs = opponents.filter(o => o.isNew);
+    const modDocs = opponents.filter(o => o.isModified());
     await this.model.bulkSave(opponents);
-    for (const opponent of opponents) {
-      if (opponent.isNew) {
-        this.emit('created', opponent);
-      } else if (opponent.isModified()) {
-        this.emit('updated', opponent);
-      }
-    }
+    newDocs.forEach(o => this.emit('created', o));
+    modDocs.forEach(o => this.emit('updated', o));
   }
 
   emit(event: string, opponent: Opponent) {
