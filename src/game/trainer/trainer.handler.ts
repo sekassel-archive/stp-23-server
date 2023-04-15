@@ -265,7 +265,7 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   private async createTrainerBattle(region: string, defender: string, attackers: string[]) {
-    const monsters = await this.monsterService.findAll({trainer: {$in: attackers}});
+    const monsters = await this.monsterService.findAll({trainer: {$in: [defender, ...attackers]}});
     const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString();
     if (!defenderMonster) {
       return;
