@@ -99,4 +99,3 @@ export const abilities: Ability[] = _abilities;
 export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
 
 export const TALL_GRASS_TRAINER = '0'.repeat(24);
-export const NPC_USER = '0'.repeat(24);

@@ -5,7 +5,7 @@ import {Region} from '../region/region.schema';
 import {RegionService} from '../region/region.service';
 import {AreaDocument} from './area/area.schema';
 import {AreaService} from './area/area.service';
-import {NPC_USER} from './constants';
+import {MonsterAttributes} from './monster/monster.schema';
 import {MonsterService} from './monster/monster.service';
 import {TiledMap} from './tiled-map.interface';
 import {Direction} from './trainer/trainer.schema';
@@ -84,7 +84,9 @@ export class GameLoader implements OnModuleInit {
       name: object.name,
       npc: {$exists: true},
     }, {
-      user: NPC_USER,
+      $setOnInsert: {
+        user: new Types.ObjectId(),
+      },
       region: region._id.toString(),
       area: area._id.toString(),
       name: object.name,
