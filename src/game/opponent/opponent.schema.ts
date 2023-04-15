@@ -66,6 +66,7 @@ export class Opponent extends GlobalSchemaWithoutID {
   @ApiProperty({oneOf: refs(AbilityMove, ChangeMonsterMove)})
   @ValidateNested()
   @Type(() => Object, {
+    keepDiscriminatorProperty: true,
     discriminator: {
       property: 'type',
       subTypes: [
