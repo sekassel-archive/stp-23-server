@@ -4,7 +4,7 @@ import {Encounter} from '../encounter/encounter.schema';
 import {EncounterService} from '../encounter/encounter.service';
 import {MonsterService} from '../monster/monster.service';
 import {Trainer} from '../trainer/trainer.schema';
-import {Move, Opponent} from './opponent.schema';
+import {Move, Opponent, OpponentDocument} from './opponent.schema';
 import {OpponentService} from './opponent.service';
 
 @Injectable()
@@ -28,6 +28,10 @@ export class OpponentHandler {
 
   @OnEvent('encounters.*.opponents.*.updated')
   async onOpponentUpdated(opponent: Opponent): Promise<void> {
+    if (opponent.isNPC) {
+      return;
+    }
+
     // check if all player opponents have made a move
 
     const opponents = await this.opponentService.findAll({encounter: opponent.encounter.toString()});
@@ -36,7 +40,20 @@ export class OpponentHandler {
       return;
     }
 
-    // make a move for all NPCs
+    await this.makeNPCMoves(opponents);
+
+    await this.opponentService.saveMany(opponents);
+
+    await this.encounterService.playRound(opponents);
+
+    for (const opponent of opponents) {
+      opponent.move = undefined;
+    }
+
+    await this.opponentService.saveMany(opponents);
+  }
+
+  private async makeNPCMoves(opponents: OpponentDocument[]) {
     for (const opponent of opponents) {
       if (!opponent.isNPC || opponent.move) {
         continue;
@@ -71,15 +88,5 @@ export class OpponentHandler {
 
       opponent.move = move;
     }
-
-    await this.opponentService.saveMany(opponents);
-
-    await this.encounterService.playRound(opponents);
-
-    for (const opponent of opponents) {
-      opponent.move = undefined;
-    }
-
-    await this.opponentService.saveMany(opponents);
   }
 }
