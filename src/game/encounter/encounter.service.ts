@@ -89,16 +89,37 @@ export class EncounterService {
   }
 
   private playAbility(opponent: OpponentDocument, ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
+    const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
+    let multiplier = 1;
+    for (const targetType of targetTypes) {
+      const abilityType = ability.type as Type;
+      const type = types[abilityType];
+      multiplier *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
+    }
+
     for (const value of ability.effects) {
       if (value.chance == null || Math.random() <= value.chance) {
         if ('attribute' in value) {
-          this.applyAttributeEffect(opponent, value, currentMonster, targetMonster, ability);
+          this.applyAttributeEffect(value, currentMonster, targetMonster, multiplier);
         }
       }
     }
+
+    if (multiplier > 1) {
+      opponent.results.push('ability-effective');
+    } else if (multiplier < 1) {
+      opponent.results.push('ability-ineffective');
+    }
+
+    if (currentMonster.currentAttributes.health <= 0) {
+      opponent.results.push('monster-defeated');
+    } else if (targetMonster.currentAttributes.health <= 0) {
+      opponent.results.push('target-defeated');
+      this.gainExp(opponent, currentMonster, targetMonster);
+    }
   }
 
-  private applyAttributeEffect(opponent: OpponentDocument, value: AttributeEffect, currentMonster: MonsterDocument, targetMonster: MonsterDocument, ability: Ability) {
+  private applyAttributeEffect(value: AttributeEffect, currentMonster: MonsterDocument, targetMonster: MonsterDocument, multiplier: number) {
     const effectTarget = (value.self === true || (value.self == null && value.amount > 0)) ? currentMonster : targetMonster;
     const attribute = value.attribute as keyof MonsterAttributes;
     let effectAmount: number = value.amount;
@@ -111,29 +132,12 @@ export class EncounterService {
         effectAmount = 0;
       }
 
-      const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
-      let multiplier = 1;
-      for (const targetType of targetTypes) {
-        const abilityType = ability.type as Type;
-        const type = types[abilityType];
-        multiplier *= (type?.multipliers as Partial<Record<Type, number>>)?.[targetType] || 1;
-      }
       effectAmount *= multiplier;
-
-      if (multiplier > 1) {
-        opponent.results.push('ability-effective');
-      } else if (multiplier < 1) {
-        opponent.results.push('ability-ineffective');
-      }
     }
 
     effectTarget.currentAttributes[attribute] += effectAmount;
     if (effectTarget.currentAttributes[attribute] <= 0) {
       effectTarget.currentAttributes[attribute] = 0;
-      opponent.results.push(effectTarget === currentMonster ? 'monster-defeated' : 'target-defeated');
-      if (attribute === 'health' && effectTarget !== currentMonster) {
-        this.gainExp(opponent, currentMonster, effectTarget);
-      }
     }
     effectTarget.markModified(`currentAttributes.${attribute}`);
   }
