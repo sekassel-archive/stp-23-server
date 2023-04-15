@@ -5,6 +5,7 @@ import {EncounterModule} from '../encounter/encounter.module';
 import {MonsterModule} from '../monster/monster.module';
 import {TrainerModule} from '../trainer/trainer.module';
 import {OpponentController} from './opponent.controller';
+import {OpponentHandler} from './opponent.handler';
 import {Opponent, OpponentSchema} from './opponent.schema';
 import {OpponentService} from './opponent.service';
 
@@ -21,7 +22,7 @@ import {OpponentService} from './opponent.service';
     TrainerModule,
     forwardRef(() => EncounterModule),
   ],
-  providers: [OpponentService],
+  providers: [OpponentService, OpponentHandler],
   controllers: [OpponentController],
   exports: [OpponentService],
 })
