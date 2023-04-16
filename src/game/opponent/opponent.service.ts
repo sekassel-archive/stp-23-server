@@ -67,7 +67,9 @@ export class OpponentService {
   }
 
   async deleteAll(filter: FilterQuery<OpponentService>) {
+    const opponents = await this.findAll(filter);
     await this.model.deleteMany(filter).exec();
+    opponents.forEach(o => this.emit('deleted', o));
   }
 
   async saveMany(opponents: OpponentDocument[]) {

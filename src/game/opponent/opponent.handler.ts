@@ -57,6 +57,16 @@ export class OpponentHandler {
       opponent.move = undefined;
     }
     await this.opponentService.saveMany(opponents);
+
+    // remove opponents without monsters
+    const monsters = await this.monsterService.findAll({
+      trainer: {$in: opponents.map(o => o.trainer)},
+      'currentAttributes.health': {$gt: 0},
+    });
+    await this.opponentService.deleteAll({
+      encounter: opponent.encounter,
+      trainer: {$nin: monsters.map(m => m.trainer)},
+    });
   }
 
   private async makeNPCMoves(opponents: OpponentDocument[]) {
