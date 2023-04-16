@@ -108,13 +108,12 @@ export class MonsterService {
     return deleted;
   }
 
-  async healAll(trainer: string): Promise<void> {
-    const monsters = await this.findAll({trainer});
+  async healAll(filter: FilterQuery<Monster>): Promise<void> {
+    const monsters = await this.findAll(filter);
     for (const monster of monsters) {
       monster.currentAttributes = monster.attributes;
-      this.emit('updated', monster);
     }
-    await this.model.bulkSave(monsters);
+    await this.saveMany(monsters);
   }
 
   async deleteTrainer(trainer: string): Promise<Monster[]> {

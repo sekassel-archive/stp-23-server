@@ -264,6 +264,12 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   private async createTrainerBattle(region: string, defender: string, defenderIsNPC: boolean, attackers: string[]) {
+    await this.monsterService.healAll(defenderIsNPC ? {
+      trainer: defender,
+    } : {
+      trainer: {$in: attackers},
+    });
+
     const monsters = await this.monsterService.findAll({
       trainer: {$in: [defender, ...attackers]},
       'currentAttributes.health': {$gt: 0},
@@ -353,7 +359,7 @@ export class TrainerHandler implements OnModuleInit {
     }
 
     if (target.npc.canHeal) {
-      await this.monsterService.healAll(trainerId);
+      await this.monsterService.healAll({trainer: trainerId});
     }
     if (target.npc.starters && dto.selection != null && !target.npc.encountered?.includes(trainerId)) {
       const starterId = target.npc.starters[dto.selection];
