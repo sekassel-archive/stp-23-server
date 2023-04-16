@@ -41,18 +41,21 @@ export class OpponentHandler {
     }
 
     await this.makeNPCMoves(opponents);
-
+    // notify players about NPC moves
     await this.opponentService.saveMany(opponents);
 
+    // clear results and play round
+    // NB: clearing results has to happen after notifying players about NPC moves,
+    //     otherwise this method will be called again
     for (const opponent of opponents) {
       opponent.results = [];
     }
     await this.encounterService.playRound(opponents);
 
+    // clear moves
     for (const opponent of opponents) {
       opponent.move = undefined;
     }
-
     await this.opponentService.saveMany(opponents);
   }
 
