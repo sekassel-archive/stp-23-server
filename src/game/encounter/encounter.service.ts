@@ -167,11 +167,20 @@ export class EncounterService {
     opponent.results.push('monster-levelup');
 
     currentMonster.level++;
-    currentMonster.attributes.health += healthGain(currentMonster.level);
-    currentMonster.attributes.attack += attackGain(currentMonster.level);
-    currentMonster.attributes.defense += defenseGain(currentMonster.level);
-    currentMonster.attributes.speed += speedGain(currentMonster.level);
+    const health = healthGain(currentMonster.level);
+    const attack = attackGain(currentMonster.level);
+    const defense = defenseGain(currentMonster.level);
+    const speed = speedGain(currentMonster.level);
+    currentMonster.attributes.health += health;
+    currentMonster.attributes.attack += attack;
+    currentMonster.attributes.defense += defense;
+    currentMonster.attributes.speed += speed;
+    currentMonster.currentAttributes.health += health;
+    currentMonster.currentAttributes.attack += attack;
+    currentMonster.currentAttributes.defense += defense;
+    currentMonster.currentAttributes.speed += speed;
     currentMonster.markModified('attributes');
+    currentMonster.markModified('currentAttributes');
 
     let monsterType = monsterTypes.find(m => m.id === currentMonster.type);
     if (!monsterType) {
