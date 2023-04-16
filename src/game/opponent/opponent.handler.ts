@@ -11,8 +11,6 @@ import {OpponentService} from './opponent.service';
 export class OpponentHandler {
   constructor(
     private opponentService: OpponentService,
-    private monsterService: MonsterService,
-    private encounterService: EncounterService,
   ) {
   }
 
@@ -26,82 +24,4 @@ export class OpponentHandler {
     await this.opponentService.deleteAll({encounter: encounter._id.toString()});
   }
 
-  @OnEvent('encounters.*.opponents.*.updated')
-  async onOpponentUpdated(opponent: Opponent): Promise<void> {
-    if (opponent.isNPC) {
-      return;
-    }
-
-    // check if all player opponents have made a move
-
-    const opponents = await this.opponentService.findAll({encounter: opponent.encounter.toString()});
-    if (!opponents.every(t => t.isNPC || t.move)) {
-      // not all players have made a move
-      return;
-    }
-
-    await this.makeNPCMoves(opponents);
-    // notify players about NPC moves
-    await this.opponentService.saveMany(opponents);
-
-    // clear results and play round
-    // NB: clearing results has to happen after notifying players about NPC moves,
-    //     otherwise this method will be called again
-    for (const opponent of opponents) {
-      opponent.results = [];
-    }
-    await this.encounterService.playRound(opponents);
-
-    // clear moves
-    for (const opponent of opponents) {
-      opponent.move = undefined;
-    }
-    await this.opponentService.saveMany(opponents);
-
-    // remove opponents without monsters
-    const monsters = await this.monsterService.findAll({
-      trainer: {$in: opponents.map(o => o.trainer)},
-      'currentAttributes.health': {$gt: 0},
-    });
-    await this.opponentService.deleteAll({
-      encounter: opponent.encounter,
-      trainer: {$nin: monsters.map(m => m.trainer)},
-    });
-  }
-
-  private async makeNPCMoves(opponents: OpponentDocument[]) {
-    for (const opponent of opponents) {
-      if (!opponent.isNPC || opponent.move) {
-        continue;
-      }
-
-      const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker);
-      const target = targets.random();
-      const monster = await this.monsterService.findOne(opponent.monster);
-      let move: Move;
-      if (monster && monster.currentAttributes.health > 0) {
-        move = {
-          type: 'ability',
-          target: target.trainer,
-          // TODO select ability based on monster type
-          ability: monster.abilities.random(),
-        };
-      } else {
-        const liveMonsters = await this.monsterService.findAll({
-          trainer: opponent.trainer,
-          'currentAttributes.health': {$gt: 0},
-        });
-        if (!liveMonsters.length) {
-          continue;
-        }
-        move = {
-          type: 'change-monster',
-          // TODO select monster based on type
-          monster: liveMonsters.random()._id.toString(),
-        };
-      }
-
-      opponent.move = move;
-    }
-  }
 }
