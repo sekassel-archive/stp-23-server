@@ -1,15 +1,16 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
-import {Region} from '../region/region.schema';
-import {RegionService} from '../region/region.service';
-import {AreaDocument} from './area/area.schema';
-import {AreaService} from './area/area.service';
+import {environment} from '../../environment';
+import {Region} from '../../region/region.schema';
+import {RegionService} from '../../region/region.service';
+import {AreaDocument} from '../area/area.schema';
+import {AreaService} from '../area/area.service';
 import {MonsterAttributes} from './monster/monster.schema';
 import {MonsterService} from './monster/monster.service';
-import {TiledMap} from './tiled-map.interface';
-import {Direction} from './trainer/trainer.schema';
-import {TrainerService} from './trainer/trainer.service';
+import {TiledMap} from '../tiled-map.interface';
+import {Direction} from '../trainer/trainer.schema';
+import {TrainerService} from '../trainer/trainer.service';
 
 export function getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {
   return object.properties?.find((p: any) => p.name === name)?.value as K;
@@ -27,6 +28,10 @@ export class GameLoader implements OnModuleInit {
 
 
   async onModuleInit() {
+    if (environment.passive) {
+      return;
+    }
+
     for (const regionName of await fs.readdir('./assets/maps/')) {
       if (regionName.startsWith('.') || regionName.endsWith('.json')) {
         continue;
