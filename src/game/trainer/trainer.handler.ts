@@ -274,6 +274,11 @@ export class TrainerHandler implements OnModuleInit {
       return;
     }
 
+    if (!monsters.some(m => m.trainer !== defender)) {
+      // the attackers have no monsters left
+      return;
+    }
+
     const encounter = await this.encounterService.create(region, {isWild: false});
     await this.opponentService.create(encounter._id.toString(), defender, {
       isAttacker: false,
