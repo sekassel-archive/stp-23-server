@@ -4,6 +4,7 @@ import {EventModule} from '../../event/event.module';
 import {MonsterModule} from '../monster/monster.module';
 import {OpponentModule} from '../opponent/opponent.module';
 import {EncounterController} from './encounter.controller';
+import {EncounterHandler} from './encounter.handler';
 import {Encounter, EncounterSchema} from './encounter.schema';
 import {EncounterService} from './encounter.service';
 
@@ -19,7 +20,7 @@ import {EncounterService} from './encounter.service';
     MonsterModule,
     forwardRef(() => OpponentModule),
   ],
-  providers: [EncounterService],
+  providers: [EncounterService, EncounterHandler],
   controllers: [EncounterController],
   exports: [EncounterService],
 })
