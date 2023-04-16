@@ -265,8 +265,11 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   private async createTrainerBattle(region: string, defender: string, defenderIsNPC: boolean, attackers: string[]) {
-    const monsters = await this.monsterService.findAll({trainer: {$in: [defender, ...attackers]}});
-    const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString();
+    const monsters = await this.monsterService.findAll({
+      trainer: {$in: [defender, ...attackers]},
+      'currentAttributes.health': {$gt: 0},
+    });
+    const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString(); // TODO monster order
     if (!defenderMonster) {
       return;
     }
@@ -289,7 +292,10 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
-    const defenderMonster = (await this.monsterService.findAll({trainer: defender}))[0]?._id?.toString();
+    const defenderMonster = (await this.monsterService.findAll({
+      trainer: defender,
+      'currentAttributes.health': {$gt: 0},
+    }))[0]?._id?.toString(); // TODO monster order
     if (!defenderMonster) {
       return;
     }
