@@ -7,14 +7,10 @@ import {RegionService} from '../../region/region.service';
 import {AreaDocument} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {MonsterService} from '../monster/monster.service';
-import {TiledMap} from '../tiled-map.interface';
+import {getProperty, TiledMap} from '../tiled-map.interface';
 import {Direction} from '../trainer/trainer.schema';
 import {TrainerService} from '../trainer/trainer.service';
 import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
-
-export function getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {
-  return object.properties?.find((p: any) => p.name === name)?.value as K;
-}
 
 @Injectable()
 export class GameLoader implements OnModuleInit {
