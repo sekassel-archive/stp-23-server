@@ -5,16 +5,14 @@ import * as fs from 'node:fs/promises';
 import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
 import {AreaService} from '../../area/area.service';
-import {TALL_GRASS_ENCOUNTER_CHANCE, TALL_GRASS_TRAINER} from '../../constants';
-import {EncounterService} from '../../encounter/encounter.service';
+import {TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
 import {MonsterService} from '../../monster/monster.service';
-import {OpponentDocument} from '../../opponent/opponent.schema';
-import {OpponentService} from '../../opponent/opponent.service';
-import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {getProperty, Layer} from '../../tiled-map.interface';
 import {Tile} from '../../tileset.interface';
 import {MoveTrainerDto, TalkTrainerDto} from '../../trainer/trainer.dto';
+import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
+import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
 
 export interface BaseGameObject {
@@ -46,10 +44,9 @@ export class MovementService implements OnModuleInit {
     private trainerService: TrainerService,
     private socketService: SocketService,
     private areaService: AreaService,
-    private encounterService: EncounterService,
-    private opponentService: OpponentService,
     private monsterService: MonsterService,
     private monsterGeneratorService: MonsterGeneratorService,
+    private battleSetupService: BattleSetupService,
   ) {
   }
 
@@ -158,7 +155,7 @@ export class MovementService implements OnModuleInit {
         if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
           const trainer = await this.trainerService.findOne(trainerId);
           const [type, level] = gameObject.monsters.random();
-          trainer && await this.createMonsterEncounter(trainer.region, trainerId, type, level);
+          trainer && await this.battleSetupService.createMonsterEncounter(trainer.region, trainerId, type, level);
         }
         break;
     }
@@ -255,87 +252,7 @@ export class MovementService implements OnModuleInit {
       return;
     }
 
-    await this.createTrainerBattle(trainer.region, trainerId, false, attackers);
-  }
-
-  private async createTrainerBattle(region: string, defender: string, defenderIsNPC: boolean, attackers: string[]) {
-    const isOpponentInBattle = await this.isInBattle([defender, ...attackers]);
-    if (isOpponentInBattle) {
-      // one of the trainers is already in a battle
-      return;
-    }
-
-    await this.monsterService.healAll(defenderIsNPC ? {
-      trainer: defender,
-    } : {
-      trainer: {$in: attackers},
-    });
-
-    const monsters = await this.monsterService.findAll({
-      trainer: {$in: [defender, ...attackers]},
-      'currentAttributes.health': {$gt: 0},
-    });
-    const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString(); // FIXME monster order
-    if (!defenderMonster) {
-      return;
-    }
-
-    if (!monsters.some(m => m.trainer !== defender)) {
-      // the attackers have no monsters left
-      return;
-    }
-
-    const encounter = await this.encounterService.create(region, {isWild: false});
-    await this.opponentService.create(encounter._id.toString(), defender, {
-      isAttacker: false,
-      isNPC: defenderIsNPC,
-      monster: defenderMonster,
-    });
-
-    await Promise.all(attackers.map(attacker => {
-      const monster = monsters.find(m => m.trainer === attacker)?._id?.toString();
-      monster && this.opponentService.create(encounter._id.toString(), attacker, {
-        isAttacker: true,
-        isNPC: !defenderIsNPC,
-        monster,
-      });
-    }));
-  }
-
-  private async isInBattle(trainers: string[]) {
-    const opponents = await this.opponentService.findAll({
-      trainer: {$in: trainers},
-    });
-    return !!opponents.length;
-  }
-
-  private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
-    const isOpponentInBattle = await this.isInBattle([defender]);
-    if (isOpponentInBattle) {
-      // one of the trainers is already in a battle
-      return;
-    }
-
-    const defenderMonster = (await this.monsterService.findAll({
-      trainer: defender,
-      'currentAttributes.health': {$gt: 0},
-    }))[0]?._id?.toString(); // FIXME monster order
-    if (!defenderMonster) {
-      return;
-    }
-
-    const encounter = await this.encounterService.create(region, {isWild: true});
-    await this.opponentService.create(encounter._id.toString(), defender, {
-      isAttacker: false,
-      isNPC: false,
-      monster: defenderMonster,
-    });
-    const wildMonster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterGeneratorService.autofill(type, level));
-    await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, {
-      isAttacker: true,
-      isNPC: true,
-      monster: wildMonster._id.toString(),
-    });
+    await this.battleSetupService.createTrainerBattle(trainer.region, trainerId, false, attackers);
   }
 
   private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
@@ -393,7 +310,7 @@ export class MovementService implements OnModuleInit {
       await this.trainerService.update(targetId, {
         $addToSet: {'npc.encountered': trainerId},
       });
-      await this.createTrainerBattle(trainer.region, targetId, true, [trainerId]);
+      await this.battleSetupService.createTrainerBattle(trainer.region, targetId, true, [trainerId]);
     }
   }
 
