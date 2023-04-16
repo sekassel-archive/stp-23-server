@@ -13,6 +13,7 @@ import {MovementService} from './movement/movement.service';
 import {NpcMovementService} from './npc-movement/npc-movement.service';
 import { EncounteredMonsterTypesService } from './encountered-monster-types/encountered-monster-types.service';
 import { BattleSetupService } from './battle-setup/battle-setup.service';
+import { NpcTalkService } from './npc-talk/npc-talk.service';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { BattleSetupService } from './battle-setup/battle-setup.service';
     BattleService,
     EncounteredMonsterTypesService,
     BattleSetupService,
+    NpcTalkService,
   ],
 })
 export class LogicModule {

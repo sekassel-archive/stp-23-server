@@ -6,14 +6,12 @@ import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
 import {AreaService} from '../../area/area.service';
 import {TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
-import {MonsterService} from '../../monster/monster.service';
 import {getProperty, Layer} from '../../tiled-map.interface';
 import {Tile} from '../../tileset.interface';
-import {MoveTrainerDto, TalkTrainerDto} from '../../trainer/trainer.dto';
+import {MoveTrainerDto} from '../../trainer/trainer.dto';
 import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
-import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
 
 export interface BaseGameObject {
   x: number;
@@ -44,8 +42,6 @@ export class MovementService implements OnModuleInit {
     private trainerService: TrainerService,
     private socketService: SocketService,
     private areaService: AreaService,
-    private monsterService: MonsterService,
-    private monsterGeneratorService: MonsterGeneratorService,
     private battleSetupService: BattleSetupService,
   ) {
   }
@@ -255,7 +251,7 @@ export class MovementService implements OnModuleInit {
     await this.battleSetupService.createTrainerBattle(trainer.region, trainerId, false, attackers);
   }
 
-  private getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
+  getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
     return Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y);
   }
 
@@ -276,42 +272,4 @@ export class MovementService implements OnModuleInit {
     }
     return false;
   }
-
-  @OnEvent('udp:areas.*.trainers.*.talked')
-  async onTrainerTalked(dto: TalkTrainerDto) {
-    const trainerId = dto._id.toString();
-    const targetId = dto.target;
-    const [trainer, target] = await Promise.all([
-      this.trainerService.findOne(trainerId),
-      this.trainerService.findOne(targetId),
-    ]);
-    if (!trainer || !target || trainer.area !== target.area || this.getDistance(trainer, target) > 2 || !target.npc) {
-      return;
-    }
-
-    if (target.npc.canHeal) {
-      await this.monsterService.healAll({trainer: trainerId});
-    }
-    if (target.npc.starters && dto.selection != null && !target.npc.encountered?.includes(trainerId)) {
-      const starterId = target.npc.starters[dto.selection];
-      if (starterId) {
-        await this.trainerService.update(targetId, {
-          $addToSet: {'npc.encountered': trainerId},
-        });
-        await this.monsterGeneratorService.createAuto(trainerId, starterId, 1);
-        await this.trainerService.update(trainerId, {
-          $addToSet: {
-            encounteredMonsterTypes: starterId,
-          },
-        });
-      }
-    }
-    if (target.npc.encounterOnSight) {
-      await this.trainerService.update(targetId, {
-        $addToSet: {'npc.encountered': trainerId},
-      });
-      await this.battleSetupService.createTrainerBattle(trainer.region, targetId, true, [trainerId]);
-    }
-  }
-
 }
