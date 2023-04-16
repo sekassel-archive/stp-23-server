@@ -34,13 +34,13 @@ export class EncounterService {
       ...dto,
       region,
     });
-    encounter && this.emit('create', encounter);
+    encounter && this.emit('created', encounter);
     return encounter;
   }
 
   async delete(id: string): Promise<EncounterDocument | null> {
     const deleted = await this.model.findByIdAndDelete(id).exec();
-    deleted && this.emit('delete', deleted);
+    deleted && this.emit('deleted', deleted);
     return deleted;
   }
 
