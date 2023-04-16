@@ -1,14 +1,14 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
-import {environment} from '../environment';
-import {Region} from '../region/region.schema';
-import {RegionService} from '../region/region.service';
-import {AreaDocument} from './area/area.schema';
-import {AreaService} from './area/area.service';
-import {TiledMap} from './tiled-map.interface';
-import {Direction} from './trainer/trainer.schema';
-import {TrainerService} from './trainer/trainer.service';
+import {environment} from '../../environment';
+import {Region} from '../../region/region.schema';
+import {RegionService} from '../../region/region.service';
+import {AreaDocument} from '../area/area.schema';
+import {AreaService} from '../area/area.service';
+import {TiledMap} from '../tiled-map.interface';
+import {Direction} from '../trainer/trainer.schema';
+import {TrainerService} from '../trainer/trainer.service';
 
 export function getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {
   return object.properties?.find((p: any) => p.name === name)?.value as K;
