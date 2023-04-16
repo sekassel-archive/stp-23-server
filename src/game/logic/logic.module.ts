@@ -2,7 +2,9 @@ import {Module} from '@nestjs/common';
 import {RegionModule} from '../../region/region.module';
 import {SocketModule} from '../../udp/socket.module';
 import {AreaModule} from '../area/area.module';
+import {EncounterModule} from '../encounter/encounter.module';
 import {MonsterModule} from '../monster/monster.module';
+import {OpponentModule} from '../opponent/opponent.module';
 import {TrainerModule} from '../trainer/trainer.module';
 import {BattleService} from './battle/battle.service';
 import {GameLoader} from './game.loader';
@@ -16,6 +18,8 @@ import {NpcMovementService} from './npc-movement/npc-movement.service';
     AreaModule,
     TrainerModule,
     MonsterModule,
+    EncounterModule,
+    OpponentModule,
     SocketModule,
   ],
   providers: [
