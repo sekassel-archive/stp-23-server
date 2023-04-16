@@ -5,8 +5,9 @@ import {AreaModule} from '../area/area.module';
 import {MonsterModule} from '../monster/monster.module';
 import {TrainerModule} from '../trainer/trainer.module';
 import {GameLoader} from './game.loader';
+import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 import {MovementService} from './movement/movement.service';
-import { MonsterGeneratorService } from './monster-generator/monster-generator.service';
+import {NpcMovementService} from './npc-movement/npc-movement.service';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MonsterGeneratorService } from './monster-generator/monster-generator.s
     GameLoader,
     MovementService,
     MonsterGeneratorService,
+    NpcMovementService,
   ],
 })
 export class LogicModule {

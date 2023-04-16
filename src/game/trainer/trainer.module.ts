@@ -7,7 +7,6 @@ import {SocketModule} from '../../udp/socket.module';
 import {AreaModule} from '../area/area.module';
 import {TrainerController} from './trainer.controller';
 import {TrainerHandler} from './trainer.handler';
-import {TrainerScheduler} from './trainer.scheduler';
 import {Trainer, TrainerSchema} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
@@ -23,7 +22,7 @@ import {TrainerService} from './trainer.service';
     AreaModule,
   ],
   controllers: [TrainerController],
-  providers: [TrainerService, TrainerHandler, TrainerScheduler],
+  providers: [TrainerService, TrainerHandler],
   exports: [TrainerService],
 })
 export class TrainerModule {

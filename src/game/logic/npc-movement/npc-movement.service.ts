@@ -2,12 +2,12 @@ import {Injectable} from '@nestjs/common';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {Cron, CronExpression} from '@nestjs/schedule';
 import {Types} from 'mongoose';
-import {MoveTrainerDto} from './trainer.dto';
-import {Direction, Trainer} from './trainer.schema';
-import {TrainerService} from './trainer.service';
+import {MoveTrainerDto} from '../../trainer/trainer.dto';
+import {Direction, Trainer} from '../../trainer/trainer.schema';
+import {TrainerService} from '../../trainer/trainer.service';
 
 @Injectable()
-export class TrainerScheduler {
+export class NpcMovementService {
   constructor(
     private trainerService: TrainerService,
     private eventEmitter: EventEmitter2,
