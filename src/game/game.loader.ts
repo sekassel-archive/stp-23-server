@@ -86,6 +86,7 @@ export class GameLoader implements OnModuleInit {
     }, {
       $setOnInsert: {
         user: new Types.ObjectId(),
+        'npc.encountered': [],
       },
       region: region._id.toString(),
       area: area._id.toString(),
@@ -95,7 +96,6 @@ export class GameLoader implements OnModuleInit {
       x: (object.x / map.tilewidth) | 0,
       y: (object.y / map.tileheight) | 0,
       direction: getProperty<number>(object, 'Direction') ?? Direction.DOWN,
-      'npc.encountered': [], // TODO this should be in $setOnInsert above
       'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,

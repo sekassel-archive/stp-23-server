@@ -132,7 +132,6 @@ export class TrainerHandler implements OnModuleInit {
 
   @OnEvent('udp:areas.*.trainers.*.moved')
   async onTrainerMoved(dto: MoveTrainerDto) {
-    // TODO validate movement
     const trainerId = dto._id.toString();
     const oldLocation = this.trainerService.getLocation(trainerId)
       || await this.trainerService.findOne(trainerId);
@@ -236,7 +235,7 @@ export class TrainerHandler implements OnModuleInit {
     const attackers: string[] = [];
     for (const npc of npcs) {
       if (this.checkNPConSight(dto, npc, 5)) {
-        // TODO: Player blockieren
+        // FIXME Player blockieren
         // Finds the movement direction of the npc towards the player
         const x = npc.direction === Direction.LEFT ? -1 : npc.direction === Direction.RIGHT ? 1 : 0;
         const y = npc.direction === Direction.UP ? -1 : npc.direction === Direction.DOWN ? 1 : 0;
@@ -269,7 +268,7 @@ export class TrainerHandler implements OnModuleInit {
       trainer: {$in: [defender, ...attackers]},
       'currentAttributes.health': {$gt: 0},
     });
-    const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString(); // TODO monster order
+    const defenderMonster = monsters.find(m => m.trainer === defender)?._id?.toString(); // FIXME monster order
     if (!defenderMonster) {
       return;
     }
@@ -300,7 +299,7 @@ export class TrainerHandler implements OnModuleInit {
     const defenderMonster = (await this.monsterService.findAll({
       trainer: defender,
       'currentAttributes.health': {$gt: 0},
-    }))[0]?._id?.toString(); // TODO monster order
+    }))[0]?._id?.toString(); // FIXME monster order
     if (!defenderMonster) {
       return;
     }

@@ -92,7 +92,6 @@ export class OpponentHandler {
           'currentAttributes.health': {$gt: 0},
         });
         if (!liveMonsters.length) {
-          // TODO flee
           continue;
         }
         move = {
