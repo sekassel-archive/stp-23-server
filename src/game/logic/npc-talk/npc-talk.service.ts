@@ -51,7 +51,7 @@ export class NpcTalkService {
       await this.trainerService.update(targetId, {
         $addToSet: {'npc.encountered': trainerId},
       });
-      await this.battleSetupService.createTrainerBattle(trainer.region, targetId, true, [trainerId]);
+      await this.battleSetupService.createTrainerBattle(target, [trainer]);
     }
   }
 }

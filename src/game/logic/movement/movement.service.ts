@@ -220,7 +220,7 @@ export class MovementService implements OnModuleInit {
       'npc.encounterOnSight': true,
       'npc.encountered': {$ne: trainerId},
     });
-    const attackers: string[] = [];
+    const attackers: Trainer[] = [];
     for (const npc of npcs) {
       if (this.checkNPConSight(dto, npc, 5)) {
         // FIXME Player blockieren
@@ -240,7 +240,7 @@ export class MovementService implements OnModuleInit {
           'npc.path': path,
           $addToSet: {'npc.encountered': trainerId},
         });
-        attackers.push(npc._id.toString());
+        attackers.push(npc);
       }
     }
 
@@ -248,7 +248,7 @@ export class MovementService implements OnModuleInit {
       return;
     }
 
-    await this.battleSetupService.createTrainerBattle(trainer.region, trainerId, false, attackers);
+    await this.battleSetupService.createTrainerBattle(trainer, attackers);
   }
 
   getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
