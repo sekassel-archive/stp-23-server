@@ -26,7 +26,12 @@ export class NpcTalkService {
       this.trainerService.findOne(trainerId),
       this.trainerService.findOne(targetId),
     ]);
-    if (!trainer || !target || trainer.area !== target.area || this.movementService.getDistance(trainer, target) > 2 || !target.npc) {
+    if (!trainer || !target || trainer.area !== target.area || this.movementService.getDistance(trainer, target) > 2) {
+      return;
+    }
+
+    if (!target.npc) {
+      await this.battleSetupService.createTrainerBattle(target, [trainer]);
       return;
     }
 
