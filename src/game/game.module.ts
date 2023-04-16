@@ -5,6 +5,7 @@ import {GameLoader} from './game.loader';
 import {MonsterModule} from './monster/monster.module';
 import {TrainerModule} from './trainer/trainer.module';
 import { PresetsModule } from './presets/presets.module';
+import { LogicModule } from './logic/logic.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PresetsModule } from './presets/presets.module';
     TrainerModule,
     MonsterModule,
     PresetsModule,
+    LogicModule,
   ],
   providers: [
     GameLoader,
