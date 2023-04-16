@@ -26,6 +26,18 @@ export class OpponentHandler {
     await this.opponentService.deleteAll({encounter: encounter._id.toString()});
   }
 
+  @OnEvent('encounters.*.opponents.*.deleted')
+  async onOpponentDeleted(opponent: Opponent): Promise<void> {
+    const opponents = await this.opponentService.findAll({encounter: opponent.encounter.toString()});
+    if (opponents.some(o => o.isAttacker) && opponents.some(o => !o.isAttacker)) {
+      // there are still opponents on both sides
+      return;
+    }
+
+    // all opponents on one side have been defeated
+    await this.encounterService.delete(opponent.encounter);
+  }
+
   @OnEvent('encounters.*.opponents.*.updated')
   async onOpponentUpdated(opponent: Opponent): Promise<void> {
     if (opponent.isNPC) {

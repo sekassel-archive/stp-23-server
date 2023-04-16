@@ -38,6 +38,12 @@ export class EncounterService {
     return encounter;
   }
 
+  async delete(id: string): Promise<EncounterDocument | null> {
+    const deleted = await this.model.findByIdAndDelete(id).exec();
+    deleted && this.emit('delete', deleted);
+    return deleted;
+  }
+
   private emit(event: string, encounter: Encounter) {
     this.eventService.emit(`regions.${encounter.region}.encounters.${encounter._id.toString()}.${event}`, encounter);
   }
