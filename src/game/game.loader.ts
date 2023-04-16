@@ -1,6 +1,7 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
+import {environment} from '../environment';
 import {Region} from '../region/region.schema';
 import {RegionService} from '../region/region.service';
 import {AreaDocument} from './area/area.schema';
@@ -24,6 +25,10 @@ export class GameLoader implements OnModuleInit {
 
 
   async onModuleInit() {
+    if (environment.passive) {
+      return;
+    }
+
     for (const regionName of await fs.readdir('./assets/maps/')) {
       if (regionName.startsWith('.') || regionName.endsWith('.json')) {
         continue;
