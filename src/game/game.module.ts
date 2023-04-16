@@ -16,9 +16,6 @@ import { LogicModule } from './logic/logic.module';
     PresetsModule,
     LogicModule,
   ],
-  providers: [
-    GameLoader,
-  ],
 })
 export class GameModule {
 }
