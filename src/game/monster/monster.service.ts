@@ -1,13 +1,11 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities as allAbilities, Ability, monsterTypes} from '../constants';
-import {attackAtLevel, defenseAtLevel, healthAtLevel, speedAtLevel} from '../formulae';
 import {CreateMonsterDto} from './monster.dto';
-import {MAX_ABILITIES, Monster, MonsterDocument} from './monster.schema';
+import {Monster, MonsterDocument} from './monster.schema';
 
 @Injectable()
 export class MonsterService {
@@ -23,55 +21,6 @@ export class MonsterService {
 
   async findOne(id: string): Promise<MonsterDocument | null> {
     return this.model.findById(id).exec();
-  }
-
-  autofill(type: number, level: number): CreateMonsterDto {
-    const monsterType = monsterTypes.find(t => t.id === type);
-    if (!monsterType) {
-      throw new NotFoundException('Invalid monster type');
-    }
-    const abilities = this.findBestAbilities(this.getPossibleAbilities(level, monsterType.type)).map(a => a.id);
-    return {
-      type,
-      level,
-      attributes: {
-        health: healthAtLevel(level),
-        attack: attackAtLevel(level),
-        defense: defenseAtLevel(level),
-        speed: speedAtLevel(level),
-      },
-      abilities,
-    };
-  }
-
-  getPossibleAbilities(level: number, types: string[]) {
-    // filter by minLevel and type (normal or one of monster types)
-    return allAbilities.filter(a => level >= a.minLevel && (a.type === 'normal' || types.includes(a.type)));
-  }
-
-  findBestAbilities(abilities: Ability[]) {
-    return abilities
-      // bring some randomness
-      .shuffle()
-      // sort by minLevel descending - we want the best abilities
-      .sort((a, b) => b.minLevel - a.minLevel)
-      // take the best
-      .slice(0, MAX_ABILITIES);
-  }
-
-  async createAuto(trainer: string, type: number, level: number): Promise<MonsterDocument> {
-    const dto = this.autofill(type, level);
-    return this.upsert({
-      trainer,
-      // TODO this ensures that the same monster is not added twice,
-      //      but maybe it should be possible to have multiple monsters of the same type
-      type,
-    }, {
-      ...dto,
-      trainer,
-      experience: 0,
-      currentAttributes: dto.attributes,
-    });
   }
 
   async create(trainer: string, dto: CreateMonsterDto): Promise<Monster> {
