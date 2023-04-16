@@ -10,6 +10,7 @@ import {MonsterService} from '../monster/monster.service';
 import {TiledMap} from '../tiled-map.interface';
 import {Direction} from '../trainer/trainer.schema';
 import {TrainerService} from '../trainer/trainer.service';
+import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 
 export function getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {
   return object.properties?.find((p: any) => p.name === name)?.value as K;
@@ -22,6 +23,7 @@ export class GameLoader implements OnModuleInit {
     private regionService: RegionService,
     private trainerService: TrainerService,
     private monsterService: MonsterService,
+    private monsterGeneratorService: MonsterGeneratorService,
   ) {
   }
 
@@ -110,7 +112,7 @@ export class GameLoader implements OnModuleInit {
     const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
     for (const monsterSpec of monsterSpecs) {
       const [type, level] = monsterSpec;
-      await this.monsterService.createAuto(trainer._id.toString(), type, level);
+      await this.monsterGeneratorService.createAuto(trainer._id.toString(), type, level);
     }
   }
 }

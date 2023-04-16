@@ -10,13 +10,13 @@ import {EncounterService} from '../../encounter/encounter.service';
 import {MonsterService} from '../../monster/monster.service';
 import {OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';
-import {GameObject} from '../../trainer/trainer.handler';
 import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {getProperty} from '../game.loader';
 import {Layer} from '../../tiled-map.interface';
 import {Tile} from '../../tileset.interface';
 import {MoveTrainerDto, TalkTrainerDto} from '../../trainer/trainer.dto';
 import {TrainerService} from '../../trainer/trainer.service';
+import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
 
 export interface BaseGameObject {
   x: number;
@@ -50,6 +50,7 @@ export class MovementService implements OnModuleInit {
     private encounterService: EncounterService,
     private opponentService: OpponentService,
     private monsterService: MonsterService,
+    private monsterGeneratorService: MonsterGeneratorService,
   ) {
   }
 
@@ -330,7 +331,7 @@ export class MovementService implements OnModuleInit {
       isNPC: false,
       monster: defenderMonster,
     });
-    const wildMonster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterService.autofill(type, level));
+    const wildMonster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterGeneratorService.autofill(type, level));
     await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, {
       isAttacker: true,
       isNPC: true,
@@ -381,7 +382,7 @@ export class MovementService implements OnModuleInit {
         await this.trainerService.update(targetId, {
           $addToSet: {'npc.encountered': trainerId},
         });
-        await this.monsterService.createAuto(trainerId, starterId, 1);
+        await this.monsterGeneratorService.createAuto(trainerId, starterId, 1);
         await this.trainerService.update(trainerId, {
           $addToSet: {
             encounteredMonsterTypes: starterId,
