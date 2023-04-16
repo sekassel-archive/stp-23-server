@@ -1,5 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
+import {TALL_GRASS_TRAINER} from '../constants';
+import {Opponent} from '../opponent/opponent.schema';
 import {Trainer} from '../trainer/trainer.schema';
 import {MonsterService} from './monster.service';
 
@@ -13,5 +15,13 @@ export class MonsterHandler {
   @OnEvent('regions.*.trainers.*.deleted')
   async onTrainerDeleted(trainer: Trainer): Promise<void> {
     await this.monsterService.deleteTrainer(trainer._id.toString());
+  }
+
+  /**
+   * Delete tall grass monsters when defeated
+   */
+  @OnEvent(`encounters.*.opponents.${TALL_GRASS_TRAINER}.deleted`)
+  async onOpponentDeleted(opponent: Opponent): Promise<void> {
+    await this.monsterService.delete(opponent.monster.toString());
   }
 }

@@ -102,6 +102,12 @@ export class MonsterService {
     return updated;
   }
 
+  async delete(id: string): Promise<MonsterDocument | null> {
+    const deleted = await this.model.findByIdAndDelete(id).exec();
+    deleted && this.emit('deleted', deleted);
+    return deleted;
+  }
+
   async healAll(trainer: string): Promise<void> {
     const monsters = await this.findAll({trainer});
     for (const monster of monsters) {
