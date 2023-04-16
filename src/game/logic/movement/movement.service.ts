@@ -397,26 +397,4 @@ export class MovementService implements OnModuleInit {
     }
   }
 
-  @OnEvent('encounters.*.opponents.*.created')
-  @OnEvent('encounters.*.opponents.*.updated')
-  async onOpponent(opponent: OpponentDocument) {
-    const monster = await this.monsterService.findOne(opponent.monster);
-    if (!monster) {
-      return;
-    }
-
-    const otherOpponents = await this.opponentService.findAll({
-      encounter: opponent.encounter,
-      $id: {$ne: opponent._id},
-    });
-    const otherTrainers = await this.trainerService.findAll({_id: {$in: otherOpponents.map(o => new Types.ObjectId(o.trainer))}});
-
-    for (const trainer of otherTrainers) {
-      await this.trainerService.update(trainer._id.toString(), {
-        $addToSet: {
-          encounteredMonsterTypes: monster.type,
-        },
-      });
-    }
-  }
 }

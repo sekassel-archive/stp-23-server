@@ -11,6 +11,7 @@ import {GameLoader} from './game.loader';
 import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 import {MovementService} from './movement/movement.service';
 import {NpcMovementService} from './npc-movement/npc-movement.service';
+import { EncounteredMonsterTypesService } from './encountered-monster-types/encountered-monster-types.service';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import {NpcMovementService} from './npc-movement/npc-movement.service';
     MonsterGeneratorService,
     NpcMovementService,
     BattleService,
+    EncounteredMonsterTypesService,
   ],
 })
 export class LogicModule {
