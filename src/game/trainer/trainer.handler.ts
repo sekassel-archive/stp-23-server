@@ -264,6 +264,12 @@ export class TrainerHandler implements OnModuleInit {
   }
 
   private async createTrainerBattle(region: string, defender: string, defenderIsNPC: boolean, attackers: string[]) {
+    const isOpponentInBattle = await this.isInBattle([defender, ...attackers]);
+    if (isOpponentInBattle) {
+      // one of the trainers is already in a battle
+      return;
+    }
+
     await this.monsterService.healAll(defenderIsNPC ? {
       trainer: defender,
     } : {
@@ -301,7 +307,20 @@ export class TrainerHandler implements OnModuleInit {
     }));
   }
 
+  private async isInBattle(trainers: string[]) {
+    const opponents = await this.opponentService.findAll({
+      trainer: {$in: trainers},
+    });
+    return !!opponents.length;
+  }
+
   private async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
+    const isOpponentInBattle = await this.isInBattle([defender]);
+    if (isOpponentInBattle) {
+      // one of the trainers is already in a battle
+      return;
+    }
+
     const defenderMonster = (await this.monsterService.findAll({
       trainer: defender,
       'currentAttributes.health': {$gt: 0},
