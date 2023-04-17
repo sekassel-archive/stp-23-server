@@ -55,8 +55,10 @@ export class ItemService {
   }
 
   async useItem(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
-    // TODO: Give monster id to method to heal / update monster
-    throw new NotFoundException('Item usage is not possible at the moment');
+    if (dto.amount > 1) {
+      throw new ForbiddenException('Only one item can be used at a time');
+    }
+    throw new NotFoundException('Not yet implemented');
   }
 
   async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {

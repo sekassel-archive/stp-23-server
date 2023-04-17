@@ -3,7 +3,7 @@ import {IsEnum, IsNotEmpty, IsNumber, NotEquals} from 'class-validator';
 import {ItemAction} from "./item.action";
 
 export class UpdateItemDto {
-  @ApiProperty()
+  @ApiProperty({example: ""})
   @IsEnum(ItemAction, {message: 'Action must be `use` or `trade`'})
   @IsNotEmpty()
   action: ItemAction;
@@ -18,4 +18,7 @@ export class UpdateItemDto {
   @IsNumber()
   @IsNotEmpty()
   type: number;
+
+  @ApiProperty({required: false, example: ""})
+  monsterId?: string;
 }
