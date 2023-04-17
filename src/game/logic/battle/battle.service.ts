@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
-import {abilities, Ability, AttributeEffect, monsterTypes, Type, types} from '../../constants';
+import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {attackGain, defenseGain, EVOLUTION_LEVELS, expGain, expRequired, healthGain, speedGain} from '../../formulae';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
@@ -57,10 +57,17 @@ export class BattleService {
       trainer: {$in: opponents.map(o => o.trainer)},
       'currentAttributes.health': {$gt: 0},
     });
-    await this.opponentService.deleteAll({
-      encounter: opponent.encounter,
-      trainer: {$nin: monsters.map(m => m.trainer)},
-    });
+    const deleteOpponents: Types.ObjectId[] = [];
+    for (const opponent of opponents) {
+      if (opponent.trainer === TALL_GRASS_TRAINER) {
+        if (!monsters.find(m => m._id.toString() === opponent.monster)) {
+          deleteOpponents.push(opponent._id!);
+        }
+      } else if (!monsters.find(m => m.trainer === opponent.trainer)) {
+        deleteOpponents.push(opponent._id!);
+      }
+    }
+    await this.opponentService.deleteAll({_id: {$in: deleteOpponents}});
   }
 
   private async makeNPCMoves(opponents: OpponentDocument[]) {
