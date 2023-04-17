@@ -35,9 +35,9 @@ export class ItemController {
   }
 
   @Patch()
-  @ApiOperation({ description: 'Buy or sell an item' })
+  @ApiOperation({ description: 'Trade and use items' })
   @ApiOkResponse({ type: Item })
-  @ApiForbiddenResponse({ description: 'This item cannot be bought or sold, or you are not the owner of this trainer' })
+  @ApiForbiddenResponse({ description: 'This item cannot be bought, sold or used, or you are not the owner of this trainer' })
   @NotFound()
   async updateOne(
     @Param('regionId', ParseObjectIdPipe) regionId: string,

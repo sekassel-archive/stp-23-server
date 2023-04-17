@@ -5,7 +5,8 @@
     "name": "Monball",
     "price": 20,
     "effects": [],
-    "description": "A ball for catching PMons"
+    "removeStatus": [],
+    "description": "A ball for catching PMons."
   },
   {
     "id": 2,
@@ -18,7 +19,8 @@
         "amount": 1
       }
     ],
-    "description": "Heals 1 health and tastes good"
+    "removeStatus": [],
+    "description": "Heals 1 health and tastes good."
   },
   {
     "id": 3,
@@ -31,7 +33,8 @@
         "amount": 50
       }
     ],
-    "description": "Heals 50 health"
+    "removeStatus": [],
+    "description": "Heals 50 health."
   },
   {
     "id": 3,
@@ -44,7 +47,8 @@
         "amount": 25
       }
     ],
-    "description": "Heals 25 health"
+    "removeStatus": [],
+    "description": "Heals 25 health."
   },
   {
     "id": 4,
@@ -52,7 +56,8 @@
     "name": "Mondex",
     "price": 1000,
     "effects": [],
-    "description": "A handheld device"
+    "removeStatus": [],
+    "description": "A handheld device."
   },
   {
     "id": 5,
@@ -60,7 +65,8 @@
     "name": "Money bag",
     "price": 0,
     "effects": [],
-    "description": "A purse for valuable and shiny coins"
+    "removeStatus": [],
+    "description": "A purse for valuable and shiny coins."
   },
   {
     "id": 6,
@@ -73,7 +79,8 @@
         "amount": 5
       }
     ],
-    "description": "A grilled chicken leg. Tasty"
+    "removeStatus": [],
+    "description": "A grilled chicken leg. Tasty."
   },
   {
     "id": 7,
@@ -81,7 +88,8 @@
     "name": "Backpack",
     "price": 0,
     "effects": [],
-    "description": "A travelpack to store stuff"
+    "removeStatus": [],
+    "description": "A travelpack to store stuff."
   },
   {
     "id": 8,
@@ -89,6 +97,7 @@
     "name": "Mystery box",
     "price": 250,
     "effects": [],
+    "removeStatus": [],
     "description": "A mysterious package. What item is in it?"
   },
   {
@@ -97,7 +106,8 @@
     "name": "Monbox",
     "price": 250,
     "effects": [],
-    "description": "A mysterious box containing a standard monster"
+    "removeStatus": [],
+    "description": "A mysterious box containing a standard monster."
   },
   {
     "id": 10,
@@ -105,7 +115,8 @@
     "name": "Monbox Premium",
     "price": 500,
     "effects": [],
-    "description": "A mysterious box containing a premium monster"
+    "removeStatus": [],
+    "description": "A mysterious box containing a premium monster."
   },
   {
     "id": 10,
@@ -113,6 +124,70 @@
     "name": "Monbox Elite",
     "price": 1000,
     "effects": [],
-    "description": "A mysterious box containing an elite monster"
+    "removeStatus": [],
+    "description": "A mysterious box containing an elite monster."
+  },
+  {
+    "id": 11,
+    "image": "pot.png",
+    "name": "Anti-paralysis potion",
+    "price": 25,
+    "effects": [],
+    "removeStatus": ["paralysed"],
+    "description": "A potion to remove the paralysed status effect."
+  },
+  {
+    "id": 12,
+    "image": "pot.png",
+    "name": "Anti-confusion potion",
+    "price": 25,
+    "effects": [],
+    "removeStatus": ["confused"],
+    "description": "A potion to remove the confused status effect."
+  },
+  {
+    "id": 13,
+    "image": "pot.png",
+    "name": "Anti-freeze potion",
+    "price": 25,
+    "effects": [],
+    "removeStatus": ["frozen"],
+    "description": "A potion to remove the frozen status effect."
+  },
+  {
+    "id": 14,
+    "image": "pot.png",
+    "name": "Anti-poison potion",
+    "price": 25,
+    "effects": [],
+    "removeStatus": ["poisoned"],
+    "description": "A potion to remove the poisoned status effect."
+  },
+  {
+    "id": 15,
+    "image": "pot.png",
+    "name": "Anti-fire potion",
+    "price": 25,
+    "effects": [],
+    "removeStatus": ["burned"],
+    "description": "A potion to remove the burned status effect."
+  },
+  {
+    "id": 16,
+    "image": "pot.png",
+    "name": "Anti-sleep potion",
+    "price": 25,
+    "effects": [],
+    "removeStatus": ["asleep"],
+    "description": "A potion to remove the asleep status effect."
+  },
+  {
+    "id": 17,
+    "image": "pot.png",
+    "name": "God potion",
+    "price": 150,
+    "effects": [],
+    "removeStatus": ["paralysed", "confused", "frozen", "poisoned", "burned", "asleep"],
+    "description": "A potion to remove all status effects."
   }
 ]
