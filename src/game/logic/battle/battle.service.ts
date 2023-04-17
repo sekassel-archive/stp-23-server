@@ -88,6 +88,9 @@ export class BattleService {
           ability: monster.abilities.random(),
         };
       } else {
+        if (opponent.trainer === TALL_GRASS_TRAINER) {
+          continue;
+        }
         const liveMonsters = await this.monsterService.findAll({
           trainer: opponent.trainer,
           'currentAttributes.health': {$gt: 0},
