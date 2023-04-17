@@ -49,7 +49,7 @@
     "image": "Frogrik_1.png",
     "name": "Frogrik",
     "type": ["electric"],
-    "description": "Frogrik is a small, frog-like monster that lives in the swamps.",
+    "description": "Frogrik is a small, frog-like monster that lives in warm areas.",
     "evolution": 8
   },
   {
@@ -57,7 +57,7 @@
     "image": "Frogrik_2.png",
     "name": "Frogspike",
     "type": ["electric"],
-    "description": "Frogspike is a larger, more dangerous monster that evolved in swampy areas with many predators."
+    "description": "Frogspike is a larger, more dangerous monster that evolved in warm areas with many predators."
   },
   {
     "id": 9,
@@ -102,7 +102,7 @@
     "image": "Batmon_3.png",
     "name": "Draculon",
     "type": ["fire", "dragon"],
-    "description": "Draculon is the final evolved form of Batmon, and has grown wings and the ability to fly."
+    "description": "Draculon is the final evolved form of Batmon, and has grown wings and is even more deadly than his predecessor."
   },
   {
     "id": 15,
@@ -161,8 +161,8 @@
     "id": 22,
     "image": "Curtle_1.png",
     "name": "Curtle",
-    "type": ["normal"],
-    "description": "Curtle is a normal type creature that is known for its tough shell that protects it from harm."
+    "type": ["ice"],
+    "description": "Curtle is a ice type creature that is known for its tough shell that protects it from harm."
   },
   {
     "id": 23,
@@ -177,7 +177,7 @@
     "name": "Sludgie",
     "type": ["normal"],
     "evolution": 25,
-    "description": "Sludgie is a small, slimy creature that can be found in swamps and other damp areas."
+    "description": "Sludgie is a small, slimy creature that can be found in the shadows."
   },
   {
     "id": 25,
@@ -236,7 +236,7 @@
     "image": "Phatnix_1.png",
     "name": "Phatnix",
     "type": ["flying"],
-    "description": "Phatnix is a beautiful bird-like creature that is said to be a symbol of rebirth and renewal. It can breathe fire and its feathers are as hard as steel."
+    "description": "Phatnix is a beautiful bird-like creature that is said to be a symbol of rebirth and renewal."
   },
   {
     "id": 33,
@@ -259,14 +259,14 @@
     "name": "Flamonky",
     "type": ["fighting"],
     "evolution": 36,
-    "description": "Flamonky is a monkey-like creature that is always on fire. It is extremely fast and agile, and it can use its flames to intimidate its enemies."
+    "description": "Flamonky is a monkey-like creature that is always on edge. It is extremely fast and agile, and it can use its power to intimidate its enemies."
   },
   {
     "id": 36,
     "image": "Flamonky_2.png",
     "name": "Flamonkitu",
     "type": ["normal"],
-    "description": "Flamonkitu is the evolved form of Flamonky. It has grown much larger and its flames have become much more intense. It can create firestorms that can engulf entire forests."
+    "description": "Flamonkitu is the evolved form of Flamonky. It has grown much larger and its presence have become much more intense."
   },
   {
     "id": 37,
@@ -309,7 +309,7 @@
     "image": "Houndrian_1.png",
     "name": "Houndrian",
     "type": ["dark"],
-    "description": "Houndrian is a dark-type creature, but no description is provided."
+    "description": "Houndrian is a dark-type creature, which lurks in the dark and waits for its prey."
   },
   {
     "id": 43,
@@ -317,7 +317,7 @@
     "name": "Hydron",
     "type": ["dragon"],
     "evolution": 44,
-    "description": "Hydron is a dragon-type creature, but no description is provided."
+    "description": "Hydron is a dragon-type creature and its said that when you cut off its head, a new one will grow on this serpent-like monster."
   },
   {
     "id": 44,
@@ -325,14 +325,14 @@
     "name": "Hydrax",
     "type": ["dragon"],
     "evolution": 45,
-    "description": "Hydrax is a dragon-type creature, but no description is provided."
+    "description": "Hydrax is a dragon-type creature which grew another head to its predecessor Hydron."
   },
   {
     "id": 45,
     "image": "Hydra_3.png",
     "name": "Hydrerior",
     "type": ["dragon"],
-    "description": "Hydrerior is a dragon-type creature, but no description is provided."
+    "description": "Hydrerior is a dragon-type creature with one more head than its predecessor. Its final form is even more terrifying."
   },
   {
     "id": 46,
@@ -347,7 +347,7 @@
     "image": "Ician_2.png",
     "name": "Icieju",
     "type": ["flying", "ice"],
-    "description": "Icieju is a flying and ice-type creature, but no further description is provided."
+    "description": "Icieju is a flying and ice-type creature which is even stronger and faster than its predecessor Ician."
   },
   {
     "id": 48,
@@ -355,7 +355,7 @@
     "name": "Icicle",
     "type": ["ice"],
     "evolution": 49,
-    "description": "Icicle is an ice-type creature that evolves into Icitarius, and later into Icing."
+    "description": "Icicle is an ice-type creature that lurks in the cold."
   },
   {
     "id": 49,
@@ -363,36 +363,36 @@
     "name": "Icitarius",
     "type": ["ice"],
     "evolution": 50,
-    "description": "Icitarius is an ice-type creature that evolves from Icicle and into Icing."
+    "description": "Icitarius is an ice-type creature that evolves from Icicle and is a cold danger for anyone who comes near him."
   },
   {
     "id": 50,
     "image": "Icicle_3.png",
     "name": "Icing",
     "type": ["ice", "flying"],
-    "description": "Icing is an ice and flying-type creature that evolves from Icitarius, capable of creating blizzards and using the winds to its advantage."
+    "description": "Icing is an ice and flying-type creature that evolves from Icitarius and will protect its cold home from intruders."
   },
   {
     "id": 51,
     "image": "Inferni_1.png",
     "name": "Inferni",
     "type": ["fire", "steel"],
-    "description": "Inferni is a fire and steel-type creature, but no description is provided."
+    "description": "Inferni is a fire and steel-type creature, strolling around and searching for prey."
   },
   {
     "id": 52,
     "image": "Sprouty_1.png",
     "name": "Kosisprout",
-    "type": ["ground"],
+    "type": ["normal"],
     "evolution": 53,
-    "description": "Kosisprout is a ground-type creature that evolves into Kositree."
+    "description": "Kosisprout is a normal-type creature that becomes dangerous when being provoked."
   },
   {
     "id": 53,
     "image": "Sprouty_2.png",
     "name": "Kositree",
-    "type": ["ground", "grass"],
-    "description": "Kositree is a ground and grass-type creature that evolves from Kosisprout and is deeply rooted in the ground."
+    "type": ["grass"],
+    "description": "Kositree is a grass-type creature that evolves from Kosisprout and is deeply rooted in the ground."
   },
   {
     "id": 54,
@@ -456,7 +456,7 @@
     "name": "Kuenssrave",
     "type": ["water"],
     "evolution": 63,
-    "description": "Kuenssrave is a water type creature that is highly territorial and can swim at high speeds to catch its prey."
+    "description": "Kuenssrave is a water type creature that is highly territorial."
   },
   {
     "id": 63,
@@ -501,7 +501,7 @@
     "name": "Leetaesch",
     "type": ["bug", "flying"],
     "evolution": 69,
-    "description": "Leetaesch is a bug and flying type creature that can fly at high speeds and suck nectar from flowers."
+    "description": "Leetaesch is a bug and flying type creature that can fly at high speeds."
   },
   {
     "id": 69,
@@ -596,7 +596,7 @@
     "id": 81,
     "image": "Shroomy_1.png",
     "name": "Shroomy",
-    "type": ["ground", "grass"],
+    "type": ["grass"],
     "evolution": 82,
     "description": "Shroomy is a small mushroom-like creature that grows in grassy areas and can manipulate the earth around it."
   },
@@ -604,8 +604,8 @@
     "id": 82,
     "image": "Shroomy_2.png",
     "name": "Shrumba",
-    "type": ["ground", "grass"],
-    "description": "Shrumba is the evolved form of Shroomy and has learned to use its spores to create powerful earthquakes."
+    "type": ["grass"],
+    "description": "Shrumba is the evolved form of Shroomy and has learned to use its spores to create powerful attacks."
   },
   {
     "id": 83,
@@ -672,7 +672,7 @@
     "name": "Sublime",
     "type": ["grass"],
     "evolution": 92,
-    "description": "Sublime is a leafy creature that thrives in lush, green environments and can use its leaves to camouflage itself from predators."
+    "description": "Sublime is a grass-type creature that thrives in lush, green environments and can camouflage itself from predators."
   },
   {
     "id": 92,
@@ -763,7 +763,7 @@
     "name": "Thorchin",
     "type": ["dark"],
     "evolution": 104,
-    "description": "Thorchin is a dark-type creature with a coat of black flames that can burn opponents on contact."
+    "description": "Thorchin is a dark-type creature with a coat of dark spikes that can harm opponents on contact."
   },
   {
     "id": 104,
@@ -771,14 +771,14 @@
     "name": "Thortle",
     "type": ["dark"],
     "evolution": 105,
-    "description": "Thortle is the evolved form of Thorchin, and can create a dark aura that lowers the accuracy of opponents' attacks."
+    "description": "Thortle is the evolved form of Thorchin, and has a dark aura around it, which makes its presence unpleasant."
   },
   {
     "id": 105,
     "image": "Turchin_3.png",
     "name": "Golados",
     "type": ["dark"],
-    "description": "Golados is a dark-type creature that can absorb the life force of opponents to heal itself."
+    "description": "Golados is a dark-type creature that can absorb all kind of joy in its surrounding."
   },
   {
     "id": 106,
