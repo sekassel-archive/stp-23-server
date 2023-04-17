@@ -1,7 +1,16 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
-import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
+import {
+  abilities,
+  Ability,
+  AttributeEffect,
+  monsterTypes,
+  Result,
+  TALL_GRASS_TRAINER,
+  Type,
+  types,
+} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
   attackGain,
@@ -185,17 +194,7 @@ export class BattleService {
       }
     }
 
-    if (multiplier === 0) {
-      opponent.results.push('ability-no-effect');
-    } else if (multiplier >= 2) {
-      opponent.results.push('ability-super-effective');
-    } else if (multiplier > 1) {
-      opponent.results.push('ability-effective');
-    } else if (multiplier < 1) {
-      opponent.results.push('ability-ineffective');
-    } else {
-      opponent.results.push('ability-normal');
-    }
+    opponent.results.push(this.abilityResult(multiplier));
 
     if (currentMonster.currentAttributes.health <= 0) {
       opponent.results.push('monster-defeated');
@@ -226,6 +225,20 @@ export class BattleService {
       effectTarget.currentAttributes[attribute] = 0;
     }
     effectTarget.markModified(`currentAttributes.${attribute}`);
+  }
+
+  private abilityResult(multiplier: number): Result {
+    if (multiplier === 0) {
+      return 'ability-no-effect';
+    } else if (multiplier >= 2) {
+      return 'ability-super-effective';
+    } else if (multiplier > 1) {
+      return 'ability-effective';
+    } else if (multiplier < 1) {
+      return 'ability-ineffective';
+    } else {
+      return 'ability-normal';
+    }
   }
 
   private gainExp(opponent: OpponentDocument, currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
