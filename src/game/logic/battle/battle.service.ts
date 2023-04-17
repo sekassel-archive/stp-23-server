@@ -3,7 +3,16 @@ import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
 import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
-import {attackGain, defenseGain, EVOLUTION_LEVELS, expGain, expRequired, healthGain, speedGain} from '../../formulae';
+import {
+  attackGain,
+  defenseGain,
+  EVOLUTION_LEVELS,
+  expGain,
+  expRequired,
+  healthGain,
+  SAME_TYPE_ATTACK_MULTIPLIER,
+  speedGain,
+} from '../../formulae';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
 import {Move, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
@@ -156,12 +165,16 @@ export class BattleService {
   }
 
   private playAbility(opponent: OpponentDocument, ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
-    const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
+    const abilityType = ability.type as Type;
+    const type = types[abilityType];
     let multiplier = 1;
+    const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
     for (const targetType of targetTypes) {
-      const abilityType = ability.type as Type;
-      const type = types[abilityType];
       multiplier *= type?.multipliers?.[targetType] || 1;
+    }
+    const currentTypes = (monsterTypes.find(m => m.id === currentMonster.type)?.type || []) as Type[];
+    if (currentTypes.includes(abilityType)) {
+      multiplier *= SAME_TYPE_ATTACK_MULTIPLIER;
     }
 
     for (const value of ability.effects) {
@@ -172,10 +185,14 @@ export class BattleService {
       }
     }
 
-    if (multiplier > 1) {
+    if (multiplier >= 2) {
+      opponent.results.push('ability-super-effective');
+    } else if (multiplier > 1) {
       opponent.results.push('ability-effective');
     } else if (multiplier < 1) {
       opponent.results.push('ability-ineffective');
+    } else {
+      opponent.results.push('ability-normal');
     }
 
     if (currentMonster.currentAttributes.health <= 0) {

@@ -105,7 +105,9 @@ export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
 export const TALL_GRASS_TRAINER = '0'.repeat(24);
 
 export const RESULTS_WITH_DESCRIPTION = {
-  'ability-effective': 'The ability was super effective',
+  'ability-super-effective': 'The ability was super effective',
+  'ability-effective': 'The ability was very effective',
+  'ability-normal': 'The ability was effective',
   'ability-ineffective': 'The ability was not very effective',
   'target-defeated': 'The target monster was defeated',
   'monster-defeated': 'The monster was defeated',

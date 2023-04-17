@@ -12,3 +12,4 @@ export const defenseAtLevel = (level: number) => 5 + Math.round(level * 2.5);
 export const speedAtLevel = (level: number) => 3 + level * 2;
 
 export const EVOLUTION_LEVELS = [10, 20];
+export const SAME_TYPE_ATTACK_MULTIPLIER = 1.5;
