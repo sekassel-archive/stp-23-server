@@ -395,6 +395,48 @@
     "description": "Kositree is a ground and grass-type creature that evolves from Kosisprout and is deeply rooted in the ground."
   },
   {
+    "id": 54,
+    "image": "Sandrock_1.png",
+    "name": "Sandrock",
+    "type": ["rock"],
+    "description": "Sandrock is a rocky creature of rugged terrain, with wild eyes, sharp teeth, feared for its resilience."
+  },
+  {
+    "id": 55,
+    "image": "Soulseeker_1.png",
+    "name": "Soulseeker",
+    "type": ["dark"],
+    "description": "Soulseeker is a dark phantom with a haunting skull face, known for its terrifying presence."
+  },
+  {
+    "id": 56,
+    "image": "Crystarm_1.png",
+    "name": "Crystarm",
+    "type": ["rock"],
+    "description": "Crystarm is a cursed bear, which is fated to slowly but surely turn to stone, but so far, only his arm is affected, which makes him a dangerous stone monster."
+  },
+  {
+    "id": 57,
+    "image": "Tentacolon_1.png",
+    "name": "Infernoptic",
+    "type": ["fire"],
+    "description": "A small brain-like body encased in a burning red crystal with a single eye."
+  },
+  {
+    "id": 58,
+    "image": "Tentacolon_2.png",
+    "name": "Infernoptacle",
+    "type": ["fire"],
+    "description": "The evolved form of Infernoptic with two fiery tentacles emerging from the crystal."
+  },
+  {
+    "id": 59,
+    "image": "Tentacolon_3.png",
+    "name": "Tentacolon",
+    "type": ["fire"],
+    "description": "The final evolution of Infernoptic, with a jagged crystal body and long, fiery tentacles."
+  },
+  {
     "id": 60,
     "image": "Julibun_1.png",
     "name": "Julibun",
