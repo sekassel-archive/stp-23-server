@@ -185,7 +185,9 @@ export class BattleService {
       }
     }
 
-    if (multiplier >= 2) {
+    if (multiplier === 0) {
+      opponent.results.push('ability-no-effect');
+    } else if (multiplier >= 2) {
       opponent.results.push('ability-super-effective');
     } else if (multiplier > 1) {
       opponent.results.push('ability-effective');

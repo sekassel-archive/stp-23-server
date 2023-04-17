@@ -109,6 +109,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   'ability-effective': 'The ability was very effective',
   'ability-normal': 'The ability was effective',
   'ability-ineffective': 'The ability was not very effective',
+  'ability-no-effect': 'The ability had no effect',
   'target-defeated': 'The target monster was defeated',
   'monster-defeated': 'The monster was defeated',
   'monster-levelup': 'The monster leveled up',
