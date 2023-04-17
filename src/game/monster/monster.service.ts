@@ -4,7 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities, monsterTypes} from '../constants';
+import {abilities, Effect, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterDocument} from './monster.schema';
 
@@ -77,6 +77,21 @@ export class MonsterService {
       this.emit('updated', monster);
     }
     await this.model.bulkSave(monsters);
+  }
+
+  async healOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<void> {
+    const monster = await this.findOne(monsterId);
+    if (monster) {
+      const m = monster.currentAttributes;
+      effects.forEach(effect => {
+        if (effect.attribute === 'health') {
+          m.health = Math.min(m.health + effect.amount, monster.attributes.health);
+        }
+      });
+      monster.currentAttributes = m;
+      this.emit('updated', monster);
+      await monster.save();
+    }
   }
 
   async deleteTrainer(trainer: string): Promise<Monster[]> {
