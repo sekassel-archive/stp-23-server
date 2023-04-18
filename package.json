@@ -1,6 +1,6 @@
 {
-  "name": "stpst22-server",
-  "version": "0.0.1",
+  "name": "stp-23-server",
+  "version": "1.0.0",
   "description": "The server for the STP in summer term 2023",
   "author": "Adrian Kunz",
   "private": true,
