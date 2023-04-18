@@ -6,6 +6,7 @@ import {ItemService} from "./item.service";
 import {ItemController} from "./item.controller";
 import {ItemHandler} from "./item.handler";
 import {TrainerModule} from "../trainer/trainer.module";
+import {MonsterModule} from "../monster/monster.module";
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import {TrainerModule} from "../trainer/trainer.module";
     }]),
     EventModule,
     TrainerModule,
+    MonsterModule,
   ],
   controllers: [ItemController],
   providers: [ItemService, ItemHandler],

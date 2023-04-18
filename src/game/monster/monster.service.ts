@@ -91,6 +91,8 @@ export class MonsterService {
       monster.currentAttributes = m;
       this.emit('updated', monster);
       await monster.save();
+    } else {
+      throw new NotFoundException('Provided monsterId not found on trainer');
     }
   }
 

@@ -7,6 +7,7 @@ import {ForbiddenException, Injectable, NotFoundException} from "@nestjs/common"
 import {Trainer} from "../trainer/trainer.schema";
 import {itemTypes} from "../constants";
 import {TrainerService} from "../trainer/trainer.service";
+import {MonsterService} from "../monster/monster.service";
 
 @Injectable()
 export class ItemService {
@@ -14,6 +15,7 @@ export class ItemService {
     @InjectModel(Item.name) private model: Model<Item>,
     private eventEmitter: EventService,
     private trainerService: TrainerService,
+    private monsterService: MonsterService,
   ) {
   }
 
@@ -58,7 +60,15 @@ export class ItemService {
     if (dto.amount > 1) {
       throw new ForbiddenException('Only one item can be used at a time');
     }
-    throw new NotFoundException('Not yet implemented');
+    if (!dto.monsterId) {
+      throw new NotFoundException('No monsterId provided');
+    }
+    const item = itemTypes.find(item => item.id === dto.type)
+    if (item) {
+      await this.monsterService.healOne(trainer._id.toString(), dto.monsterId, item.effects);
+    }
+    // TODO: Remove item
+    return null;
   }
 
   async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
