@@ -47,7 +47,7 @@ export class OpponentService {
       if (!monster) {
         throw new NotFoundException(`Monster ${dto.move.monster} not found`);
       }
-      if (monster.attributes.health <= 0) {
+      if (monster.currentAttributes.health <= 0) {
         throw new ConflictException(`Monster ${dto.move.monster} is dead`);
       }
       dto = {
