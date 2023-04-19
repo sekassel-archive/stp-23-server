@@ -324,6 +324,25 @@
   },
   {
     "id": 21,
+    "name": "Flying Kick",
+    "description": "The monster kicks the target with a flying kick. It may also lower the target's defense.",
+    "type": "flying",
+    "minLevel": 1,
+    "maxUses": 35,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -2
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 22,
     "name": "Grass Punch",
     "description": "The target is punched with a leafy fist. It may also lower the target's defense.",
     "type": "grass",
@@ -342,7 +361,7 @@
     ]
   },
   {
-    "id": 22,
+    "id": 23,
     "name": "Steel Kick",
     "description": "The monster kicks the target with a steel-hard foot.",
     "type": "steel",
@@ -356,7 +375,7 @@
     ]
   },
   {
-    "id": 23,
+    "id": 24,
     "name": "Fair Wind",
     "description": "The monster summons a fair wind that damages the target and lowers its speed.",
     "type": "fairy",
@@ -375,7 +394,7 @@
     ]
   },
   {
-    "id": 24,
+    "id": 25,
     "name": "Thunderbolt",
     "description": "A strong electric blast crashes down on the target. It may also leave the target with paralysis.",
     "type": "electric",
@@ -393,7 +412,7 @@
     ]
   },
   {
-    "id": 25,
+    "id": 26,
     "name": "Fire Punch",
     "description": "The target is punched with a fiery fist. It may also leave the target with a burn.",
     "type": "fire",
@@ -411,7 +430,7 @@
     ]
   },
   {
-    "id": 26,
+    "id": 27,
     "name": "Ice Punch",
     "description": "The target is punched with an icy fist. It may also leave the target frozen.",
     "type": "ice",
@@ -429,7 +448,7 @@
     ]
   },
   {
-    "id": 27,
+    "id": 28,
     "name": "Thunder Punch",
     "description": "The target is punched with an electrified fist. It may also leave the target with paralysis.",
     "type": "electric",
@@ -447,7 +466,7 @@
     ]
   },
   {
-    "id": 28,
+    "id": 29,
     "name": "Grass Cannon",
     "description": "The monster fires a grassy cannon at the target. It may also lower the target's defense.",
     "type": "grass",
@@ -466,7 +485,7 @@
     ]
   },
   {
-    "id": 29,
+    "id": 30,
     "name": "Sludge",
     "description": "The target is attacked with a discharge of filthy sludge. It may also poison the target.",
     "type": "poison",
@@ -484,7 +503,7 @@
     ]
   },
   {
-    "id": 30,
+    "id": 31,
     "name": "Shadow Punch",
     "description": "The target is punched with a fist wrapped in shadows. It may also lower the target's Attack stat.",
     "type": "ghost",
@@ -503,7 +522,7 @@
     ]
   },
   {
-    "id": 31,
+    "id": 32,
     "name": "Sludge Bomb",
     "description": "The target is hit with a bomb filled with a filthy sludge. It may also poison the target.",
     "type": "poison",
@@ -521,7 +540,7 @@
     ]
   },
   {
-    "id": 32,
+    "id": 33,
     "name": "Mud-Slap",
     "description": "The target is hit with a sludge-filled attack. It may also lower the target's accuracy.",
     "type": "ground",
@@ -540,7 +559,7 @@
     ]
   },
   {
-    "id": 33,
+    "id": 34,
     "name": "Ice Beam",
     "description": "A beam of ice is launched at the target. It may also leave the target frozen.",
     "type": "ice",
@@ -558,7 +577,7 @@
     ]
   },
   {
-    "id": 34,
+    "id": 35,
     "name": "Blizzard",
     "description": "A howling blizzard is summoned to strike the target. It may also leave the target frozen.",
     "type": "ice",
@@ -576,7 +595,7 @@
     ]
   },
   {
-    "id": 35,
+    "id": 36,
     "name": "Hyper Beam",
     "description": "The target is attacked with a powerful beam. The user can't move on the next turn.",
     "type": "normal",
@@ -590,7 +609,7 @@
     ]
   },
   {
-    "id": 36,
+    "id": 37,
     "name": "Poison Fang",
     "description": "The target is bitten with viciously sharp fangs. It may also poison the target.",
     "type": "poison",
@@ -608,7 +627,7 @@
     ]
   },
   {
-    "id": 37,
+    "id": 38,
     "name": "Fire Blast",
     "description": "The target is attacked with an intense blast of all-consuming fire. It may also leave the target with a burn.",
     "type": "fire",
@@ -626,7 +645,7 @@
     ]
   },
   {
-    "id": 38,
+    "id": 39,
     "name": "Waterfall",
     "description": "The target is hit with a giant wave of water crashing down from above.",
     "type": "water",
@@ -640,7 +659,7 @@
     ]
   },
   {
-    "id": 39,
+    "id": 40,
     "name": "Surf",
     "description": "The user attacks everything around it by swamping its surroundings with a giant wave. It may also lower the targets' accuracy.",
     "type": "water",
@@ -659,7 +678,7 @@
     ]
   },
   {
-    "id": 40,
+    "id": 41,
     "name": "Fairy Yell",
     "description": "The user starts yelling at the target in a high-pitched voice. It may also lower the target's Attack stat.",
     "type": "fairy",
@@ -678,7 +697,7 @@
     ]
   },
   {
-    "id": 41,
+    "id": 42,
     "name": "Giant Claw",
     "description": "The user slashes the target with huge, sharp claws.",
     "type": "normal",
@@ -692,7 +711,26 @@
     ]
   },
   {
-    "id": 42,
+    "id": 43,
+    "name": "Air Ray",
+    "description": "The user attacks the target with a gust of wind. It may also raise the users' Attack stat.",
+    "type": "flying",
+    "minLevel": 9,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -10
+      },
+      {
+        "attribute": "attack",
+        "amount": 1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 44,
     "name": "Aqua Bomb",
     "description": "The user attacks everything around it by swamping its surroundings with a giant wave.",
     "type": "water",
@@ -706,7 +744,7 @@
     ]
   },
   {
-    "id": 43,
+    "id": 45,
     "name": "Bite",
     "description": "The target is bitten with viciously sharp fangs.",
     "type": "dark",
@@ -720,7 +758,7 @@
     ]
   },
   {
-    "id": 44,
+    "id": 46,
     "name": "Crunch",
     "description": "The target is bitten with viciously sharp fangs. It may also lower the target's Defense stat.",
     "type": "dark",
@@ -739,7 +777,7 @@
     ]
   },
   {
-    "id": 45,
+    "id": 47,
     "name": "Dragon Breath",
     "description": "The target is attacked with an intense blast of hot breath. It may also leave the target with paralysis.",
     "type": "dragon",
@@ -757,7 +795,25 @@
     ]
   },
   {
-    "id": 46,
+    "id": 48,
+    "name": "Fire Rush",
+    "description": "The target is attacked with an intense blast of all-consuming fire. It may also leave the target with a burn.",
+    "type": "fire",
+    "minLevel": 11,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -10
+      },
+      {
+        "status": "burn",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 49,
     "name": "Dragon Claw",
     "description": "The target is slashed with huge, sharp claws. It may also lower the target's Defense stat.",
     "type": "dragon",
@@ -776,7 +832,7 @@
     ]
   },
   {
-    "id": 47,
+    "id": 50,
     "name": "Dragon Pulse",
     "description": "The target is attacked with a shock wave generated by the user's gaping mouth.",
     "type": "dragon",
@@ -790,7 +846,7 @@
     ]
   },
   {
-    "id": 48,
+    "id": 51,
     "name": "Dragon Rush",
     "description": "The target is slammed with a long tail, vines, or the like to inflict damage. It may also leave the target with paralysis.",
     "type": "dragon",
@@ -808,7 +864,7 @@
     ]
   },
   {
-    "id": 49,
+    "id": 52,
     "name": "Grass Claw",
     "description": "The user slashes the target with huge, sharp claws. It may also lower the target's Attack stat.",
     "type": "grass",
@@ -827,7 +883,7 @@
     ]
   },
   {
-    "id": 50,
+    "id": 53,
     "name": "Draco Meteor",
     "description": "The user gathers all its light energy and releases it at once. It may also lower the target's Defense stat.",
     "type": "dragon",
@@ -846,7 +902,7 @@
     ]
   },
   {
-    "id": 51,
+    "id": 54,
     "name": "Thunder Shock",
     "description": "The target is jolted with a jolt of electricity. It may also leave the target with paralysis.",
     "type": "electric",
@@ -864,7 +920,7 @@
     ]
   },
   {
-    "id": 52,
+    "id": 55,
     "name": "Thunder",
     "description": "A wicked thunderbolt is dropped on the target to inflict damage. It may also leave the target with paralysis.",
     "type": "electric",
@@ -882,7 +938,25 @@
     ]
   },
   {
-    "id": 53,
+    "id": 56,
+    "name": "Ground Rush",
+    "description": "The user rushes the target at breakneck speed. It may also leave the target with paralysis.",
+    "type": "ground",
+    "minLevel": 13,
+    "maxUses": 5,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -13
+      },
+      {
+        "status": "paralysis",
+        "chance": 0.35
+      }
+    ]
+  },
+  {
+    "id": 57,
     "name": "Thunder Punch",
     "description": "The target is punched with an electrified fist. It may also leave the target with paralysis.",
     "type": "electric",
@@ -900,7 +974,7 @@
     ]
   },
   {
-    "id": 54,
+    "id": 58,
     "name": "Thunder Wave",
     "description": "The target is hit by a weak jolt of electricity. It may also leave the target with paralysis.",
     "type": "electric",
@@ -918,7 +992,7 @@
     ]
   },
   {
-    "id": 55,
+    "id": 59,
     "name": "Twister",
     "description": "The target is attacked with a fierce whirlwind that may also make the defence stat fall.",
     "type": "dragon",
@@ -937,7 +1011,7 @@
     ]
   },
   {
-    "id": 56,
+    "id": 60,
     "name": "Water Pulse",
     "description": "The target is attacked with a pulsing blast of water. It may also confuse the target.",
     "type": "water",
@@ -955,7 +1029,7 @@
     ]
   },
   {
-    "id": 57,
+    "id": 61,
     "name": "Water Blast",
     "description": "The target is blasted by a huge volume of water launched under great pressure. It may also confuse the target.",
     "type": "water",
@@ -973,7 +1047,25 @@
     ]
   },
   {
-    "id": 58,
+    "id": 62,
+    "name": "Burning Rage",
+    "description": "The user attacks the target with a firey rage. It may also leave the target with a burn.",
+    "type": "fire",
+    "minLevel": 15,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -14
+      },
+      {
+        "status": "burn",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 63,
     "name": "Aerial Ace",
     "description": "The user confounds the target with speed, then slashes. Critical hits land more easily.",
     "type": "flying",
@@ -987,7 +1079,7 @@
     ]
   },
   {
-    "id": 59,
+    "id": 64,
     "name": "Air Cutter",
     "description": "The target is sliced with a scythe-like wind. Critical hits land more easily.",
     "type": "flying",
@@ -1001,7 +1093,7 @@
     ]
   },
   {
-    "id": 60,
+    "id": 65,
     "name": "Air Slash",
     "description": "The user attacks with a blade of air that slices even the sky. It may also make the target confused.",
     "type": "flying",
@@ -1019,7 +1111,7 @@
     ]
   },
   {
-    "id": 61,
+    "id": 66,
     "name": "Ancient Power",
     "description": "The user attacks with a prehistoric power. It may also raise the user's defence stat.",
     "type": "rock",
@@ -1038,7 +1130,7 @@
     ]
   },
   {
-    "id": 62,
+    "id": 67,
     "name": "Steel Fist",
     "description": "The user slams the target with a steel fist. It may also raise the user's defence stat.",
     "type": "steel",
@@ -1057,7 +1149,7 @@
     ]
   },
   {
-    "id": 63,
+    "id": 68,
     "name": "Insect Bite",
     "description": "The user bites the target. It may also poison the target.",
     "type": "bug",
@@ -1075,7 +1167,7 @@
     ]
   },
   {
-    "id": 64,
+    "id": 69,
     "name": "Earthy Fist",
     "description": "The user slams the target with a fist made of earth. It may also lower the target's defence stat.",
     "type": "ground",
@@ -1094,7 +1186,7 @@
     ]
   },
   {
-    "id": 65,
+    "id": 70,
     "name": "Psycho Cut",
     "description": "The user tears at the target with blades formed by psychic power. The target's may also become confused.",
     "type": "psychic",
@@ -1112,7 +1204,7 @@
     ]
   },
   {
-    "id": 66,
+    "id": 71,
     "name": "Scream of Pain",
     "description": "The user attacks the target with a horrible sound wave. It may also lower the target's defence stat. and confuse it.",
     "type": "normal",
@@ -1135,7 +1227,7 @@
     ]
   },
   {
-    "id": 67,
+    "id": 72,
     "name": "Gold Rush",
     "description": "The user attacks the target with a flurry of gold coins.",
     "type": "steel",
@@ -1149,7 +1241,26 @@
     ]
   },
   {
-    "id": 68,
+    "id": 73,
+    "name": "Green Ray",
+    "description": "The user attacks the target with a green ray. It may also lower the target's defence stat.",
+    "type": "grass",
+    "minLevel": 17,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -16
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 74,
     "name": "Aqua Jet",
     "description": "The user lunges at the target at a speed that makes it almost invisible. It is sure to strike first.",
     "type": "water",
@@ -1163,7 +1274,7 @@
     ]
   },
   {
-    "id": 69,
+    "id": 75,
     "name": "Aqua Fist",
     "description": "The user slams the target with a water fist. It may also lower the target's defence stat.",
     "type": "water",
@@ -1182,7 +1293,7 @@
     ]
   },
   {
-    "id": 70,
+    "id": 76,
     "name": "Astonish",
     "description": "The user attacks the target while shouting in a startling fashion. It may also make the target confused.",
     "type": "ghost",
@@ -1200,7 +1311,7 @@
     ]
   },
   {
-    "id": 71,
+    "id": 77,
     "name": "Psycho Blast",
     "description": "The user attacks the target with a powerful psychic blast. It may also make the target fall asleep.",
     "type": "psychic",
@@ -1218,7 +1329,26 @@
     ]
   },
   {
-    "id": 72,
+    "id": 78,
+    "name": "Blazing Fist",
+    "description": "The user slams the target with a fist made of fire. It may also lower the target's defence stat.",
+    "type": "fire",
+    "minLevel": 21,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -18
+      },
+      {
+        "attribute": "defense",
+        "amount": -1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 79,
     "name": "Blizzard Blast",
     "description": "A blast of freezing cold air is blown at the target. It may also leave the target frozen.",
     "type": "ice",
@@ -1236,7 +1366,7 @@
     ]
   },
   {
-    "id": 73,
+    "id": 80,
     "name": "Salt Blast",
     "description": "The user gets salty and blasts the target with salt. It may also leave the target confused.",
     "type": "rock",
@@ -1254,7 +1384,7 @@
     ]
   },
   {
-    "id": 74,
+    "id": 81,
     "name": "Brick Break",
     "description": "The user attacks with a swift chop. It can also break any barrier such as Light Screen and Reflect.",
     "type": "fighting",
@@ -1268,7 +1398,7 @@
     ]
   },
   {
-    "id": 75,
+    "id": 82,
     "name": "Brine",
     "description": "If the target's HP is down to about half, this attack will hit with double the power.",
     "type": "water",
@@ -1282,7 +1412,7 @@
     ]
   },
   {
-    "id": 76,
+    "id": 83,
     "name": "Bug Bite",
     "description": "The user bites the target. If the target is holding a Berry, the user eats it and gains its effect.",
     "type": "bug",
@@ -1296,7 +1426,7 @@
     ]
   },
   {
-    "id": 77,
+    "id": 84,
     "name": "Bug Buzz",
     "description": "The user generates a damaging sound wave by vigorously shaking its body. It may also lower the target's special defence stat.",
     "type": "bug",
@@ -1310,7 +1440,7 @@
     ]
   },
   {
-    "id": 78,
+    "id": 85,
     "name": "Candy Crush",
     "description": "The user crushes the target with a candy cane from Reuters Kiosk. It may also lower the target's defence stat.",
     "type": "rock",
@@ -1329,7 +1459,7 @@
     ]
   },
   {
-    "id": 79,
+    "id": 86,
     "name": "Charge Beam",
     "description": "The user attacks with an electric charge. The target may be left with paralysis.",
     "type": "electric",
@@ -1347,7 +1477,7 @@
     ]
   },
   {
-    "id": 80,
+    "id": 87,
     "name": "Clamp",
     "description": "The target is clamped and squeezed by the user's very thick and sturdy shell. It may increase the user's defence stat.",
     "type": "water",
@@ -1366,7 +1496,7 @@
     ]
   },
   {
-    "id": 81,
+    "id": 88,
     "name": "Comet Punch",
     "description": "The user throws a flurry of punches that strike the target.",
     "type": "normal",
@@ -1380,7 +1510,7 @@
     ]
   },
   {
-    "id": 82,
+    "id": 89,
     "name": "Iron Shield",
     "description": "The user protects itself with a hard shell. It may also raise the user's defence stat.",
     "type": "steel",
@@ -1395,7 +1525,7 @@
     ]
   },
   {
-    "id": 83,
+    "id": 90,
     "name": "Psycho Edge",
     "description": "The user attacks with a blade of psychic energy. The user may also confuse the target.",
     "type": "psychic",
@@ -1413,7 +1543,7 @@
     ]
   },
   {
-    "id": 84,
+    "id": 91,
     "name": "Insect Wave",
     "description": "The user attacks with a wave of insects. It may poison the target.",
     "type": "bug",
@@ -1431,7 +1561,45 @@
     ]
   },
   {
-    "id": 85,
+    "id": 92,
+    "name": "Earthy Cannon",
+    "description": "The user attacks with a cannon of earth. It may also lower the target's defence stat.",
+    "type": "ground",
+    "minLevel": 23,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -19
+      },
+      {
+        "attribute": "defense",
+        "amount": -2,
+        "chance": 0.15
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Flying Slash",
+    "description": "The user slashes the target with a flying blade. It may also raise the user's attack stat.",
+    "type": "flying",
+    "minLevel": 23,
+    "maxUses": 15,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -19
+      },
+      {
+        "attribute": "attack",
+        "amount": 1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 94,
     "name": "Confuse Ray",
     "description": "A sinister ray that induces confusion in the target.",
     "type": "ghost",
@@ -1445,7 +1613,7 @@
     ]
   },
   {
-    "id": 86,
+    "id": 95,
     "name": "Crabhammer",
     "description": "The user hits the target with a pincer attack.",
     "type": "water",
@@ -1459,7 +1627,26 @@
     ]
   },
   {
-    "id": 87,
+    "id": 96,
+    "name": "Leafy Cannon",
+    "description": "The user attacks with a cannon of leaves. It may also lower the target's defence stat.",
+    "type": "grass",
+    "minLevel": 26,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -23
+      },
+      {
+        "attribute": "defense",
+        "amount": -2,
+        "chance": 0.15
+      }
+    ]
+  },
+  {
+    "id": 97,
     "name": "Cross Chop",
     "description": "The user delivers a double chop with its forearms crossed. It may also lower the target's defence stat.",
     "type": "fighting",
@@ -1478,7 +1665,7 @@
     ]
   },
   {
-    "id": 88,
+    "id": 98,
     "name": "Crunch Punch",
     "description": "The user throws a punch with the power to shatter a rock. It may also lower the target's defence stat.",
     "type": "dark",
@@ -1497,7 +1684,25 @@
     ]
   },
   {
-    "id": 89,
+    "id": 99,
+    "name": "Fire Tornado",
+    "description": "The user attacks by engulfing the target in an intense fire tornado. It may also leave the target with a burn.",
+    "type": "fire",
+    "minLevel": 29,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -23
+      },
+      {
+        "status": "burn",
+        "chance": 0.3
+      }
+    ]
+  },
+  {
+    "id": 100,
     "name": "Dark Pulse",
     "description": "The user releases a horrible aura imbued with dark thoughts. It may also make the target confused.",
     "type": "dark",
@@ -1515,7 +1720,7 @@
     ]
   },
   {
-    "id": 90,
+    "id": 101,
     "name": "Dark Void",
     "description": "The user lets loose a pitch-black shock wave at the target. It may also make the target confused.",
     "type": "dark",
@@ -1533,7 +1738,7 @@
     ]
   },
   {
-    "id": 91,
+    "id": 102,
     "name": "Defend Order",
     "description": "The user focuses its mind and calms its spirit to raise its defence stat.",
     "type": "fighting",
@@ -1548,7 +1753,7 @@
     ]
   },
   {
-    "id": 92,
+    "id": 103,
     "name": "Discharge",
     "description": "The user strikes everything around it by letting loose a flare of electricity. It may also leave those it hits with paralysis.",
     "type": "electric",
@@ -1566,7 +1771,7 @@
     ]
   },
   {
-    "id": 93,
+    "id": 104,
     "name": "Double Kick",
     "description": "The user delivers two kicks in a row. It may also lower the target's defence stat.",
     "type": "fighting",
@@ -1585,7 +1790,7 @@
     ]
   },
   {
-    "id": 94,
+    "id": 105,
     "name": "Fairy Ray",
     "description": "The user shoots a ray of light at the target. It may also lower the target's defence stat. and make it confused.",
     "type": "fairy",
@@ -1608,7 +1813,66 @@
     ]
   },
   {
-    "id": 95,
+    "id": 106,
+    "name": "Ground Slap",
+    "description": "The user slaps the target with its open palm. It may also lower the target's defence stat. and make it confused.",
+    "type": "ground",
+    "minLevel": 33,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -24
+      },
+      {
+        "status": "defense",
+        "amount": -1,
+        "chance": 0.15
+      },
+      {
+        "status": "confusion",
+        "chance": 0.22
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Tree Slap",
+    "description": "The user slaps the target with a tree branch. It may also make the target confused.",
+    "type": "grass",
+    "minLevel": 33,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -25
+      },
+      {
+        "status": "confusion",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "name": "Fly Wing",
+    "description": "The user flys at the target with its wings. It may also make the target confused.",
+    "type": "flying",
+    "minLevel": 33,
+    "maxUses": 12,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": -25
+      },
+      {
+        "status": "confusion",
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": 109,
     "name": "Double Slap",
     "description": "The user slaps the target with its open palm two to five times in a row.",
     "type": "fighting",
@@ -1622,7 +1886,7 @@
     ]
   },
   {
-    "id": 96,
+    "id": 110,
     "name": "Double Team",
     "description": "The user creates illusory copies of itself to confuse the target.",
     "type": "normal",
@@ -1636,7 +1900,7 @@
     ]
   },
   {
-    "id": 97,
+    "id": 111,
     "name": "Draco Punch",
     "description": "The user gathers all its power and slams the target with its punch. It may also lower the target's defence stat.",
     "type": "dragon",
@@ -1655,7 +1919,7 @@
     ]
   },
   {
-    "id": 98,
+    "id": 112,
     "name": "Dragon Smash",
     "description": "The user slams the target with its tail. It may also lower the target's defence stat.",
     "type": "dragon",
@@ -1674,7 +1938,7 @@
     ]
   },
   {
-    "id": 99,
+    "id": 113,
     "name": "Dragon Dance",
     "description": "The user vigorously performs a mystic, powerful dance that boosts its attack and defense stats.",
     "type": "dragon",
@@ -1694,7 +1958,7 @@
     ]
   },
   {
-    "id": 100,
+    "id": 114,
     "name": "Fairy Spin",
     "description": "The user spins around and creates a whirlwind that hits the target. It may make the enemy fall asleep.",
     "type": "fairy",
@@ -1712,7 +1976,7 @@
     ]
   },
   {
-    "id": 101,
+    "id": 115,
     "name": "Wings of Chaos",
     "description": "The user flys around the target and hits it with its wings. It may lower the target's defence stat.",
     "type": "flying",
@@ -1731,7 +1995,7 @@
     ]
   },
   {
-    "id": 102,
+    "id": 116,
     "name": "Meteor Smash",
     "description": "The user creates a meteor and smashes it into the target.",
     "type": "rock",
@@ -1745,7 +2009,7 @@
     ]
   },
   {
-    "id": 103,
+    "id": 117,
     "name": "Tunnel Retreat",
     "description": "The user digs a hole and retreats into it. It may also increase the user's defence stat. and heal the user.",
     "type": "ground",
@@ -1760,6 +2024,25 @@
         "attribute": "defense",
         "amount": 1,
         "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "name": "Fire Cannon",
+    "description": "The user shoots a fireball at the target. It may also lower the target's defence stat.",
+    "type": "fire",
+    "minLevel": 40,
+    "maxUses": 10,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 30
+      },
+      {
+        "attribute": "defense",
+        "amount": 1,
+        "chance": 0.33
       }
     ]
   }
