@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import {ApiForbiddenResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
-import {UserToken} from '../../auth/auth.interface';
 import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
 import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
@@ -37,22 +36,20 @@ export class OpponentController {
   }
 
   @Get('opponents')
-  @ApiQuery({name: 'trainer', required: false})
+  @ApiQuery({name: 'trainer'})
   @ApiOkResponse({type: [Opponent]})
   async findAll(
-    @Param('regionId', ParseObjectIdPipe) region: string,
-    @Query('trainer') trainer?: string,
+    @Query('trainer') trainer: string,
   ): Promise<Opponent[]> {
-    return this.opponentService.findAll({region, trainer});
+    return this.opponentService.findAll({trainer});
   }
 
   @Get('encounters/:encounterId/opponents')
   @ApiOkResponse({type: [Opponent]})
   async findByEncounter(
-    @Param('regionId', ParseObjectIdPipe) region: string,
     @Param('encounterId', ParseObjectIdPipe) encounter: string,
   ): Promise<Opponent[]> {
-    return this.opponentService.findAll({region, encounter});
+    return this.opponentService.findAll({encounter});
   }
 
   @Get('encounters/:encounterId/opponents/:trainerId')
