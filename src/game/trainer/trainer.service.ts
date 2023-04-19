@@ -140,7 +140,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit() {
-    for await (const doc of this.model.find().select(MOVE_TRAINER_PROPS)) {
+    for await (const doc of this.model.find().select([...MOVE_TRAINER_PROPS])) {
       this.locations.set(doc._id.toString(), doc);
     }
   }
