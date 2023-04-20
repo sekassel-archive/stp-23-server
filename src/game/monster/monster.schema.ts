@@ -1,8 +1,8 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {ArrayMaxSize, IsArray, IsInt, IsMongoId, ValidateNested} from 'class-validator';
-import {Document, Types} from 'mongoose';
+import {IsInt, IsMongoId, IsObject, ValidateNested} from 'class-validator';
+import {Document, SchemaTypes, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
 
 export class MonsterAttributes {
@@ -47,12 +47,10 @@ export class Monster extends GlobalSchema {
   @IsInt()
   experience: number;
 
-  @Prop()
-  @ApiProperty({type: [Number]})
-  @IsArray()
-  @IsInt({each: true})
-  @ArrayMaxSize(MAX_ABILITIES)
-  abilities: number[];
+  @Prop({type: SchemaTypes.Mixed})
+  @ApiProperty({type: Object, maxProperties: MAX_ABILITIES})
+  @IsObject()
+  abilities: { [id: number]: number };
 
   @Prop()
   @ApiProperty()

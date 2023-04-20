@@ -25,7 +25,7 @@ export class MonsterGeneratorService {
     if (!monsterType) {
       throw new NotFoundException('Invalid monster type');
     }
-    const abilities = this.findBestAbilities(this.getPossibleAbilities(level, monsterType.type)).map(a => a.id);
+    const abilities = this.findBestAbilities(this.getPossibleAbilities(level, monsterType.type));
     return {
       type,
       level,
@@ -35,7 +35,7 @@ export class MonsterGeneratorService {
         defense: defenseAtLevel(level),
         speed: speedAtLevel(level),
       },
-      abilities,
+      abilities: Object.fromEntries(abilities.map(a => [a.id, a.maxUses])),
     };
   }
 

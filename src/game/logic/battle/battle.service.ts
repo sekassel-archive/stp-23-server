@@ -103,7 +103,7 @@ export class BattleService {
           type: 'ability',
           target: target.trainer,
           // TODO select ability based on monster type
-          ability: monster.abilities.random(),
+          ability: +Object.keys(monster.abilities).random(),
         };
       } else {
         if (opponent.trainer === TALL_GRASS_TRAINER) {
@@ -145,7 +145,7 @@ export class BattleService {
           continue;
         }
 
-        if (!monster.abilities.includes(move.ability)) {
+        if (!(move.ability in monster.abilities)) {
           opponent.results = ['ability-unknown'];
           continue;
         }
@@ -294,12 +294,14 @@ export class BattleService {
 
     // Learn new ability
     const newAbilities = this.monsterGeneratorService.getPossibleAbilities(currentMonster.level, monsterType.type)
-      .filter(a => !currentMonster.abilities.includes(a.id));
+      .filter(a => !(a.id in currentMonster.abilities));
     if (newAbilities.length) {
       const ability = newAbilities.random();
-      currentMonster.abilities.push(ability.id);
-      while (currentMonster.abilities.length > MAX_ABILITIES) {
-        currentMonster.abilities.shift();
+      currentMonster.abilities[ability.id] = ability.maxUses;
+      const keys = Object.keys(currentMonster.abilities);
+      while (keys.length > MAX_ABILITIES) {
+        const removed = keys.shift();
+        removed && delete currentMonster.abilities[+removed];
       }
       opponent.results.push('monster-learned');
       currentMonster.markModified('abilities');
