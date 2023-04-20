@@ -118,6 +118,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   // Error cases
   'monster-dead': 'The monster is dead',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
+  'ability-no-uses': 'The monster doesn\'t have any uses left for the ability',
   'target-unknown': 'The target trainer does not exist or has fled',
   'target-dead': 'The target monster is already dead',
 } as const;

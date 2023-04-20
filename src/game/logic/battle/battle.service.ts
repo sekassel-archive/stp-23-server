@@ -166,6 +166,11 @@ export class BattleService {
           continue;
         }
 
+        if (monster.abilities[move.ability] <= 0) {
+          opponent.results = ['ability-no-uses'];
+          continue;
+        }
+
         this.playAbility(opponent, ability, monster, target);
       }
     }
@@ -195,6 +200,9 @@ export class BattleService {
     }
 
     opponent.results.push(this.abilityResult(multiplier));
+
+    currentMonster.abilities[ability.id] -= 1;
+    currentMonster.markModified('abilities');
 
     if (currentMonster.currentAttributes.health <= 0) {
       opponent.results.push('monster-defeated');
