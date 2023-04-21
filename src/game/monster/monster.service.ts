@@ -4,6 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
+import {abilities} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterDocument} from './monster.schema';
 
@@ -61,6 +62,11 @@ export class MonsterService {
     const monsters = await this.findAll(filter);
     for (const monster of monsters) {
       monster.currentAttributes = monster.attributes;
+      for (const abilityId in monster.abilities) {
+        const ability = abilities.find(a => a.id === +abilityId);
+        ability && (monster.abilities[abilityId] = ability.maxUses);
+      }
+      monster.markModified('abilities');
     }
     await this.saveMany(monsters);
   }
