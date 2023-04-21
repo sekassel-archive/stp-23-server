@@ -57,17 +57,22 @@ export class ItemService {
   }
 
   async useItem(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
-    if (dto.amount > 1) {
-      throw new ForbiddenException('Only one item can be used at a time');
+    if (dto.amount !== 1) {
+      throw new ForbiddenException('One item must be used at a time');
     }
-    if (!dto.monsterId) {
+    if (dto.monsterId === undefined) {
       throw new NotFoundException('No monsterId provided');
     }
     const item = itemTypes.find(item => item.id === dto.type)
     if (item) {
-      await this.monsterService.healOne(trainer._id.toString(), dto.monsterId, item.effects);
+      const monster = await this.monsterService.healOne(trainer._id.toString(), dto.monsterId, item.effects);
+      if (monster) {
+        return this.model.findOneAndUpdate(
+          {trainer: trainer._id, type: dto.type},
+          {$inc: {amount: -1}}
+        );
+      }
     }
-    // TODO: Remove item
     return null;
   }
 

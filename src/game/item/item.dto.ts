@@ -1,5 +1,5 @@
 import {ApiProperty} from '@nestjs/swagger';
-import {IsEnum, IsNotEmpty, IsNumber, NotEquals} from 'class-validator';
+import {IsEnum, IsNotEmpty, IsNumber, IsOptional, NotEquals} from 'class-validator';
 import {ItemAction} from "./item.action";
 
 export class UpdateItemDto {
@@ -19,6 +19,7 @@ export class UpdateItemDto {
   @IsNotEmpty()
   type: number;
 
-  @ApiProperty({required: false, example: ""})
+  @ApiProperty({example: ''})
+  @IsOptional()
   monsterId?: string;
 }

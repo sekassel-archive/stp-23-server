@@ -6,7 +6,7 @@ import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
 import {abilities, Effect, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterDocument} from './monster.schema';
+import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
 
 @Injectable()
 export class MonsterService {
@@ -79,18 +79,18 @@ export class MonsterService {
     await this.model.bulkSave(monsters);
   }
 
-  async healOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<void> {
+  async healOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<Monster> {
     const monster = await this.findOne(monsterId);
     if (monster) {
       const m = monster.currentAttributes;
-      effects.forEach(effect => {
-        if (effect.attribute === 'health') {
-          m.health = Math.min(m.health + effect.amount, monster.attributes.health);
-        }
-      });
-      monster.currentAttributes = m;
-      this.emit('updated', monster);
+      for (const effect of effects) {
+        const attribute = effect.attribute as keyof MonsterAttributes;
+        m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
+      }
+      monster.markModified('currentAttributes');
       await monster.save();
+      this.emit('updated', monster);
+      return monster;
     } else {
       throw new NotFoundException('Provided monsterId not found on trainer');
     }

@@ -35,9 +35,9 @@ export class ItemController {
   }
 
   @Patch()
-  @ApiOperation({ description: 'Trade and use items' })
-  @ApiOkResponse({ type: Item })
-  @ApiForbiddenResponse({ description: 'This item cannot be bought, sold or used, or you are not the owner of this trainer' })
+  @ApiOperation({description: 'Trade and use items'})
+  @ApiOkResponse({type: Item})
+  @ApiForbiddenResponse({description: 'This item cannot be bought, sold or used, or you are not the owner of this trainer'})
   @NotFound()
   async updateOne(
     @Param('regionId', ParseObjectIdPipe) regionId: string,
@@ -45,7 +45,7 @@ export class ItemController {
     @Body() dto: UpdateItemDto,
     @AuthUser() user: User,
   ): Promise<Item | null> {
-    const { type, amount, action } = dto;
+    const {type, amount, action} = dto;
     const itemType = itemTypes.find(itemType => itemType.id === type);
     if (!itemType?.price) {
       throw new ForbiddenException('This item cannot be bought or sold');
@@ -61,11 +61,11 @@ export class ItemController {
       throw new BadRequestException('Amount must be greater than 0 when using items');
     }
     if (action === ItemAction.USE) {
+      console.log(dto);
       return this.itemService.useItem(trainer, dto);
     }
     return this.itemService.updateOne(trainer, dto);
   }
-
 
   @Get()
   @ApiOkResponse({type: Item})
