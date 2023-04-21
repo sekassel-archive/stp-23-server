@@ -208,7 +208,9 @@ export class BattleService {
       opponent.results.push('monster-defeated');
     } else if (targetMonster.currentAttributes.health <= 0) {
       opponent.results.push('target-defeated');
-      this.gainExp(opponent, currentMonster, targetMonster);
+      if (!opponent.isNPC) {
+        this.gainExp(opponent, currentMonster, targetMonster);
+      }
     }
   }
 
