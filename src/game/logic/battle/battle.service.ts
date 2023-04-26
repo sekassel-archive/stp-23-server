@@ -195,6 +195,10 @@ export class BattleService {
       if (value.chance == null || Math.random() <= value.chance) {
         if ('attribute' in value) {
           this.applyAttributeEffect(value, currentMonster, targetMonster, multiplier);
+        } else if ('status' in value) {
+          const target = value.self === true ? currentMonster : targetMonster;
+          this.monsterService.applyStatusEffect(value, target);
+          // TODO add status effect to results
         }
       }
     }

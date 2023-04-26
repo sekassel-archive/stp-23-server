@@ -96,7 +96,7 @@ export class MonsterService {
     }
   }
 
-  private applyStatusEffect(effect: StatusEffect, monster: MonsterDocument) {
+  applyStatusEffect(effect: StatusEffect, monster: MonsterDocument) {
     const status = effect.status as MonsterStatus;
     if (effect.remove) {
       const index = monster.status.indexOf(status);
