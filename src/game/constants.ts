@@ -27,9 +27,6 @@ export class ItemType {
   @ApiProperty()
   effects: Effect[];
 
-  @ApiProperty()
-  removeStatus: string[]; // TODO: Make string[] to Status[]
-
   @ApiPropertyOptional()
   description?: string;
 }

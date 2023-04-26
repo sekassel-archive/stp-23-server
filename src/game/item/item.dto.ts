@@ -1,6 +1,7 @@
 import {ApiProperty} from '@nestjs/swagger';
-import {IsEnum, IsNotEmpty, IsNumber, IsOptional, NotEquals} from 'class-validator';
+import {IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsOptional, NotEquals} from 'class-validator';
 import {ItemAction} from "./item.action";
+import {MONGO_ID_FORMAT} from "../../util/schema";
 
 export class UpdateItemDto {
   @ApiProperty({example: ""})
@@ -10,16 +11,15 @@ export class UpdateItemDto {
 
   @ApiProperty()
   @IsNumber()
-  @IsNotEmpty()
   @NotEquals(0, {message: 'Amount must not be 0'})
   amount: number;
 
   @ApiProperty()
   @IsNumber()
-  @IsNotEmpty()
   type: number;
 
-  @ApiProperty({example: ''})
+  @ApiProperty({...MONGO_ID_FORMAT})
   @IsOptional()
-  monsterId?: string;
+  @IsMongoId()
+  monster?: string;
 }

@@ -5,7 +5,6 @@
     "name": "Monball",
     "price": 20,
     "effects": [],
-    "removeStatus": [],
     "description": "A ball for catching PMons."
   },
   {
@@ -19,7 +18,6 @@
         "amount": 1
       }
     ],
-    "removeStatus": [],
     "description": "Heals 1 health and tastes good."
   },
   {
@@ -33,7 +31,6 @@
         "amount": 50
       }
     ],
-    "removeStatus": [],
     "description": "Heals 50 health."
   },
   {
@@ -47,7 +44,6 @@
         "amount": 25
       }
     ],
-    "removeStatus": [],
     "description": "Heals 25 health."
   },
   {
@@ -56,7 +52,6 @@
     "name": "Mondex",
     "price": 1000,
     "effects": [],
-    "removeStatus": [],
     "description": "A handheld device."
   },
   {
@@ -65,7 +60,6 @@
     "name": "Money bag",
     "price": 0,
     "effects": [],
-    "removeStatus": [],
     "description": "A purse for valuable and shiny coins."
   },
   {
@@ -79,7 +73,6 @@
         "amount": 5
       }
     ],
-    "removeStatus": [],
     "description": "A grilled chicken leg. Tasty."
   },
   {
@@ -88,7 +81,6 @@
     "name": "Backpack",
     "price": 0,
     "effects": [],
-    "removeStatus": [],
     "description": "A travelpack to store stuff."
   },
   {
@@ -97,7 +89,6 @@
     "name": "Mystery box",
     "price": 250,
     "effects": [],
-    "removeStatus": [],
     "description": "A mysterious package. What item is in it?"
   },
   {
@@ -106,7 +97,6 @@
     "name": "Monbox",
     "price": 250,
     "effects": [],
-    "removeStatus": [],
     "description": "A mysterious box containing a standard monster."
   },
   {
@@ -115,7 +105,6 @@
     "name": "Monbox Premium",
     "price": 500,
     "effects": [],
-    "removeStatus": [],
     "description": "A mysterious box containing a premium monster."
   },
   {
@@ -124,7 +113,6 @@
     "name": "Monbox Elite",
     "price": 1000,
     "effects": [],
-    "removeStatus": [],
     "description": "A mysterious box containing an elite monster."
   },
   {
@@ -141,8 +129,12 @@
     "image": "pot.png",
     "name": "Anti-confusion potion",
     "price": 25,
-    "effects": [],
-    "removeStatus": ["confused"],
+    "effects": [
+      {
+        "status": "confused",
+        "remove": true
+      }
+    ],
     "description": "A potion to remove the confused status effect."
   },
   {
@@ -150,8 +142,12 @@
     "image": "pot.png",
     "name": "Anti-freeze potion",
     "price": 25,
-    "effects": [],
-    "removeStatus": ["frozen"],
+    "effects": [
+      {
+        "status": "frozen",
+        "remove": true
+      }
+    ],
     "description": "A potion to remove the frozen status effect."
   },
   {
@@ -159,8 +155,12 @@
     "image": "pot.png",
     "name": "Anti-poison potion",
     "price": 25,
-    "effects": [],
-    "removeStatus": ["poisoned"],
+    "effects": [
+      {
+        "status": "poisoned",
+        "remove": true
+      }
+    ],
     "description": "A potion to remove the poisoned status effect."
   },
   {
@@ -168,8 +168,12 @@
     "image": "pot.png",
     "name": "Anti-fire potion",
     "price": 25,
-    "effects": [],
-    "removeStatus": ["burned"],
+    "effects": [
+      {
+        "status": "burned",
+        "remove": true
+      }
+    ],
     "description": "A potion to remove the burned status effect."
   },
   {
@@ -177,8 +181,12 @@
     "image": "pot.png",
     "name": "Anti-sleep potion",
     "price": 25,
-    "effects": [],
-    "removeStatus": ["asleep"],
+    "effects": [
+      {
+        "status": "asleep",
+        "remove": true
+      }
+    ],
     "description": "A potion to remove the asleep status effect."
   },
   {
@@ -186,8 +194,32 @@
     "image": "pot.png",
     "name": "God potion",
     "price": 150,
-    "effects": [],
-    "removeStatus": ["paralysed", "confused", "frozen", "poisoned", "burned", "asleep"],
+    "effects": [
+      {
+        "status": "paralysed",
+        "remove": true
+      },
+      {
+        "status": "confused",
+        "remove": true
+      },
+      {
+        "status": "frozen",
+        "remove": true
+      },
+      {
+        "status": "poisoned",
+        "remove": true
+      },
+      {
+        "status": "burned",
+        "remove": true
+      },
+      {
+        "status": "asleep",
+        "remove": true
+      }
+    ],
     "description": "A potion to remove all status effects."
   }
 ]

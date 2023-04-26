@@ -57,12 +57,12 @@ export class ItemService {
   }
 
   async useItem(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
-    if (dto.monsterId === undefined) {
+    if (dto.monster === undefined) {
       throw new NotFoundException('No monsterId provided');
     }
     const item = itemTypes.find(item => item.id === dto.type);
     if (item) {
-      const monster = await this.monsterService.modifyOne(trainer._id.toString(), dto.monsterId, item.effects);
+      const monster = await this.monsterService.modifyOne(trainer._id.toString(), dto.monster, item.effects);
       if (monster) {
         await this.model.findOneAndUpdate(
           {trainer: trainer._id, type: dto.type},
