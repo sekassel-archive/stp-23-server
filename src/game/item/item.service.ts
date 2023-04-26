@@ -65,7 +65,7 @@ export class ItemService {
     }
     const item = itemTypes.find(item => item.id === dto.type)
     if (item) {
-      const monster = await this.monsterService.healOne(trainer._id.toString(), dto.monsterId, item.effects);
+      const monster = await this.monsterService.modifyOne(trainer._id.toString(), dto.monsterId, item.effects);
       if (monster) {
         return this.model.findOneAndUpdate(
           {trainer: trainer._id, type: dto.type},

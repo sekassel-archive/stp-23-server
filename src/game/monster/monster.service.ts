@@ -79,8 +79,9 @@ export class MonsterService {
     await this.model.bulkSave(monsters);
   }
 
-  async healOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<Monster> {
+  async modifyOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<Monster> {
     const monster = await this.findOne(monsterId);
+    console.log('Monster: ' + monster);
     if (monster) {
       const m = monster.currentAttributes;
       for (const effect of effects) {
