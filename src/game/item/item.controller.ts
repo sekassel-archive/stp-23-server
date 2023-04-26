@@ -48,8 +48,14 @@ export class ItemController {
     const {type, amount, action} = dto;
     const itemType = itemTypes.find(itemType => itemType.id === type);
     if (!itemType?.price) {
-      throw new ForbiddenException('This item cannot be bought or sold');
+      throw new ForbiddenException('This item cannot be bought, sold or used');
     }
+
+    // Remove when lootbox-implementation is finished
+    if (action === ItemAction.USE && itemType?.effects.length === 0) {
+      throw new NotFoundException('Feature not implemented at the moment');
+    }
+
     const trainer = await this.trainerService.findOne(trainerId);
     if (!trainer) {
       throw new NotFoundException('Trainer not found');
@@ -57,8 +63,8 @@ export class ItemController {
     if (trainer.user.toString() !== user._id.toString()) {
       throw new ForbiddenException('You are not the owner of this trainer');
     }
-    if (action === ItemAction.USE && amount < 0) {
-      throw new BadRequestException('Amount must be greater than 0 when using items');
+    if (action === ItemAction.USE && amount !== 1) {
+      throw new BadRequestException('Amount must be exactly 1 when using items');
     }
     if (action === ItemAction.USE) {
       return this.itemService.useItem(trainer, dto);

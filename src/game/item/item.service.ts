@@ -57,9 +57,6 @@ export class ItemService {
   }
 
   async useItem(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
-    if (dto.amount !== 1) {
-      throw new ForbiddenException('One item must be used at a time');
-    }
     if (dto.monsterId === undefined) {
       throw new NotFoundException('No monsterId provided');
     }
