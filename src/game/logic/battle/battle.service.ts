@@ -18,7 +18,7 @@ import {
   EVOLUTION_LEVELS,
   expGain,
   expRequired,
-  healthGain,
+  healthGain, relativeStrengthMultiplier,
   SAME_TYPE_ATTACK_MULTIPLIER,
   speedGain,
 } from '../../formulae';
@@ -220,14 +220,7 @@ export class BattleService {
     let effectAmount: number = value.amount;
 
     if (attribute === 'health' && effectAmount < 0) {
-      effectAmount -= currentMonster.currentAttributes.attack;
-      effectAmount += targetMonster.currentAttributes.defense;
-
-      if (effectAmount > 0) {
-        effectAmount = 0;
-      }
-
-      effectAmount *= multiplier;
+      effectAmount *= multiplier * relativeStrengthMultiplier(currentMonster, targetMonster);
     }
 
     effectTarget.currentAttributes[attribute] += effectAmount;
