@@ -4,9 +4,9 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities, Effect} from '../constants';
+import {abilities, Effect, StatusEffect} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
+import {Monster, MonsterAttributes, MonsterDocument, MonsterStatus} from './monster.schema';
 
 @Injectable()
 export class MonsterService {
@@ -30,6 +30,7 @@ export class MonsterService {
       trainer,
       experience: 0,
       currentAttributes: dto.attributes,
+      status: [],
     };
     const created = await this.model.create(create);
     this.emit('created', created);
@@ -82,6 +83,8 @@ export class MonsterService {
             throw new ForbiddenException('Can\'t use item, attribute already at max');
           }
           m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
+        } else if ('status' in effect) {
+          this.applyStatusEffect(effect, monster);
         }
       }
       monster.markModified('currentAttributes');
@@ -90,6 +93,20 @@ export class MonsterService {
       return monster;
     } else {
       throw new NotFoundException('Provided monsterId not found on trainer');
+    }
+  }
+
+  private applyStatusEffect(effect: StatusEffect, monster: MonsterDocument) {
+    const status = effect.status as MonsterStatus;
+    if (effect.remove) {
+      const index = monster.status.indexOf(status);
+      if (index >= 0) {
+        monster.status.splice(index, 1);
+        monster.markModified('status');
+      }
+    } else if (!monster.status.includes(status)) {
+      monster.status.push(status);
+      monster.markModified('status');
     }
   }
 

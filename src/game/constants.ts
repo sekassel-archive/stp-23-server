@@ -92,6 +92,9 @@ export class StatusEffect {
 
   @ApiProperty()
   self?: boolean;
+
+  @ApiProperty()
+  remove?: boolean;
 }
 
 export type Effect = AttributeEffect | StatusEffect;
