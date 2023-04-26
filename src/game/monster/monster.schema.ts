@@ -1,7 +1,7 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {IsInt, IsMongoId, IsObject, ValidateNested} from 'class-validator';
+import {IsAlpha, IsArray, IsEnum, IsInt, IsMongoId, IsObject, ValidateNested} from 'class-validator';
 import {Document, SchemaTypes, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
 
@@ -24,6 +24,15 @@ export class MonsterAttributes {
 }
 
 export const MAX_ABILITIES = 4;
+
+export enum MonsterStatus {
+  PARALYSED = 'paralysed',
+  ASLEEP = 'asleep',
+  POISONED = 'poisoned',
+  BURNED = 'burned',
+  FROZEN = 'frozen',
+  CONFUSED = 'confused',
+}
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 export class Monster extends GlobalSchema {
@@ -63,6 +72,12 @@ export class Monster extends GlobalSchema {
   @ValidateNested()
   @Type(() => MonsterAttributes)
   currentAttributes: MonsterAttributes;
+
+  @Prop({default: []})
+  @ApiProperty()
+  @IsArray()
+  @IsEnum(MonsterStatus, {each: true})
+  status: MonsterStatus[];
 }
 
 export type MonsterDocument = Monster & Document<Types.ObjectId, any, Monster>;
