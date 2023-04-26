@@ -1,4 +1,4 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
@@ -85,6 +85,9 @@ export class MonsterService {
       const m = monster.currentAttributes;
       for (const effect of effects) {
         const attribute = effect.attribute as keyof MonsterAttributes;
+        if (m[attribute] === monster.attributes[attribute]) {
+          throw new ForbiddenException('Can\'t use item, attribute already at max');
+        }
         m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
       }
       monster.markModified('currentAttributes');

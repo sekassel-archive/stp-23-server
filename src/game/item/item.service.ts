@@ -63,17 +63,17 @@ export class ItemService {
     if (dto.monsterId === undefined) {
       throw new NotFoundException('No monsterId provided');
     }
-    const item = itemTypes.find(item => item.id === dto.type)
+    const item = itemTypes.find(item => item.id === dto.type);
     if (item) {
       const monster = await this.monsterService.modifyOne(trainer._id.toString(), dto.monsterId, item.effects);
       if (monster) {
-        return this.model.findOneAndUpdate(
+        await this.model.findOneAndUpdate(
           {trainer: trainer._id, type: dto.type},
           {$inc: {amount: -1}}
         );
       }
     }
-    return null;
+    return this.model.findOne({trainer: trainer._id, type: dto.type});
   }
 
   async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
