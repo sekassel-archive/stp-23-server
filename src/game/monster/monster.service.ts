@@ -1,12 +1,12 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities, monsterTypes} from '../constants';
+import {abilities, Effect, monsterTypes} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterDocument} from './monster.schema';
+import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
 
 @Injectable()
 export class MonsterService {
@@ -77,6 +77,26 @@ export class MonsterService {
       this.emit('updated', monster);
     }
     await this.model.bulkSave(monsters);
+  }
+
+  async modifyOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<Monster> {
+    const monster = await this.findOne(monsterId);
+    if (monster) {
+      const m = monster.currentAttributes;
+      for (const effect of effects) {
+        const attribute = effect.attribute as keyof MonsterAttributes;
+        if (m[attribute] === monster.attributes[attribute]) {
+          throw new ForbiddenException('Can\'t use item, attribute already at max');
+        }
+        m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
+      }
+      monster.markModified('currentAttributes');
+      await monster.save();
+      this.emit('updated', monster);
+      return monster;
+    } else {
+      throw new NotFoundException('Provided monsterId not found on trainer');
+    }
   }
 
   async deleteTrainer(trainer: string): Promise<Monster[]> {

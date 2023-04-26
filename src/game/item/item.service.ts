@@ -2,11 +2,12 @@ import {InjectModel} from "@nestjs/mongoose";
 import {FilterQuery, Model} from "mongoose";
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
-import {CreateItemDto} from "./item.dto";
-import {ForbiddenException, Injectable} from "@nestjs/common";
+import {UpdateItemDto} from "./item.dto";
+import {ForbiddenException, Injectable, NotFoundException} from "@nestjs/common";
 import {Trainer} from "../trainer/trainer.schema";
 import {itemTypes} from "../constants";
 import {TrainerService} from "../trainer/trainer.service";
+import {MonsterService} from "../monster/monster.service";
 
 @Injectable()
 export class ItemService {
@@ -14,10 +15,11 @@ export class ItemService {
     @InjectModel(Item.name) private model: Model<Item>,
     private eventEmitter: EventService,
     private trainerService: TrainerService,
+    private monsterService: MonsterService,
   ) {
   }
 
-  async updateOne(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
+  async updateOne(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
     const filteredTrainers = await this.trainerService.findAll({
       area: trainer.area,
       'npc.isMerchant': true,
@@ -54,7 +56,24 @@ export class ItemService {
     return created;
   }
 
-  async getStarterItems(trainer: Trainer, dto: CreateItemDto): Promise<Item | null> {
+  async useItem(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
+    if (dto.monster === undefined) {
+      throw new NotFoundException('No monsterId provided');
+    }
+    const item = itemTypes.find(item => item.id === dto.type);
+    if (item) {
+      const monster = await this.monsterService.modifyOne(trainer._id.toString(), dto.monster, item.effects);
+      if (monster) {
+        await this.model.findOneAndUpdate(
+          {trainer: trainer._id, type: dto.type},
+          {$inc: {amount: -1}}
+        );
+      }
+    }
+    return this.model.findOne({trainer: trainer._id, type: dto.type});
+  }
+
+  async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
     const created = await this.model.findOneAndUpdate(
       {trainer: trainer._id, type: dto.type},
       {$inc: {amount: dto.amount}},
