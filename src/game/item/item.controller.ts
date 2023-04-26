@@ -61,7 +61,6 @@ export class ItemController {
       throw new BadRequestException('Amount must be greater than 0 when using items');
     }
     if (action === ItemAction.USE) {
-      console.log(dto);
       return this.itemService.useItem(trainer, dto);
     }
     return this.itemService.updateOne(trainer, dto);
