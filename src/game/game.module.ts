@@ -2,10 +2,10 @@ import {Module} from '@nestjs/common';
 import {RegionModule} from '../region/region.module';
 import {AreaModule} from './area/area.module';
 import {EncounterModule} from './encounter/encounter.module';
-import {GameLoader} from './game.loader';
+import {LogicModule} from './logic/logic.module';
 import {MonsterModule} from './monster/monster.module';
-import {TrainerModule} from './trainer/trainer.module';
 import {PresetsModule} from './presets/presets.module';
+import {TrainerModule} from './trainer/trainer.module';
 import {ItemModule} from "./item/item.module";
 
 @Module({
@@ -17,9 +17,7 @@ import {ItemModule} from "./item/item.module";
     ItemModule,
     PresetsModule,
     EncounterModule,
-  ],
-  providers: [
-    GameLoader,
+    LogicModule,
   ],
 })
 export class GameModule {

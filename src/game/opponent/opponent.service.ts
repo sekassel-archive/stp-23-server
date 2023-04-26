@@ -3,7 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 import {EventService} from '../../event/event.service';
 import {MonsterService} from '../monster/monster.service';
-import {UpdateOpponentDto} from './opponent.dto';
+import {CreateOpponentDto, UpdateOpponentDto} from './opponent.dto';
 import {ChangeMonsterMove, Opponent, OpponentDocument} from './opponent.schema';
 
 @Injectable()
@@ -23,13 +23,12 @@ export class OpponentService {
     return this.model.findOne({encounter, trainer}).exec();
   }
 
-  async create(encounter: string, trainer: string, isAttacker: boolean, monster?: string): Promise<OpponentDocument> {
+  async create(encounter: string, trainer: string, dto: CreateOpponentDto): Promise<OpponentDocument> {
     try {
       const created = await this.model.create({
+        ...dto,
         encounter,
         trainer,
-        monster: monster || (await this.monsterService.findAll({trainer}))[0]?._id?.toString(),
-        isAttacker,
       });
       created && this.emit('created', created);
       return created;
@@ -48,7 +47,7 @@ export class OpponentService {
       if (!monster) {
         throw new NotFoundException(`Monster ${dto.move.monster} not found`);
       }
-      if (monster.attributes.health <= 0) {
+      if (monster.currentAttributes.health <= 0) {
         throw new ConflictException(`Monster ${dto.move.monster} is dead`);
       }
       dto = {
@@ -68,7 +67,17 @@ export class OpponentService {
   }
 
   async deleteAll(filter: FilterQuery<OpponentService>) {
+    const opponents = await this.findAll(filter);
     await this.model.deleteMany(filter).exec();
+    opponents.forEach(o => this.emit('deleted', o));
+  }
+
+  async saveMany(opponents: OpponentDocument[]) {
+    const newDocs = opponents.filter(o => o.isNew);
+    const modDocs = opponents.filter(o => o.isModified());
+    await this.model.bulkSave(opponents);
+    newDocs.forEach(o => this.emit('created', o));
+    modDocs.forEach(o => this.emit('updated', o));
   }
 
   emit(event: string, opponent: Opponent) {

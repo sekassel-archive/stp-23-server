@@ -59,3 +59,7 @@ export interface TiledProperty {
   type: 'string' | 'int' | 'float' | 'bool' | 'color' | 'file' | 'object';
   value: string | number | boolean;
 }
+
+export function getProperty<K extends string | number | boolean>(object: any, name: string): K | undefined {
+  return object.properties?.find((p: any) => p.name === name)?.value as K;
+}

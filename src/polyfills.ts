@@ -2,6 +2,7 @@ declare global {
   interface Array<T> {
     sum(): number;
     shuffle(): T[];
+    random(): T;
     maxBy(selector: (item: T) => number): T;
     countIf(predicate: (item: T) => boolean): number;
   }
@@ -21,6 +22,10 @@ Array.prototype.shuffle = function() {
     [this[i], this[j]] = [this[j], this[i]];
   }
   return this;
+}
+
+Array.prototype.random = function() {
+  return this[Math.randInt(this.length)];
 }
 
 Array.prototype.maxBy = function(selector: (item: any) => number) {

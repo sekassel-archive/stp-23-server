@@ -1,20 +1,17 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {ApiProperty} from '@nestjs/swagger';
+import {ApiExtraModels, ApiProperty, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {Equals, IsBoolean, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
+import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {
-  GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
-  GlobalSchemaWithoutID,
-  MONGO_ID_FORMAT,
-} from '../../util/schema';
-import {abilities} from '../constants';
+import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
+  GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
+import {abilities, Result, RESULTS, RESULTS_WITH_DESCRIPTION} from '../constants';
 
 @Schema()
 export class AbilityMove {
   static type = 'ability' as const;
 
-  @ApiProperty()
+  @ApiProperty({enum: [AbilityMove.type]})
   @Equals(AbilityMove.type)
   type: typeof AbilityMove.type;
 
@@ -32,7 +29,7 @@ export class AbilityMove {
 export class ChangeMonsterMove {
   static type = 'change-monster' as const;
 
-  @ApiProperty()
+  @ApiProperty({enum: [ChangeMonsterMove.type]})
   @Equals(ChangeMonsterMove.type)
   type: typeof ChangeMonsterMove.type;
 
@@ -44,6 +41,7 @@ export class ChangeMonsterMove {
 export type Move = AbilityMove | ChangeMonsterMove;
 
 @Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
+@ApiExtraModels(AbilityMove, ChangeMonsterMove)
 export class Opponent extends GlobalSchemaWithoutID {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
@@ -61,14 +59,26 @@ export class Opponent extends GlobalSchemaWithoutID {
   isAttacker: boolean;
 
   @Prop()
+  @ApiProperty()
+  @IsBoolean()
+  isNPC: boolean;
+
+  @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   monster: string;
 
   @Prop({type: Object})
-  @ApiProperty()
+  @ApiProperty({
+    oneOf: refs(AbilityMove, ChangeMonsterMove),
+    description: 'Patch this value to make your move. ' +
+      'Once all players have made a move, the server will make a move for all NPCs. ' +
+      'After that, the server will play the round and reset all moves to undefined. ' +
+      'You can then make a move again.',
+  })
   @ValidateNested()
   @Type(() => Object, {
+    keepDiscriminatorProperty: true,
     discriminator: {
       property: 'type',
       subTypes: [
@@ -78,6 +88,17 @@ export class Opponent extends GlobalSchemaWithoutID {
     },
   })
   move?: Move;
+
+  @Prop()
+  @ApiProperty({
+    enum: RESULTS,
+    isArray: true,
+    description: 'The results of the last round.\n\n' +
+      Object.entries(RESULTS_WITH_DESCRIPTION).map(([key, value]) => `- ${key}: ${value}`).join('\n'),
+  })
+  @IsArray()
+  @IsIn(RESULTS, {each: true})
+  results: Result[];
 }
 
 export type OpponentDocument = Opponent & Document<Types.ObjectId, any, Opponent>;

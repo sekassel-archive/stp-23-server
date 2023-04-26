@@ -1,10 +1,10 @@
-import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
+import {ForbiddenException, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities, Effect, monsterTypes} from '../constants';
+import {abilities, Effect} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
 
@@ -24,24 +24,6 @@ export class MonsterService {
     return this.model.findById(id).exec();
   }
 
-  async createAuto(trainer: string, type: number, level: number) {
-    const monsterType = monsterTypes.find(t => t.id === type);
-    if (!monsterType) {
-      throw new NotFoundException('Invalid monster type');
-    }
-    return this.create(trainer, {
-      type,
-      level,
-      attributes: {
-        health: 7 + Math.round(level * 2.8),
-        attack: 5 + Math.round(level * 2.5),
-        defense: 5 + Math.round(level * 2.5),
-        initiative: 5 + Math.round(level * 2.2),
-      },
-      abilities: abilities.filter(a => monsterType.type.includes(a.type) && a.minLevel >= level).map(a => a.id).slice(0, 4),
-    });
-  }
-
   async create(trainer: string, dto: CreateMonsterDto): Promise<Monster> {
     const create: Omit<Monster, keyof GlobalSchema> = {
       ...dto,
@@ -54,7 +36,7 @@ export class MonsterService {
     return created;
   }
 
-  async upsert(filter: FilterQuery<Monster>, update: UpdateQuery<Monster>) {
+  async upsert(filter: FilterQuery<Monster>, update: UpdateQuery<Monster>): Promise<MonsterDocument> {
     const result = await this.model.findOneAndUpdate(filter, update, {upsert: true, new: true, rawResult: true}).exec();
     if (!result.value) {
       throw new Error('Upsert failed');
@@ -70,13 +52,23 @@ export class MonsterService {
     return updated;
   }
 
-  async healAll(trainer: string): Promise<void> {
-    const monsters = await this.findAll({trainer});
+  async delete(id: string): Promise<MonsterDocument | null> {
+    const deleted = await this.model.findByIdAndDelete(id).exec();
+    deleted && this.emit('deleted', deleted);
+    return deleted;
+  }
+
+  async healAll(filter: FilterQuery<Monster>): Promise<void> {
+    const monsters = await this.findAll(filter);
     for (const monster of monsters) {
       monster.currentAttributes = monster.attributes;
-      this.emit('updated', monster);
+      for (const abilityId in monster.abilities) {
+        const ability = abilities.find(a => a.id === +abilityId);
+        ability && (monster.abilities[abilityId] = ability.maxUses);
+      }
+      monster.markModified('abilities');
     }
-    await this.model.bulkSave(monsters);
+    await this.saveMany(monsters);
   }
 
   async modifyOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<Monster> {
@@ -106,6 +98,14 @@ export class MonsterService {
     }
     await this.model.deleteMany({trainer}).exec();
     return monsters;
+  }
+
+  async saveMany(monsters: MonsterDocument[]) {
+    const newDocs = monsters.filter(o => o.isNew);
+    const modDocs = monsters.filter(o => o.isModified());
+    await this.model.bulkSave(monsters);
+    newDocs.forEach(o => this.emit('created', o));
+    modDocs.forEach(o => this.emit('updated', o));
   }
 
   private emit(event: string, monster: Monster): void {

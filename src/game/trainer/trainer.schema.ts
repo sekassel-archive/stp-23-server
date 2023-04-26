@@ -46,11 +46,17 @@ export class NPCInfo {
   @IsInt({each: true})
   path?: number[];
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
   @IsArray()
   @IsMongoId({each: true})
   encountered?: string[];
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsArray()
+  @IsInt({each: true})
+  starters?: number[];
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
@@ -79,6 +85,12 @@ export class Trainer extends GlobalSchema {
   @ApiProperty()
   @IsInt()
   coins: number;
+
+  @Prop()
+  @ApiProperty({type: [Number]})
+  @IsArray()
+  @IsInt({each: true})
+  encounteredMonsterTypes: number[];
 
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)

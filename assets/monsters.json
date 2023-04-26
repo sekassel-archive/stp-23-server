@@ -1,215 +1,812 @@
 [
   {
     "id": 1,
-    "image": "01.png",
-    "name": "Nutchick",
-    "type": ["normal"],
+    "image": "Flamander_1.png",
+    "name": "Flamander",
+    "type": ["fire"],
+    "description": "Flamander is a small, agile monster that lives in the hot deserts of the world.",
     "evolution": 2
   },
   {
     "id": 2,
-    "image": "02.png",
-    "name": "Hardchick",
-    "type": ["fight"],
-    "evolution": 3
+    "image": "Flamander_2.png",
+    "name": "Flamurtle",
+    "type": ["fire"],
+    "description": "Flamurtle is a slow-moving, heavily-armored monster that evolved from Flamander in the scorching hot vulcanic areas."
   },
   {
     "id": 3,
-    "image": "03.png",
-    "name": "Battlechick",
-    "type": ["fight"]
+    "image": "Octi_1.png",
+    "name": "Octi",
+    "type": ["water"],
+    "description": "Octi is a small, tentacled monster that lives in the deep oceans.",
+    "evolution": 4
   },
   {
     "id": 4,
-    "image": "04.png",
-    "name": "Crurtle",
-    "type": ["earth"],
-    "evolution": 5
+    "image": "Octi_2.png",
+    "name": "Octopod",
+    "type": ["water"],
+    "description": "Octopod is a larger, more powerful monster that evolved from Octi in the deepest oceanic trenches."
   },
   {
     "id": 5,
-    "image": "05.png",
-    "name": "Mirrortle",
-    "type": ["earth"],
+    "image": "Caterpi_1.png",
+    "name": "Caterpi",
+    "type": ["grass"],
+    "description": "Caterpi is a small, worm-like monster that inhabits the forests of all landmasses.",
     "evolution": 6
   },
   {
     "id": 6,
-    "image": "06.png",
-    "name": "Batturtle",
-    "type": ["earth", "flight"]
+    "image": "Caterpi_2.png",
+    "name": "Cyclopi",
+    "type": ["grass"],
+    "description": "Cyclopi is a large, one-eyed monster that evolved from Caterpi in the jungles."
   },
   {
     "id": 7,
-    "image": "07.png",
-    "name": "Fencior",
-    "type": ["metal", "fight"],
+    "image": "Frogrik_1.png",
+    "name": "Frogrik",
+    "type": ["electric"],
+    "description": "Frogrik is a small, frog-like monster that lives in warm areas.",
     "evolution": 8
   },
   {
     "id": 8,
-    "image": "08.png",
-    "name": "Shieldior",
-    "type": ["metal", "fight"],
-    "evolution": 9
+    "image": "Frogrik_2.png",
+    "name": "Frogspike",
+    "type": ["electric"],
+    "description": "Frogspike is a larger, more dangerous monster that evolved in warm areas with many predators."
   },
   {
     "id": 9,
-    "image": "09.png",
-    "name": "Shieldamor",
-    "type": ["metal", "fight"]
+    "image": "Amogus_1.png",
+    "name": "Amogus",
+    "type": ["psychic"],
+    "description": "Amogus is a rare, otherworldly monster that dwells in vulcanic vents."
   },
   {
     "id": 10,
-    "image": "10.png",
-    "name": "Candeer",
-    "type": ["normal"],
+    "image": "Angrian_1.png",
+    "name": "Angrian",
+    "type": ["ground"],
+    "description": "Angrian is a small, burrowing monster that lives in the earth.",
     "evolution": 11
   },
   {
     "id": 11,
-    "image": "11.png",
-    "name": "Candamech",
-    "type": ["normal", "metal"]
+    "image": "Angrian_2.png",
+    "name": "Madrian",
+    "type": ["ground"],
+    "description": "Madrian is a larger, more powerful monster that evolved from Angrian in the depths of the earth."
   },
   {
     "id": 12,
-    "image": "12.png",
-    "name": "Poigosst",
-    "type": ["ghost", "poison"],
+    "image": "Batmon_1.png",
+    "name": "Batmon",
+    "type": ["fire", "dragon"],
+    "description": "Batmon is a dragon-like creature with fiery powers that can be found in areas with high temperatures.",
     "evolution": 13
   },
   {
     "id": 13,
-    "image": "13.png",
-    "name": "Poisoggost",
-    "type": ["ghost", "poison"],
+    "image": "Batmon_2.png",
+    "name": "Vampiron",
+    "type": ["fire", "dragon"],
+    "description": "Vampiron is the evolved form of Batmon, and has grown even stronger and more powerful.",
     "evolution": 14
   },
   {
     "id": 14,
-    "image": "14.png",
-    "name": "Poisofearst",
-    "type": ["ghost", "poison"],
-    "evolution": 15
+    "image": "Batmon_3.png",
+    "name": "Draculon",
+    "type": ["fire", "dragon"],
+    "description": "Draculon is the final evolved form of Batmon, and has grown wings and is even more deadly than his predecessor."
   },
   {
     "id": 15,
-    "image": "15.png",
-    "name": "Fearamor",
-    "type": ["ghost", "metal"]
+    "image": "Carnoxic_1.png",
+    "name": "Carnoxic",
+    "type": ["poison"],
+    "description": "Carnoxic is a poisonous creature that can be found in various environments.",
+    "evolution": 16
   },
   {
     "id": 16,
-    "image": "16.png",
-    "name": "Digsi",
-    "type": ["earth", "poison"],
+    "image": "Carnoxic_2.png",
+    "name": "Carnoxopod",
+    "type": ["poison"],
+    "description": "Carnoxopod is the evolved form of Carnoxic, and has adapted to survive in a variety of environments.",
     "evolution": 17
   },
   {
     "id": 17,
-    "image": "17.png",
-    "name": "Digseye",
-    "type": ["earth", "poison"],
-    "evolution": 18
+    "image": "Carnoxic_3.png",
+    "name": "Carnoxopodion",
+    "type": ["poison"],
+    "description": "Carnoxopodion is the final evolved form of Carnoxic, and is a powerful and deadly creature."
   },
   {
     "id": 18,
-    "image": "18.png",
-    "name": "Digsacle",
-    "type": ["earth", "poison"]
+    "image": "Clemontle_1.png",
+    "name": "Clemontel",
+    "type": ["fire"],
+    "description": "Clemontel is a fire-type creature that lives in volcanic areas.",
+    "evolution": 19
   },
   {
     "id": 19,
-    "image": "19.png",
-    "name": "Eggsoli",
-    "type": ["psycho"],
-    "evolution": 20
+    "image": "Clemontle_2.png",
+    "name": "Clemontelle",
+    "type": ["fire"],
+    "description": "Clemontelle is the evolved form of Clemontel, and has grown even stronger and more powerful."
   },
   {
     "id": 20,
-    "image": "20.png",
-    "name": "Eggsiori",
-    "type": ["psycho"],
+    "image": "Crystorm_1.png",
+    "name": "Crystorm",
+    "type": ["psychic"],
+    "description": "Crystorm is a psychic creature with the ability to control crystals and other minerals.",
     "evolution": 21
   },
   {
     "id": 21,
-    "image": "21.png",
-    "name": "Eggscrawli",
-    "type": ["psycho"]
+    "image": "Crystorm_2.png",
+    "name": "Crystormium",
+    "type": ["psychic"],
+    "description": "Crystormium is the evolved form of Crystorm, and has grown even more powerful and adept at manipulating minerals."
   },
   {
     "id": 22,
-    "image": "22.png",
-    "name": "Shelli",
-    "type": ["water"],
-    "evolution": 24
+    "image": "Curtle_1.png",
+    "name": "Curtle",
+    "type": ["ice"],
+    "description": "Curtle is a ice type creature that is known for its tough shell that protects it from harm."
   },
   {
     "id": 23,
-    "image": "23.png",
-    "name": "Tentaclam",
-    "type": ["water"]
+    "image": "Darkluff_1.png",
+    "name": "Darkluff",
+    "type": ["dark"],
+    "description": "Darkluff is a mysterious and dangerous creature with dark powers that it uses to ensnare its enemies."
   },
   {
     "id": 24,
-    "image": "24.png",
-    "name": "Shellout",
-    "type": ["water"],
-    "evolution": 25
+    "image": "Darksludge_1.png",
+    "name": "Sludgie",
+    "type": ["normal"],
+    "evolution": 25,
+    "description": "Sludgie is a small, slimy creature that can be found in the shadows."
   },
   {
     "id": 25,
-    "image": "25.png",
-    "name": "Shellover",
-    "type": ["water"]
+    "image": "Darksludge_2.png",
+    "name": "Darksludge",
+    "type": ["dark"],
+    "evolution": 26,
+    "description": "Darksludge is the evolved form of Sludgie. It has become much larger and its slime has become much darker and more viscous, giving it a menacing appearance."
   },
   {
     "id": 26,
-    "image": "26.png",
-    "name": "Dragolegg",
-    "type": ["fire"],
-    "evolution": 27
+    "image": "Darksludge_3.png",
+    "name": "Sludgiefiend",
+    "type": ["dark"],
+    "description": "Sludgiefiend is the final form of Sludgie. It has developed a taste for the flesh of other creatures and actively seeks out prey to devour."
   },
   {
     "id": 27,
-    "image": "27.png",
-    "name": "Dragolite",
+    "image": "DBoy_1.png",
+    "name": "DBoy",
     "type": ["fire"],
-    "evolution": 28
+    "description": "DBoy is said to have been created by the god of fire himself, and it can often be found in the hottest areas of the world, where it feels most at home."
   },
   {
     "id": 28,
-    "image": "28.png",
-    "name": "Dragomax",
-    "type": ["fire"]
+    "image": "Earthlion_1.png",
+    "name": "Earthlion",
+    "type": ["grass"],
+    "description": "Earthlion is a large, lion-like creature that has vines growing out of its back. It is extremely fast and agile, and it can climb trees and other obstacles with ease."
   },
   {
     "id": 29,
-    "image": "29.png",
-    "name": "Shroomi",
-    "type": ["plant"],
-    "evolution": 30
+    "image": "Erabos_1.png",
+    "name": "Erabos",
+    "type": ["dark"],
+    "evolution": 30,
+    "description": "Erabos is a dark creature that is shrouded in mystery. It is said to lurk in the shadows, waiting for unsuspecting victims to pass by."
   },
   {
     "id": 30,
-    "image": "30.png",
-    "name": "Shroomking",
-    "type": ["plant"],
-    "evolution": 31
+    "image": "Erabos_2.png",
+    "name": "Erabonia",
+    "type": ["dark"],
+    "evolution": 31,
+    "description": "Erabonia is the evolved form of Erabos. It can control the minds of its enemies and make them do its bidding."
   },
   {
     "id": 31,
-    "image": "31.png",
-    "name": "Shroomagus",
-    "type": ["plant"]
+    "image": "Erabos_3.png",
+    "name": "Erabatos",
+    "type": ["dark"],
+    "description": "Erabatos is the final form of Erabos. It has become a true master of darkness. It can create dark portals and travel between dimensions."
   },
   {
     "id": 32,
-    "image": "32.png",
-    "name": "Shroomi",
-    "type": ["plant"],
-    "evolution": 30
+    "image": "Phatnix_1.png",
+    "name": "Phatnix",
+    "type": ["flying"],
+    "description": "Phatnix is a beautiful bird-like creature that is said to be a symbol of rebirth and renewal."
+  },
+  {
+    "id": 33,
+    "image": "Feazor_1.png",
+    "name": "Feazor",
+    "type": ["normal"],
+    "evolution": 34,
+    "description": "Feazor is a small, furry creature that is often used as a messenger by other creatures. It is extremely fast and can travel great distances in a short amount of time."
+  },
+  {
+    "id": 34,
+    "image": "Feazor_2.png",
+    "name": "Feazoritus",
+    "type": ["normal"],
+    "description": "Feazoritus is the evolved form of Feazor. It has grown much larger and its fur has become much thicker, giving it a more intimidating appearance."
+  },
+  {
+    "id": 35,
+    "image": "Flamonky_1.png",
+    "name": "Flamonky",
+    "type": ["fighting"],
+    "evolution": 36,
+    "description": "Flamonky is a monkey-like creature that is always on edge. It is extremely fast and agile, and it can use its power to intimidate its enemies."
+  },
+  {
+    "id": 36,
+    "image": "Flamonky_2.png",
+    "name": "Flamonkitu",
+    "type": ["normal"],
+    "description": "Flamonkitu is the evolved form of Flamonky. It has grown much larger and its presence have become much more intense."
+  },
+  {
+    "id": 37,
+    "image": "Flowey_1.png",
+    "name": "Flowey",
+    "type": ["psychic"],
+    "description": "Flowey is a mysterious creature that is said to have the power to manipulate time and space. It is often used by other creatures as a guide through the most treacherous areas of the world."
+  },
+  {
+    "id": 38,
+    "image": "Gioliath_1.png",
+    "name": "Giodude",
+    "type": ["rock"],
+    "evolution": 39,
+    "description": "Giodude is a large, rock-like creature that is said to have been created by the gods themselves. It is extremely strong and can withstand even the most powerful attacks."
+  },
+  {
+    "id": 39,
+    "image": "Gioliath_2.png",
+    "name": "Gioliath",
+    "type": ["rock"],
+    "description": "Gioliath is the evolved form of Giodude. It has grown much larger and its rocky exterior has become even harder, making it nearly invulnerable to attack."
+  },
+  {
+    "id": 40,
+    "image": "Hornbun_1.png",
+    "name": "Hornbun",
+    "type": ["normal"],
+    "description": "Hornbun is a small, rabbit-like creature with a large horn on its forehead that it uses to defend itself from predators."
+  },
+  {
+    "id": 41,
+    "image": "Hotlin_1.png",
+    "name": "Hotlin",
+    "type": ["fire"],
+    "description": "Hotlin is a lizard-like creature surrounded by flames which it can use to attack its enemies and defend itself from predators."
+  },
+  {
+    "id": 42,
+    "image": "Houndrian_1.png",
+    "name": "Houndrian",
+    "type": ["dark"],
+    "description": "Houndrian is a dark-type creature, which lurks in the dark and waits for its prey."
+  },
+  {
+    "id": 43,
+    "image": "Hydra_1.png",
+    "name": "Hydron",
+    "type": ["dragon"],
+    "evolution": 44,
+    "description": "Hydron is a dragon-type creature and its said that when you cut off its head, a new one will grow on this serpent-like monster."
+  },
+  {
+    "id": 44,
+    "image": "Hydra_2.png",
+    "name": "Hydrax",
+    "type": ["dragon"],
+    "evolution": 45,
+    "description": "Hydrax is a dragon-type creature which grew another head to its predecessor Hydron."
+  },
+  {
+    "id": 45,
+    "image": "Hydra_3.png",
+    "name": "Hydrerior",
+    "type": ["dragon"],
+    "description": "Hydrerior is a dragon-type creature with one more head than its predecessor. Its final form is even more terrifying."
+  },
+  {
+    "id": 46,
+    "image": "Ician_1.png",
+    "name": "Ician",
+    "type": ["flying", "ice"],
+    "evolution": 47,
+    "description": "Ician is a flying and ice-type creature, capable of gliding through the air and creating ice storms."
+  },
+  {
+    "id": 47,
+    "image": "Ician_2.png",
+    "name": "Icieju",
+    "type": ["flying", "ice"],
+    "description": "Icieju is a flying and ice-type creature which is even stronger and faster than its predecessor Ician."
+  },
+  {
+    "id": 48,
+    "image": "Icicle_1.png",
+    "name": "Icicle",
+    "type": ["ice"],
+    "evolution": 49,
+    "description": "Icicle is an ice-type creature that lurks in the cold."
+  },
+  {
+    "id": 49,
+    "image": "Icicle_2.png",
+    "name": "Icitarius",
+    "type": ["ice"],
+    "evolution": 50,
+    "description": "Icitarius is an ice-type creature that evolves from Icicle and is a cold danger for anyone who comes near him."
+  },
+  {
+    "id": 50,
+    "image": "Icicle_3.png",
+    "name": "Icing",
+    "type": ["ice", "flying"],
+    "description": "Icing is an ice and flying-type creature that evolves from Icitarius and will protect its cold home from intruders."
+  },
+  {
+    "id": 51,
+    "image": "Inferni_1.png",
+    "name": "Inferni",
+    "type": ["fire", "steel"],
+    "description": "Inferni is a fire and steel-type creature, strolling around and searching for prey."
+  },
+  {
+    "id": 52,
+    "image": "Sprouty_1.png",
+    "name": "Kosisprout",
+    "type": ["normal"],
+    "evolution": 53,
+    "description": "Kosisprout is a normal-type creature that becomes dangerous when being provoked."
+  },
+  {
+    "id": 53,
+    "image": "Sprouty_2.png",
+    "name": "Kositree",
+    "type": ["grass"],
+    "description": "Kositree is a grass-type creature that evolves from Kosisprout and is deeply rooted in the ground."
+  },
+  {
+    "id": 54,
+    "image": "Sandrock_1.png",
+    "name": "Sandrock",
+    "type": ["rock"],
+    "description": "Sandrock is a rocky creature of rugged terrain, with wild eyes, sharp teeth, feared for its resilience."
+  },
+  {
+    "id": 55,
+    "image": "Soulseeker_1.png",
+    "name": "Soulseeker",
+    "type": ["dark"],
+    "description": "Soulseeker is a dark phantom with a haunting skull face, known for its terrifying presence."
+  },
+  {
+    "id": 56,
+    "image": "Crystarm_1.png",
+    "name": "Crystarm",
+    "type": ["rock"],
+    "description": "Crystarm is a cursed bear, which is fated to slowly but surely turn to stone, but so far, only his arm is affected, which makes him a dangerous stone monster."
+  },
+  {
+    "id": 57,
+    "image": "Tentacolon_1.png",
+    "name": "Infernoptic",
+    "type": ["fire"],
+    "description": "A small brain-like body encased in a burning red crystal with a single eye."
+  },
+  {
+    "id": 58,
+    "image": "Tentacolon_2.png",
+    "name": "Infernoptacle",
+    "type": ["fire"],
+    "description": "The evolved form of Infernoptic with two fiery tentacles emerging from the crystal."
+  },
+  {
+    "id": 59,
+    "image": "Tentacolon_3.png",
+    "name": "Tentacolon",
+    "type": ["fire"],
+    "description": "The final evolution of Infernoptic, with a jagged crystal body and long, fiery tentacles."
+  },
+  {
+    "id": 60,
+    "image": "Julibun_1.png",
+    "name": "Julibun",
+    "type": ["psychic"],
+    "description": "Julibun has psychic powers that it uses to manipulate objects and move them around."
+  },
+  {
+    "id": 61,
+    "image": "Kannnix_1.png",
+    "name": "Kannix",
+    "type": ["normal"],
+    "description": "Kannix is a normal type creature that is highly adaptable to different environments and situations."
+  },
+  {
+    "id": 62,
+    "image": "Kuenssrave_1.png",
+    "name": "Kuenssrave",
+    "type": ["water"],
+    "evolution": 63,
+    "description": "Kuenssrave is a water type creature that is highly territorial."
+  },
+  {
+    "id": 63,
+    "image": "Kuenssrave_2.png",
+    "name": "Kuenssclaw",
+    "type": ["water"],
+    "description": "Kuenssclaw is the evolved form of Kuenssrave, and has sharp claws and a powerful jaw that it uses to catch and crush its prey."
+  },
+  {
+    "id": 64,
+    "image": "Mandrakemon_1.png",
+    "name": "Mandrakos",
+    "type": ["grass"],
+    "description": "Mandrakos is a grass type creature that can control the growth of plants around it and use them to its advantage in battles."
+  },
+  {
+    "id": 65,
+    "image": "Manti_1.png",
+    "name": "Manti",
+    "type": ["bug", "grass"],
+    "evolution": 66,
+    "description": "Manti is a bug and grass type creature that moves swiftly through the forest and has powerful legs to jump and climb trees."
+  },
+  {
+    "id": 66,
+    "image": "Manti_2.png",
+    "name": "Mantara",
+    "type": ["bug", "grass"],
+    "evolution": 67,
+    "description": "Mantara is the evolved form of Manti, and can camouflage itself with its surroundings to avoid detection from predators."
+  },
+  {
+    "id": 67,
+    "image": "Manti_3.png",
+    "name": "Manticut",
+    "type": ["bug", "grass"],
+    "description": "Manticut is the final evolution of Manti and has sharp blades on its legs and can use them to slice through tough vegetation and prey."
+  },
+  {
+    "id": 68,
+    "image": "Mosquitaesch_1.png",
+    "name": "Leetaesch",
+    "type": ["bug", "flying"],
+    "evolution": 69,
+    "description": "Leetaesch is a bug and flying type creature that can fly at high speeds."
+  },
+  {
+    "id": 69,
+    "image": "Mosquitaesch_2.png",
+    "name": "Mosquitaesch",
+    "type": ["bug", "flying"],
+    "description": "Mosquitaesch is the evolved form of Leetaesch, and has a long proboscis it uses to inject venom into its prey."
+  },
+  {
+    "id": 70,
+    "image": "Painovorous_1.png",
+    "name": "Purchomp",
+    "type": ["grass"],
+    "evolution": 71,
+    "description": "Purchomp is a grass type creature that can open its jaws incredibly wide and swallow large amounts of food whole."
+  },
+  {
+    "id": 71,
+    "image": "Painovorous_2.png",
+    "name": "Splichomp",
+    "type": ["grass"],
+    "evolution": 72,
+    "description": "Splichomp is the evolved form of Purchomp and has multiple stomachs that can digest tough plant material and even rocks."
+  },
+  {
+    "id": 72,
+    "image": "Painovorous_3.png",
+    "name": "Toxichomp",
+    "type": ["grass", "poison"],
+    "description": "Toxichomp is the final evolution of Purchomp and has developed a toxic digestive system that allows it to store poison and use it as a defense mechanism."
+  },
+  {
+    "id": 73,
+    "image": "Piranos_1.png",
+    "name": "Piranos",
+    "type": ["water", "electric"],
+    "description": "Piranos is a water and electric type creature that can generate powerful electric shocks to stun and paralyze its prey."
+  },
+  {
+    "id": 74,
+    "image": "Po_1.png",
+    "name": "Po",
+    "type": ["fighting"],
+    "description": "Po is a fighting type creature that practices various forms of martial arts and has an incredible amount of strength."
+  },
+  {
+    "id": 75,
+    "image": "Prixic_1.png",
+    "name": "Prixic",
+    "type": ["fighting", "poison"],
+    "evolution": 76,
+    "description": "Prixic is a fighting and poison type creature that uses poisonous attacks to weaken its foes before finishing them off with powerful punches."
+  },
+  {
+    "id": 76,
+    "image": "Prixic_2.png",
+    "name": "Spiktus",
+    "type": ["fighting", "poison"],
+    "evolution": 77,
+    "description": "Spiktus is the evolved form of Prixic, and has razor-sharp spikes on its body that can pierce through even the toughest of defenses."
+  },
+  {
+    "id": 77,
+    "image": "Prixic_3.png",
+    "name": "Venoprix",
+    "type": ["fighting", "poison"],
+    "description": "Venoprix is the final evolution of Prixic and has a powerful venomous punch that can take down even the strongest opponents."
+  },
+  {
+    "id": 78,
+    "image": "Sandrorm_1.png",
+    "name": "Sandrorm",
+    "type": ["ground"],
+    "description": "Sandrorm is a ground type creature that can burrow deep into the earth and move through it with ease."
+  },
+  {
+    "id": 79,
+    "image": "Sebkun_1.png",
+    "name": "Sebkun",
+    "type": ["dragon", "dark"],
+    "evolution": 80,
+    "description": "Sebkun is a dragon and dark type creature that is incredibly agile and has a keen sense of smell to track its prey."
+  },
+  {
+    "id": 80,
+    "image": "Sebkun_2.png",
+    "name": "Sebrogon",
+    "type": ["dragon", "dark"],
+    "description": "Sebrogon is the evolved form of Sebkun and has developed a tough exoskeleton that protects it from attacks and harsh environments."
+  },
+  {
+    "id": 81,
+    "image": "Shroomy_1.png",
+    "name": "Shroomy",
+    "type": ["grass"],
+    "evolution": 82,
+    "description": "Shroomy is a small mushroom-like creature that grows in grassy areas and can manipulate the earth around it."
+  },
+  {
+    "id": 82,
+    "image": "Shroomy_2.png",
+    "name": "Shrumba",
+    "type": ["grass"],
+    "description": "Shrumba is the evolved form of Shroomy and has learned to use its spores to create powerful attacks."
+  },
+  {
+    "id": 83,
+    "image": "Simock_1.png",
+    "name": "Simock",
+    "type": ["fire", "rock"],
+    "description": "Simock is a rocky creature that's able to withstand high temperatures, and can breathe out scorching hot flames."
+  },
+  {
+    "id": 84,
+    "image": "Skupike_1.png",
+    "name": "Skulgoo",
+    "type": ["poison"],
+    "evolution": 85,
+    "description": "Skulgoo is a poisonous monster that lures in prey with its sticky, gooey exterior."
+  },
+  {
+    "id": 85,
+    "image": "Skupike_2.png",
+    "name": "Skulpike",
+    "type": ["poison"],
+    "description": "Skulpike is the evolved form of Skulgoo and has developed sharp spikes to protect itself from predators."
+  },
+  {
+    "id": 86,
+    "image": "Slimeimon_1.png",
+    "name": "Hydroslug",
+    "type": ["water"],
+    "evolution": 87,
+    "description": "Hydroslug is a slimy water creature that can glide effortlessly through the ocean's currents."
+  },
+  {
+    "id": 87,
+    "image": "Slimeimon_2.png",
+    "name": "Waterslob",
+    "type": ["water"],
+    "evolution": 88,
+    "description": "Waterslob is the evolved form of Hydroslug and has become a more adept swimmer, allowing it to traverse even the strongest currents."
+  },
+  {
+    "id": 88,
+    "image": "Slimeimon_3.png",
+    "name": "Aquamorph",
+    "type": ["water"],
+    "description": "Aquamorph is a water monster that has the ability to shapeshift its body to suit its environment."
+  },
+  {
+    "id": 89,
+    "image": "Snek_1.png",
+    "name": "Snek",
+    "type": ["normal"],
+    "description": "Snek is a simple, serpentine creature that can often be found coiled up in sunny areas."
+  },
+  {
+    "id": 90,
+    "image": "Storky_1.png",
+    "name": "Storky",
+    "type": ["flying"],
+    "description": "Storky is a bird-like creature that can fly great distances and enjoys spending its time high up in the sky."
+  },
+  {
+    "id": 91,
+    "image": "Sublime_1.png",
+    "name": "Sublime",
+    "type": ["grass"],
+    "evolution": 92,
+    "description": "Sublime is a grass-type creature that thrives in lush, green environments and can camouflage itself from predators."
+  },
+  {
+    "id": 92,
+    "image": "Sublime_2.png",
+    "name": "Verdigoo",
+    "type": ["grass"],
+    "evolution": 93,
+    "description": "Verdigoo is the evolved form of Sublime and has grown taller and stronger, allowing it to tower over other creatures in the forest."
+  },
+  {
+    "id": 93,
+    "image": "Sublime_3.png",
+    "name": "Leafglob",
+    "type": ["grass"],
+    "description": "Leafglob is a plant-like monster that uses its sticky exterior to trap insects and small animals."
+  },
+  {
+    "id": 94,
+    "image": "Tenteye_1.png",
+    "name": "Tenteye",
+    "type": ["water", "poison"],
+    "description": "Tenteye is a poisonous water creature that has evolved the ability to shoot toxic ink at its enemies."
+  },
+  {
+    "id": 95,
+    "image": "Thunderblob_1.png",
+    "name": "Voltooze",
+    "type": ["electric"],
+    "evolution": 96,
+    "description": "Voltooze is an electric creature that can store and discharge massive amounts of energy."
+  },
+  {
+    "id": 96,
+    "image": "Thunderblob_2.png",
+    "name": "Goobolt",
+    "type": ["electric"],
+    "evolution": 97,
+    "description": "Goobolt is the evolved form of Voltooze and has learned to control its energy output, allowing it to use it in more precise ways."
+  },
+  {
+    "id": 97,
+    "image": "Thunderblob_3.png",
+    "name": "Shockmuck",
+    "type": ["electric"],
+    "description": "Shockmuck is an electric monster that has become encased in a layer of muck, allowing it to absorb and discharge electricity even more efficiently."
+  },
+  {
+    "id": 98,
+    "image": "Toroot_1.png",
+    "name": "Rootix",
+    "type": ["ground"],
+    "evolution": 99,
+    "description": "Rootix is a small, underground creature that can manipulate the earth around it to create tunnels and burrows."
+  },
+  {
+    "id": 99,
+    "image": "Toroot_2.png",
+    "name": "Toroot",
+    "type": ["ground", "poison"],
+    "description": "Toroot is the evolved form of Rootix and has developed a poisonous exterior to protect itself from predators."
+  },
+  {
+    "id": 100,
+    "image": "Toxotom_1.png",
+    "name": "Toxitom",
+    "type": ["poison", "ground"],
+    "evolution": 101,
+    "description": "Toxitom is a poisonous ground-type creature with a potent venom that can cause paralysis."
+  },
+  {
+    "id": 101,
+    "image": "Toxotom_2.png",
+    "name": "Spikytom",
+    "type": ["poison", "ground"],
+    "evolution": 102,
+    "description": "Spikytom is the evolved form of Toxitom, and has developed sharp spikes on its body for defense."
+  },
+  {
+    "id": 102,
+    "image": "Toxotom_3.png",
+    "name": "Aggretom",
+    "type": ["poison", "ground"],
+    "description": "Aggretom is a poisonous ground-type creature with a foul odor that can make opponents nauseous."
+  },
+  {
+    "id": 103,
+    "image": "Turchin_1.png",
+    "name": "Thorchin",
+    "type": ["dark"],
+    "evolution": 104,
+    "description": "Thorchin is a dark-type creature with a coat of dark spikes that can harm opponents on contact."
+  },
+  {
+    "id": 104,
+    "image": "Turchin_2.png",
+    "name": "Thortle",
+    "type": ["dark"],
+    "evolution": 105,
+    "description": "Thortle is the evolved form of Thorchin, and has a dark aura around it, which makes its presence unpleasant."
+  },
+  {
+    "id": 105,
+    "image": "Turchin_3.png",
+    "name": "Golados",
+    "type": ["dark"],
+    "description": "Golados is a dark-type creature that can absorb all kind of joy in its surrounding."
+  },
+  {
+    "id": 106,
+    "image": "Wernerus_1.png",
+    "name": "Wernerus",
+    "type": ["dragon"],
+    "description": "Wernerus is a dragon-type creature that can breathe powerful jets of flame from its mouth."
+  },
+  {
+    "id": 107,
+    "image": "Yeeti_1.png",
+    "name": "Snobol",
+    "type": ["ice"],
+    "evolution": 108,
+    "description": "Snobol is an ice-type creature with a coat of thick fur that keeps it warm even in the coldest environments."
+  },
+  {
+    "id": 108,
+    "image": "Yeeti_2.png",
+    "name": "Yeeti",
+    "type": ["ice"],
+    "description": "Yeeti is the evolved form of Snobol, and can create blizzards that can freeze opponents solid."
+  },
+  {
+    "id": 109,
+    "image": "Zuendorm_1.png",
+    "name": "Zuendorm",
+    "type": ["fire"],
+    "description": "Zuendorm is a fire-type creature with a body made of living flame, and can ignite anything it touches."
   }
 ]

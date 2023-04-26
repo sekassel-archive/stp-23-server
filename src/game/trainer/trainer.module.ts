@@ -10,7 +10,6 @@ import {MonsterModule} from '../monster/monster.module';
 import {OpponentModule} from '../opponent/opponent.module';
 import {TrainerController} from './trainer.controller';
 import {TrainerHandler} from './trainer.handler';
-import {TrainerScheduler} from './trainer.scheduler';
 import {Trainer, TrainerSchema} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
@@ -29,7 +28,7 @@ import {TrainerService} from './trainer.service';
     forwardRef(() => OpponentModule),
   ],
   controllers: [TrainerController],
-  providers: [TrainerService, TrainerHandler, TrainerScheduler],
+  providers: [TrainerService, TrainerHandler],
   exports: [TrainerService],
 })
 export class TrainerModule {

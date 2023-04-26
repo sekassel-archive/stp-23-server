@@ -27,10 +27,17 @@ export class MoveTrainerDto extends PickType(Trainer, MOVE_TRAINER_PROPS) {
 export class TalkTrainerDto extends PickType(Trainer, ['_id']) {
   @ApiProperty({
     ...MONGO_ID_FORMAT,
-    description: 'The ID of the target trainer. ' +
-      'Talking to a Nurse (npc.canHeal) will heal all monsters. ' +
-      'Talking to a Trainer (npc.encounterOnSight) will start an encounter, even if that NPC already battled with you ("rematch").',
+    description: `The ID of the target trainer.
+- Talking to a Nurse (npc.canHeal) will heal all monsters.
+- Talking to someone who offers Starters (npc.starters) will allow you to receive a starter monster.
+- Talking to a Trainer (npc.encounterOnSight) will start an encounter, even if that NPC already battled with you ("rematch").`,
   })
   @IsMongoId()
   target: string;
+
+  @ApiProperty({
+    description: 'The selection for some NPC dialog options. ' +
+      'For example, Prof. Albert will ask you to select a starter monster (0, 1 or 2).',
+  })
+  selection?: number;
 }
