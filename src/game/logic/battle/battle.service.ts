@@ -156,13 +156,14 @@ export class BattleService {
           continue;
         }
 
-        const target = monsters.find(m => m.trainer === move.target);
-        if (!target) {
+        const targetMonster = monsters.find(m => m.trainer === move.target);
+        const targetOpponent = opponents.find(o => o.trainer === move.target);
+        if (!targetMonster || !targetOpponent) {
           opponent.results = ['target-unknown'];
           continue;
         }
 
-        if (target.currentAttributes.health <= 0) {
+        if (targetMonster.currentAttributes.health <= 0) {
           opponent.results = ['target-dead'];
           continue;
         }
@@ -172,14 +173,14 @@ export class BattleService {
           continue;
         }
 
-        this.playAbility(opponent, ability, monster, target);
+        this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
       }
     }
 
     await this.monsterService.saveMany(monsters);
   }
 
-  private playAbility(opponent: OpponentDocument, ability: Ability, currentMonster: MonsterDocument, targetMonster: MonsterDocument) {
+  private playAbility(currentOpponent: OpponentDocument, currentMonster: MonsterDocument, ability: Ability, targetMonster: MonsterDocument, targetOpponent: OpponentDocument) {
     const abilityType = ability.type as Type;
     const type = types[abilityType];
     let multiplier = 1;
@@ -200,17 +201,18 @@ export class BattleService {
       }
     }
 
-    opponent.results.push(this.abilityResult(multiplier));
+    currentOpponent.results.push(this.abilityResult(multiplier));
 
     currentMonster.abilities[ability.id] -= 1;
     currentMonster.markModified('abilities');
 
     if (currentMonster.currentAttributes.health <= 0) {
-      opponent.results.push('monster-defeated');
+      currentOpponent.results.push('monster-defeated');
     } else if (targetMonster.currentAttributes.health <= 0) {
-      opponent.results.push('target-defeated');
-      if (!opponent.isNPC) {
-        this.gainExp(opponent, currentMonster, targetMonster);
+      currentOpponent.results.push('target-defeated');
+      targetOpponent.monster = undefined;
+      if (!currentOpponent.isNPC) {
+        this.gainExp(currentOpponent, currentMonster, targetMonster);
       }
     }
   }
