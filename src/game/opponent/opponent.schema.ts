@@ -1,7 +1,7 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {ApiExtraModels, ApiProperty, refs} from '@nestjs/swagger';
+import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, ValidateNested} from 'class-validator';
+import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
 import {abilities, Result, RESULTS, RESULTS_WITH_DESCRIPTION} from '../constants';
@@ -63,9 +63,10 @@ export class Opponent extends GlobalSchemaWithoutID {
   isNPC: boolean;
 
   @Prop()
-  @ApiProperty(MONGO_ID_FORMAT)
+  @ApiPropertyOptional(MONGO_ID_FORMAT)
+  @IsOptional()
   @IsMongoId()
-  monster: string;
+  monster?: string;
 
   @Prop({type: Object})
   @ApiProperty({

@@ -96,7 +96,7 @@ export class BattleService {
 
       const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker);
       const target = targets.random();
-      const monster = await this.monsterService.findOne(opponent.monster);
+      const monster = opponent.monster && await this.monsterService.findOne(opponent.monster);
       let move: Move;
       if (monster && monster.currentAttributes.health > 0) {
         move = {
@@ -132,7 +132,8 @@ export class BattleService {
       return;
     }
 
-    const monsters = await this.monsterService.findAll({_id: {$in: opponents.map(o => new Types.ObjectId(o.monster))}});
+    const monsterIds = opponents.filter(o => o.monster).map(o => new Types.ObjectId(o.monster));
+    const monsters = await this.monsterService.findAll({_id: {$in: monsterIds}});
 
     monsters.sort((a, b) => a.attributes.speed - b.attributes.speed);
 
