@@ -96,16 +96,8 @@ export class BattleService {
 
       const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker);
       const target = targets.random();
-      const monster = opponent.monster && await this.monsterService.findOne(opponent.monster);
-      let move: Move;
-      if (monster && monster.currentAttributes.health > 0) {
-        move = {
-          type: 'ability',
-          target: target.trainer,
-          // TODO select ability based on monster type
-          ability: +Object.keys(monster.abilities).random(),
-        };
-      } else {
+      let monster = opponent.monster && await this.monsterService.findOne(opponent.monster);
+      if (!monster || monster.currentAttributes.health > 0) {
         if (opponent.trainer === TALL_GRASS_TRAINER) {
           continue;
         }
@@ -116,14 +108,16 @@ export class BattleService {
         if (!liveMonsters.length) {
           continue;
         }
-        move = {
-          type: 'change-monster',
-          // TODO select monster based on type
-          monster: liveMonsters.random()._id.toString(),
-        };
+        // TODO select monster based on type
+        monster = liveMonsters.random();
+        opponent.monster = monster._id.toString();
       }
-
-      opponent.move = move;
+      opponent.move = {
+        type: 'ability',
+        target: target.trainer,
+        // TODO select ability based on monster type
+        ability: +Object.keys(monster.abilities).random(),
+      };
     }
   }
 
