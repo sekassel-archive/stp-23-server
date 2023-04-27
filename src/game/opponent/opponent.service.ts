@@ -46,6 +46,7 @@ export class OpponentService {
   }
 
   async updateOne(encounter: string, trainer: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
+    const current = await this.findOne(encounter, trainer);
     if (dto.monster) {
       // Changing the monster happens immediately
       const monster = await this.monsterService.findOne(dto.monster);
@@ -55,10 +56,11 @@ export class OpponentService {
       if (monster.currentAttributes.health <= 0) {
         throw new UnprocessableEntityException(`Monster ${dto.monster} is dead`);
       }
-      const current = await this.findOne(encounter, trainer);
       if (current && current.monster) {
         throw new ConflictException(`Opponent ${trainer} already has a monster`);
       }
+    } else if (current && !current.monster) {
+      throw new UnprocessableEntityException(`Opponent ${trainer} does not have a monster`);
     }
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately

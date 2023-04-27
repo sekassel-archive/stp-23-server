@@ -63,7 +63,9 @@ export class Opponent extends GlobalSchemaWithoutID {
   isNPC: boolean;
 
   @Prop()
-  @ApiPropertyOptional(MONGO_ID_FORMAT)
+  @ApiPropertyOptional({...MONGO_ID_FORMAT, description: 'Can be patched when set to undefined/null. ' +
+      'This happens after the monster died. ' +
+      'You can then patch a new monster ID to change the monster without expending your move.'})
   @IsOptional()
   @IsMongoId()
   monster?: string;
