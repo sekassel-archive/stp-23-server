@@ -50,7 +50,7 @@
     "id": 4,
     "image": "mondex.png",
     "name": "Mondex",
-    "price": 1000,
+    "price": 0,
     "effects": [],
     "description": "A handheld device."
   },
@@ -120,8 +120,12 @@
     "image": "pot.png",
     "name": "Paralysis Remedy",
     "price": 25,
-    "effects": [],
-    "removeStatus": ["paralysed"],
+    "effects": [
+      {
+        "status": "paralysed",
+        "remove": true
+      }
+    ],
     "description": "A potion to remove the paralysed status effect."
   },
   {
