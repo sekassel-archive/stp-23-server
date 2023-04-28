@@ -22,6 +22,6 @@ export class MonsterHandler {
    */
   @OnEvent(`encounters.*.opponents.${TALL_GRASS_TRAINER}.deleted`)
   async onOpponentDeleted(opponent: Opponent): Promise<void> {
-    await this.monsterService.delete(opponent.monster.toString());
+    opponent.monster && await this.monsterService.delete(opponent.monster.toString());
   }
 }

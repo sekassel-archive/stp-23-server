@@ -8,8 +8,8 @@ export class CreateOpponentDto extends PickType(Opponent, [
 ] as const) {
 }
 
-export class UpdateOpponentDto extends PickType(
-  Opponent,
-  ['move'] as const,
-) {
+export class UpdateOpponentDto extends PickType(Opponent, [
+  'move',
+  'monster',
+] as const) {
 }

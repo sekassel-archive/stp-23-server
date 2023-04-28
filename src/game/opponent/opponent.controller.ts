@@ -9,7 +9,14 @@ import {
   Patch,
   Query,
 } from '@nestjs/common';
-import {ApiForbiddenResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
+import {
+  ApiConflictResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+  ApiUnprocessableEntityResponse,
+} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
 import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
@@ -65,6 +72,8 @@ export class OpponentController {
   @Patch('encounters/:encounterId/opponents/:trainerId')
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot modify another trainer\'s opponent'})
+  @ApiConflictResponse({description: 'You cannot switch the monster without a move if your current monster is not dead'})
+  @ApiUnprocessableEntityResponse({description: 'Monster is dead'})
   @NotFound()
   async updateOne(
     @Param('encounterId', ParseObjectIdPipe) encounter: string,

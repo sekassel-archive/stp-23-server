@@ -1,4 +1,9 @@
-import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 import {EventService} from '../../event/event.service';
@@ -41,6 +46,22 @@ export class OpponentService {
   }
 
   async updateOne(encounter: string, trainer: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
+    const current = await this.findOne(encounter, trainer);
+    if (dto.monster) {
+      // Changing the monster happens immediately
+      const monster = await this.monsterService.findOne(dto.monster);
+      if (!monster) {
+        throw new NotFoundException(`Monster ${dto.monster} not found`);
+      }
+      if (monster.currentAttributes.health <= 0) {
+        throw new UnprocessableEntityException(`Monster ${dto.monster} is dead`);
+      }
+      if (current && current.monster) {
+        throw new ConflictException(`Opponent ${trainer} already has a monster`);
+      }
+    } else if (current && !current.monster) {
+      throw new UnprocessableEntityException(`Opponent ${trainer} does not have a monster`);
+    }
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately
       const monster = await this.monsterService.findOne(dto.move.monster);
@@ -48,12 +69,9 @@ export class OpponentService {
         throw new NotFoundException(`Monster ${dto.move.monster} not found`);
       }
       if (monster.currentAttributes.health <= 0) {
-        throw new ConflictException(`Monster ${dto.move.monster} is dead`);
+        throw new UnprocessableEntityException(`Monster ${dto.move.monster} is dead`);
       }
-      dto = {
-        ...dto,
-        monster: dto.move.monster,
-      };
+      dto.monster = dto.move.monster;
     }
     const updated = await this.model.findOneAndUpdate({encounter, trainer}, dto, {new: true}).exec();
     updated && this.emit('updated', updated);
