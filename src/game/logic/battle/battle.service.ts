@@ -174,7 +174,12 @@ export class BattleService {
 
         this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
       } else if (move.type === 'use-item') {
-        await this.itemService.useItem(opponent.trainer, move.item, move.target);
+        try {
+          await this.itemService.useItem(opponent.trainer, move.item, move.target);
+          opponent.results = ['item-use-success'];
+        } catch (err) {
+          opponent.results = ['item-use-failed'];
+        }
       }
     }
 

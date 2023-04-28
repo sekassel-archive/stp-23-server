@@ -144,12 +144,14 @@ export const RESULTS_WITH_DESCRIPTION = {
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
   'monster-learned': 'The monster learned a new ability',
+  'item-use-success': 'The item was used successfully',
   // Error cases
   'monster-dead': 'The monster is dead',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
   'ability-no-uses': 'The monster doesn\'t have any uses left for the ability',
   'target-unknown': 'The target trainer does not exist or has fled',
   'target-dead': 'The target monster is already dead',
+  'item-use-failed': 'The item could not be used',
 } as const;
 
 export const RESULTS = Object.keys(RESULTS_WITH_DESCRIPTION);
