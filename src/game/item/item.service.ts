@@ -56,21 +56,18 @@ export class ItemService {
     return created;
   }
 
-  async useItem(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
-    if (dto.monster === undefined) {
-      throw new NotFoundException('No monsterId provided');
-    }
-    const item = itemTypes.find(item => item.id === dto.type);
+  async useItem(trainer: string, type: number, target: string): Promise<Item | null> {
+    const item = itemTypes.find(item => item.id === type);
     if (item) {
-      const monster = await this.monsterService.modifyOne(trainer._id.toString(), dto.monster, item.effects);
+      const monster = await this.monsterService.modifyOne(trainer, target, item.effects);
       if (monster) {
-        await this.model.findOneAndUpdate(
-          {trainer: trainer._id, type: dto.type},
+        return this.model.findOneAndUpdate(
+          {trainer, type},
           {$inc: {amount: -1}}
         );
       }
     }
-    return this.model.findOne({trainer: trainer._id, type: dto.type});
+    return this.model.findOne({trainer, type});
   }
 
   async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {

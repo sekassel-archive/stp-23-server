@@ -22,6 +22,7 @@ import {
   SAME_TYPE_ATTACK_MULTIPLIER,
   speedGain,
 } from '../../formulae';
+import {ItemService} from '../../item/item.service';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
 import {Move, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
@@ -35,6 +36,7 @@ export class BattleService {
     private opponentService: OpponentService,
     private monsterService: MonsterService,
     private monsterGeneratorService: MonsterGeneratorService,
+    private itemService: ItemService,
   ) {
   }
 
@@ -134,7 +136,10 @@ export class BattleService {
     for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
       const move = opponent?.move;
-      if (move && move.type === 'ability') {
+      if (!move) {
+        continue;
+      }
+      if (move.type === 'ability') {
         if (monster.currentAttributes.health <= 0) {
           opponent.results = ['monster-dead'];
           continue;
@@ -168,6 +173,8 @@ export class BattleService {
         }
 
         this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
+      } else if (move.type === 'use-item') {
+        await this.itemService.useItem(opponent.trainer, move.item, move.target);
       }
     }
 

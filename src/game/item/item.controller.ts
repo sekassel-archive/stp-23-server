@@ -50,12 +50,6 @@ export class ItemController {
     if (!itemType?.price) {
       throw new ForbiddenException('This item cannot be bought, sold or used');
     }
-
-    // Remove when lootbox-implementation is finished
-    if (action === ItemAction.USE && itemType?.effects.length === 0) {
-      throw new NotFoundException('Feature not implemented at the moment');
-    }
-
     const trainer = await this.trainerService.findOne(trainerId);
     if (!trainer) {
       throw new NotFoundException('Trainer not found');
@@ -63,11 +57,14 @@ export class ItemController {
     if (trainer.user.toString() !== user._id.toString()) {
       throw new ForbiddenException('You are not the owner of this trainer');
     }
-    if (action === ItemAction.USE && amount !== 1) {
-      throw new BadRequestException('Amount must be exactly 1 when using items');
-    }
     if (action === ItemAction.USE) {
-      return this.itemService.useItem(trainer, dto);
+      if (amount !== 1) {
+        throw new BadRequestException('Amount must be exactly 1 when using items');
+      }
+      if (!dto.monster) {
+        throw new BadRequestException('You must specify a monster when using items');
+      }
+      return this.itemService.useItem(trainer._id.toString(), dto.type, dto.monster);
     }
     return this.itemService.updateOne(trainer, dto);
   }
