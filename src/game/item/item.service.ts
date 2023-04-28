@@ -3,7 +3,7 @@ import {FilterQuery, Model} from "mongoose";
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {UpdateItemDto} from "./item.dto";
-import {ForbiddenException, Injectable, NotFoundException} from "@nestjs/common";
+import {BadRequestException, ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {Trainer} from "../trainer/trainer.schema";
 import {itemTypes} from "../constants";
 import {TrainerService} from "../trainer/trainer.service";
@@ -57,17 +57,18 @@ export class ItemService {
   }
 
   async useItem(trainer: string, type: number, target: string): Promise<Item | null> {
-    const item = itemTypes.find(item => item.id === type);
-    if (item) {
-      const monster = await this.monsterService.modifyOne(trainer, target, item.effects);
-      if (monster) {
-        return this.model.findOneAndUpdate(
-          {trainer, type},
-          {$inc: {amount: -1}}
-        );
-      }
+    const item = await this.findOne(trainer, type);
+    if (!item || !item.amount) {
+      throw new NotFoundException('Item not found');
     }
-    return this.model.findOne({trainer, type});
+
+    const itemType = itemTypes.find(item => item.id === type);
+    if (!itemType) {
+      throw new BadRequestException('Invalid item type');
+    }
+
+    await this.monsterService.modifyOne(trainer, target, itemType.effects);
+    return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}});
   }
 
   async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {

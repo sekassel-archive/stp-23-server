@@ -74,26 +74,25 @@ export class MonsterService {
 
   async modifyOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<Monster> {
     const monster = await this.findOne(monsterId);
-    if (monster) {
-      const m = monster.currentAttributes;
-      for (const effect of effects) {
-        if ('attribute' in effect) {
-          const attribute = effect.attribute as keyof MonsterAttributes;
-          if (m[attribute] === monster.attributes[attribute]) {
-            throw new ForbiddenException('Can\'t use item, attribute already at max');
-          }
-          m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
-        } else if ('status' in effect) {
-          this.applyStatusEffect(effect, monster);
-        }
-      }
-      monster.markModified('currentAttributes');
-      await monster.save();
-      this.emit('updated', monster);
-      return monster;
-    } else {
-      throw new NotFoundException('Provided monsterId not found on trainer');
+    if (!monster) {
+      throw new NotFoundException(monsterId);
     }
+    const m = monster.currentAttributes;
+    for (const effect of effects) {
+      if ('attribute' in effect) {
+        const attribute = effect.attribute as keyof MonsterAttributes;
+        if (m[attribute] === monster.attributes[attribute]) {
+          throw new ForbiddenException('Can\'t use item, attribute already at max');
+        }
+        m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
+      } else if ('status' in effect) {
+        this.applyStatusEffect(effect, monster);
+      }
+    }
+    monster.markModified('currentAttributes');
+    await monster.save();
+    this.emit('updated', monster);
+    return monster;
   }
 
   applyStatusEffect(effect: StatusEffect, monster: MonsterDocument) {
