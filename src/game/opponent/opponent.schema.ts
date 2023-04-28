@@ -3,9 +3,8 @@ import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/sw
 import {Type} from 'class-transformer';
 import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
-  GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities, Result, RESULTS, RESULTS_WITH_DESCRIPTION} from '../constants';
+import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
+import {abilities, itemTypes, Result, RESULTS, RESULTS_WITH_DESCRIPTION} from '../constants';
 
 @Schema()
 export class AbilityMove {
@@ -38,7 +37,25 @@ export class ChangeMonsterMove {
   monster: string;
 }
 
-export type Move = AbilityMove | ChangeMonsterMove;
+@Schema()
+export class UseItemMove {
+  static type = 'use-item' as const;
+
+  @ApiProperty({enum: [UseItemMove.type]})
+  @Equals(UseItemMove.type)
+  type: typeof UseItemMove.type;
+
+  @ApiProperty({description: 'Item type ID'})
+  @IsInt()
+  @IsIn(itemTypes.map(i => i.id))
+  item: number;
+
+  @ApiProperty({...MONGO_ID_FORMAT, description: 'Monster ID'})
+  @IsMongoId()
+  target: string;
+}
+
+export type Move = AbilityMove | ChangeMonsterMove | UseItemMove;
 
 @Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
 @ApiExtraModels(AbilityMove, ChangeMonsterMove)
@@ -87,6 +104,7 @@ export class Opponent extends GlobalSchemaWithoutID {
       subTypes: [
         {value: AbilityMove, name: AbilityMove.type},
         {value: ChangeMonsterMove, name: ChangeMonsterMove.type},
+        {value: UseItemMove, name: UseItemMove.type},
       ],
     },
   })
