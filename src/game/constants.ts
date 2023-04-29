@@ -1,5 +1,5 @@
 import {ApiProperty, ApiPropertyOptional, OmitType} from '@nestjs/swagger';
-import {Max, Min} from 'class-validator';
+import {IsObject, IsOptional, Max, Min} from 'class-validator';
 import * as _abilities from '../../assets/abilities.json';
 import * as _monsterTypes from '../../assets/monsters.json';
 import * as _itemTypes from '../../assets/items.json';
@@ -33,6 +33,12 @@ export class ItemType {
 
   @ApiPropertyOptional()
   description?: string;
+
+  // TODO add '*'
+  // @ApiPropertyOptional({properties: Object.fromEntries(Object.keys(types).map(t => [t, {type: 'number', optional: true}]))})
+  @IsOptional()
+  @IsObject()
+  catch?: Partial<Record<Type | '*', number>>;
 }
 
 export class ItemTypeDto extends OmitType(ItemType, ['description'] as const) {

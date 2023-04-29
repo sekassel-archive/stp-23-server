@@ -1,11 +1,12 @@
 import {InjectModel} from "@nestjs/mongoose";
 import {FilterQuery, Model} from "mongoose";
+import {catchChanceBonus} from '../formulae';
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {UpdateItemDto} from "./item.dto";
 import {BadRequestException, ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {Trainer} from "../trainer/trainer.schema";
-import {itemTypes} from "../constants";
+import {itemTypes, monsterTypes, TALL_GRASS_TRAINER, Type} from '../constants';
 import {TrainerService} from "../trainer/trainer.service";
 import {MonsterService} from "../monster/monster.service";
 
@@ -66,8 +67,25 @@ export class ItemService {
     if (!itemType) {
       throw new BadRequestException('Invalid item type');
     }
+    const monster = await this.monsterService.findOne(target);
+    if (!monster) {
+      throw new NotFoundException(`Monster ${target} not found`);
+    }
 
-    await this.monsterService.modifyOne(trainer, target, itemType.effects);
+    if (itemType.catch) {
+      if (monster.trainer !== TALL_GRASS_TRAINER) {
+        throw new ForbiddenException('Monster is not wild');
+      }
+      const monsterType = monsterTypes.find(o => o.id === monster.type);
+      // take either the default catch chance ('*') or the best catch chance for the monster's types
+      const chance = Math.max(itemType.catch['*'] || 0, ...monsterType?.type.map(type => itemType.catch?.[type as Type] || 0) || []);
+      const chanceBonus = catchChanceBonus(monster);
+      if (chance && Math.random() < chance + chanceBonus) {
+        monster.trainer = trainer;
+      }
+    }
+
+    await this.monsterService.applyEffects(monster, itemType.effects);
     return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}});
   }
 

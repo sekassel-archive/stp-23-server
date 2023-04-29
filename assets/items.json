@@ -5,7 +5,10 @@
     "name": "Monball",
     "price": 20,
     "effects": [],
-    "description": "A ball for catching monsters."
+    "description": "A ball for catching monsters.",
+    "catch": {
+      "*": 0.1
+    }
   },
   {
     "id": 2,

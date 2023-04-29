@@ -72,11 +72,7 @@ export class MonsterService {
     await this.saveMany(monsters);
   }
 
-  async modifyOne(trainerId: string, monsterId: string, effects: Effect[]): Promise<Monster> {
-    const monster = await this.findOne(monsterId);
-    if (!monster) {
-      throw new NotFoundException(monsterId);
-    }
+  async applyEffects(monster: MonsterDocument, effects: Effect[]) {
     const m = monster.currentAttributes;
     for (const effect of effects) {
       if ('attribute' in effect) {
@@ -90,9 +86,6 @@ export class MonsterService {
       }
     }
     monster.markModified('currentAttributes');
-    await monster.save();
-    this.emit('updated', monster);
-    return monster;
   }
 
   applyStatusEffect(effect: StatusEffect, monster: MonsterDocument) {
