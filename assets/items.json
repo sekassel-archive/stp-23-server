@@ -35,6 +35,63 @@
     }
   },
   {
+    "id": 11,
+    "image": "ball.png",
+    "name": "Superball",
+    "price": 50,
+    "effects": [],
+    "description": "An improved ball for catching monsters. Better than the Monball.",
+    "catch": {
+      "*": 0.25
+    }
+  },
+  {
+    "id": 12,
+    "image": "ball.png",
+    "name": "Hyperball",
+    "price": 100,
+    "effects": [],
+    "description": "An advanced ball for catching monsters. Better than the Superball.",
+    "catch": {
+      "*": 0.5
+    }
+  },
+  {
+    "id": 13,
+    "image": "ball.png",
+    "name": "Masterball",
+    "price": 1000,
+    "effects": [],
+    "description": "The best ball for catching monsters, with guaranteed success. Better than the Hyperball.",
+    "catch": {
+      "*": 1
+    }
+  },
+  {
+    "id": 14,
+    "image": "ball.png",
+    "name": "Netball",
+    "price": 50,
+    "effects": [],
+    "description": "A special ball for catching water and bug monsters.",
+    "catch": {
+      "water": 0.3,
+      "bug": 0.3
+    }
+  },
+  {
+    "id": 14,
+    "image": "ball.png",
+    "name": "Waterball",
+    "price": 40,
+    "effects": [],
+    "description": "A special ball for that weakens fire monsters and attracts grass monsters.",
+    "catch": {
+      "fire": 0.2,
+      "grass": 0.3
+    }
+  },
+  {
     "id": 20,
     "image": "chocolate.png",
     "name": "Chocolate bar",
