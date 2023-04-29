@@ -80,6 +80,7 @@ export class GameLoader implements OnModuleInit {
 
   private async loadTrainer(region: Region, area: AreaDocument, object: any, map: any) {
     const starters = getProperty<string>(object, 'Starters');
+    const sells = getProperty<string>(object, 'Sells');
     const trainer = await this.trainerService.upsert({
       region: region._id.toString(),
       area: area._id.toString(),
@@ -100,7 +101,7 @@ export class GameLoader implements OnModuleInit {
       direction: getProperty<number>(object, 'Direction') ?? Direction.DOWN,
       'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
-      'npc.isMerchant': getProperty<boolean>(object, 'IsMerchant') || false,
+      'npc.sells': sells ? JSON.parse(sells) : undefined,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
       'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
       'npc.starters': starters ? JSON.parse(starters) : undefined,

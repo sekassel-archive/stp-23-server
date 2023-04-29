@@ -23,7 +23,7 @@ export class ItemService {
   async updateOne(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
     const filteredTrainers = await this.trainerService.findAll({
       area: trainer.area,
-      'npc.isMerchant': true,
+      'npc.sells': {$exists: true},
       x: {$gte: trainer.x - 2, $lte: trainer.x + 2},
       y: {$gte: trainer.y - 2, $lte: trainer.y + 2},
     });
@@ -46,6 +46,9 @@ export class ItemService {
     if (dto.amount > 0) { // buy
       if (price < 0) {
         throw new ForbiddenException('This item cannot be bought');
+      }
+      if (!filteredTrainers.some(t => t.npc?.sells?.includes(dto.type))) {
+        throw new ForbiddenException('The merchant does not sell this item');
       }
       if (trainer.coins < price * dto.amount) {
         throw new ForbiddenException('Trainer does not have enough coins');

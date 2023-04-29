@@ -36,9 +36,11 @@ export class NPCInfo {
   @IsBoolean()
   canHeal: boolean;
 
-  @ApiProperty()
-  @IsBoolean()
-  isMerchant: boolean;
+  @ApiProperty({type: [Number], description: 'List of item IDs that the NPC sells.'})
+  @IsOptional()
+  @IsArray()
+  @IsInt({each: true})
+  sells?: number[];
 
   @ApiPropertyOptional({type: [Number]})
   @IsOptional()
