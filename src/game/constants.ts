@@ -29,10 +29,10 @@ export class ItemType {
   price: number;
 
   @ApiProperty()
-  effects: Effect[];
+  description: string;
 
-  @ApiPropertyOptional()
-  description?: string;
+  // @ApiProperty()
+  effects: Effect[];
 
   // TODO add '*'
   // @ApiPropertyOptional({properties: Object.fromEntries(Object.keys(types).map(t => [t, {type: 'number', optional: true}]))})
@@ -41,7 +41,7 @@ export class ItemType {
   catch?: Partial<Record<Type | '*', number>>;
 }
 
-export class ItemTypeDto extends OmitType(ItemType, ['description'] as const) {
+export class ItemTypeDto extends OmitType(ItemType, ['effects', 'catch'] as const) {
 }
 
 export const itemTypes: ItemType[] = _itemTypes;

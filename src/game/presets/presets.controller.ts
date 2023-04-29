@@ -99,7 +99,7 @@ export class PresetsController {
   }
 
   private maskItem(item: ItemType): ItemTypeDto {
-    const {...masked} = item;
+    const {effects, 'catch': c, ...masked} = item;
     return masked;
   }
 
