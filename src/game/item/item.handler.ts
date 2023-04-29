@@ -1,8 +1,7 @@
-import {Injectable} from "@nestjs/common";
-import {ItemService} from "./item.service";
-import {OnEvent} from "@nestjs/event-emitter";
-import {Trainer} from "../trainer/trainer.schema";
-import {ItemAction} from "./item.action";
+import {Injectable} from '@nestjs/common';
+import {OnEvent} from '@nestjs/event-emitter';
+import {Trainer} from '../trainer/trainer.schema';
+import {ItemService} from './item.service';
 
 @Injectable()
 export class ItemHandler {
@@ -13,9 +12,15 @@ export class ItemHandler {
 
   @OnEvent('regions.*.trainers.*.created')
   async onTrainerCreated(trainer: Trainer): Promise<void> {
-    await this.itemService.getStarterItems(trainer, {type: 5, amount: 1, action: ItemAction.TRADE});
-    await this.itemService.getStarterItems(trainer, {type: 7, amount: 1, action: ItemAction.TRADE});
-    await this.itemService.getStarterItems(trainer, {type: 1, amount: 20, action: ItemAction.TRADE});
+    await Promise.all([
+      this.itemService.getStarterItems(trainer, 1), // Mondex
+      this.itemService.getStarterItems(trainer, 2), // Moneybag
+      this.itemService.getStarterItems(trainer, 3), // Backpack
+      this.itemService.getStarterItems(trainer, 10, 10), // Monballs
+      this.itemService.getStarterItems(trainer, 20, 3), // Chocolate
+      this.itemService.getStarterItems(trainer, 21), // Chicken leg
+      this.itemService.getStarterItems(trainer, 30), // Mystery box
+    ]);
   }
 
   @OnEvent('regions.*.trainers.*.deleted')

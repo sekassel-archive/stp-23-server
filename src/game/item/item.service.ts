@@ -106,10 +106,10 @@ export class ItemService {
     return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}});
   }
 
-  async getStarterItems(trainer: Trainer, dto: UpdateItemDto): Promise<Item | null> {
+  async getStarterItems(trainer: Trainer, type: number, amount = 1): Promise<Item | null> {
     const created = await this.model.findOneAndUpdate(
-      {trainer: trainer._id, type: dto.type},
-      {$inc: {amount: dto.amount}},
+      {trainer: trainer._id, type},
+      {$inc: {amount}},
       {upsert: true, new: true, setDefaultsOnInsert: true}
     );
     this.emit('created', created);
