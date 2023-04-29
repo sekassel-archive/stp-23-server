@@ -33,18 +33,32 @@ export class ItemService {
     }
 
     const itemType = itemTypes.find(item => item.id === dto.type);
-    const price = itemType?.price;
-    const hasEnoughCoinsToBuy = price != null && dto.amount > 0 && trainer.coins >= price * dto.amount;
-    const item = await this.findOne(trainer._id.toString(), dto.type);
-    const hasEnoughItemsToSell = price != null && dto.amount < 0 && item?.amount != null && item.amount >= dto.amount;
-    let moneyChange = 0;
+    if (!itemType) {
+      throw new BadRequestException('Invalid item type');
+    }
 
-    if (hasEnoughCoinsToBuy) {
+    const price = itemType.price;
+    if (!price) {
+      throw new ForbiddenException('This item cannot be traded');
+    }
+
+    let moneyChange = 0;
+    if (dto.amount > 0) { // buy
+      if (price < 0) {
+        throw new ForbiddenException('This item cannot be bought');
+      }
+      if (trainer.coins < price * dto.amount) {
+        throw new ForbiddenException('Trainer does not have enough coins');
+      }
       moneyChange = -price * dto.amount;
-    } else if (hasEnoughItemsToSell) {
-      moneyChange = -price * dto.amount / 2;
-    } else {
-      throw new ForbiddenException('Trainer does not have enough items or coins');
+    } else { // sell
+      const positiveAmount = -dto.amount;
+      const item = await this.findOne(trainer._id.toString(), dto.type);
+      if (!item || item.amount < positiveAmount) {
+        throw new ForbiddenException('Trainer does not have enough items');
+      }
+      // price may be negative for sell-only items
+      moneyChange = Math.abs(price) * positiveAmount / 2;
     }
 
     await this.trainerService.update(trainer._id.toString(), {$inc: {coins: moneyChange}});
