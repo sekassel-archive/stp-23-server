@@ -285,5 +285,29 @@
       }
     ],
     "description": "A potion to remove the asleep status effect."
+  },
+  {
+    "id": 50,
+    "image": "lightbulb.png",
+    "name": "Lightbulb",
+    "price": -10,
+    "effects": [],
+    "description": "Someone must have had a good idea, but this lightbulb is broken. Maybe you can sell it for a few coins."
+  },
+  {
+    "id": 51,
+    "image": "gold.png",
+    "name": "Gold nugget",
+    "price": -100,
+    "effects": [],
+    "description": "A gold nugget. It's worth a lot of money."
+  },
+  {
+    "id": 52,
+    "image": "star.png",
+    "name": "Star fragment",
+    "price": -1000,
+    "effects": [],
+    "description": "A rare fragment of a star. It's worth a fortune."
   }
 ]
