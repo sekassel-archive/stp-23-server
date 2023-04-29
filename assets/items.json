@@ -1,6 +1,30 @@
 [
   {
     "id": 1,
+    "image": "mondex.png",
+    "name": "Mondex",
+    "price": 0,
+    "effects": [],
+    "description": "A handheld device."
+  },
+  {
+    "id": 2,
+    "image": "purse.png",
+    "name": "Money bag",
+    "price": 0,
+    "effects": [],
+    "description": "A purse for valuable and shiny coins."
+  },
+  {
+    "id": 3,
+    "image": "backpack_brown.png",
+    "name": "Backpack",
+    "price": 0,
+    "effects": [],
+    "description": "A travelpack to store stuff."
+  },
+  {
+    "id": 10,
     "image": "ball.png",
     "name": "Monball",
     "price": 20,
@@ -11,7 +35,7 @@
     }
   },
   {
-    "id": 2,
+    "id": 20,
     "image": "chocolate.png",
     "name": "Chocolate bar",
     "price": 2,
@@ -24,49 +48,7 @@
     "description": "Heals 1 health and tastes good."
   },
   {
-    "id": 3,
-    "image": "pot_gold.png",
-    "name": "Large health potion",
-    "price": 80,
-    "effects": [
-      {
-        "attribute": "health",
-        "amount": 50
-      }
-    ],
-    "description": "Heals 50 health."
-  },
-  {
-    "id": 3,
-    "image": "pot.png",
-    "name": "Small health potion",
-    "price": 50,
-    "effects": [
-      {
-        "attribute": "health",
-        "amount": 25
-      }
-    ],
-    "description": "Heals 25 health."
-  },
-  {
-    "id": 4,
-    "image": "mondex.png",
-    "name": "Mondex",
-    "price": 0,
-    "effects": [],
-    "description": "A handheld device."
-  },
-  {
-    "id": 5,
-    "image": "purse.png",
-    "name": "Money bag",
-    "price": 0,
-    "effects": [],
-    "description": "A purse for valuable and shiny coins."
-  },
-  {
-    "id": 6,
+    "id": 21,
     "image": "chicken.png",
     "name": "Chicken leg",
     "price": 10,
@@ -79,15 +61,33 @@
     "description": "A grilled chicken leg. Tasty."
   },
   {
-    "id": 7,
-    "image": "backpack_brown.png",
-    "name": "Backpack",
-    "price": 0,
-    "effects": [],
-    "description": "A travelpack to store stuff."
+    "id": 22,
+    "image": "pot.png",
+    "name": "Small health potion",
+    "price": 50,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 25
+      }
+    ],
+    "description": "Heals 25 health."
   },
   {
-    "id": 8,
+    "id": 23,
+    "image": "pot_gold.png",
+    "name": "Large health potion",
+    "price": 80,
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 50
+      }
+    ],
+    "description": "Heals 50 health."
+  },
+  {
+    "id": 30,
     "image": "package.png",
     "name": "Mystery box",
     "price": 250,
@@ -95,7 +95,7 @@
     "description": "A mysterious package. What item is in it?"
   },
   {
-    "id": 9,
+    "id": 31,
     "image": "present_1.png",
     "name": "Monbox",
     "price": 250,
@@ -103,7 +103,7 @@
     "description": "A mysterious box containing a standard monster."
   },
   {
-    "id": 10,
+    "id": 32,
     "image": "present_2.png",
     "name": "Monbox Premium",
     "price": 500,
@@ -111,7 +111,7 @@
     "description": "A mysterious box containing a premium monster."
   },
   {
-    "id": 10,
+    "id": 33,
     "image": "present_3.png",
     "name": "Monbox Elite",
     "price": 1000,
@@ -119,85 +119,7 @@
     "description": "A mysterious box containing an elite monster."
   },
   {
-    "id": 11,
-    "image": "pot.png",
-    "name": "Paralysis Remedy",
-    "price": 25,
-    "effects": [
-      {
-        "status": "paralysed",
-        "remove": true
-      }
-    ],
-    "description": "A potion to remove the paralysed status effect."
-  },
-  {
-    "id": 12,
-    "image": "pot.png",
-    "name": "Mind Calmer",
-    "price": 25,
-    "effects": [
-      {
-        "status": "confused",
-        "remove": true
-      }
-    ],
-    "description": "A potion to remove the confused status effect."
-  },
-  {
-    "id": 13,
-    "image": "pot.png",
-    "name": "Antifreeze",
-    "price": 25,
-    "effects": [
-      {
-        "status": "frozen",
-        "remove": true
-      }
-    ],
-    "description": "A potion to remove the frozen status effect."
-  },
-  {
-    "id": 14,
-    "image": "pot.png",
-    "name": "Antidote",
-    "price": 25,
-    "effects": [
-      {
-        "status": "poisoned",
-        "remove": true
-      }
-    ],
-    "description": "A potion to remove the poisoned status effect."
-  },
-  {
-    "id": 15,
-    "image": "pot.png",
-    "name": "Extinguisher",
-    "price": 25,
-    "effects": [
-      {
-        "status": "burned",
-        "remove": true
-      }
-    ],
-    "description": "A potion to remove the burned status effect."
-  },
-  {
-    "id": 16,
-    "image": "pot.png",
-    "name": "One-way alarm",
-    "price": 25,
-    "effects": [
-      {
-        "status": "asleep",
-        "remove": true
-      }
-    ],
-    "description": "A potion to remove the asleep status effect."
-  },
-  {
-    "id": 17,
+    "id": 40,
     "image": "pot.png",
     "name": "God potion",
     "price": 150,
@@ -228,5 +150,83 @@
       }
     ],
     "description": "A potion to remove all status effects."
+  },
+  {
+    "id": 41,
+    "image": "pot.png",
+    "name": "Paralysis Remedy",
+    "price": 25,
+    "effects": [
+      {
+        "status": "paralysed",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the paralysed status effect."
+  },
+  {
+    "id": 42,
+    "image": "pot.png",
+    "name": "Mind Calmer",
+    "price": 25,
+    "effects": [
+      {
+        "status": "confused",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the confused status effect."
+  },
+  {
+    "id": 43,
+    "image": "pot.png",
+    "name": "Antifreeze",
+    "price": 25,
+    "effects": [
+      {
+        "status": "frozen",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the frozen status effect."
+  },
+  {
+    "id": 44,
+    "image": "pot.png",
+    "name": "Antidote",
+    "price": 25,
+    "effects": [
+      {
+        "status": "poisoned",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the poisoned status effect."
+  },
+  {
+    "id": 45,
+    "image": "pot.png",
+    "name": "Extinguisher",
+    "price": 25,
+    "effects": [
+      {
+        "status": "burned",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the burned status effect."
+  },
+  {
+    "id": 46,
+    "image": "pot.png",
+    "name": "One-way alarm",
+    "price": 25,
+    "effects": [
+      {
+        "status": "asleep",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the asleep status effect."
   }
 ]
