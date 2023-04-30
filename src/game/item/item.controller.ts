@@ -40,7 +40,6 @@ export class ItemController {
   @ApiForbiddenResponse({description: 'This item cannot be bought, sold or used, or you are not the owner of this trainer'})
   @NotFound()
   async updateOne(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
     @Param('trainerId', ParseObjectIdPipe) trainerId: string,
     @Body() dto: UpdateItemDto,
     @AuthUser() user: User,
@@ -72,18 +71,15 @@ export class ItemController {
   @Get()
   @ApiOkResponse({type: Item})
   async findAll(
-    @Param('regionId', ParseObjectIdPipe) region: string,
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
   ): Promise<Item[]> {
-    return this.itemService.findAll({region, trainer});
+    return this.itemService.findAll({trainer});
   }
 
   @Get(':id')
   @ApiOkResponse({type: Item})
   @NotFound()
   async findOne(
-    @Param('regionId', ParseObjectIdPipe) region: string,
-    @Param('trainerId', ParseObjectIdPipe) trainer: string,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Item | null> {
     return this.itemService.findById(id);
