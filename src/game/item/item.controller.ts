@@ -6,9 +6,9 @@ import {
   Get,
   NotFoundException,
   Param,
-  Patch
+  Patch, Query,
 } from '@nestjs/common';
-import {ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags} from '@nestjs/swagger';
+import {ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiQuery, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
 import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
@@ -69,11 +69,16 @@ export class ItemController {
   }
 
   @Get()
+  @ApiQuery({name: 'types', description: 'Comma separated list of item ids to fetch', required: false})
   @ApiOkResponse({type: Item})
   async findAll(
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
+    @Query('types') types?: string,
   ): Promise<Item[]> {
-    return this.itemService.findAll({trainer});
+    return this.itemService.findAll({
+      trainer,
+      type: types ? {$in: types.split(',').map(i => +i)} : undefined,
+    });
   }
 
   @Get(':id')
