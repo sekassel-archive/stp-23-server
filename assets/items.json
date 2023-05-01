@@ -177,7 +177,7 @@
   },
   {
     "id": 40,
-    "image": "pot.png",
+    "image": "god_potion.png",
     "name": "God potion",
     "price": 150,
     "effects": [
@@ -210,7 +210,7 @@
   },
   {
     "id": 41,
-    "image": "pot.png",
+    "image": "paralysis_remedy.png",
     "name": "Paralysis Remedy",
     "price": 25,
     "effects": [
@@ -223,7 +223,7 @@
   },
   {
     "id": 42,
-    "image": "pot.png",
+    "image": "mind_calmer.png",
     "name": "Mind Calmer",
     "price": 25,
     "effects": [
@@ -236,7 +236,7 @@
   },
   {
     "id": 43,
-    "image": "pot.png",
+    "image": "antifreeze.png",
     "name": "Antifreeze",
     "price": 25,
     "effects": [
@@ -249,7 +249,7 @@
   },
   {
     "id": 44,
-    "image": "pot.png",
+    "image": "antidote.png",
     "name": "Antidote",
     "price": 25,
     "effects": [
@@ -262,7 +262,7 @@
   },
   {
     "id": 45,
-    "image": "pot.png",
+    "image": "extinguisher.png",
     "name": "Extinguisher",
     "price": 25,
     "effects": [
@@ -275,8 +275,8 @@
   },
   {
     "id": 46,
-    "image": "pot.png",
-    "name": "One-way alarm",
+    "image": "wakeup_potion.png",
+    "name": "Wake-up potion",
     "price": 25,
     "effects": [
       {
