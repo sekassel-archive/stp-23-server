@@ -70,7 +70,7 @@ export class ItemService {
       {$inc: {amount: dto.amount}},
       {upsert: true, new: true, setDefaultsOnInsert: true}
     );
-    this.emit('created', created);
+    this.emit('updated', created);
     return created;
   }
 
