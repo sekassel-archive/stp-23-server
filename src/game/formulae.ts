@@ -28,10 +28,12 @@ export const relativeStrengthMultiplier = (current: Monster, target: Monster): n
 }
 
 export const catchChanceBonus = (target: Monster) => {
-  // TODO consider status bonus
   // 90% health => (1-0.9)^3 = 0.1% bonus
   // 50% health => (1-0.5)^3 = 12.5% bonus
   // 10% health => (1-0.1)^3 = 73% bonus
   // 5% health => (1-0.05)^3 = 86.4% bonus
-  return (1 - target.currentAttributes.health / target.attributes.health) ** 3;
+  const healthBonus = (1 - target.currentAttributes.health / target.attributes.health) ** 3;
+  // each status condition adds 25% bonus
+  const statusBonus = target.status.length * 0.25;
+  return healthBonus + statusBonus;
 }
