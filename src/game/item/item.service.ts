@@ -44,9 +44,6 @@ export class ItemService {
 
     let moneyChange = 0;
     if (dto.amount > 0) { // buy
-      if (price < 0) {
-        throw new ForbiddenException('This item cannot be bought');
-      }
       if (!filteredTrainers.some(t => t.npc?.sells?.includes(dto.type))) {
         throw new ForbiddenException('The merchant does not sell this item');
       }
