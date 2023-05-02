@@ -30,6 +30,7 @@
     "price": 20,
     "effects": [],
     "description": "A ball for catching monsters.",
+    "use": "ball",
     "catch": {
       "*": 0.1
     }
@@ -41,6 +42,7 @@
     "price": 50,
     "effects": [],
     "description": "An improved ball for catching monsters. Better than the Monball.",
+    "use": "ball",
     "catch": {
       "*": 0.25
     }
@@ -52,6 +54,7 @@
     "price": 100,
     "effects": [],
     "description": "An advanced ball for catching monsters. Better than the Superball.",
+    "use": "ball",
     "catch": {
       "*": 0.5
     }
@@ -63,6 +66,7 @@
     "price": 1000,
     "effects": [],
     "description": "The best ball for catching monsters, with guaranteed success. Better than the Hyperball.",
+    "use": "ball",
     "catch": {
       "*": 1
     }
@@ -74,6 +78,7 @@
     "price": 50,
     "effects": [],
     "description": "A special ball for catching water and bug monsters.",
+    "use": "ball",
     "catch": {
       "water": 0.3,
       "bug": 0.3
@@ -86,6 +91,7 @@
     "price": 40,
     "effects": [],
     "description": "A special ball for that weakens fire monsters and attracts grass monsters.",
+    "use": "ball",
     "catch": {
       "fire": 0.2,
       "grass": 0.3
@@ -96,6 +102,7 @@
     "image": "chocolate.png",
     "name": "Chocolate bar",
     "price": 2,
+    "use": "effect",
     "effects": [
       {
         "attribute": "health",
@@ -109,6 +116,7 @@
     "image": "chicken.png",
     "name": "Chicken leg",
     "price": 10,
+    "use": "effect",
     "effects": [
       {
         "attribute": "health",
@@ -122,6 +130,7 @@
     "image": "pot.png",
     "name": "Small health potion",
     "price": 50,
+    "use": "effect",
     "effects": [
       {
         "attribute": "health",
@@ -135,6 +144,7 @@
     "image": "pot_gold.png",
     "name": "Large health potion",
     "price": 80,
+    "use": "effect",
     "effects": [
       {
         "attribute": "health",
@@ -148,6 +158,7 @@
     "image": "package.png",
     "name": "Mystery box",
     "price": 250,
+    "use": "simple",
     "effects": [],
     "description": "A mysterious package. What item is in it?"
   },
@@ -156,6 +167,7 @@
     "image": "present_1.png",
     "name": "Monbox",
     "price": 250,
+    "use": "simple",
     "effects": [],
     "description": "A mysterious box containing a standard monster."
   },
@@ -164,6 +176,7 @@
     "image": "present_2.png",
     "name": "Monbox Premium",
     "price": 500,
+    "use": "simple",
     "effects": [],
     "description": "A mysterious box containing a premium monster."
   },
@@ -172,6 +185,7 @@
     "image": "present_3.png",
     "name": "Monbox Elite",
     "price": 1000,
+    "use": "simple",
     "effects": [],
     "description": "A mysterious box containing an elite monster."
   },
@@ -180,6 +194,7 @@
     "image": "god_potion.png",
     "name": "God potion",
     "price": 150,
+    "use": "effect",
     "effects": [
       {
         "status": "paralysed",
@@ -213,6 +228,7 @@
     "image": "paralysis_remedy.png",
     "name": "Paralysis Remedy",
     "price": 25,
+    "use": "effect",
     "effects": [
       {
         "status": "paralysed",
@@ -226,6 +242,7 @@
     "image": "mind_calmer.png",
     "name": "Mind Calmer",
     "price": 25,
+    "use": "effect",
     "effects": [
       {
         "status": "confused",
@@ -239,6 +256,7 @@
     "image": "antifreeze.png",
     "name": "Antifreeze",
     "price": 25,
+    "use": "effect",
     "effects": [
       {
         "status": "frozen",
@@ -252,6 +270,7 @@
     "image": "antidote.png",
     "name": "Antidote",
     "price": 25,
+    "use": "effect",
     "effects": [
       {
         "status": "poisoned",
@@ -265,6 +284,7 @@
     "image": "extinguisher.png",
     "name": "Extinguisher",
     "price": 25,
+    "use": "effect",
     "effects": [
       {
         "status": "burned",
@@ -278,6 +298,7 @@
     "image": "wakeup_potion.png",
     "name": "Wake-up potion",
     "price": 25,
+    "use": "effect",
     "effects": [
       {
         "status": "asleep",
