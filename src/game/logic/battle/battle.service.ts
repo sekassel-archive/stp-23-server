@@ -97,7 +97,7 @@ export class BattleService {
       const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker);
       const target = targets.random();
       let monster = opponent.monster && await this.monsterService.findOne(opponent.monster);
-      if (!monster || monster.currentAttributes.health > 0) {
+      if (!monster || monster.currentAttributes.health <= 0) {
         if (opponent.trainer === TALL_GRASS_TRAINER) {
           continue;
         }
