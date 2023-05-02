@@ -31,6 +31,8 @@ export class ItemType {
   @ApiProperty()
   description: string;
 
+  // TODO use?: UseType enum {simple, ball, potion}
+
   // @ApiProperty()
   effects: Effect[];
 
