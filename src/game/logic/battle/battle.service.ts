@@ -224,7 +224,7 @@ export class BattleService {
   }
 
   private playAbility(currentOpponent: OpponentDocument, currentMonster: MonsterDocument, ability: Ability, targetMonster: MonsterDocument, targetOpponent: OpponentDocument) {
-    const multiplier = this.getAttackMultiplier(targetMonster, ability.type as Type, currentMonster);
+    const multiplier = this.getAttackMultiplier(currentMonster, ability.type as Type, targetMonster);
 
     for (const value of ability.effects) {
       if (value.chance == null || Math.random() <= value.chance) {
