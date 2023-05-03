@@ -4,11 +4,11 @@ import {Types} from 'mongoose';
 import {
   abilities,
   Ability,
-  AttributeEffect,
+  AttributeEffect, MonsterType,
   monsterTypes,
   Result,
   TALL_GRASS_TRAINER,
-  Type,
+  Type, TypeDefinition,
   types,
 } from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
@@ -27,6 +27,7 @@ import {MonsterService} from '../../monster/monster.service';
 import {Move, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
+import * as constants from "constants";
 
 @Injectable()
 export class BattleService {
@@ -108,17 +109,60 @@ export class BattleService {
         if (!liveMonsters.length) {
           continue;
         }
-        // TODO select monster based on type
-        monster = liveMonsters.random();
+
+        monster = this.findNPCnextMonster(liveMonsters, target);
         opponent.monster = monster._id.toString();
       }
+
       opponent.move = {
         type: 'ability',
         target: target.trainer,
-        // TODO select ability based on monster type
-        ability: +Object.keys(monster.abilities).random(),
+        ability: this.findNPCAbility(monster, target),
       };
     }
+  }
+
+  private findNPCAbility(monster: MonsterDocument, target: OpponentDocument) : number {
+    const enemyTypes = (monsterTypes.find(mt => mt.id.toString() === target.monster) || {type: ["normal"]}).type;
+    const attackAbilities = Object.keys(monster.abilities).map(ab => abilities.find(a => a.id.toString() === ab) as Ability);
+
+    let chosenAbilityID = -1;
+    let maxSum = -1;
+    attackAbilities.forEach(ab => {
+      const attackDamage = (ab.effects[0] as any).amount != null ? (ab.effects[0] as any).amount : 0;
+      const sameTypeMultiplier =  monsterTypes[monster.type].type.findIndex(t => t === ab.type) !== -1 ? SAME_TYPE_ATTACK_MULTIPLIER : 0;
+      const attackMultiplier = 1; //TODO: Get attack multiplier with enemyTypes
+      const attackUsesLeft = monster.abilities[ab.id];
+
+      const attackSum = (attackDamage + attackUsesLeft) * (sameTypeMultiplier + attackMultiplier);
+
+      if(maxSum < attackSum) {
+        maxSum = attackSum;
+        chosenAbilityID = ab.id;
+      }
+    });
+
+    return chosenAbilityID;
+  }
+
+  private findNPCnextMonster(liveMonster : MonsterDocument[], target: OpponentDocument) : MonsterDocument {
+    const enemyTypes = (monsterTypes.find(mt => mt.id.toString() === target.monster) || {type: ["normal"]}).type;
+
+    let chosenMonster = liveMonster[0];
+    let maxSum = -1;
+    liveMonster.forEach(m => {
+      const monsterLevel = m.level;
+      const monsterType = 1; //TODO: Get attack multiplier for type with enemyTypes
+
+      const monsterSum = monsterLevel * monsterType;
+
+      if(maxSum < monsterSum || (maxSum === monsterSum && Math.random() > 0.5)){
+        chosenMonster = m;
+        maxSum = monsterSum;
+      }
+    });
+
+    return chosenMonster;
   }
 
   async playRound(opponents: OpponentDocument[]): Promise<void> {
