@@ -134,7 +134,12 @@ export class BattleService {
         continue;
       }
 
-      const attackDamage = ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0;
+      const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
+      if (!attackDamage) {
+        // TODO support other effects
+        continue;
+      }
+
       const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
       const attackSum = attackDamage * attackMultiplier;
 
