@@ -112,6 +112,7 @@ export class BattleService {
         monster = liveMonsters.random();
         opponent.monster = monster._id.toString();
       }
+      opponent.results = [];
       opponent.move = {
         type: 'ability',
         target: target.trainer,
