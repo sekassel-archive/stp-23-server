@@ -98,6 +98,23 @@
     }
   },
   {
+    "id": 16,
+    "image": "ball.png",
+    "name": "Healball",
+    "description": "A special ball that heals the monster after being caught. Comparable to the Superball.",
+    "price": 75,
+    "use": "ball",
+    "catch": {
+      "*": 0.25
+    },
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 100
+      }
+    ]
+  },
+  {
     "id": 20,
     "image": "chocolate.png",
     "name": "Chocolate bar",
