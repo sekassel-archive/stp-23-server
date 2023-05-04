@@ -94,9 +94,10 @@ export class ItemService {
         if (monster.trainer !== TALL_GRASS_TRAINER) {
           throw new ForbiddenException('Monster is not wild');
         }
-        this.useBall(trainer, itemType, monster);
-        // balls may have effects
-        await this.monsterService.applyEffects(monster, itemType.effects);
+        if (this.useBall(trainer, itemType, monster)) {
+          // balls may have effects
+          await this.monsterService.applyEffects(monster, itemType.effects);
+        }
         break;
       case 'effect':
         if (!monster) {
@@ -112,14 +113,16 @@ export class ItemService {
     return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}}, {new: true}).exec();
   }
 
-  private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument) {
+  private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument): boolean {
     const monsterType = monsterTypes.find(o => o.id === monster.type);
     // take either the default catch chance ('*') or the best catch chance for the monster's types
     const chance = Math.max(itemType.catch?.['*'] || 0, ...monsterType?.type.map(type => itemType.catch?.[type as Type] || 0) || []);
     const chanceBonus = catchChanceBonus(monster);
     if (chance && Math.random() < chance + chanceBonus) {
       monster.trainer = trainer;
+      return true;
     }
+    return false;
   }
 
   async getStarterItems(trainer: Trainer, type: number, amount = 1): Promise<Item | null> {
