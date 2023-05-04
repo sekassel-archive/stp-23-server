@@ -109,7 +109,7 @@ export class ItemService {
         break;
     }
 
-    return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}});
+    return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}}, {new: true}).exec();
   }
 
   private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument) {
