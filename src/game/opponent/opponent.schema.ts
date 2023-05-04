@@ -58,7 +58,7 @@ export class UseItemMove {
 export type Move = AbilityMove | ChangeMonsterMove | UseItemMove;
 
 @Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
-@ApiExtraModels(AbilityMove, ChangeMonsterMove)
+@ApiExtraModels(AbilityMove, ChangeMonsterMove, UseItemMove)
 export class Opponent extends GlobalSchemaWithoutID {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
