@@ -1,12 +1,13 @@
 import {InjectModel} from "@nestjs/mongoose";
 import {FilterQuery, Model} from "mongoose";
 import {catchChanceBonus} from '../formulae';
+import {Monster, MonsterDocument} from '../monster/monster.schema';
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {UpdateItemDto} from "./item.dto";
 import {BadRequestException, ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {Trainer} from "../trainer/trainer.schema";
-import {itemTypes, monsterTypes, TALL_GRASS_TRAINER, Type} from '../constants';
+import {ItemType, itemTypes, monsterTypes, TALL_GRASS_TRAINER, Type} from '../constants';
 import {TrainerService} from "../trainer/trainer.service";
 import {MonsterService} from "../monster/monster.service";
 
@@ -71,7 +72,7 @@ export class ItemService {
     return created;
   }
 
-  async useItem(trainer: string, type: number, target: string): Promise<Item | null> {
+  async useItem(trainer: string, type: number, monster: MonsterDocument | null | undefined): Promise<Item | null> {
     const item = await this.findOne(trainer, type);
     if (!item || !item.amount) {
       throw new NotFoundException('Item not found');
@@ -81,26 +82,44 @@ export class ItemService {
     if (!itemType) {
       throw new BadRequestException('Invalid item type');
     }
-    const monster = await this.monsterService.findOne(target);
-    if (!monster) {
-      throw new NotFoundException(`Monster ${target} not found`);
+
+    switch (itemType.use) {
+      case 'simple':
+        // TODO add special effects
+        break;
+      case 'ball':
+        if (!monster) {
+          throw new NotFoundException('Monster not found');
+        }
+        if (monster.trainer !== TALL_GRASS_TRAINER) {
+          throw new ForbiddenException('Monster is not wild');
+        }
+        this.useBall(trainer, itemType, monster);
+        // balls may have effects
+        await this.monsterService.applyEffects(monster, itemType.effects);
+        break;
+      case 'effect':
+        if (!monster) {
+          throw new NotFoundException('Monster not found');
+        }
+        if (monster.trainer !== trainer) {
+          throw new ForbiddenException('You are not the owner of this monster');
+        }
+        await this.monsterService.applyEffects(monster, itemType.effects);
+        break;
     }
 
-    if (itemType.catch) {
-      if (monster.trainer !== TALL_GRASS_TRAINER) {
-        throw new ForbiddenException('Monster is not wild');
-      }
-      const monsterType = monsterTypes.find(o => o.id === monster.type);
-      // take either the default catch chance ('*') or the best catch chance for the monster's types
-      const chance = Math.max(itemType.catch['*'] || 0, ...monsterType?.type.map(type => itemType.catch?.[type as Type] || 0) || []);
-      const chanceBonus = catchChanceBonus(monster);
-      if (chance && Math.random() < chance + chanceBonus) {
-        monster.trainer = trainer;
-      }
-    }
-
-    await this.monsterService.applyEffects(monster, itemType.effects);
     return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}});
+  }
+
+  private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument) {
+    const monsterType = monsterTypes.find(o => o.id === monster.type);
+    // take either the default catch chance ('*') or the best catch chance for the monster's types
+    const chance = Math.max(itemType.catch?.['*'] || 0, ...monsterType?.type.map(type => itemType.catch?.[type as Type] || 0) || []);
+    const chanceBonus = catchChanceBonus(monster);
+    if (chance && Math.random() < chance + chanceBonus) {
+      monster.trainer = trainer;
+    }
   }
 
   async getStarterItems(trainer: Trainer, type: number, amount = 1): Promise<Item | null> {

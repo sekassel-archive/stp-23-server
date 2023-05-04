@@ -16,6 +16,7 @@ import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
 import {itemTypes} from '../constants';
+import {MonsterService} from '../monster/monster.service';
 import {TrainerService} from '../trainer/trainer.service';
 import {UpdateItemDto} from './item.dto';
 import {Item} from './item.schema';
@@ -31,6 +32,7 @@ export class ItemController {
   constructor(
     private readonly itemService: ItemService,
     private readonly trainerService: TrainerService,
+    private readonly monsterService: MonsterService,
   ) {
   }
 
@@ -60,10 +62,10 @@ export class ItemController {
       if (amount !== 1) {
         throw new BadRequestException('Amount must be exactly 1 when using items');
       }
-      if (!dto.monster) {
-        throw new BadRequestException('You must specify a monster when using items');
-      }
-      return this.itemService.useItem(trainer._id.toString(), dto.type, dto.monster);
+      const monster = dto.monster ? await this.monsterService.findOne(dto.monster) : null;
+      const result = await this.itemService.useItem(trainer._id.toString(), dto.type, monster);
+      monster && await this.monsterService.saveMany([monster]);
+      return result;
     }
     return this.itemService.updateOne(trainer, dto);
   }

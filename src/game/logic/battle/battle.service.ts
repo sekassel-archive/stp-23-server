@@ -223,8 +223,13 @@ export class BattleService {
 
         this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
       } else if (move.type === 'use-item') {
+        const monsterInBattle = monsters.find(m => m._id.equals(move.target));
+        const trainerMonster = monsterInBattle ? undefined : await this.monsterService.findOne(move.target);
         try {
-          await this.itemService.useItem(opponent.trainer, move.item, move.target);
+          await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
+          if (trainerMonster) {
+            await this.monsterService.saveMany([trainerMonster]);
+          }
           opponent.results = ['item-use-success'];
         } catch (err) {
           opponent.results = ['item-use-failed'];
