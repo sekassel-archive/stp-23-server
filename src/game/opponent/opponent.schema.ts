@@ -90,7 +90,7 @@ export class Opponent extends GlobalSchemaWithoutID {
 
   @Prop({type: Object})
   @ApiProperty({
-    oneOf: refs(AbilityMove, ChangeMonsterMove),
+    oneOf: refs(AbilityMove, ChangeMonsterMove, UseItemMove),
     description: 'Patch this value to make your move. ' +
       'Once all players have made a move, the server will make a move for all NPCs. ' +
       'After that, the server will play the round and reset all moves to undefined. ' +
