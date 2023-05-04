@@ -34,6 +34,7 @@ export class OpponentService {
         ...dto,
         encounter,
         trainer,
+        results: [],
       });
       created && this.emit('created', created);
       return created;
@@ -45,7 +46,7 @@ export class OpponentService {
     }
   }
 
-  async updateOne(encounter: string, trainer: string, dto: UpdateOpponentDto | UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
+  async updateOne(encounter: string, trainer: string, dto: UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
     const current = await this.findOne(encounter, trainer);
     if (dto.monster) {
       // Changing the monster happens immediately
@@ -72,6 +73,9 @@ export class OpponentService {
         throw new UnprocessableEntityException(`Monster ${dto.move.monster} is dead`);
       }
       dto.monster = dto.move.monster;
+    }
+    if (dto.move) {
+      dto.results = [];
     }
     const updated = await this.model.findOneAndUpdate({encounter, trainer}, dto, {new: true}).exec();
     updated && this.emit('updated', updated);

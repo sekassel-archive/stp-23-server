@@ -4,11 +4,11 @@ import {Types} from 'mongoose';
 import {
   abilities,
   Ability,
-  AttributeEffect,
+  AttributeEffect, MonsterType,
   monsterTypes,
   Result,
   TALL_GRASS_TRAINER,
-  Type,
+  Type, TypeDefinition,
   types,
 } from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
@@ -28,6 +28,7 @@ import {MonsterService} from '../../monster/monster.service';
 import {Move, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
+import * as constants from "constants";
 
 @Injectable()
 export class BattleService {
@@ -96,8 +97,9 @@ export class BattleService {
         continue;
       }
 
-      const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker);
+      const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker && o.monster);
       const target = targets.random();
+      const targetMonster = target.monster && await this.monsterService.findOne(target.monster);
       let monster = opponent.monster && await this.monsterService.findOne(opponent.monster);
       if (!monster || monster.currentAttributes.health <= 0) {
         if (opponent.trainer === TALL_GRASS_TRAINER) {
@@ -110,17 +112,64 @@ export class BattleService {
         if (!liveMonsters.length) {
           continue;
         }
-        // TODO select monster based on type
-        monster = liveMonsters.random();
+
+        monster = this.findNPCnextMonster(liveMonsters, targetMonster || undefined);
         opponent.monster = monster._id.toString();
       }
+      opponent.results = [];
       opponent.move = {
         type: 'ability',
         target: target.trainer,
-        // TODO select ability based on monster type
-        ability: +Object.keys(monster.abilities).random(),
+        ability: targetMonster ? this.findNPCAbility(monster, targetMonster) : -1,
       };
     }
+  }
+
+  private findNPCAbility(attacker: MonsterDocument, target: MonsterDocument) : number {
+    const attackAbilities = Object.keys(attacker.abilities).map(ab => abilities.find(a => a.id.toString() === ab) as Ability);
+
+    let chosenAbilityID = -1;
+    let maxSum = -1;
+    for (const ab of attackAbilities) {
+      const attackUsesLeft = attacker.abilities[ab.id];
+      if (attackUsesLeft <= 0) {
+        continue;
+      }
+
+      const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
+      if (!attackDamage) {
+        // TODO support other effects
+        continue;
+      }
+
+      const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
+      const attackSum = attackDamage * attackMultiplier;
+
+      if(maxSum < attackSum) {
+        maxSum = attackSum;
+        chosenAbilityID = ab.id;
+      }
+    }
+
+    return chosenAbilityID;
+  }
+
+  private findNPCnextMonster(liveMonster : MonsterDocument[], target?: MonsterDocument) : MonsterDocument {
+    let chosenMonster = liveMonster[0];
+    let maxSum = -1;
+    for (const monster of liveMonster) {
+      const monsterLevel = monster.level;
+      const types = monsterTypes.find(t => t.id === monster.type)?.type as Type[] || [];
+      const monsterTypeMultiplier = target ? Math.max(1, ...types.map(t => this.getAttackMultiplier(monster, t, target))) : 1;
+      const monsterSum = monsterLevel * monsterTypeMultiplier;
+
+      if(maxSum < monsterSum || (maxSum === monsterSum && Math.random() > 0.5)){
+        chosenMonster = monster;
+        maxSum = monsterSum;
+      }
+    }
+
+    return chosenMonster;
   }
 
   async playRound(opponents: OpponentDocument[]): Promise<void> {
@@ -187,17 +236,7 @@ export class BattleService {
   }
 
   private playAbility(currentOpponent: OpponentDocument, currentMonster: MonsterDocument, ability: Ability, targetMonster: MonsterDocument, targetOpponent: OpponentDocument) {
-    const abilityType = ability.type as Type;
-    const type = types[abilityType];
-    let multiplier = 1;
-    const targetTypes = (monsterTypes.find(m => m.id === targetMonster.type)?.type || []) as Type[];
-    for (const targetType of targetTypes) {
-      multiplier *= type?.multipliers?.[targetType] || 1;
-    }
-    const currentTypes = (monsterTypes.find(m => m.id === currentMonster.type)?.type || []) as Type[];
-    if (currentTypes.includes(abilityType)) {
-      multiplier *= SAME_TYPE_ATTACK_MULTIPLIER;
-    }
+    const multiplier = this.getAttackMultiplier(currentMonster, ability.type as Type, targetMonster);
 
     for (const value of ability.effects) {
       if (value.chance == null || Math.random() <= value.chance) {
@@ -225,6 +264,21 @@ export class BattleService {
         this.gainExp(currentOpponent, currentMonster, targetMonster);
       }
     }
+  }
+
+  private getAttackMultiplier(attacker: MonsterDocument, abilityType: Type, defender: MonsterDocument) {
+    const type = types[abilityType];
+
+    let multiplier = 1;
+    const targetTypes = (monsterTypes.find(m => m.id === defender.type)?.type || []) as Type[];
+    for (const targetType of targetTypes) {
+      multiplier *= type?.multipliers?.[targetType] || 1;
+    }
+    const currentTypes = (monsterTypes.find(m => m.id === attacker.type)?.type || []) as Type[];
+    if (currentTypes.includes(abilityType)) {
+      multiplier *= SAME_TYPE_ATTACK_MULTIPLIER;
+    }
+    return multiplier;
   }
 
   private applyAttributeEffect(value: AttributeEffect, currentMonster: MonsterDocument, targetMonster: MonsterDocument, multiplier: number) {

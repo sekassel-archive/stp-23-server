@@ -110,7 +110,7 @@ export class Opponent extends GlobalSchemaWithoutID {
   })
   move?: Move;
 
-  @Prop()
+  @Prop({default: true})
   @ApiProperty({
     enum: RESULTS,
     isArray: true,
