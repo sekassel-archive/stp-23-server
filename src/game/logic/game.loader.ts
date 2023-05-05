@@ -33,7 +33,7 @@ export class GameLoader implements OnModuleInit {
       const region = await this.regionService.findByNameOrCreate(regionName);
       region.map = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
 
-      const spawn = JSON.parse(getProperty<string>(region.map, 'spawn') || '{}');
+      const spawn = JSON.parse(getProperty<string>(region.map, 'Spawn') || '{}');
 
       for (const areaFileName of await fs.readdir(`./assets/maps/${regionName}/`).catch(() => [])) {
         const area = await this.loadArea(areaFileName, region);
