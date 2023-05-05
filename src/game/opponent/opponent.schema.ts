@@ -4,7 +4,7 @@ import {Type} from 'class-transformer';
 import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities} from '../constants';
+import {abilities, itemTypes} from '../constants';
 
 @Schema()
 export class AbilityMove {
@@ -59,6 +59,7 @@ export type Move = AbilityMove | ChangeMonsterMove | UseItemMove;
 
 export const RESULTS_WITH_DESCRIPTION = {
   'ability-success': 'The ability was successful',
+  'item-success': 'The item was used successfully',
   'target-defeated': 'The target monster was defeated',
   'monster-defeated': 'The monster was defeated',
   'monster-levelup': 'The monster leveled up',
@@ -68,6 +69,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   'monster-dead': 'The monster is dead',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
   'ability-no-uses': 'The monster doesn\'t have any uses left for the ability',
+  'item-failed': 'The item use failed',
   'target-unknown': 'The target trainer does not exist or has fled',
   'target-dead': 'The target monster is already dead',
 } as const;
@@ -95,6 +97,12 @@ export class Result {
   @IsOptional()
   @IsIn(EFFECTIVENESS)
   effectiveness?: Effectiveness;
+
+  @ApiPropertyOptional({description: 'For `item-*`.'})
+  @IsOptional()
+  @IsInt()
+  @IsIn(itemTypes.map(i => i.id))
+  item?: number;
 }
 
 @Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)

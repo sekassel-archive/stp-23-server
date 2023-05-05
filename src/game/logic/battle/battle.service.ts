@@ -221,9 +221,9 @@ export class BattleService {
           if (trainerMonster) {
             await this.monsterService.saveMany([trainerMonster]);
           }
-          opponent.results = ['item-use-success'];
+          opponent.results = [{type: 'item-success', item: move.item}];
         } catch (err) {
-          opponent.results = ['item-use-failed'];
+          opponent.results = [{type: 'item-failed', item: move.item}];
         }
       }
     }
