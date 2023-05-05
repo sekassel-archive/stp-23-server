@@ -4,7 +4,7 @@ import {Type} from 'class-transformer';
 import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities, Result, RESULTS, RESULTS_WITH_DESCRIPTION} from '../constants';
+import {abilities} from '../constants';
 
 @Schema()
 export class AbilityMove {
@@ -39,6 +39,46 @@ export class ChangeMonsterMove {
 
 export type Move = AbilityMove | ChangeMonsterMove;
 
+export const RESULTS_WITH_DESCRIPTION = {
+  'ability-success': 'The ability was successful',
+  'target-defeated': 'The target monster was defeated',
+  'monster-defeated': 'The monster was defeated',
+  'monster-levelup': 'The monster leveled up',
+  'monster-evolved': 'The monster evolved',
+  'monster-learned': 'The monster learned a new ability',
+  // Error cases
+  'monster-dead': 'The monster is dead',
+  'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
+  'ability-no-uses': 'The monster doesn\'t have any uses left for the ability',
+  'target-unknown': 'The target trainer does not exist or has fled',
+  'target-dead': 'The target monster is already dead',
+} as const;
+
+export const RESULTS = Object.keys(RESULTS_WITH_DESCRIPTION);
+
+export const EFFECTIVENESS = ['super-effective', 'effective', 'normal', 'ineffective', 'no-effect'] as const;
+export type Effectiveness = typeof EFFECTIVENESS[number];
+
+export class Result {
+  @ApiProperty({
+    enum: RESULTS,
+    description: Object.entries(RESULTS_WITH_DESCRIPTION).map(([key, value]) => `- ${key}: ${value}`).join('\n'),
+  })
+  @IsIn(RESULTS)
+  type: keyof typeof RESULTS_WITH_DESCRIPTION;
+
+  @ApiPropertyOptional({description: 'For `ability-*` and `monster-learned`.'})
+  @IsOptional()
+  @IsInt()
+  @IsIn(abilities.map(a => a.id))
+  ability?: number;
+
+  @ApiPropertyOptional({description: 'For `ability-success`.', enum: EFFECTIVENESS})
+  @IsOptional()
+  @IsIn(EFFECTIVENESS)
+  effectiveness?: Effectiveness;
+}
+
 @Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
 @ApiExtraModels(AbilityMove, ChangeMonsterMove)
 export class Opponent extends GlobalSchemaWithoutID {
@@ -63,9 +103,11 @@ export class Opponent extends GlobalSchemaWithoutID {
   isNPC: boolean;
 
   @Prop()
-  @ApiPropertyOptional({...MONGO_ID_FORMAT, description: 'Can be patched when set to undefined/null. ' +
+  @ApiPropertyOptional({
+    ...MONGO_ID_FORMAT, description: 'Can be patched when set to undefined/null. ' +
       'This happens after the monster died. ' +
-      'You can then patch a new monster ID to change the monster without expending your move.'})
+      'You can then patch a new monster ID to change the monster without expending your move.',
+  })
   @IsOptional()
   @IsMongoId()
   monster?: string;
@@ -92,12 +134,7 @@ export class Opponent extends GlobalSchemaWithoutID {
   move?: Move;
 
   @Prop({default: true})
-  @ApiProperty({
-    enum: RESULTS,
-    isArray: true,
-    description: 'The results of the last round.\n\n' +
-      Object.entries(RESULTS_WITH_DESCRIPTION).map(([key, value]) => `- ${key}: ${value}`).join('\n'),
-  })
+  @ApiProperty({type: [Result], description: 'The results of the last round.'})
   @IsArray()
   @IsIn(RESULTS, {each: true})
   results: Result[];
