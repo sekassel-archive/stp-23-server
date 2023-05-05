@@ -1,8 +1,9 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty, PickType} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {IsNotEmpty, MaxLength, ValidateNested} from 'class-validator';
+import {IsNotEmpty, IsObject, MaxLength, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
+import {TiledMap} from '../game/tiled-map.interface';
 import {MoveTrainerDto} from '../game/trainer/trainer.dto';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema} from '../util/schema';
 
@@ -22,6 +23,11 @@ export class Region extends GlobalSchema {
   @ValidateNested()
   @Type(() => Spawn)
   spawn: Spawn;
+
+  @Prop()
+  @ApiProperty()
+  @IsObject()
+  map: TiledMap;
 }
 
 export type RegionDocument = Region & Document<Types.ObjectId, any, Region>;
