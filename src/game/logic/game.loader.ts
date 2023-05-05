@@ -35,14 +35,17 @@ export class GameLoader implements OnModuleInit {
       }
 
       const region = await this.regionService.findByNameOrCreate(regionName);
-      const regionMeta = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
+      region.map = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
+
+      const spawn = JSON.parse(getProperty<string>(region.map, 'Spawn') || '{}');
+
       for (const areaFileName of await fs.readdir(`./assets/maps/${regionName}/`).catch(() => [])) {
         const area = await this.loadArea(areaFileName, region);
-        if (regionMeta.spawn.area === area.name) {
+        if (spawn.area === area.name) {
           region.spawn = {
             area: area._id.toString(),
-            x: regionMeta.spawn.x,
-            y: regionMeta.spawn.y,
+            x: spawn.x,
+            y: spawn.y,
           };
         }
       }
