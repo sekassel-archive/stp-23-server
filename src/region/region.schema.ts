@@ -24,7 +24,7 @@ export class Region extends GlobalSchema {
   @Type(() => Spawn)
   spawn: Spawn;
 
-  @Prop()
+  @Prop({type: Object})
   @ApiProperty()
   @IsObject()
   map: TiledMap;
