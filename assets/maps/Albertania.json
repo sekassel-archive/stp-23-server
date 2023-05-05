@@ -367,7 +367,7 @@
                 {
                  "height":36,
                  "id":28,
-                 "name":"Giulaxen",
+                 "name":"Giolaxen",
                  "properties":[
                         {
                          "name":"Description",
@@ -948,7 +948,7 @@
                         {
                          "name":"Description",
                          "type":"string",
-                         "value":"A long road that travels between a forest and grasslands. Bandits often rob the fish merchants traveling back to Giulaxen with their gains."
+                         "value":"A long road that travels between a forest and grasslands. Bandits often rob the fish merchants traveling back to Giolaxen with their gains."
                         }],
                  "rotation":0,
                  "type":"Route",
