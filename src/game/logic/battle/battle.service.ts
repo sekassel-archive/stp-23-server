@@ -1,16 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
-import {
-  abilities,
-  Ability,
-  AttributeEffect, MonsterType,
-  monsterTypes,
-  Result,
-  TALL_GRASS_TRAINER,
-  Type, TypeDefinition,
-  types,
-} from '../../constants';
+import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
   attackGain,
@@ -18,17 +9,17 @@ import {
   EVOLUTION_LEVELS,
   expGain,
   expRequired,
-  healthGain, relativeStrengthMultiplier,
+  healthGain,
+  relativeStrengthMultiplier,
   SAME_TYPE_ATTACK_MULTIPLIER,
   speedGain,
 } from '../../formulae';
 import {ItemService} from '../../item/item.service';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
-import {Move, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
+import {Effectiveness, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
-import * as constants from "constants";
 
 @Injectable()
 export class BattleService {
@@ -125,7 +116,7 @@ export class BattleService {
     }
   }
 
-  private findNPCAbility(attacker: MonsterDocument, target: MonsterDocument) : number {
+  private findNPCAbility(attacker: MonsterDocument, target: MonsterDocument): number {
     const attackAbilities = Object.keys(attacker.abilities).map(ab => abilities.find(a => a.id.toString() === ab) as Ability);
 
     let chosenAbilityID = -1;
@@ -145,7 +136,7 @@ export class BattleService {
       const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
       const attackSum = attackDamage * attackMultiplier;
 
-      if(maxSum < attackSum) {
+      if (maxSum < attackSum) {
         maxSum = attackSum;
         chosenAbilityID = ab.id;
       }
@@ -154,7 +145,7 @@ export class BattleService {
     return chosenAbilityID;
   }
 
-  private findNPCnextMonster(liveMonster : MonsterDocument[], target?: MonsterDocument) : MonsterDocument {
+  private findNPCnextMonster(liveMonster: MonsterDocument[], target?: MonsterDocument): MonsterDocument {
     let chosenMonster = liveMonster[0];
     let maxSum = -1;
     for (const monster of liveMonster) {
@@ -163,7 +154,7 @@ export class BattleService {
       const monsterTypeMultiplier = target ? Math.max(1, ...types.map(t => this.getAttackMultiplier(monster, t, target))) : 1;
       const monsterSum = monsterLevel * monsterTypeMultiplier;
 
-      if(maxSum < monsterSum || (maxSum === monsterSum && Math.random() > 0.5)){
+      if (maxSum < monsterSum || (maxSum === monsterSum && Math.random() > 0.5)) {
         chosenMonster = monster;
         maxSum = monsterSum;
       }
@@ -190,34 +181,34 @@ export class BattleService {
       }
       if (move.type === 'ability') {
         if (monster.currentAttributes.health <= 0) {
-          opponent.results = ['monster-dead'];
+          opponent.results = [{type: 'monster-dead'}];
           continue;
         }
 
         if (!(move.ability in monster.abilities)) {
-          opponent.results = ['ability-unknown'];
+          opponent.results = [{type: 'ability-unknown', ability: move.ability}];
           continue;
         }
         const ability = abilities.find(a => a.id === move.ability);
         if (!ability) {
-          opponent.results = ['ability-unknown'];
+          opponent.results = [{type: 'ability-unknown'}];
           continue;
         }
 
         const targetMonster = monsters.find(m => m.trainer === move.target);
         const targetOpponent = opponents.find(o => o.trainer === move.target);
         if (!targetMonster || !targetOpponent) {
-          opponent.results = ['target-unknown'];
+          opponent.results = [{type: 'target-unknown'}];
           continue;
         }
 
         if (targetMonster.currentAttributes.health <= 0) {
-          opponent.results = ['target-dead'];
+          opponent.results = [{type: 'target-dead'}];
           continue;
         }
 
         if (monster.abilities[move.ability] <= 0) {
-          opponent.results = ['ability-no-uses'];
+          opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
           continue;
         }
 
@@ -255,15 +246,18 @@ export class BattleService {
       }
     }
 
-    currentOpponent.results.push(this.abilityResult(multiplier));
+    currentOpponent.results.push({
+      type: 'ability-success', ability: ability.id,
+      effectiveness: this.abilityEffectiveness(multiplier),
+    });
 
     currentMonster.abilities[ability.id] -= 1;
     currentMonster.markModified('abilities');
 
     if (currentMonster.currentAttributes.health <= 0) {
-      currentOpponent.results.push('monster-defeated');
+      currentOpponent.results.push({type: 'monster-defeated'});
     } else if (targetMonster.currentAttributes.health <= 0) {
-      currentOpponent.results.push('target-defeated');
+      currentOpponent.results.push({type: 'target-defeated'});
       targetOpponent.monster = undefined;
       if (!currentOpponent.isNPC) {
         this.gainExp(currentOpponent, currentMonster, targetMonster);
@@ -302,17 +296,17 @@ export class BattleService {
     effectTarget.markModified(`currentAttributes.${attribute}`);
   }
 
-  private abilityResult(multiplier: number): Result {
+  private abilityEffectiveness(multiplier: number): Effectiveness {
     if (multiplier === 0) {
-      return 'ability-no-effect';
+      return 'no-effect';
     } else if (multiplier >= 2) {
-      return 'ability-super-effective';
+      return 'super-effective';
     } else if (multiplier > 1) {
-      return 'ability-effective';
+      return 'effective';
     } else if (multiplier < 1) {
-      return 'ability-ineffective';
+      return 'ineffective';
     } else {
-      return 'ability-normal';
+      return 'normal';
     }
   }
 
@@ -332,7 +326,7 @@ export class BattleService {
   }
 
   private levelUp(opponent: OpponentDocument, currentMonster: MonsterDocument) {
-    opponent.results.push('monster-levelup');
+    opponent.results.push({type: 'monster-levelup'});
 
     currentMonster.level++;
     const health = healthGain(currentMonster.level);
@@ -361,7 +355,7 @@ export class BattleService {
       const evolution = monsterType.evolution;
       const newMonsterType = monsterTypes.find(m => m.id === evolution);
       if (evolution && newMonsterType) {
-        opponent.results.push('monster-evolved');
+        opponent.results.push({type: 'monster-evolved'});
         currentMonster.type = evolution;
         monsterType = newMonsterType;
       }
@@ -378,7 +372,7 @@ export class BattleService {
         const removed = keys.shift();
         removed && delete currentMonster.abilities[+removed];
       }
-      opponent.results.push('monster-learned');
+      opponent.results.push({type: 'monster-learned', ability: ability.id});
       currentMonster.markModified('abilities');
     }
   }
