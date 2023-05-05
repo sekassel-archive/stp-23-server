@@ -108,7 +108,8 @@ export class MovementService implements OnModuleInit {
     const tiles: Tile[] = [];
 
     await Promise.all(area.map.tilesets.map(async tsr => {
-      const text = await fs.readFile(`./assets/maps/Test/${tsr.source}`, 'utf8').catch(() => '{}');
+      const sourceFileName = tsr.source.substring(tsr.source.lastIndexOf('/') + 1);
+      const text = await fs.readFile(`./assets/tilesets/${sourceFileName}`, 'utf8').catch(() => '{}');
       const tileset = JSON.parse(text);
       for (const tile of tileset.tiles || []) {
         tiles[tsr.firstgid + tile.id] = tile;

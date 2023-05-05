@@ -294,12 +294,12 @@
                 {
                  "height":16,
                  "id":1,
-                 "name":"Village",
+                 "name":"Clemeville",
                  "properties":[
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Village"
+                         "value":"Clemeville"
                         }, 
                         {
                          "name":"X",
