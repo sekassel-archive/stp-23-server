@@ -63,13 +63,18 @@ export class ItemService {
     }
 
     await this.trainerService.update(trainer._id.toString(), {$inc: {coins: moneyChange}});
-    const created = await this.model.findOneAndUpdate(
-      {trainer: trainer._id, type: dto.type},
-      {$inc: {amount: dto.amount}},
-      {upsert: true, new: true, setDefaultsOnInsert: true}
+    return this.updateAmount(trainer._id.toString(), dto.type, dto.amount);
+  }
+
+  private async updateAmount(trainer: string, type: number, amount: number): Promise<Item> {
+    const result = await this.model.findOneAndUpdate(
+      {trainer, type},
+      {$inc: {amount}},
+      {upsert: true, new: true, setDefaultsOnInsert: true, rawResult: true},
     );
-    this.emit('updated', created);
-    return created;
+    const item = result.value!;
+    this.emit(result.lastErrorObject?.updatedExisting ? 'updated' : 'created', item);
+    return item;
   }
 
   async useItem(trainer: string, type: number, monster: MonsterDocument | null | undefined): Promise<Item | null> {
@@ -110,7 +115,7 @@ export class ItemService {
         break;
     }
 
-    return this.model.findOneAndUpdate({trainer, type}, {$inc: {amount: -1}}, {new: true}).exec();
+    return this.updateAmount(trainer, type, -1);
   }
 
   private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument): boolean {
@@ -125,14 +130,8 @@ export class ItemService {
     return false;
   }
 
-  async getStarterItems(trainer: Trainer, type: number, amount = 1): Promise<Item | null> {
-    const created = await this.model.findOneAndUpdate(
-      {trainer: trainer._id, type},
-      {$inc: {amount}},
-      {upsert: true, new: true, setDefaultsOnInsert: true}
-    );
-    this.emit('created', created);
-    return created;
+  async getStarterItems(trainer: Trainer, type: number, amount = 1): Promise<Item> {
+    return this.updateAmount(trainer._id.toString(), type, amount);
   }
 
   async deleteTrainer(trainer: string): Promise<Item[]> {
