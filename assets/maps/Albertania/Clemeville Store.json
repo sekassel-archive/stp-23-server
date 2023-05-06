@@ -176,9 +176,9 @@
                          "value":"Butcher_16x16.png"
                         }, 
                         {
-                         "name":"IsMerchant",
-                         "type":"bool",
-                         "value":true
+                         "name":"Sells",
+                         "type":"string",
+                         "value":"[10,20,21,22,41,42,43,44,45,46]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
