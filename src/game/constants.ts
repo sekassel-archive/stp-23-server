@@ -1,14 +1,18 @@
 import {ApiProperty, ApiPropertyOptional, OmitType} from '@nestjs/swagger';
 import {Max, Min} from 'class-validator';
 import * as _abilities from '../../assets/abilities.json';
+import * as _characters from '../../assets/characters.json';
 import * as _monsterTypes from '../../assets/monsters.json';
 import * as _types from '../../assets/types.json';
-import * as _characters from '../../assets/characters.json';
 
 export const characters = _characters;
 
-export const types = _types;
-export type Type = keyof typeof types;
+export type Type = keyof typeof _types;
+export const types: Record<Type, TypeDefinition> = _types;
+
+export interface TypeDefinition {
+  multipliers: Partial<Record<string, number>>;
+}
 
 export class MonsterType {
   @ApiProperty()

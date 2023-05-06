@@ -1,11 +1,10 @@
 import {Module} from '@nestjs/common';
 import {RegionModule} from '../region/region.module';
 import {AreaModule} from './area/area.module';
-import {GameLoader} from './logic/game.loader';
+import {LogicModule} from './logic/logic.module';
 import {MonsterModule} from './monster/monster.module';
+import {PresetsModule} from './presets/presets.module';
 import {TrainerModule} from './trainer/trainer.module';
-import { PresetsModule } from './presets/presets.module';
-import { LogicModule } from './logic/logic.module';
 
 @Module({
   imports: [
