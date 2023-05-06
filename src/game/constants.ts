@@ -106,6 +106,9 @@ export class StatusEffect {
   remove?: boolean;
 }
 
+export const StatusResults = ['added', 'removed', 'unchanged'] as const;
+export type StatusResult = typeof StatusResults[number];
+
 export type Effect = AttributeEffect | StatusEffect;
 
 export class Ability {

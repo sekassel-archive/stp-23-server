@@ -1,10 +1,11 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
+import {Equals, IsArray, IsBoolean, IsEnum, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities, itemTypes} from '../constants';
+import {abilities, itemTypes, StatusEffect} from '../constants';
+import {MonsterStatus} from '../monster/monster.schema';
 
 @Schema()
 export class AbilityMove {
@@ -60,6 +61,8 @@ export type Move = AbilityMove | ChangeMonsterMove | UseItemMove;
 export const RESULTS_WITH_DESCRIPTION = {
   'ability-success': 'The ability was successful',
   'item-success': 'The item was used successfully',
+  'status-added': 'The status was added',
+  'status-removed': 'The status was removed',
   'target-defeated': 'The target monster was defeated',
   'monster-defeated': 'The monster was defeated',
   'monster-levelup': 'The monster leveled up',
@@ -103,6 +106,11 @@ export class Result {
   @IsInt()
   @IsIn(itemTypes.map(i => i.id))
   item?: number;
+
+  @ApiPropertyOptional({description: 'For `status-*`.'})
+  @IsOptional()
+  @IsEnum(MonsterStatus)
+  status?: MonsterStatus;
 }
 
 @Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)

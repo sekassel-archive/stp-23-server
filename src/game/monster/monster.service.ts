@@ -4,7 +4,7 @@ import {FilterQuery, Model, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {GlobalSchema} from '../../util/schema';
-import {abilities, Effect, StatusEffect} from '../constants';
+import {abilities, Effect, StatusEffect, StatusResult} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterAttributes, MonsterDocument, MonsterStatus} from './monster.schema';
 
@@ -88,18 +88,21 @@ export class MonsterService {
     monster.markModified('currentAttributes');
   }
 
-  applyStatusEffect(effect: StatusEffect, monster: MonsterDocument) {
+  applyStatusEffect(effect: StatusEffect, monster: MonsterDocument): StatusResult {
     const status = effect.status as MonsterStatus;
     if (effect.remove) {
       const index = monster.status.indexOf(status);
       if (index >= 0) {
         monster.status.splice(index, 1);
         monster.markModified('status');
+        return 'removed';
       }
     } else if (!monster.status.includes(status)) {
       monster.status.push(status);
       monster.markModified('status');
+      return 'added';
     }
+    return 'unchanged';
   }
 
   async deleteTrainer(trainer: string): Promise<Monster[]> {

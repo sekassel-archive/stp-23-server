@@ -1,7 +1,15 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
-import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
+import {
+  abilities,
+  Ability,
+  AttributeEffect,
+  monsterTypes,
+  TALL_GRASS_TRAINER,
+  Type,
+  types,
+} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
   attackGain,
@@ -15,7 +23,7 @@ import {
   speedGain,
 } from '../../formulae';
 import {ItemService} from '../../item/item.service';
-import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
+import {MAX_ABILITIES, MonsterAttributes, MonsterDocument, MonsterStatus} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
 import {Effectiveness, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';
@@ -240,8 +248,10 @@ export class BattleService {
           this.applyAttributeEffect(value, currentMonster, targetMonster, multiplier);
         } else if ('status' in value) {
           const target = value.self === true ? currentMonster : targetMonster;
-          this.monsterService.applyStatusEffect(value, target);
-          // TODO add status effect to results
+          const result = this.monsterService.applyStatusEffect(value, target);
+          if (result !== 'unchanged') {
+            currentOpponent.results.push({type: `status-${result}`, status: value.status as MonsterStatus});
+          }
         }
       }
     }
