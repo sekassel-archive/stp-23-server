@@ -10,7 +10,11 @@ export class CreateTrainerDto extends PickType(Trainer, [
 ]) {
 }
 
-export class UpdateTrainerDto extends PartialType(CreateTrainerDto) {
+export class UpdateTrainerDto extends PartialType(PickType(Trainer, [
+  'name',
+  'image',
+  'team',
+] as const)) {
 }
 
 export const MOVE_TRAINER_PROPS = [
