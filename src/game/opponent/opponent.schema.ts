@@ -42,6 +42,7 @@ export type Move = AbilityMove | ChangeMonsterMove;
 export const RESULTS_WITH_DESCRIPTION = {
   'ability-success': 'The ability was successful',
   'target-defeated': 'The target monster was defeated',
+  'monster-changed': 'The monster was changed',
   'monster-defeated': 'The monster was defeated',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',

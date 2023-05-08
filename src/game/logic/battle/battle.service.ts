@@ -174,40 +174,48 @@ export class BattleService {
     for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
       const move = opponent?.move;
-      if (move && move.type === 'ability') {
-        if (monster.currentAttributes.health <= 0) {
-          opponent.results = [{type: 'monster-dead'}];
-          continue;
-        }
+      if (!move) {
+        continue;
+      }
+      switch (move.type) {
+        case 'ability':
+          if (monster.currentAttributes.health <= 0) {
+            opponent.results = [{type: 'monster-dead'}];
+            continue;
+          }
 
-        if (!(move.ability in monster.abilities)) {
-          opponent.results = [{type: 'ability-unknown', ability: move.ability}];
-          continue;
-        }
-        const ability = abilities.find(a => a.id === move.ability);
-        if (!ability) {
-          opponent.results = [{type: 'ability-unknown'}];
-          continue;
-        }
+          if (!(move.ability in monster.abilities)) {
+            opponent.results = [{type: 'ability-unknown', ability: move.ability}];
+            continue;
+          }
+          const ability = abilities.find(a => a.id === move.ability);
+          if (!ability) {
+            opponent.results = [{type: 'ability-unknown'}];
+            continue;
+          }
 
-        const targetMonster = monsters.find(m => m.trainer === move.target);
-        const targetOpponent = opponents.find(o => o.trainer === move.target);
-        if (!targetMonster || !targetOpponent) {
-          opponent.results = [{type: 'target-unknown'}];
-          continue;
-        }
+          const targetMonster = monsters.find(m => m.trainer === move.target);
+          const targetOpponent = opponents.find(o => o.trainer === move.target);
+          if (!targetMonster || !targetOpponent) {
+            opponent.results = [{type: 'target-unknown'}];
+            continue;
+          }
 
-        if (targetMonster.currentAttributes.health <= 0) {
-          opponent.results = [{type: 'target-dead'}];
-          continue;
-        }
+          if (targetMonster.currentAttributes.health <= 0) {
+            opponent.results = [{type: 'target-dead'}];
+            continue;
+          }
 
-        if (monster.abilities[move.ability] <= 0) {
-          opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
-          continue;
-        }
+          if (monster.abilities[move.ability] <= 0) {
+            opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
+            continue;
+          }
 
-        this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
+          this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
+          break;
+        case 'change-monster':
+          opponent.results = [{type: 'monster-changed'}];
+          break;
       }
     }
 
