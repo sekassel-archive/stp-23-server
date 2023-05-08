@@ -96,6 +96,7 @@ export class BattleService {
         }
         const liveMonsters = await this.monsterService.findAll({
           trainer: opponent.trainer,
+          // TODO check for Trainer.team
           'currentAttributes.health': {$gt: 0},
         });
         if (!liveMonsters.length) {
