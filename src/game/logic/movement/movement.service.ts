@@ -152,7 +152,7 @@ export class MovementService implements OnModuleInit {
         if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
           const trainer = await this.trainerService.findOne(trainerId);
           const [type, level] = gameObject.monsters.random();
-          trainer && await this.battleSetupService.createMonsterEncounter(trainer.region, trainerId, type, level);
+          trainer && await this.battleSetupService.createMonsterEncounter(trainer, type, level);
         }
         break;
     }
