@@ -51,6 +51,7 @@
 + Added `TalkTrainerDto`
   > This UDP action can be used to talk to trainers.
 + Added `encounterOnSight`, `canHeal`, `encountered` and `starters` to `Trainer.npc`.
++ Added `team` to `Trainer`.
 + Added `encounteredMonsterTypes` to `Trainer`.
   > I.e. the Mondex.
 

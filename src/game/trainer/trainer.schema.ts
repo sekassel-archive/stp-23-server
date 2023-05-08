@@ -2,6 +2,7 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
 import {
+  ArrayMaxSize,
   IsArray,
   IsBoolean,
   IsEnum,
@@ -13,8 +14,8 @@ import {
   ValidateNested,
 } from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
-import {characters} from '../constants';
+import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_ARRAY_FORMAT, MONGO_ID_FORMAT} from '../../util/schema';
+import {characters, MAX_TEAM_SIZE} from '../constants';
 
 export enum Direction {
   RIGHT,
@@ -81,6 +82,13 @@ export class Trainer extends GlobalSchema {
   @ApiProperty()
   @IsInt()
   coins: number;
+
+  @Prop({maxlength: MAX_TEAM_SIZE})
+  @ApiProperty({...MONGO_ID_ARRAY_FORMAT, maxLength: MAX_TEAM_SIZE})
+  @IsArray()
+  @IsMongoId({each: true})
+  @ArrayMaxSize(MAX_TEAM_SIZE)
+  team: string[];
 
   @Prop()
   @ApiProperty({type: [Number]})
