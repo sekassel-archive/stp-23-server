@@ -115,7 +115,7 @@
     ]
   },
   {
-    "id": 20,
+    "id": 17,
     "image": "chocolate.png",
     "name": "Chocolate bar",
     "price": 2,
@@ -129,7 +129,7 @@
     "description": "Heals 1 health and tastes good."
   },
   {
-    "id": 21,
+    "id": 18,
     "image": "chicken.png",
     "name": "Chicken leg",
     "price": 10,
@@ -143,7 +143,7 @@
     "description": "A grilled chicken leg. Tasty."
   },
   {
-    "id": 22,
+    "id": 19,
     "image": "pot.png",
     "name": "Small health potion",
     "price": 50,
@@ -157,7 +157,7 @@
     "description": "Heals 25 health."
   },
   {
-    "id": 23,
+    "id": 20,
     "image": "pot_gold.png",
     "name": "Large health potion",
     "price": 80,
@@ -171,17 +171,44 @@
     "description": "Heals 50 health."
   },
   {
-    "id": 30,
+    "id": 21,
     "image": "package.png",
     "name": "Mystery box",
     "price": 250,
     "use": "simple",
     "effects": [],
-    "description": "A mysterious package. What item is in it?"
+    "description": "A mysterious package containing basic items."
   },
   {
-    "id": 31,
-    "image": "present_1.png",
+    "id": 22,
+    "image": "package_1.png",
+    "name": "Mystery box Premium",
+    "price": 500,
+    "use": "simple",
+    "effects": [],
+    "description": "A mysterious package with a higher chance of containing good items."
+  },
+  {
+    "id": 23,
+    "image": "package_3.png",
+    "name": "Mystery box Elite",
+    "price": 750,
+    "use": "simple",
+    "effects": [],
+    "description": "A mysterious package with an even higher chance of containing good items."
+  },
+  {
+    "id": 24,
+    "image": "package_2.png",
+    "name": "Mystery box Ultimate",
+    "price": 1000,
+    "use": "simple",
+    "effects": [],
+    "description": "A mysterious package with the highest chance of containing good items."
+  },
+  {
+    "id": 25,
+    "image": "present_3.png",
     "name": "Monbox",
     "price": 250,
     "use": "simple",
@@ -189,7 +216,7 @@
     "description": "A mysterious box containing a standard monster."
   },
   {
-    "id": 32,
+    "id": 26,
     "image": "present_2.png",
     "name": "Monbox Premium",
     "price": 500,
@@ -198,8 +225,8 @@
     "description": "A mysterious box containing a premium monster."
   },
   {
-    "id": 33,
-    "image": "present_3.png",
+    "id": 27,
+    "image": "present_1.png",
     "name": "Monbox Elite",
     "price": 1000,
     "use": "simple",
@@ -207,7 +234,7 @@
     "description": "A mysterious box containing an elite monster."
   },
   {
-    "id": 40,
+    "id": 28,
     "image": "god_potion.png",
     "name": "God potion",
     "price": 150,
@@ -241,7 +268,7 @@
     "description": "A potion to remove all status effects."
   },
   {
-    "id": 41,
+    "id": 29,
     "image": "paralysis_remedy.png",
     "name": "Paralysis Remedy",
     "price": 25,
@@ -255,7 +282,7 @@
     "description": "A potion to remove the paralysed status effect."
   },
   {
-    "id": 42,
+    "id": 30,
     "image": "mind_calmer.png",
     "name": "Mind Calmer",
     "price": 25,
@@ -269,7 +296,7 @@
     "description": "A potion to remove the confused status effect."
   },
   {
-    "id": 43,
+    "id": 31,
     "image": "antifreeze.png",
     "name": "Antifreeze",
     "price": 25,
@@ -283,7 +310,7 @@
     "description": "A potion to remove the frozen status effect."
   },
   {
-    "id": 44,
+    "id": 32,
     "image": "antidote.png",
     "name": "Antidote",
     "price": 25,
@@ -297,7 +324,7 @@
     "description": "A potion to remove the poisoned status effect."
   },
   {
-    "id": 45,
+    "id": 33,
     "image": "extinguisher.png",
     "name": "Extinguisher",
     "price": 25,
@@ -311,7 +338,7 @@
     "description": "A potion to remove the burned status effect."
   },
   {
-    "id": 46,
+    "id": 34,
     "image": "wakeup_potion.png",
     "name": "Wake-up potion",
     "price": 25,
@@ -325,7 +352,7 @@
     "description": "A potion to remove the asleep status effect."
   },
   {
-    "id": 50,
+    "id": 35,
     "image": "lightbulb.png",
     "name": "Lightbulb",
     "price": 10,
@@ -333,7 +360,7 @@
     "description": "Someone must have had a good idea, but this lightbulb is broken. Maybe you can sell it for a few coins."
   },
   {
-    "id": 51,
+    "id": 36,
     "image": "gold.png",
     "name": "Gold nugget",
     "price": 100,
@@ -341,7 +368,7 @@
     "description": "A gold nugget. It's worth a lot of money."
   },
   {
-    "id": 52,
+    "id": 37,
     "image": "star.png",
     "name": "Star fragment",
     "price": 1000,
