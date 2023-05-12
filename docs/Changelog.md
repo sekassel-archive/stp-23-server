@@ -19,6 +19,16 @@
 
 ## New Features
 
+### Content
+
++ Added the Albertania region.
++ Added Clemeville.
++ Added Route 100.
++ Added Natchester.
++ Added various building interiors.
++ Added 109 monsters.
++ Added 118 abilities.
+
 ### Resources
 
 + Added Areas.
