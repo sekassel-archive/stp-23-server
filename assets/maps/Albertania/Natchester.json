@@ -1601,6 +1601,22 @@
                  "height":48,
                  "id":21,
                  "name":"Moncenter",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Natchester Moncenter+Store"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":9
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":9
+                        }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
