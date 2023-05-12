@@ -20,7 +20,10 @@ export class Area extends GlobalSchema {
   name: string;
 
   @Prop({type: Object})
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Tiled map in [JSON format](https://doc.mapeditor.org/en/stable/reference/json-map-format/)',
+    type: 'object',
+  })
   @IsObject()
   map: TiledMap;
 }
