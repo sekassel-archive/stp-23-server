@@ -1,7 +1,7 @@
 import {InjectModel} from "@nestjs/mongoose";
 import {FilterQuery, Model} from "mongoose";
 import {catchChanceBonus} from '../formulae';
-import {Monster, MonsterDocument} from '../monster/monster.schema';
+import {MonsterDocument} from '../monster/monster.schema';
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {UpdateItemDto} from "./item.dto";
@@ -89,8 +89,11 @@ export class ItemService {
     }
 
     switch (itemType.use) {
-      case 'simple':
-        // TODO add special effects
+      case 'itemBox':
+        this.openItemLootbox(itemType, trainer);
+        break;
+      case 'monsterBox':
+        this.openMonsterLootbox(itemType, trainer);
         break;
       case 'ball':
         if (!monster) {
@@ -116,6 +119,16 @@ export class ItemService {
     }
 
     return this.updateAmount(trainer, type, -1);
+  }
+
+  private openItemLootbox(itemType: ItemType, trainer: string) {
+    // TODO: Add random item(s) to trainer inventory
+    // TODO: Remove itembox from trainer inventory
+  }
+
+  private openMonsterLootbox(itemType: ItemType, trainer: string) {
+    // TODO: Add random monster to trainer monsters
+    // TODO: Remove monbox from trainer inventory
   }
 
   private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument): boolean {
