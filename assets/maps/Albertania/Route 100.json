@@ -882,6 +882,23 @@
                  "width":144,
                  "x":1392,
                  "y":560
+                }, 
+                {
+                 "height":608,
+                 "id":33,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[7,5],[10,5],[15,5],[23,5],[37,5],[60,5]]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":1216,
+                 "x":160,
+                 "y":80
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -890,7 +907,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":33,
+ "nextobjectid":34,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
