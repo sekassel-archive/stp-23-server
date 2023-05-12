@@ -121,10 +121,33 @@ export class ItemService {
     return this.updateAmount(trainer, type, -1);
   }
 
-  private openItemLootbox(itemType: ItemType, trainer: string) {
-    // TODO: Add random item(s) to trainer inventory
-    // TODO: Remove itembox from trainer inventory
+  async openItemLootbox(itemType: ItemType, trainer: string) {
+    const minValue = Math.floor(itemType.price * 0.8);
+    const maxValue = Math.floor(itemType.price * 1.4);
+    const itemValue = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+
+    let closestItem: ItemType | null = null;
+    let minDiff = Infinity;
+
+    for (const item of itemTypes) {
+      if (item.price === 0) {
+        continue;
+      }
+      const diff = Math.abs(item.price - itemValue);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestItem = item;
+      }
+    }
+
+    if (closestItem) {
+      // Add the closest item to trainer's inventory
+      await this.updateAmount(trainer, closestItem.id, 1);
+      // Remove itembox from trainer inventory
+      await this.updateAmount(trainer, itemType.id, -1);
+    }
   }
+
 
   private openMonsterLootbox(itemType: ItemType, trainer: string) {
     // TODO: Add random monster to trainer monsters

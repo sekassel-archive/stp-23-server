@@ -174,7 +174,7 @@
     "id": 30,
     "image": "package.png",
     "name": "Mystery box",
-    "price": 250,
+    "price": 150,
     "use": "itemBox",
     "effects": [],
     "description": "A mysterious package containing basic items."
@@ -183,7 +183,7 @@
     "id": 31,
     "image": "package_1.png",
     "name": "Mystery box Premium",
-    "price": 500,
+    "price": 300,
     "use": "itemBox",
     "effects": [],
     "description": "A mysterious package with a higher chance of containing good items."
@@ -192,7 +192,7 @@
     "id": 32,
     "image": "package_3.png",
     "name": "Mystery box Elite",
-    "price": 750,
+    "price": 500,
     "use": "itemBox",
     "effects": [],
     "description": "A mysterious package with an even higher chance of containing good items."
@@ -201,7 +201,7 @@
     "id": 33,
     "image": "package_2.png",
     "name": "Mystery box Ultimate",
-    "price": 1000,
+    "price": 750,
     "use": "itemBox",
     "effects": [],
     "description": "A mysterious package with the highest chance of containing good items."
