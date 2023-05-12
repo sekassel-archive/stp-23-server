@@ -28,7 +28,7 @@ export class NPCInfo {
   @IsBoolean()
   walkRandomly: boolean;
 
-  @ApiPropertyOptional({type: [Number]})
+  // TODO @ApiPropertyOptional({type: [Number]})
   @IsOptional()
   @IsArray()
   @IsInt({each: true})
