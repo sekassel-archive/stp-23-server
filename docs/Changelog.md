@@ -28,7 +28,7 @@
 + Added various building interiors.
 + Added 109 monsters.
 + Added 118 abilities.
-+ Added 46 character sprites.
++ Added 66 character sprites.
 
 ### Resources
 
