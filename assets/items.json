@@ -130,6 +130,20 @@
   },
   {
     "id": 21,
+    "image": "bing_chilling.png",
+    "name": "Ice cream",
+    "price": 10,
+    "use": "effect",
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 5
+      }
+    ],
+    "description": "A scoop of smörf ice cream and a scoop of raspberry ice cream make this a delicious and cold treat."
+  },
+  {
+    "id": 22,
     "image": "chicken.png",
     "name": "Chicken leg",
     "price": 10,
@@ -143,7 +157,7 @@
     "description": "A grilled chicken leg. Tasty."
   },
   {
-    "id": 22,
+    "id": 23,
     "image": "pot.png",
     "name": "Small health potion",
     "price": 50,
@@ -157,7 +171,7 @@
     "description": "Heals 25 health."
   },
   {
-    "id": 23,
+    "id": 24,
     "image": "pot_gold.png",
     "name": "Large health potion",
     "price": 80,
@@ -169,20 +183,6 @@
       }
     ],
     "description": "Heals 50 health."
-  },
-  {
-    "id": 24,
-    "image": "bing_chilling.png",
-    "name": "Ice cream",
-    "price": 10,
-    "use": "effect",
-    "effects": [
-      {
-        "attribute": "health",
-        "amount": 5
-      }
-    ],
-    "description": "A scoop of smörf ice cream and a scoop of raspberry ice cream make this a delicious and cold treat."
   },
   {
     "id": 30,
