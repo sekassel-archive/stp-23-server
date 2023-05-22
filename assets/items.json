@@ -171,6 +171,20 @@
     "description": "Heals 50 health."
   },
   {
+    "id": 24,
+    "image": "bing_chilling.png",
+    "name": "Ice cream",
+    "price": 10,
+    "use": "effect",
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 5
+      }
+    ],
+    "description": "A scoop of smörf ice cream and a scoop of raspberry ice cream make this a delicious and cold treat."
+  },
+  {
     "id": 30,
     "image": "package.png",
     "name": "Mystery box",
