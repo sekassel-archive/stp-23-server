@@ -45,3 +45,15 @@
 ## Improvements
 
 * Region messages are now only visible to users with a trainer.
+
+# v2.0.1 - Minor Fixes
+
+## Bugfixes
+
+* Group members are now notified via WebSocket when they are removed from the group. [STP23SRV-3](https://jira.uniks.de/browse/STP23SRV-3)
+
+## Documentation
+
+* Documented some Presets endpoint with image responses.
+* Documented region and trainer parameters in Trainer and Monster endpoints.
+* Updated the Cascading Deletes documentation.
