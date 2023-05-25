@@ -101,7 +101,6 @@ export class MovementService implements OnModuleInit {
 
   @OnEvent('udp:areas.*.trainers.*.moved')
   async onTrainerMoved(dto: MoveTrainerDto) {
-    // TODO validate movement
     const oldLocation = this.trainerService.getLocation(dto._id.toString())
       || await this.trainerService.findOne(dto._id.toString());
     if (!oldLocation) {

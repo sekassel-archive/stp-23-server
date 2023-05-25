@@ -24,11 +24,11 @@ export enum Direction {
 }
 
 export class NPCInfo {
-  @ApiProperty()
+  @ApiProperty({description: 'Whether the NPC should walk randomly. Handled by the server.'})
   @IsBoolean()
   walkRandomly: boolean;
 
-  // TODO @ApiPropertyOptional({type: [Number]})
+  // TODO @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
   @IsOptional()
   @IsArray()
   @IsInt({each: true})
