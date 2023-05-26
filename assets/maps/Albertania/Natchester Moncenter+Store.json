@@ -1,5 +1,5 @@
 { "compressionlevel":-1,
- "height":20,
+ "height":12,
  "infinite":true,
  "layers":[
         {
@@ -106,7 +106,7 @@
                  "x":16,
                  "y":0
                 }],
-         "height":32,
+         "height":16,
          "id":2,
          "name":"Walls",
          "opacity":1,
@@ -278,5 +278,5 @@
  "tilewidth":16,
  "type":"map",
  "version":"1.10",
- "width":30
+ "width":18
 }
