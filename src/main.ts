@@ -62,10 +62,6 @@ async function bootstrap() {
   });
   SwaggerModule.setup(globalPrefix, app, document);
 
-  Sentry.init({
-    dsn: environment.sentryDsn,
-  });
-
   await app.startAllMicroservices();
   await app.listen(environment.port);
 }
