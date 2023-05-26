@@ -8,6 +8,7 @@ import { AppModule } from './app.module';
 import { environment } from './environment';
 import { ErrorResponse, ValidationErrorResponse } from './util/error-response';
 import { ThrottlerExceptionFilter } from './util/throttler-exception.filter';
+import Sentry from '@sentry/node';
 
 import './polyfills';
 
@@ -60,6 +61,10 @@ async function bootstrap() {
     extraModels: [ErrorResponse, ValidationErrorResponse],
   });
   SwaggerModule.setup(globalPrefix, app, document);
+
+  Sentry.init({
+    dsn: environment.sentryDsn,
+  });
 
   await app.startAllMicroservices();
   await app.listen(environment.port);
