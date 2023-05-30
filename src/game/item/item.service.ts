@@ -92,10 +92,10 @@ export class ItemService {
 
     switch (itemType.use) {
       case 'itemBox':
-        this.openItemLootbox(itemType, trainer);
+        await this.openItemLootbox(itemType, trainer);
         break;
       case 'monsterBox':
-        this.openMonsterLootbox(itemType, trainer);
+        await this.openMonsterLootbox(itemType, trainer);
         break;
       case 'ball':
         if (!monster) {
@@ -145,8 +145,6 @@ export class ItemService {
     if (closestItem) {
       // Add the closest item to trainer's inventory
       await this.updateAmount(trainer, closestItem.id, 1);
-      // Remove itembox from trainer inventory
-      await this.updateAmount(trainer, itemType.id, -1);
     }
   }
 
