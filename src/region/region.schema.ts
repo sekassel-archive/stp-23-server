@@ -25,7 +25,10 @@ export class Region extends GlobalSchema {
   spawn: Spawn;
 
   @Prop({type: Object})
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Tiled map in [JSON format](https://doc.mapeditor.org/en/stable/reference/json-map-format/)',
+    type: 'object',
+  })
   @IsObject()
   map: TiledMap;
 }

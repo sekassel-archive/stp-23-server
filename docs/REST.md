@@ -39,11 +39,11 @@ The following table shows which delete operations trigger other deletes.
 Cascading deletes are transitive, meaning a cascading deletion can trigger more cascading deletions.
 All delete operations, whether manual, cleanup or cascading, trigger the same events.
 
-| Deleting a... | Also deletes...                         |
-|---------------|-----------------------------------------|
-| User          | Their Achievements                      |
-| Group         | All Messages sent within the Group      |
-| User          | Their Trainer and Monsters              |
+| Deleting a... | Also deletes...                    |
+|---------------|------------------------------------|
+| Group         | All Messages sent within the Group |
+| User          | Their Trainer                      |
+| Trainer       | Their Monsters                     |
 
 Cascading deletes do not apply to some resources:
 

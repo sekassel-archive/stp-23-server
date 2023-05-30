@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {ConflictException, Injectable} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
@@ -46,9 +46,16 @@ export class UserService {
   async create(dto: CreateUserDto): Promise<UserDocument> {
     const hashed = await this.hash(dto);
     hashed.status = 'offline';
-    const created = await this.model.create(hashed);
-    created && this.emit('created', created);
-    return created;
+    try {
+      const created = await this.model.create(hashed);
+      created && this.emit('created', created);
+      return created;
+    } catch (e: any) {
+      if (e.code === 11000) {
+        throw new ConflictException('Username already taken');
+      }
+      throw e;
+    }
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<UserDocument | null> {

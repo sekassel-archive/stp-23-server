@@ -19,7 +19,7 @@ import {CreateTrainerDto, MoveTrainerDto, TalkTrainerDto, UpdateTrainerDto} from
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
-@Controller('regions/:regionId/trainers')
+@Controller('regions/:region/trainers')
 @ApiTags('Region Trainers')
 @ApiExtraModels(MoveTrainerDto, TalkTrainerDto)
 @Validated()
@@ -35,11 +35,11 @@ export class TrainerController {
   @ApiCreatedResponse({type: Trainer})
   @ApiConflictResponse({description: 'Trainer for current user already exists'})
   async create(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
+    @Param('region', ParseObjectIdPipe) region: string,
     @Body() dto: CreateTrainerDto,
     @AuthUser() user: User,
   ): Promise<Trainer> {
-    return this.trainerService.create(regionId, user._id.toString(), dto);
+    return this.trainerService.create(region, user._id.toString(), dto);
   }
 
   @Get()
@@ -47,7 +47,7 @@ export class TrainerController {
   @ApiQuery({...MONGO_ID_FORMAT, name: 'area', required: false, description: 'Filter by area'})
   @ApiQuery({...MONGO_ID_FORMAT, name: 'user', required: false, description: 'Filter by user'})
   async findAll(
-    @Param('regionId', ParseObjectIdPipe) region: string,
+    @Param('region', ParseObjectIdPipe) region: string,
     @Query('area', ParseObjectIdPipe) area?: string,
     @Query('user', ParseObjectIdPipe) user?: string,
   ): Promise<Trainer[]> {
@@ -58,6 +58,7 @@ export class TrainerController {
   @ApiOkResponse({type: Trainer})
   @NotFound()
   async findOne(
+    @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Trainer | null> {
     return this.trainerService.findOne(id);
@@ -81,6 +82,7 @@ export class TrainerController {
   @ApiForbiddenResponse({description: 'Cannot delete someone else\'s trainer'})
   @NotFound()
   async deleteOne(
+    @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ParseObjectIdPipe) id: string,
     @AuthUser() user: User,
   ): Promise<Trainer | null> {

@@ -19,6 +19,17 @@
 
 ## New Features
 
+### Content
+
++ Added the Albertania region.
++ Added Clemeville.
++ Added Route 100.
++ Added Natchester.
++ Added various building interiors.
++ Added 109 monsters.
++ Added 118 abilities.
++ Added 66 character sprites.
+
 ### Resources
 
 + Added Areas.
@@ -34,6 +45,30 @@
 ## Improvements
 
 * Region messages are now only visible to users with a trainer.
+
+# v2.0.1 - Minor Fixes
+
+## Bugfixes
+
+* Group members are now notified via WebSocket when they are removed from the group. [STP23SRV-3](https://jira.uniks.de/browse/STP23SRV-3)
+
+## Documentation
+
+* Documented some Presets endpoint with image responses.
+* Documented region and trainer parameters in Trainer and Monster endpoints.
+* Updated the Cascading Deletes documentation.
+
+# v2.0.2 - Minor Fixes
+
+## Improvements
+
+* Added error logging with Sentry.
+* Improved the check for duplicate username sign ups.
+
+## Bugfixes
+
+* Fixed a typo in the `Kid_Karen` character filename.
+* Updated the `width` and `height` of all maps.
 
 # v3.0.0 - Battle
 

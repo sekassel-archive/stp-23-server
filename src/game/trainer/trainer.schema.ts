@@ -25,11 +25,11 @@ export enum Direction {
 }
 
 export class NPCInfo {
-  @ApiProperty()
+  @ApiProperty({description: 'Whether the NPC should walk randomly. Handled by the server.'})
   @IsBoolean()
   walkRandomly: boolean;
 
-  @ApiProperty()
+  // TODO @ApiProperty()
   @IsBoolean()
   encounterOnSight: boolean;
 
@@ -37,7 +37,7 @@ export class NPCInfo {
   @IsBoolean()
   canHeal: boolean;
 
-  @ApiPropertyOptional({type: [Number]})
+  @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
   @IsOptional()
   @IsArray()
   @IsInt({each: true})
