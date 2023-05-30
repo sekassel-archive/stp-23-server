@@ -57,3 +57,15 @@
 * Documented some Presets endpoint with image responses.
 * Documented region and trainer parameters in Trainer and Monster endpoints.
 * Updated the Cascading Deletes documentation.
+
+# v2.0.2 - Minor Fixes
+
+## Improvements
+
+* Added error logging with Sentry.
+* Improved the check for duplicate username sign ups.
+
+## Bugfixes
+
+* Fixed a typo in the `Kid_Karen` character filename.
+* Updated the `width` and `height` of all maps.
