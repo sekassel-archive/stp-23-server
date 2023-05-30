@@ -233,7 +233,7 @@
     "id": 35,
     "image": "present_2.png",
     "name": "Monbox Premium",
-    "price": 500,
+    "price": 1000,
     "use": "monsterBox",
     "effects": [],
     "description": "A mysterious box containing a premium monster."
@@ -242,7 +242,7 @@
     "id": 36,
     "image": "present_3.png",
     "name": "Monbox Elite",
-    "price": 1000,
+    "price": 8000,
     "use": "monsterBox",
     "effects": [],
     "description": "A mysterious box containing an elite monster."

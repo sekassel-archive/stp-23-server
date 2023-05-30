@@ -1,15 +1,16 @@
 import {InjectModel} from "@nestjs/mongoose";
 import {FilterQuery, Model} from "mongoose";
-import {catchChanceBonus} from '../formulae';
+import {catchChanceBonus, levelFromExp} from '../formulae';
 import {MonsterDocument} from '../monster/monster.schema';
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {UpdateItemDto} from "./item.dto";
 import {BadRequestException, ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {Trainer} from "../trainer/trainer.schema";
-import {ItemType, itemTypes, monsterTypes, TALL_GRASS_TRAINER, Type} from '../constants';
+import {baseMonsterTypes, ItemType, itemTypes, monsterTypes, TALL_GRASS_TRAINER, Type} from '../constants';
 import {TrainerService} from "../trainer/trainer.service";
 import {MonsterService} from "../monster/monster.service";
+import {MonsterGeneratorService} from "../logic/monster-generator/monster-generator.service";
 
 @Injectable()
 export class ItemService {
@@ -18,6 +19,7 @@ export class ItemService {
     private eventEmitter: EventService,
     private trainerService: TrainerService,
     private monsterService: MonsterService,
+    private monsterGenerator: MonsterGeneratorService,
   ) {
   }
 
@@ -149,9 +151,12 @@ export class ItemService {
   }
 
 
-  private openMonsterLootbox(itemType: ItemType, trainer: string) {
-    // TODO: Add random monster to trainer monsters
-    // TODO: Remove monbox from trainer inventory
+  private async openMonsterLootbox(itemType: ItemType, trainer: string) {
+    const randomBaseMonster = baseMonsterTypes.random();
+    // 250 -> level 6-10, 1000 -> level 10-14, 8000 -> level 20-24
+    const level = Math.round(levelFromExp(itemType.price) + Math.random() * 4);
+    // TODO The monster does not evolve automatically, either we do that, or let it happen in the next battle.
+    await this.monsterGenerator.createAuto(trainer, randomBaseMonster.id, level);
   }
 
   private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument): boolean {

@@ -74,6 +74,10 @@ export class MonsterTypeDto extends OmitType(MonsterType, ['evolution'] as const
 
 export const monsterTypes: MonsterType[] = _monsterTypes;
 
+export const baseMonsterTypes: MonsterType[] = monsterTypes.filter((m, index) => {
+  return index === 0 || monsterTypes[index - 1].evolution !== m.id;
+});
+
 export class AttributeEffect {
   @ApiProperty()
   attribute: string;
