@@ -174,35 +174,62 @@
     "id": 30,
     "image": "package.png",
     "name": "Mystery box",
-    "price": 250,
-    "use": "simple",
+    "price": 150,
+    "use": "itemBox",
     "effects": [],
-    "description": "A mysterious package. What item is in it?"
+    "description": "A mysterious package containing basic items."
   },
   {
     "id": 31,
+    "image": "package_1.png",
+    "name": "Mystery box Premium",
+    "price": 300,
+    "use": "itemBox",
+    "effects": [],
+    "description": "A mysterious package with a higher chance of containing good items."
+  },
+  {
+    "id": 32,
+    "image": "package_3.png",
+    "name": "Mystery box Elite",
+    "price": 500,
+    "use": "itemBox",
+    "effects": [],
+    "description": "A mysterious package with an even higher chance of containing good items."
+  },
+  {
+    "id": 33,
+    "image": "package_2.png",
+    "name": "Mystery box Ultimate",
+    "price": 750,
+    "use": "itemBox",
+    "effects": [],
+    "description": "A mysterious package with the highest chance of containing good items."
+  },
+  {
+    "id": 34,
     "image": "present_1.png",
     "name": "Monbox",
     "price": 250,
-    "use": "simple",
+    "use": "monsterBox",
     "effects": [],
     "description": "A mysterious box containing a standard monster."
   },
   {
-    "id": 32,
+    "id": 35,
     "image": "present_2.png",
     "name": "Monbox Premium",
     "price": 500,
-    "use": "simple",
+    "use": "monsterBox",
     "effects": [],
     "description": "A mysterious box containing a premium monster."
   },
   {
-    "id": 33,
+    "id": 36,
     "image": "present_3.png",
     "name": "Monbox Elite",
     "price": 1000,
-    "use": "simple",
+    "use": "monsterBox",
     "effects": [],
     "description": "A mysterious box containing an elite monster."
   },

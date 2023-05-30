@@ -1,7 +1,7 @@
 import {InjectModel} from "@nestjs/mongoose";
 import {FilterQuery, Model} from "mongoose";
 import {catchChanceBonus} from '../formulae';
-import {Monster, MonsterDocument} from '../monster/monster.schema';
+import {MonsterDocument} from '../monster/monster.schema';
 import {Item, ItemDocument} from "./item.schema";
 import {EventService} from "../../event/event.service";
 import {UpdateItemDto} from "./item.dto";
@@ -89,8 +89,11 @@ export class ItemService {
     }
 
     switch (itemType.use) {
-      case 'simple':
-        // TODO add special effects
+      case 'itemBox':
+        this.openItemLootbox(itemType, trainer);
+        break;
+      case 'monsterBox':
+        this.openMonsterLootbox(itemType, trainer);
         break;
       case 'ball':
         if (!monster) {
@@ -116,6 +119,39 @@ export class ItemService {
     }
 
     return this.updateAmount(trainer, type, -1);
+  }
+
+  async openItemLootbox(itemType: ItemType, trainer: string) {
+    const minValue = Math.floor(itemType.price * 0.8);
+    const maxValue = Math.floor(itemType.price * 1.4);
+    const itemValue = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+
+    let closestItem: ItemType | null = null;
+    let minDiff = Infinity;
+
+    for (const item of itemTypes) {
+      if (item.price === 0) {
+        continue;
+      }
+      const diff = Math.abs(item.price - itemValue);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestItem = item;
+      }
+    }
+
+    if (closestItem) {
+      // Add the closest item to trainer's inventory
+      await this.updateAmount(trainer, closestItem.id, 1);
+      // Remove itembox from trainer inventory
+      await this.updateAmount(trainer, itemType.id, -1);
+    }
+  }
+
+
+  private openMonsterLootbox(itemType: ItemType, trainer: string) {
+    // TODO: Add random monster to trainer monsters
+    // TODO: Remove monbox from trainer inventory
   }
 
   private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument): boolean {
