@@ -42,10 +42,6 @@ export class UserController {
   @ApiCreatedResponse({ type: User })
   @ApiConflictResponse({ description: 'Username was already taken.' })
   async create(@Body() dto: CreateUserDto): Promise<User> {
-    const existing = await this.userService.findByName(dto.name);
-    if (existing) {
-      throw new ConflictException('Username already taken');
-    }
     return this.userService.create(dto);
   }
 

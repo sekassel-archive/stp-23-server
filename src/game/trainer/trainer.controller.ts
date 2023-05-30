@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, ForbiddenException, Get, Param, Post, Query} from '@nestjs/common';
+import {Body, Controller, Delete, ForbiddenException, Get, Param, Patch, Post, Query} from '@nestjs/common';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
@@ -15,11 +15,11 @@ import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
-import {CreateTrainerDto, MoveTrainerDto, TalkTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MoveTrainerDto, TalkTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
-@Controller('regions/:regionId/trainers')
+@Controller('regions/:region/trainers')
 @ApiTags('Region Trainers')
 @ApiExtraModels(MoveTrainerDto, TalkTrainerDto)
 @Validated()
@@ -35,11 +35,11 @@ export class TrainerController {
   @ApiCreatedResponse({type: Trainer})
   @ApiConflictResponse({description: 'Trainer for current user already exists'})
   async create(
-    @Param('regionId', ParseObjectIdPipe) regionId: string,
+    @Param('region', ParseObjectIdPipe) region: string,
     @Body() dto: CreateTrainerDto,
     @AuthUser() user: User,
   ): Promise<Trainer> {
-    return this.trainerService.create(regionId, user._id.toString(), dto);
+    return this.trainerService.create(region, user._id.toString(), dto);
   }
 
   @Get()
@@ -47,7 +47,7 @@ export class TrainerController {
   @ApiQuery({...MONGO_ID_FORMAT, name: 'area', required: false, description: 'Filter by area'})
   @ApiQuery({...MONGO_ID_FORMAT, name: 'user', required: false, description: 'Filter by user'})
   async findAll(
-    @Param('regionId', ParseObjectIdPipe) region: string,
+    @Param('region', ParseObjectIdPipe) region: string,
     @Query('area', ParseObjectIdPipe) area?: string,
     @Query('user', ParseObjectIdPipe) user?: string,
   ): Promise<Trainer[]> {
@@ -58,9 +58,23 @@ export class TrainerController {
   @ApiOkResponse({type: Trainer})
   @NotFound()
   async findOne(
+    @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Trainer | null> {
     return this.trainerService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({type: Trainer})
+  @ApiForbiddenResponse({description: 'Cannot update someone else\'s trainer'})
+  @NotFound()
+  async updateOne(
+    @Param('id', ParseObjectIdPipe) id: string,
+    @Body() dto: UpdateTrainerDto,
+    @AuthUser() user: User,
+  ): Promise<Trainer | null> {
+    await this.checkTrainerAuth(id, user);
+    return this.trainerService.update(id, dto);
   }
 
   @Delete(':id')
@@ -68,13 +82,18 @@ export class TrainerController {
   @ApiForbiddenResponse({description: 'Cannot delete someone else\'s trainer'})
   @NotFound()
   async deleteOne(
+    @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ParseObjectIdPipe) id: string,
     @AuthUser() user: User,
   ): Promise<Trainer | null> {
+    await this.checkTrainerAuth(id, user);
+    return this.trainerService.delete(id);
+  }
+
+  private async checkTrainerAuth(id: string, user: User) {
     const trainer = await this.trainerService.findOne(id);
     if (trainer?.user !== user._id.toString()) {
       throw new ForbiddenException('Cannot delete someone else\'s trainer');
     }
-    return this.trainerService.delete(id);
   }
 }

@@ -35,12 +35,12 @@ export class GroupService {
   }
 
   async update(id: string, dto: UpdateGroupDto): Promise<Group | null> {
+    const oldGroup = await this.find(id);
     if (dto.members) {
       dto.members = this.normalizeMembers(dto.members);
     }
     const updated = await this.model.findByIdAndUpdate(id, dto, { new: true }).exec();
-    // FIXME when someone is removed from the group, he does not receive the event
-    updated && this.emit('updated', updated);
+    updated && this.emit('updated', updated, oldGroup?.members);
     return updated;
   }
 
@@ -92,7 +92,8 @@ export class GroupService {
     return groups;
   }
 
-  private emit(event: string, group: Group): void {
-    this.eventEmitter.emit(`groups.${group._id}.${event}`, group, group.members);
+  private emit(event: string, group: Group, oldMembers?: string[]): void {
+    const members = oldMembers ? group.members.concat(oldMembers) : group.members;
+    this.eventEmitter.emit(`groups.${group._id}.${event}`, group, members);
   }
 }

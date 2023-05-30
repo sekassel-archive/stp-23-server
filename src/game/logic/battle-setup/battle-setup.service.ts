@@ -33,7 +33,7 @@ export class BattleSetupService {
       trainer: {$in: [defenderId, ...attackerIds]},
       'currentAttributes.health': {$gt: 0},
     });
-    const defenderMonster = monsters.find(m => m.trainer === defenderId)?._id?.toString(); // FIXME monster order
+    const defenderMonster = defender.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
     if (!defenderMonster) {
       return;
     }
@@ -47,40 +47,42 @@ export class BattleSetupService {
     await this.opponentService.create(encounter._id.toString(), defenderId, {
       isAttacker: false,
       isNPC: !!defender.npc,
-      monster: defenderMonster,
+      monster: defenderMonster._id.toString(),
     });
 
     await Promise.all(attackers.map(attacker => {
       const attackerId = attacker._id.toString();
-      const monster = monsters.find(m => m.trainer === attackerId)?._id?.toString();
+      const monster = attacker.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
       monster && this.opponentService.create(encounter._id.toString(), attackerId, {
         isAttacker: true,
         isNPC: !!attacker.npc,
-        monster,
+        monster: monster._id.toString(),
       });
     }));
   }
 
-  async createMonsterEncounter(region: string, defender: string, type: number, level: number) {
-    const isOpponentInBattle = await this.isInBattle([defender]);
+  async createMonsterEncounter(defender: Trainer, type: number, level: number) {
+    const defenderId = defender._id.toString();
+    const isOpponentInBattle = await this.isInBattle([defenderId]);
     if (isOpponentInBattle) {
       // one of the trainers is already in a battle
       return;
     }
 
-    const defenderMonster = (await this.monsterService.findAll({
+    const defenderMonsters = await this.monsterService.findAll({
       trainer: defender,
       'currentAttributes.health': {$gt: 0},
-    }))[0]?._id?.toString(); // FIXME monster order
+    });
+    const defenderMonster = defender.team.flatMap(m => defenderMonsters.find(monster => monster._id.toString() === m))[0];
     if (!defenderMonster) {
       return;
     }
 
-    const encounter = await this.encounterService.create(region, {isWild: true});
-    await this.opponentService.create(encounter._id.toString(), defender, {
+    const encounter = await this.encounterService.create(defender.region, {isWild: true});
+    await this.opponentService.create(encounter._id.toString(), defenderId, {
       isAttacker: false,
       isNPC: false,
-      monster: defenderMonster,
+      monster: defenderMonster._id.toString(),
     });
     const wildMonster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterGeneratorService.autofill(type, level));
     await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, {

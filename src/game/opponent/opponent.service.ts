@@ -47,6 +47,7 @@ export class OpponentService {
   }
 
   async updateOne(encounter: string, trainer: string, dto: UpdateQuery<Opponent>): Promise<OpponentDocument | null> {
+    // TODO check Trainer team
     const current = await this.findOne(encounter, trainer);
     if (dto.monster) {
       // Changing the monster happens immediately

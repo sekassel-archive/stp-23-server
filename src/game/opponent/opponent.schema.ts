@@ -64,6 +64,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   'status-added': 'The status was added',
   'status-removed': 'The status was removed',
   'target-defeated': 'The target monster was defeated',
+  'monster-changed': 'The monster was changed',
   'monster-defeated': 'The monster was defeated',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',

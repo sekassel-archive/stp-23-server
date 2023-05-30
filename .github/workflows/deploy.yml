@@ -48,4 +48,4 @@ jobs:
         with:
           args: |
             Eine neue Serverversion ist verfügbar: `${{ steps.deployment.outputs.version }}`
-            <https://stp-23.uniks.de/api/v${{ steps.deployment.outputs.prefix }}>
+            <https://stpmon.uniks.de/api/v${{ steps.deployment.outputs.prefix }}>

@@ -41,9 +41,9 @@ All delete operations, whether manual, cleanup or cascading, trigger the same ev
 
 | Deleting a... | Also deletes...                    |
 |---------------|------------------------------------|
-| User          | Their Achievements                 |
 | Group         | All Messages sent within the Group |
-| User          | Their Trainer, Monsters and Items  |
+| User          | Their Trainer                      |
+| Trainer       | Their Monsters and Items           |
 
 Cascading deletes do not apply to some resources:
 

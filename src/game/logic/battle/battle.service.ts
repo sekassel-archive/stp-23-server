@@ -106,6 +106,7 @@ export class BattleService {
         }
         const liveMonsters = await this.monsterService.findAll({
           trainer: opponent.trainer,
+          // TODO check for Trainer.team
           'currentAttributes.health': {$gt: 0},
         });
         if (!liveMonsters.length) {
@@ -187,52 +188,57 @@ export class BattleService {
       if (!move) {
         continue;
       }
-      if (move.type === 'ability') {
-        if (monster.currentAttributes.health <= 0) {
-          opponent.results = [{type: 'monster-dead'}];
-          continue;
-        }
-
-        if (!(move.ability in monster.abilities)) {
-          opponent.results = [{type: 'ability-unknown', ability: move.ability}];
-          continue;
-        }
-        const ability = abilities.find(a => a.id === move.ability);
-        if (!ability) {
-          opponent.results = [{type: 'ability-unknown'}];
-          continue;
-        }
-
-        const targetMonster = monsters.find(m => m.trainer === move.target);
-        const targetOpponent = opponents.find(o => o.trainer === move.target);
-        if (!targetMonster || !targetOpponent) {
-          opponent.results = [{type: 'target-unknown'}];
-          continue;
-        }
-
-        if (targetMonster.currentAttributes.health <= 0) {
-          opponent.results = [{type: 'target-dead'}];
-          continue;
-        }
-
-        if (monster.abilities[move.ability] <= 0) {
-          opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
-          continue;
-        }
-
-        this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
-      } else if (move.type === 'use-item') {
-        const monsterInBattle = monsters.find(m => m._id.equals(move.target));
-        const trainerMonster = monsterInBattle ? undefined : await this.monsterService.findOne(move.target);
-        try {
-          await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
-          if (trainerMonster) {
-            await this.monsterService.saveMany([trainerMonster]);
+      switch (move.type) {
+        case 'ability':
+          if (monster.currentAttributes.health <= 0) {
+            opponent.results = [{type: 'monster-dead'}];
+            continue;
           }
-          opponent.results = [{type: 'item-success', item: move.item}];
-        } catch (err) {
-          opponent.results = [{type: 'item-failed', item: move.item}];
-        }
+
+          if (!(move.ability in monster.abilities)) {
+            opponent.results = [{type: 'ability-unknown', ability: move.ability}];
+            continue;
+          }
+          const ability = abilities.find(a => a.id === move.ability);
+          if (!ability) {
+            opponent.results = [{type: 'ability-unknown'}];
+            continue;
+          }
+
+          const targetMonster = monsters.find(m => m.trainer === move.target);
+          const targetOpponent = opponents.find(o => o.trainer === move.target);
+          if (!targetMonster || !targetOpponent) {
+            opponent.results = [{type: 'target-unknown'}];
+            continue;
+          }
+
+          if (targetMonster.currentAttributes.health <= 0) {
+            opponent.results = [{type: 'target-dead'}];
+            continue;
+          }
+
+          if (monster.abilities[move.ability] <= 0) {
+            opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
+            continue;
+          }
+
+          this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
+          break;
+        case 'change-monster':
+          opponent.results = [{type: 'monster-changed'}];
+          break;
+        case 'use-item':
+          const monsterInBattle = monsters.find(m => m._id.equals(move.target));
+          const trainerMonster = monsterInBattle ? undefined : await this.monsterService.findOne(move.target);
+          try {
+            await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
+            if (trainerMonster) {
+              await this.monsterService.saveMany([trainerMonster]);
+            }
+            opponent.results = [{type: 'item-success', item: move.item}];
+          } catch (err) {
+            opponent.results = [{type: 'item-failed', item: move.item}];
+          }
       }
     }
 

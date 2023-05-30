@@ -20,6 +20,13 @@ import {
 @ApiTags('Presets')
 export class PresetsController {
   @Get('tilesets/:filename')
+  @ApiOkResponse({
+    description: 'Either a Tileset in [JSON format](https://doc.mapeditor.org/en/stable/reference/json-map-format/#tileset), or a tile image PNG.',
+    content: {
+      'application/json': {},
+      'image/png': {},
+    }
+  })
   getTileset(
     @Param('filename') filename: string,
   ): StreamableFile {
@@ -34,6 +41,10 @@ export class PresetsController {
   }
 
   @Get('characters/:filename')
+  @ApiOkResponse({
+    description: 'A character image PNG.',
+    content: {'image/png': {}}
+  })
   getCharacter(
     @Param('filename') filename: string,
   ): StreamableFile {
@@ -85,6 +96,10 @@ export class PresetsController {
   }
 
   @Get('monsters/:id/image')
+  @ApiOkResponse({
+    description: 'A monster image PNG.',
+    content: {'image/png': {}},
+  })
   @NotFound()
   getMonsterImage(
     @Param('id', ParseIntPipe) id: number,

@@ -31,6 +31,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
       region,
       user,
       coins: 0,
+      team: [],
       encounteredMonsterTypes: [],
       area,
       x,
@@ -89,6 +90,10 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
       // @ts-ignore
       doc[key] = location[key];
     }
+  }
+
+  async addToTeam(id: string, monster: string): Promise<Trainer | null> {
+    return this.update(id, {$addToSet: {team: monster}});
   }
 
   async update(id: string, dto: UpdateQuery<Trainer>): Promise<Trainer | null> {

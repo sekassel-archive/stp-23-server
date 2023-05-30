@@ -57,18 +57,23 @@ export class Monster extends GlobalSchema {
   experience: number;
 
   @Prop({type: SchemaTypes.Mixed})
-  @ApiProperty({type: Object, maxProperties: MAX_ABILITIES})
+  @ApiProperty({
+    type: Object,
+    maxProperties: MAX_ABILITIES,
+    description: 'Object whose keys are the currently known ability IDs and values are remaining uses.',
+    example: {1: 15, 2: 10, 7: 5, 10: 0},
+  })
   @IsObject()
   abilities: { [id: number]: number };
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty({description: 'The persistent or maximum attributes of the monster.'})
   @ValidateNested()
   @Type(() => MonsterAttributes)
   attributes: MonsterAttributes;
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty( {description: 'The current attributes of the monster. Resets to persistent attributes when healed.'})
   @ValidateNested()
   @Type(() => MonsterAttributes)
   currentAttributes: MonsterAttributes;

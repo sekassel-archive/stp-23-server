@@ -92,6 +92,7 @@ export class GameLoader implements OnModuleInit {
     }, {
       $setOnInsert: {
         user: new Types.ObjectId(),
+        team: [],
         'npc.encountered': [],
       },
       region: region._id.toString(),
