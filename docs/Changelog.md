@@ -69,3 +69,16 @@
 
 * Fixed a typo in the `Kid_Karen` character filename.
 * Updated the `width` and `height` of all maps.
+
+# v2.1.0 - Roof Tiles, Achievements and Update Trainer
+
+## New Features
+
+### Content
+
++ Added `Roof` tiles. [STP23SRV-6](https://jira.uniks.de/browse/STP23SRV-6)
+
+### Resources
+
++ Added Achievements. [STP23SRV-5](https://jira.uniks.de/browse/STP23SRV-5)
++ Added the `PATCH /regions/{region}/trainers/{id}` endpoint for updating name and image. [STP23SRV-4](https://jira.uniks.de/browse/STP23SRV-4) 
