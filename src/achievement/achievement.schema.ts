@@ -36,9 +36,10 @@ export class Achievement extends GlobalSchemaWithoutID {
   unlockedAt?: Date | null;
 
   @Prop()
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsNumber()
-  progress: number;
+  progress?: number;
 }
 
 export type AchievementDocument = Achievement & Document<never>;

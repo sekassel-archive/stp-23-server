@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model } from 'mongoose';
-import { AchievementSummary } from '../achievement-summary/achievement-summary.dto';
+import {Injectable} from '@nestjs/common';
+import {InjectModel} from '@nestjs/mongoose';
+import {FilterQuery, Model} from 'mongoose';
+import {AchievementSummary} from '../achievement-summary/achievement-summary.dto';
 
-import { EventService } from '../event/event.service';
-import { CreateAchievementDto, UpdateAchievementDto } from './achievement.dto';
-import { Achievement } from './achievement.schema';
+import {EventService} from '../event/event.service';
+import {UpdateAchievementDto} from './achievement.dto';
+import {Achievement} from './achievement.schema';
 
 @Injectable()
 export class AchievementService {
@@ -15,8 +15,8 @@ export class AchievementService {
   ) {
   }
 
-  async create(user: string, id: string, achievement: CreateAchievementDto): Promise<Achievement> {
-    const res = await this.model.findOneAndUpdate({ user, id }, { ...achievement, user, id }, {
+  async upsert(user: string, id: string, dto: UpdateAchievementDto): Promise<Achievement> {
+    const res = await this.model.findOneAndUpdate({ user, id }, { ...dto, user, id }, {
       upsert: true,
       new: true,
       rawResult: true,
@@ -36,12 +36,6 @@ export class AchievementService {
 
   async findOne(user: string, id: string): Promise<Achievement | null> {
     return this.model.findOne({ user, id }).exec();
-  }
-
-  async update(user: string, id: string, dto: UpdateAchievementDto): Promise<Achievement | null> {
-    const updated = await this.model.findOneAndUpdate({ user, id }, dto, { new: true }).exec();
-    updated && this.emit('updated', updated);
-    return updated;
   }
 
   async deleteUser(user: string): Promise<Achievement[]> {
