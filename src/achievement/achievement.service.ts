@@ -10,7 +10,7 @@ import { Achievement } from './achievement.schema';
 @Injectable()
 export class AchievementService {
   constructor(
-    @InjectModel('achievements') private model: Model<Achievement>,
+    @InjectModel(Achievement.name) private model: Model<Achievement>,
     private eventEmitter: EventService,
   ) {
   }
