@@ -15,6 +15,8 @@ import {RegionModule} from './region/region.module';
 import {UserModule} from './user/user.module';
 import {SentryInterceptor, SentryModule} from "@ntegral/nestjs-sentry";
 import {APP_INTERCEPTOR} from "@nestjs/core";
+import {AchievementModule} from "./achievement/achievement.module";
+import {AchievementSummaryModule} from "./achievement-summary/achievement-summary.module";
 
 @Module({
   imports: [
@@ -35,8 +37,8 @@ import {APP_INTERCEPTOR} from "@nestjs/core";
     EventModule,
     SocketModule,
     UserModule,
-    // AchievementSummaryModule,
-    // AchievementModule,
+    AchievementSummaryModule,
+    AchievementModule,
     GroupModule,
     MessageModule,
     RegionModule,
