@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, ForbiddenException, Get, Param, Post, Query} from '@nestjs/common';
+import {Body, Controller, Delete, ForbiddenException, Get, Param, Patch, Post, Query} from '@nestjs/common';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
@@ -15,7 +15,7 @@ import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
-import {CreateTrainerDto, MoveTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 
@@ -64,6 +64,20 @@ export class TrainerController {
     return this.trainerService.findOne(id);
   }
 
+  @Patch(':id')
+  @ApiOkResponse({type: Trainer})
+  @ApiForbiddenResponse({description: 'Cannot update someone else\'s trainer'})
+  @NotFound()
+  async updateOne(
+    @Param('region', ParseObjectIdPipe) region: string,
+    @Param('id', ParseObjectIdPipe) id: string,
+    @Body() dto: UpdateTrainerDto,
+    @AuthUser() user: User,
+  ): Promise<Trainer | null> {
+    await this.checkTrainerAuth(user, 'update', id);
+    return this.trainerService.update(id, dto);
+  }
+
   @Delete(':id')
   @ApiOkResponse({type: Trainer})
   @ApiForbiddenResponse({description: 'Cannot delete someone else\'s trainer'})
@@ -73,10 +87,14 @@ export class TrainerController {
     @Param('id', ParseObjectIdPipe) id: string,
     @AuthUser() user: User,
   ): Promise<Trainer | null> {
+    await this.checkTrainerAuth(user, 'delete', id);
+    return this.trainerService.delete(id);
+  }
+
+  private async checkTrainerAuth(user: User, op: string, id: string) {
     const trainer = await this.trainerService.findOne(id);
     if (trainer?.user !== user._id.toString()) {
-      throw new ForbiddenException('Cannot delete someone else\'s trainer');
+      throw new ForbiddenException(`Cannot ${op} someone else's trainer`);
     }
-    return this.trainerService.delete(id);
   }
 }
