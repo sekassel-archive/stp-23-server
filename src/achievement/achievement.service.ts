@@ -15,8 +15,8 @@ export class AchievementService {
   ) {
   }
 
-  async create(userId: string, id: string, achievement: CreateAchievementDto): Promise<Achievement> {
-    const res = await this.model.findOneAndUpdate({ userId, id }, { ...achievement, userId, id }, {
+  async create(user: string, id: string, achievement: CreateAchievementDto): Promise<Achievement> {
+    const res = await this.model.findOneAndUpdate({ user, id }, { ...achievement, user, id }, {
       upsert: true,
       new: true,
       rawResult: true,
@@ -30,37 +30,37 @@ export class AchievementService {
     return value;
   }
 
-  async findAll(userId: string, filter?: FilterQuery<Achievement>): Promise<Achievement[]> {
-    return this.model.find({ ...filter, userId }).exec();
+  async findAll(user: string, filter?: FilterQuery<Achievement>): Promise<Achievement[]> {
+    return this.model.find({ ...filter, user }).exec();
   }
 
-  async findOne(userId: string, id: string): Promise<Achievement | null> {
-    return this.model.findOne({ userId, id }).exec();
+  async findOne(user: string, id: string): Promise<Achievement | null> {
+    return this.model.findOne({ user, id }).exec();
   }
 
-  async update(userId: string, id: string, dto: UpdateAchievementDto): Promise<Achievement | null> {
-    const updated = await this.model.findOneAndUpdate({ userId, id }, dto, { new: true }).exec();
+  async update(user: string, id: string, dto: UpdateAchievementDto): Promise<Achievement | null> {
+    const updated = await this.model.findOneAndUpdate({ user, id }, dto, { new: true }).exec();
     updated && this.emit('updated', updated);
     return updated;
   }
 
-  async deleteUser(userId: string): Promise<Achievement[]> {
-    const achievements = await this.model.find({ userId }).exec();
+  async deleteUser(user: string): Promise<Achievement[]> {
+    const achievements = await this.model.find({ user }).exec();
     for (const achievement of achievements) {
       this.emit('deleted', achievement);
     }
-    await this.model.deleteMany({ userId }).exec();
+    await this.model.deleteMany({ user }).exec();
     return achievements;
   }
 
-  async delete(userId: string, id: string): Promise<Achievement | null> {
-    const deleted = await this.model.findOneAndDelete({ userId, id }).exec();
+  async delete(user: string, id: string): Promise<Achievement | null> {
+    const deleted = await this.model.findOneAndDelete({ user, id }).exec();
     deleted && this.emit('deleted', deleted);
     return deleted;
   }
 
   private emit(event: string, achievement: Achievement): void {
-    this.eventEmitter.emit(`users.${achievement.userId}.achievements.${achievement.id}.${event}`, achievement);
+    this.eventEmitter.emit(`users.${achievement.user}.achievements.${achievement.id}.${event}`, achievement);
   }
 
   async summary(filter: FilterQuery<Achievement> = {}): Promise<AchievementSummary[]> {

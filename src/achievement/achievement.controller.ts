@@ -10,7 +10,7 @@ import { CreateAchievementDto, UpdateAchievementDto } from './achievement.dto';
 import { Achievement } from './achievement.schema';
 import { AchievementService } from './achievement.service';
 
-@Controller('users/:userId/achievements')
+@Controller('users/:user/achievements')
 @ApiTags('Achievements')
 @Validated()
 @Auth()
@@ -24,7 +24,7 @@ export class AchievementController {
   @Get()
   @ApiOkResponse({ type: [Achievement] })
   async findAll(
-    @Param('userId', ParseObjectIdPipe) userId: string,
+    @Param('user', ParseObjectIdPipe) userId: string,
   ): Promise<Achievement[]> {
     return this.achievementService.findAll(userId);
   }
@@ -33,7 +33,7 @@ export class AchievementController {
   @ApiOkResponse({ type: Achievement })
   @NotFound()
   async findOne(
-    @Param('userId', ParseObjectIdPipe) userId: string,
+    @Param('user', ParseObjectIdPipe) userId: string,
     @Param('id') id: string,
   ): Promise<Achievement | null> {
     return this.achievementService.findOne(userId, id);
@@ -44,7 +44,7 @@ export class AchievementController {
   @ApiForbiddenResponse({ description: 'Adding an achievement to another user.' })
   async create(
     @AuthUser() user: User,
-    @Param('userId', ParseObjectIdPipe) userId: string,
+    @Param('user', ParseObjectIdPipe) userId: string,
     @Param('id') id: string,
     @Body() achievement: CreateAchievementDto,
   ): Promise<Achievement> {
@@ -60,7 +60,7 @@ export class AchievementController {
   @NotFound()
   async update(
     @AuthUser() user: User,
-    @Param('userId', ParseObjectIdPipe) userId: string,
+    @Param('user', ParseObjectIdPipe) userId: string,
     @Param('id') id: string,
     @Body() dto: UpdateAchievementDto,
   ): Promise<Achievement | null> {
@@ -76,7 +76,7 @@ export class AchievementController {
   @NotFound()
   async delete(
     @AuthUser() user: User,
-    @Param('userId', ParseObjectIdPipe) userId: string,
+    @Param('user', ParseObjectIdPipe) userId: string,
     @Param('id') id: string,
   ): Promise<Achievement | null> {
     if (user._id.toString() !== userId) {
