@@ -37,7 +37,7 @@ export class NPCInfo {
   @IsBoolean()
   canHeal: boolean;
 
-  @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
+  // @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
   @IsOptional()
   @IsArray()
   @IsInt({each: true})
