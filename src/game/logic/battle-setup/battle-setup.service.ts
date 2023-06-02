@@ -70,7 +70,7 @@ export class BattleSetupService {
     }
 
     const defenderMonsters = await this.monsterService.findAll({
-      trainer: defender,
+      trainer: defenderId,
       'currentAttributes.health': {$gt: 0},
     });
     const defenderMonster = defender.team.flatMap(m => defenderMonsters.find(monster => monster._id.toString() === m))[0];
