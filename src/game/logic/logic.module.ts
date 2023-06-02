@@ -37,6 +37,9 @@ import { NpcTalkService } from './npc-talk/npc-talk.service';
     BattleSetupService,
     NpcTalkService,
   ],
+  exports: [
+    MonsterGeneratorService,
+  ],
 })
 export class LogicModule {
 }

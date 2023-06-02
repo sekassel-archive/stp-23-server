@@ -1,4 +1,4 @@
-import {Module} from "@nestjs/common";
+import {forwardRef, Module} from "@nestjs/common";
 import {MongooseModule} from "@nestjs/mongoose";
 import {Item, ItemSchema} from "./item.schema";
 import {EventModule} from "../../event/event.module";
@@ -7,6 +7,7 @@ import {ItemController} from "./item.controller";
 import {ItemHandler} from "./item.handler";
 import {TrainerModule} from "../trainer/trainer.module";
 import {MonsterModule} from "../monster/monster.module";
+import {LogicModule} from "../logic/logic.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import {MonsterModule} from "../monster/monster.module";
     EventModule,
     TrainerModule,
     MonsterModule,
+    forwardRef(() => LogicModule),
   ],
   controllers: [ItemController],
   providers: [ItemService, ItemHandler],
