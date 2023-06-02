@@ -69,11 +69,12 @@ export class TrainerController {
   @ApiForbiddenResponse({description: 'Cannot update someone else\'s trainer'})
   @NotFound()
   async updateOne(
+    @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ParseObjectIdPipe) id: string,
     @Body() dto: UpdateTrainerDto,
     @AuthUser() user: User,
   ): Promise<Trainer | null> {
-    await this.checkTrainerAuth(id, user);
+    await this.checkTrainerAuth(user, 'update', id);
     return this.trainerService.update(id, dto);
   }
 
@@ -86,14 +87,14 @@ export class TrainerController {
     @Param('id', ParseObjectIdPipe) id: string,
     @AuthUser() user: User,
   ): Promise<Trainer | null> {
-    await this.checkTrainerAuth(id, user);
+    await this.checkTrainerAuth(user, 'delete', id);
     return this.trainerService.delete(id);
   }
 
-  private async checkTrainerAuth(id: string, user: User) {
+  private async checkTrainerAuth(user: User, op: string, id: string) {
     const trainer = await this.trainerService.findOne(id);
     if (trainer?.user !== user._id.toString()) {
-      throw new ForbiddenException('Cannot delete someone else\'s trainer');
+      throw new ForbiddenException(`Cannot ${op} someone else's trainer`);
     }
   }
 }

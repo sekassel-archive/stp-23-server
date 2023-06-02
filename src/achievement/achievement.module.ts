@@ -5,13 +5,13 @@ import { EventModule } from '../event/event.module';
 import { UserModule } from '../user/user.module';
 import { AchievementController } from './achievement.controller';
 import { AchievementHandler } from './achievement.handler';
-import { AchievementSchema } from './achievement.schema';
+import {Achievement, AchievementSchema} from './achievement.schema';
 import { AchievementService } from './achievement.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{
-      name: 'achievements',
+      name: Achievement.name,
       schema: AchievementSchema,
     }]),
     UserModule,

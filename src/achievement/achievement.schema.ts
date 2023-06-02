@@ -20,7 +20,7 @@ export class Achievement extends GlobalSchemaWithoutID {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
-  userId: string;
+  user: string;
 
   @Prop()
   @ApiProperty({ minLength: 1, maxLength: MAX_ID_LENGTH })
@@ -36,13 +36,14 @@ export class Achievement extends GlobalSchemaWithoutID {
   unlockedAt?: Date | null;
 
   @Prop()
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsNumber()
-  progress: number;
+  progress?: number;
 }
 
 export type AchievementDocument = Achievement & Document<never>;
 
 export const AchievementSchema = SchemaFactory.createForClass(Achievement)
-  .index({ userId: 1, id: 1 }, { unique: true })
+  .index({ user: 1, id: 1 }, { unique: true })
 ;
