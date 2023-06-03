@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@mean-stream/nestx':
-    specifier: ^0.7.4
-    version: 0.7.4(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/event-emitter@1.4.1)(@nestjs/microservices@9.4.2)(@nestjs/mongoose@9.2.2)(@nestjs/platform-express@9.4.2)(@nestjs/swagger@6.3.0)(@nestjs/websockets@9.4.2)(class-transformer@0.5.1)(class-validator@0.14.0)(mongoose@7.2.2)(nats@2.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)(tslib@2.5.3)
+    specifier: ^0.8.0
+    version: 0.8.0(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/event-emitter@1.4.1)(@nestjs/microservices@9.4.2)(@nestjs/mongoose@9.2.2)(@nestjs/platform-express@9.4.2)(@nestjs/swagger@6.3.0)(@nestjs/websockets@9.4.2)(class-transformer@0.5.1)(class-validator@0.14.0)(mongoose@7.2.2)(nats@2.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)(tslib@2.5.3)
   '@nestjs/common':
     specifier: ^9.4.2
     version: 9.4.2(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
@@ -982,8 +982,8 @@ packages:
       - supports-color
     dev: false
 
-  /@mean-stream/nestx@0.7.4(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/event-emitter@1.4.1)(@nestjs/microservices@9.4.2)(@nestjs/mongoose@9.2.2)(@nestjs/platform-express@9.4.2)(@nestjs/swagger@6.3.0)(@nestjs/websockets@9.4.2)(class-transformer@0.5.1)(class-validator@0.14.0)(mongoose@7.2.2)(nats@2.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)(tslib@2.5.3):
-    resolution: {integrity: sha512-XpCVPgIn3urm0KdEVwtkPATr5/cMX+ltrnR5vCoSRI5IVkH8BuPzjlA53uYMfAMCAdbQfiZVtYM+ezwXy4F4Kw==}
+  /@mean-stream/nestx@0.8.0(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/event-emitter@1.4.1)(@nestjs/microservices@9.4.2)(@nestjs/mongoose@9.2.2)(@nestjs/platform-express@9.4.2)(@nestjs/swagger@6.3.0)(@nestjs/websockets@9.4.2)(class-transformer@0.5.1)(class-validator@0.14.0)(mongoose@7.2.2)(nats@2.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)(tslib@2.5.3):
+    resolution: {integrity: sha512-I9c41cr7Gu6xAbkT+yLmCpP/1cwO7J3mz4FjkmOSvjgkXDm4ZS0bGifyzdDL0z0XwlLMdoE615vSa+gslXWWBw==}
     peerDependencies:
       '@nestjs/common': ^9.0.0
       '@nestjs/core': ^9.0.0
