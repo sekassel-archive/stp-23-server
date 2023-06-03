@@ -52,14 +52,14 @@ export class GameLoader implements OnModuleInit {
   private async loadArea(areaFileName: string, region: Region): Promise<AreaDocument> {
     const name = areaFileName.replace('.json', '');
     const map: TiledMap = JSON.parse(await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8'));
-    const area = await this.areaService.upsert({
+    const area = (await this.areaService.upsert({
       region: region._id.toString(),
       name,
     }, {
       region: region._id.toString(),
       name,
       map,
-    });
+    }))!;
 
     for (const layer of map.layers) {
       if (layer.type !== 'objectgroup') {
