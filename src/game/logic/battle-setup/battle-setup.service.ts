@@ -43,7 +43,7 @@ export class BattleSetupService {
       return;
     }
 
-    const encounter = await this.encounterService.create(defender.region, {isWild: false});
+    const encounter = await this.encounterService.create({region: defender.region, isWild: false});
     await this.opponentService.create(encounter._id.toString(), defenderId, {
       isAttacker: false,
       isNPC: !!defender.npc,
@@ -78,7 +78,7 @@ export class BattleSetupService {
       return;
     }
 
-    const encounter = await this.encounterService.create(defender.region, {isWild: true});
+    const encounter = await this.encounterService.create({region: defender.region, isWild: true});
     await this.opponentService.create(encounter._id.toString(), defenderId, {
       isAttacker: false,
       isNPC: false,

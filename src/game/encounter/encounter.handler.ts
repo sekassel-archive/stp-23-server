@@ -3,6 +3,7 @@ import {OnEvent} from '@nestjs/event-emitter';
 import {Opponent} from '../opponent/opponent.schema';
 import {OpponentService} from '../opponent/opponent.service';
 import {EncounterService} from './encounter.service';
+import {Types} from "mongoose";
 
 @Injectable()
 export class EncounterHandler {
@@ -21,6 +22,6 @@ export class EncounterHandler {
     }
 
     // all opponents on one side have been defeated
-    await this.encounterService.delete(opponent.encounter);
+    await this.encounterService.delete(new Types.ObjectId(opponent.encounter));
   }
 }

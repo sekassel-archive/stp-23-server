@@ -29,6 +29,7 @@ import {UpdateOpponentDto} from './opponent.dto';
 import {Opponent} from './opponent.schema';
 import {OpponentService} from './opponent.service';
 import {Types} from "mongoose";
+import {ObjectIdPipe} from '@mean-stream/nestx';
 
 @Controller('regions/:regionId')
 @ApiTags('Encounter Opponents')
@@ -91,7 +92,7 @@ export class OpponentController {
   @ApiForbiddenResponse({description: 'You cannot make another trainer flee, or flee from a trainer encounter'})
   @NotFound()
   async deleteOne(
-    @Param('encounterId', ParseObjectIdPipe) encounter: string,
+    @Param('encounterId', ObjectIdPipe) encounter: Types.ObjectId,
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
@@ -103,7 +104,7 @@ export class OpponentController {
     if (!encounterDoc.isWild) {
       throw new ForbiddenException('You cannot flee from a trainer encounter');
     }
-    return this.opponentService.deleteOne(encounter, trainer);
+    return this.opponentService.deleteOne(encounter.toString(), trainer);
   }
 
   private async checkTrainerAccess(trainer: string, user: User) {
