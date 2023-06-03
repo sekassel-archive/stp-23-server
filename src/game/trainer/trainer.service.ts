@@ -1,32 +1,35 @@
 import {ConflictException, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Cron, CronExpression} from '@nestjs/schedule';
-import {FilterQuery, Model, Types, UpdateQuery} from 'mongoose';
+import {FilterQuery, Model, Types} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
-import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
+import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 
 @Injectable()
-export class TrainerService implements OnModuleInit, OnModuleDestroy {
+@EventRepository()
+export class TrainerService extends MongooseRepository<Trainer> implements OnModuleInit, OnModuleDestroy {
   locations = new Map<string, MoveTrainerDto>;
 
   constructor(
-    @InjectModel(Trainer.name) private model: Model<Trainer>,
+    @InjectModel(Trainer.name) model: Model<Trainer>,
     private eventEmitter: EventService,
     private regionService: RegionService,
   ) {
+    super(model);
   }
 
-  async create(region: Types.ObjectId, user: string, dto: CreateTrainerDto): Promise<Trainer> {
+  async createSimple(region: Types.ObjectId, user: string, dto: CreateTrainerDto): Promise<Trainer> {
     const regionDoc = await this.regionService.findOne(region);
     if (!regionDoc) {
       throw new NotFoundException('Region not found');
     }
     const {area, x, y} = regionDoc.spawn;
-    const trainer: Omit<Trainer, keyof GlobalSchema> = {
+    return this.create({
       ...dto,
       region: region.toString(),
       user,
@@ -35,16 +38,18 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
       x,
       y,
       direction: Direction.DOWN,
-    };
+    });
+  }
+
+  async create(trainer: Omit<Trainer, keyof GlobalSchema>): Promise<TrainerDocument> {
     try {
-      const created = await this.model.create(trainer);
-      created && this.emit('created', created);
+      const created = await super.create(trainer);
       created && this.setLocation(created._id.toString(), {
         _id: created._id,
-        area,
-        x,
-        y,
-        direction: created.direction,
+        area: trainer.area,
+        x: trainer.x,
+        y: trainer.y,
+        direction: trainer.direction,
       });
       return created;
     } catch (err: any) {
@@ -55,26 +60,16 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  async upsert(filter: FilterQuery<Trainer>, update: UpdateQuery<Trainer>): Promise<TrainerDocument> {
-    const result = await this.model.findOneAndUpdate(filter, update, {upsert: true, new: true, rawResult: true}).exec();
-    if (!result.value) {
-      throw new Error('Upsert failed');
-    }
-    const trainer = result.value;
-    this.emit(result.lastErrorObject?.updatedExisting ? 'updated' : 'created', trainer);
-    return trainer;
-  }
-
-  async findAll(filter: FilterQuery<Trainer>): Promise<Trainer[]> {
-    const results = await this.model.find(filter).exec();
+  async findAll(filter: FilterQuery<Trainer>): Promise<TrainerDocument[]> {
+    const results = await super.findAll(filter);
     for (const result of results) {
       this.addLocation(result);
     }
     return results;
   }
 
-  async findOne(id: string): Promise<Trainer | null> {
-    const result = await this.model.findById(id).exec();
+  async findOne(id: Types.ObjectId): Promise<TrainerDocument | null> {
+    const result = await super.findOne(id);
     result && this.addLocation(result);
     return result;
   }
@@ -88,27 +83,6 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
       // @ts-ignore
       doc[key] = location[key];
     }
-  }
-
-  async update(id: string, dto: UpdateQuery<Trainer>): Promise<Trainer | null> {
-    const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
-    updated && this.emit('updated', updated);
-    return updated;
-  }
-
-  async delete(id: string): Promise<Trainer | null> {
-    const deleted = await this.model.findByIdAndDelete(id).exec();
-    deleted && this.emit('deleted', deleted);
-    return deleted;
-  }
-
-  async deleteUser(user: string): Promise<Trainer[]> {
-    const trainers = await this.model.find({user}).exec();
-    for (const trainer of trainers) {
-      this.emit('deleted', trainer);
-    }
-    await this.model.deleteMany({user}).exec();
-    return trainers;
   }
 
   private emit(event: string, trainer: Trainer): void {

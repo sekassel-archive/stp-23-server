@@ -41,7 +41,7 @@ export class TrainerController {
     @Body() dto: CreateTrainerDto,
     @AuthUser() user: User,
   ): Promise<Trainer> {
-    return this.trainerService.create(region, user._id.toString(), dto);
+    return this.trainerService.createSimple(region, user._id.toString(), dto);
   }
 
   @Get()
@@ -61,7 +61,7 @@ export class TrainerController {
   @NotFound()
   async findOne(
     @Param('region', ParseObjectIdPipe) region: string,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Trainer | null> {
     return this.trainerService.findOne(id);
   }
@@ -72,7 +72,7 @@ export class TrainerController {
   @NotFound()
   async updateOne(
     @Param('region', ParseObjectIdPipe) region: string,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @Body() dto: UpdateTrainerDto,
     @AuthUser() user: User,
   ): Promise<Trainer | null> {
@@ -86,14 +86,14 @@ export class TrainerController {
   @NotFound()
   async deleteOne(
     @Param('region', ParseObjectIdPipe) region: string,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @AuthUser() user: User,
   ): Promise<Trainer | null> {
     await this.checkTrainerAuth(user, 'delete', id);
     return this.trainerService.delete(id);
   }
 
-  private async checkTrainerAuth(user: User, op: string, id: string) {
+  private async checkTrainerAuth(user: User, op: string, id: Types.ObjectId) {
     const trainer = await this.trainerService.findOne(id);
     if (trainer?.user !== user._id.toString()) {
       throw new ForbiddenException(`Cannot ${op} someone else's trainer`);
