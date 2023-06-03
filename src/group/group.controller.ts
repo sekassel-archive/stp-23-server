@@ -1,14 +1,15 @@
-import { Body, Controller, Delete, ForbiddenException, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Auth, AuthUser } from '../auth/auth.decorator';
-import { User } from '../user/user.schema';
-import { NotFound } from '../util/not-found.decorator';
-import { ParseObjectIdPipe } from '../util/parse-object-id.pipe';
-import { Throttled } from '../util/throttled.decorator';
-import { Validated } from '../util/validated.decorator';
-import { CreateGroupDto, UpdateGroupDto } from './group.dto';
-import { Group } from './group.schema';
-import { GroupService } from './group.service';
+import {Body, Controller, Delete, ForbiddenException, Get, Param, Patch, Post, Query} from '@nestjs/common';
+import {ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
+import {Auth, AuthUser} from '../auth/auth.decorator';
+import {User} from '../user/user.schema';
+import {NotFound} from '../util/not-found.decorator';
+import {Throttled} from '../util/throttled.decorator';
+import {Validated} from '../util/validated.decorator';
+import {CreateGroupDto, UpdateGroupDto} from './group.dto';
+import {Group} from './group.schema';
+import {GroupService} from './group.service';
+import {ObjectIdPipe} from "@mean-stream/nestx";
+import {Types} from "mongoose";
 
 @Controller('groups')
 @ApiTags('Groups')
@@ -52,8 +53,8 @@ export class GroupController {
   @ApiOkResponse({ type: Group })
   @ApiForbiddenResponse({ description: 'Attempt to get a group in which the current user is not a member.' })
   @NotFound()
-  async findOne(@AuthUser() user: User, @Param('id', ParseObjectIdPipe) id: string): Promise<Group | null> {
-    const group = await this.groupService.find(id);
+  async findOne(@AuthUser() user: User, @Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<Group | null> {
+    const group = await this.groupService.findOne(id);
     if (!group) {
       return null;
     }
@@ -65,8 +66,8 @@ export class GroupController {
   @ApiOkResponse({ type: Group })
   @ApiForbiddenResponse({ description: 'Attempt to change a group in which the current user is not a member.' })
   @NotFound()
-  async update(@AuthUser() user: User, @Param('id', ParseObjectIdPipe) id: string, @Body() dto: UpdateGroupDto): Promise<Group | null> {
-    const existing = await this.groupService.find(id);
+  async update(@AuthUser() user: User, @Param('id', ObjectIdPipe) id: Types.ObjectId, @Body() dto: UpdateGroupDto): Promise<Group | null> {
+    const existing = await this.groupService.findOne(id);
     if (!existing) {
       return null;
     }
@@ -78,8 +79,8 @@ export class GroupController {
   @ApiOkResponse({ type: Group })
   @ApiForbiddenResponse({ description: 'Attempt to delete a group in which the current user is not the last remaining member.' })
   @NotFound()
-  async delete(@AuthUser() user: User, @Param('id', ParseObjectIdPipe) id: string): Promise<Group | null> {
-    const existing = await this.groupService.find(id);
+  async delete(@AuthUser() user: User, @Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<Group | null> {
+    const existing = await this.groupService.findOne(id);
     if (!existing) {
       return null;
     }
