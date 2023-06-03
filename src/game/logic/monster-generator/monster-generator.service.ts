@@ -56,7 +56,7 @@ export class MonsterGeneratorService {
 
   async createAuto(trainer: string, type: number, level: number): Promise<MonsterDocument> {
     const dto = this.autofill(type, level);
-    return this.monsterService.upsert({
+    return (await this.monsterService.upsert({
       // NB: This makes it so NPCs cannot have two monsters of the same type.
       trainer,
       type,
@@ -65,7 +65,7 @@ export class MonsterGeneratorService {
       trainer,
       experience: 0,
       currentAttributes: dto.attributes,
-    });
+    }))!;
   }
 
 }
