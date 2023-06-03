@@ -36,7 +36,7 @@ export class MovementService implements OnModuleInit {
   tiles = new Map<string, Tile[]>;
 
   async onModuleInit() {
-    const areas = await this.areaService.findAll({});
+    const areas = await this.areaService.findAll();
     for (const area of areas) {
       const portals = this.loadPortals(area, areas);
       this.portals.set(area._id.toString(), portals);

@@ -23,7 +23,7 @@ export class RegionController {
   @Get()
   @ApiOkResponse({type: [Region]})
   async findAll(): Promise<Region[]> {
-    return this.regionService.findAll({});
+    return this.regionService.findAll();
   }
 
   @Get(':id')
