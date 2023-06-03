@@ -20,7 +20,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { FilterQuery } from 'mongoose';
+import {FilterQuery, Types} from 'mongoose';
 import { Auth, AuthUser } from '../auth/auth.decorator';
 import { MemberResolverService, Namespace, UserFilter } from '../member-resolver/member-resolver.service';
 import { User } from '../user/user.schema';
@@ -31,6 +31,7 @@ import { Validated } from '../util/validated.decorator';
 import { CreateMessageDto, QueryMessagesDto, UpdateMessageDto } from './message.dto';
 import { Message } from './message.schema';
 import { MessageService } from './message.service';
+import {ObjectIdPipe} from "@mean-stream/nestx";
 
 @Controller(':namespace/:parent/messages')
 @ApiTags('Messages')
@@ -44,7 +45,7 @@ export class MessageController {
   ) {
   }
 
-  private async checkParentAndGetMembers(namespace: Namespace, parent: string, user: User): Promise<UserFilter> {
+  private async checkParentAndGetMembers(namespace: Namespace, parent: Types.ObjectId, user: User): Promise<UserFilter> {
     const users = await this.memberResolver.resolve(namespace, parent);
     if (users === 'global') {
       return users;
@@ -66,11 +67,11 @@ export class MessageController {
   async create(
     @AuthUser() user: User,
     @Param('namespace', new ParseEnumPipe(Namespace)) namespace: Namespace,
-    @Param('parent', ParseObjectIdPipe) parent: string,
+    @Param('parent', ObjectIdPipe) parent: Types.ObjectId,
     @Body() message: CreateMessageDto,
   ): Promise<Message> {
     const users = await this.checkParentAndGetMembers(namespace, parent, user);
-    return this.messageService.create(namespace, parent, user._id.toString(), message, users);
+    return this.messageService.create(namespace, parent.toString(), user._id.toString(), message, users);
   }
 
   @Get()
@@ -82,7 +83,7 @@ export class MessageController {
   async getAll(
     @AuthUser() user: User,
     @Param('namespace', new ParseEnumPipe(Namespace)) namespace: Namespace,
-    @Param('parent') parent: string,
+    @Param('parent', ObjectIdPipe) parent: Types.ObjectId,
     @Query() { createdAfter, createdBefore, limit }: QueryMessagesDto,
   ): Promise<Message[]> {
     await this.checkParentAndGetMembers(namespace, parent, user);
@@ -92,7 +93,7 @@ export class MessageController {
       createdAfter && (filter.createdAt.$gte = createdAfter);
       createdBefore && (filter.createdAt.$lt = createdBefore);
     }
-    return this.messageService.findAll(namespace, parent, filter, limit);
+    return this.messageService.findAll(namespace, parent.toString(), filter, limit);
   }
 
   @Get(':id')
@@ -103,11 +104,11 @@ export class MessageController {
   async get(
     @AuthUser() user: User,
     @Param('namespace', new ParseEnumPipe(Namespace)) namespace: Namespace,
-    @Param('parent', ParseObjectIdPipe) parent: string,
+    @Param('parent', ObjectIdPipe) parent: Types.ObjectId,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Message | null> {
     await this.checkParentAndGetMembers(namespace, parent, user);
-    return this.messageService.find(namespace, parent, id);
+    return this.messageService.find(namespace, parent.toString(), id);
   }
 
   @Patch(':id')
@@ -118,19 +119,19 @@ export class MessageController {
   async update(
     @AuthUser() user: User,
     @Param('namespace', new ParseEnumPipe(Namespace)) namespace: Namespace,
-    @Param('parent', ParseObjectIdPipe) parent: string,
+    @Param('parent', ObjectIdPipe) parent: Types.ObjectId,
     @Param('id', ParseObjectIdPipe) id: string,
     @Body() dto: UpdateMessageDto,
   ): Promise<Message | null> {
     const users = await this.checkParentAndGetMembers(namespace, parent, user);
-    const existing = await this.messageService.find(namespace, parent, id);
+    const existing = await this.messageService.find(namespace, parent.toString(), id);
     if (!existing) {
       return null;
     }
     if (existing.sender !== user._id.toString()) {
       throw new ForbiddenException('Only the sender can change the message.');
     }
-    return this.messageService.update(namespace, parent, id, dto, users);
+    return this.messageService.update(namespace, parent.toString(), id, dto, users);
   }
 
   @Delete(':id')
@@ -141,17 +142,17 @@ export class MessageController {
   async delete(
     @AuthUser() user: User,
     @Param('namespace', new ParseEnumPipe(Namespace)) namespace: Namespace,
-    @Param('parent', ParseObjectIdPipe) parent: string,
+    @Param('parent', ObjectIdPipe) parent: Types.ObjectId,
     @Param('id', ParseObjectIdPipe) id: string,
   ): Promise<Message | null> {
     const users = await this.checkParentAndGetMembers(namespace, parent, user);
-    const existing = await this.messageService.find(namespace, parent, id);
+    const existing = await this.messageService.find(namespace, parent.toString(), id);
     if (!existing) {
       return null;
     }
     if (existing.sender !== user._id.toString()) {
       throw new ForbiddenException('Only the sender can delete the message.');
     }
-    return this.messageService.delete(namespace, parent, id, users);
+    return this.messageService.delete(namespace, parent.toString(), id, users);
   }
 }

@@ -19,8 +19,7 @@ export class MessageHandler {
   }
 
   private async onDelete(namespace: Namespace, entity: GlobalSchema): Promise<void> {
-    const id = entity._id.toString();
-    const members = await this.memberResolver.resolve(namespace, id);
-    await this.messageService.deleteAll(namespace, id, members);
+    const members = await this.memberResolver.resolve(namespace, entity._id);
+    await this.messageService.deleteAll(namespace, entity._id.toString(), members);
   }
 }
