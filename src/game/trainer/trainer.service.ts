@@ -1,7 +1,7 @@
 import {ConflictException, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Cron, CronExpression} from '@nestjs/schedule';
-import {FilterQuery, Model, UpdateQuery} from 'mongoose';
+import {FilterQuery, Model, Types, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {RegionService} from '../../region/region.service';
@@ -20,7 +20,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
   ) {
   }
 
-  async create(region: string, user: string, dto: CreateTrainerDto): Promise<Trainer> {
+  async create(region: Types.ObjectId, user: string, dto: CreateTrainerDto): Promise<Trainer> {
     const regionDoc = await this.regionService.findOne(region);
     if (!regionDoc) {
       throw new NotFoundException('Region not found');
@@ -28,7 +28,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     const {area, x, y} = regionDoc.spawn;
     const trainer: Omit<Trainer, keyof GlobalSchema> = {
       ...dto,
-      region,
+      region: region.toString(),
       user,
       coins: 0,
       area,

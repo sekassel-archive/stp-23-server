@@ -18,6 +18,8 @@ import {Validated} from '../../util/validated.decorator';
 import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
+import {ObjectIdPipe} from "@mean-stream/nestx";
+import {Types} from "mongoose";
 
 @Controller('regions/:region/trainers')
 @ApiTags('Region Trainers')
@@ -35,7 +37,7 @@ export class TrainerController {
   @ApiCreatedResponse({type: Trainer})
   @ApiConflictResponse({description: 'Trainer for current user already exists'})
   async create(
-    @Param('region', ParseObjectIdPipe) region: string,
+    @Param('region', ObjectIdPipe) region: Types.ObjectId,
     @Body() dto: CreateTrainerDto,
     @AuthUser() user: User,
   ): Promise<Trainer> {

@@ -1,30 +1,14 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import {FilterQuery, Model} from 'mongoose';
-import {EventService} from '../event/event.service';
-import {Region, RegionDocument} from './region.schema';
+import {Model} from 'mongoose';
+import {Region} from './region.schema';
+import {MongooseRepository} from "@mean-stream/nestx";
 
 @Injectable()
-export class RegionService {
+export class RegionService extends MongooseRepository<Region> {
   constructor(
-    @InjectModel(Region.name) private model: Model<Region>,
-    private eventService: EventService,
+    @InjectModel(Region.name) model: Model<Region>,
   ) {
-  }
-
-  async findAll(filter: FilterQuery<Region> = {}): Promise<RegionDocument[]> {
-    return this.model.find(filter).sort({name: 1}).exec();
-  }
-
-  async findOne(id: string): Promise<RegionDocument | null> {
-    return this.model.findById(id).exec();
-  }
-
-  async findByNameOrCreate(name: string): Promise<RegionDocument> {
-    return this.model.findOneAndUpdate({name}, {name}, {upsert: true, new: true});
-  }
-
-  private emit(event: string, region: Region): void {
-    this.eventService.emit(`regions.${region._id}.${event}`, region);
+    super(model);
   }
 }
