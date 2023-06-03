@@ -1,21 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import {Model, Types} from 'mongoose';
 
 import { EventService } from '../event/event.service';
 import { CreateGroupDto, UpdateGroupDto } from './group.dto';
-import { Group } from './group.schema';
+import {Group, GroupDocument} from './group.schema';
+import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 
 @Injectable()
-export class GroupService {
+@EventRepository()
+export class GroupService extends MongooseRepository<Group> {
   constructor(
-    @InjectModel('groups') private model: Model<Group>,
+    @InjectModel('groups') model: Model<Group>,
     private eventEmitter: EventService,
   ) {
-  }
-
-  async find(id: string): Promise<Group | null> {
-    return this.model.findById(id);
+    super(model);
   }
 
   async findByMember(id: string): Promise<Group[]> {
@@ -27,15 +26,13 @@ export class GroupService {
     return this.model.find({ members }).exec();
   }
 
-  async create(dto: CreateGroupDto): Promise<Group> {
+  async create(dto: CreateGroupDto): Promise<GroupDocument> {
     dto.members = this.normalizeMembers(dto.members);
-    const created = await this.model.create(dto);
-    created && this.emit('created', created);
-    return created;
+    return super.create(dto);
   }
 
-  async update(id: string, dto: UpdateGroupDto): Promise<Group | null> {
-    const oldGroup = await this.find(id);
+  async update(id: Types.ObjectId, dto: UpdateGroupDto): Promise<GroupDocument | null> {
+    const oldGroup = await this.findOne(id);
     if (dto.members) {
       dto.members = this.normalizeMembers(dto.members);
     }
@@ -46,12 +43,6 @@ export class GroupService {
 
   private normalizeMembers(members: string[]): string[] {
     return [...new Set(members)].sort();
-  }
-
-  async delete(id: string): Promise<Group | null> {
-    const deleted = await this.model.findByIdAndDelete(id).exec();
-    deleted && this.emit('deleted', deleted);
-    return deleted;
   }
 
   async deleteEmptyGroups(olderThanMs: number): Promise<Group[]> {

@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {TrainerService} from '../game/trainer/trainer.service';
 import {GroupService} from '../group/group.service';
+import {Types} from "mongoose";
 
 export enum Namespace {
   groups = 'groups',
@@ -18,13 +19,13 @@ export class MemberResolverService {
   ) {
   }
 
-  async resolve(namespace: Namespace, id: string): Promise<UserFilter> {
+  async resolve(namespace: Namespace, id: Types.ObjectId): Promise<UserFilter> {
     switch (namespace) {
       case Namespace.groups:
-        const group = await this.groupService.find(id);
+        const group = await this.groupService.findOne(id);
         return group?.members ?? [];
       case Namespace.regions:
-        const trainers = await this.trainerService.findAll({region: id});
+        const trainers = await this.trainerService.findAll({region: id.toString()});
         return trainers.filter(t => !t.npc).map(member => member.user);
       case Namespace.global:
         return 'global';

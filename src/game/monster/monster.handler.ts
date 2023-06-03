@@ -14,7 +14,7 @@ export class MonsterHandler {
 
   @OnEvent('regions.*.trainers.*.deleted')
   async onTrainerDeleted(trainer: Trainer): Promise<void> {
-    await this.monsterService.deleteTrainer(trainer._id.toString());
+    await this.monsterService.deleteMany({trainer: trainer._id.toString()});
   }
 
   /**

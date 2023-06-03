@@ -2,11 +2,12 @@ import {Controller, Get, Param} from '@nestjs/common';
 import {ApiOkResponse, ApiTags} from '@nestjs/swagger';
 import {Auth} from '../auth/auth.decorator';
 import {NotFound} from '../util/not-found.decorator';
-import {ParseObjectIdPipe} from '../util/parse-object-id.pipe';
 import {Throttled} from '../util/throttled.decorator';
 import {Validated} from '../util/validated.decorator';
 import {Region} from './region.schema';
 import {RegionService} from './region.service';
+import {Types} from "mongoose";
+import {ObjectIdPipe} from "@mean-stream/nestx";
 
 @Controller('regions')
 @ApiTags('Regions')
@@ -28,7 +29,7 @@ export class RegionController {
   @Get(':id')
   @ApiOkResponse({type: Region})
   @NotFound()
-  async findOne(@Param('id', ParseObjectIdPipe) id: string): Promise<Region | null> {
+  async findOne(@Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<Region | null> {
     return this.regionService.findOne(id);
   }
 }

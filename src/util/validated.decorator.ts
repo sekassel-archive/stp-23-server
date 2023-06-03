@@ -6,7 +6,6 @@ export function Validated() {
     UsePipes(new ValidationPipe({
       whitelist: true,
       transform: true,
-      forbidUnknownValues: true,
     })),
     ApiBadRequestResponse({
       description: 'Validation failed.',

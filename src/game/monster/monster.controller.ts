@@ -7,6 +7,8 @@ import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
 import {Monster} from './monster.schema';
 import {MonsterService} from './monster.service';
+import {Types} from "mongoose";
+import {ObjectIdPipe} from "@mean-stream/nestx";
 
 @Controller('regions/:region/trainers/:trainer/monsters')
 @ApiTags('Trainer Monsters')
@@ -34,7 +36,7 @@ export class MonsterController {
   async findOne(
     @Param('region', ParseObjectIdPipe) region: string,
     @Param('trainer', ParseObjectIdPipe) trainer: string,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Monster | null> {
     return this.monsterService.findOne(id);
   }

@@ -13,7 +13,7 @@ export class TrainerHandler {
 
   @OnEvent('users.*.deleted')
   async onUserDeleted(user: User): Promise<void> {
-    await this.trainerService.deleteUser(user._id.toString());
+    await this.trainerService.deleteMany({user: user._id.toString()});
   }
 
   @OnEvent('trainers.*.monsters.*.created')
