@@ -6,10 +6,11 @@ import {FilterQuery, Model, Types} from 'mongoose';
 import {EventService} from '../event/event.service';
 import {MemberResolverService, Namespace, UserFilter} from '../member-resolver/member-resolver.service';
 import {Message} from './message.schema';
-import {MongooseRepository} from "@mean-stream/nestx";
+import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 import {User} from "../user/user.schema";
 
 @Injectable()
+@EventRepository()
 export class MessageService extends MongooseRepository<Message> {
   constructor(
     @InjectModel('messages') model: Model<Message>,

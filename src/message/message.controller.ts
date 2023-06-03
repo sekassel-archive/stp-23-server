@@ -81,7 +81,8 @@ export class MessageController {
       createdAfter && (filter.createdAt.$gte = createdAfter);
       createdBefore && (filter.createdAt.$lt = createdBefore);
     }
-    return this.messageService.findAll(filter, {limit, sort: '-createdAt'});
+    const messages = await this.messageService.findAll(filter, {limit, sort: '-createdAt'});
+    return messages.reverse();
   }
 
   @Get(':id')
