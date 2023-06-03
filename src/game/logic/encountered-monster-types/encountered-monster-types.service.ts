@@ -18,7 +18,7 @@ export class EncounteredMonsterTypesService {
   @OnEvent('encounters.*.opponents.*.created')
   @OnEvent('encounters.*.opponents.*.updated')
   async onOpponent(opponent: OpponentDocument) {
-    const monster = opponent.monster && await this.monsterService.findOne(opponent.monster);
+    const monster = opponent.monster && await this.monsterService.findOne(new Types.ObjectId(opponent.monster));
     if (!monster) {
       return;
     }
@@ -30,7 +30,7 @@ export class EncounteredMonsterTypesService {
     const otherTrainers = await this.trainerService.findAll({_id: {$in: otherOpponents.map(o => new Types.ObjectId(o.trainer))}});
 
     for (const trainer of otherTrainers) {
-      await this.trainerService.update(trainer._id.toString(), {
+      await this.trainerService.update(trainer._id, {
         $addToSet: {
           encounteredMonsterTypes: monster.type,
         },

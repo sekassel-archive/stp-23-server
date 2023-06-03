@@ -150,7 +150,7 @@ export class MovementService implements OnModuleInit {
         break;
       case 'TallGrass':
         if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
-          const trainer = await this.trainerService.findOne(trainerId);
+          const trainer = await this.trainerService.findOne(dto._id);
           const [type, level] = gameObject.monsters.random();
           trainer && await this.battleSetupService.createMonsterEncounter(trainer, type, level);
         }
@@ -210,7 +210,7 @@ export class MovementService implements OnModuleInit {
 
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
-    const trainer = await this.trainerService.findOne(trainerId);
+    const trainer = await this.trainerService.findOne(dto._id);
     if (!trainer || trainer.npc) {
       return;
     }
@@ -237,7 +237,7 @@ export class MovementService implements OnModuleInit {
         for (let i = 0; i <= moveRange; i++) {
           path.push(npc.x + i * x, npc.y + i * y);
         }
-        await this.trainerService.update(npc._id.toString(), {
+        await this.trainerService.update(npc._id, {
           'npc.path': path,
           $addToSet: {'npc.encountered': trainerId},
         });

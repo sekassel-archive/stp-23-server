@@ -4,6 +4,7 @@ import {TALL_GRASS_TRAINER} from '../constants';
 import {Opponent} from '../opponent/opponent.schema';
 import {Trainer} from '../trainer/trainer.schema';
 import {MonsterService} from './monster.service';
+import {Types} from "mongoose";
 
 @Injectable()
 export class MonsterHandler {
@@ -22,6 +23,6 @@ export class MonsterHandler {
    */
   @OnEvent(`encounters.*.opponents.${TALL_GRASS_TRAINER}.deleted`)
   async onOpponentDeleted(opponent: Opponent): Promise<void> {
-    opponent.monster && await this.monsterService.delete(opponent.monster.toString());
+    opponent.monster && await this.monsterService.delete(new Types.ObjectId(opponent.monster));
   }
 }

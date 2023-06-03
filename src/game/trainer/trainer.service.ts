@@ -87,7 +87,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     }
   }
 
-  async addToTeam(id: string, monster: string): Promise<Trainer | null> {
+  async addToTeam(id: Types.ObjectId, monster: string): Promise<Trainer | null> {
     return this.update(id, {$addToSet: {team: monster}});
   }
 

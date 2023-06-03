@@ -28,6 +28,7 @@ import {TrainerService} from '../trainer/trainer.service';
 import {UpdateOpponentDto} from './opponent.dto';
 import {Opponent} from './opponent.schema';
 import {OpponentService} from './opponent.service';
+import {Types} from "mongoose";
 
 @Controller('regions/:regionId')
 @ApiTags('Encounter Opponents')
@@ -106,7 +107,7 @@ export class OpponentController {
   }
 
   private async checkTrainerAccess(trainer: string, user: User) {
-    const trainerDoc = await this.trainerService.findOne(trainer);
+    const trainerDoc = await this.trainerService.findOne(new Types.ObjectId(trainer));
     if (!trainerDoc) {
       throw new NotFoundException('Trainer not found');
     }

@@ -84,7 +84,7 @@ export class BattleSetupService {
       isNPC: false,
       monster: defenderMonster._id.toString(),
     });
-    const wildMonster = await this.monsterService.create(TALL_GRASS_TRAINER, this.monsterGeneratorService.autofill(type, level));
+    const wildMonster = await this.monsterService.createSimple(TALL_GRASS_TRAINER, this.monsterGeneratorService.autofill(type, level));
     await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, {
       isAttacker: true,
       isNPC: true,
