@@ -5,9 +5,10 @@ import {Model, Types} from 'mongoose';
 import { EventService } from '../event/event.service';
 import { CreateGroupDto, UpdateGroupDto } from './group.dto';
 import {Group, GroupDocument} from './group.schema';
-import {MongooseRepository} from "@mean-stream/nestx";
+import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 
 @Injectable()
+@EventRepository()
 export class GroupService extends MongooseRepository<Group> {
   constructor(
     @InjectModel('groups') model: Model<Group>,
