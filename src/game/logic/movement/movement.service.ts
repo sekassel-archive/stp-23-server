@@ -123,7 +123,7 @@ export class MovementService implements OnModuleInit {
   async onTrainerMoved(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
     const oldLocation = this.trainerService.getLocation(trainerId)
-      || await this.trainerService.findOne(dto._id);
+      || await this.trainerService.find(dto._id);
     if (!oldLocation) {
       return;
     }

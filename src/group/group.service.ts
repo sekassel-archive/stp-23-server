@@ -76,10 +76,7 @@ export class GroupService extends MongooseRepository<Group> {
         $unset: ['messages', 'id'],
       },
     ]);
-    await this.model.deleteMany({ _id: { $in: groups.map(g => g._id) } });
-    for (const group of groups) {
-      this.emit('deleted', group);
-    }
+    await this.deleteAll(groups);
     return groups;
   }
 

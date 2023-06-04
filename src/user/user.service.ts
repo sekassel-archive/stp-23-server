@@ -52,10 +52,7 @@ export class UserService extends MongooseRepository<User> {
       createdAt: { $lt: new Date(Date.now() - maxAgeMs) },
       name: environment.cleanup.tempUserNamePattern,
     });
-    await this.model.deleteMany({ _id: { $in: users.map(u => u._id) } });
-    for (const user of users) {
-      this.emit('deleted', user);
-    }
+    await this.deleteAll(users);
     return users;
   }
 

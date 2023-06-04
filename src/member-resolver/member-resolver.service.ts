@@ -22,7 +22,7 @@ export class MemberResolverService {
   async resolve(namespace: Namespace, id: Types.ObjectId): Promise<UserFilter> {
     switch (namespace) {
       case Namespace.groups:
-        const group = await this.groupService.findOne(id);
+        const group = await this.groupService.find(id);
         return group?.members ?? [];
       case Namespace.regions:
         const trainers = await this.trainerService.findAll({region: id.toString()});

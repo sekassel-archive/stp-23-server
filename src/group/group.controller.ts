@@ -54,7 +54,7 @@ export class GroupController {
   @ApiForbiddenResponse({ description: 'Attempt to get a group in which the current user is not a member.' })
   @NotFound()
   async findOne(@AuthUser() user: User, @Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<Group | null> {
-    const group = await this.groupService.findOne(id);
+    const group = await this.groupService.find(id);
     if (!group) {
       return null;
     }
@@ -67,7 +67,7 @@ export class GroupController {
   @ApiForbiddenResponse({ description: 'Attempt to change a group in which the current user is not a member.' })
   @NotFound()
   async update(@AuthUser() user: User, @Param('id', ObjectIdPipe) id: Types.ObjectId, @Body() dto: UpdateGroupDto): Promise<Group | null> {
-    const existing = await this.groupService.findOne(id);
+    const existing = await this.groupService.find(id);
     if (!existing) {
       return null;
     }
@@ -80,7 +80,7 @@ export class GroupController {
   @ApiForbiddenResponse({ description: 'Attempt to delete a group in which the current user is not the last remaining member.' })
   @NotFound()
   async delete(@AuthUser() user: User, @Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<Group | null> {
-    const existing = await this.groupService.findOne(id);
+    const existing = await this.groupService.find(id);
     if (!existing) {
       return null;
     }

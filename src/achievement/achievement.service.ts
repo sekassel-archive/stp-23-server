@@ -4,53 +4,17 @@ import {FilterQuery, Model} from 'mongoose';
 import {AchievementSummary} from '../achievement-summary/achievement-summary.dto';
 
 import {EventService} from '../event/event.service';
-import {UpdateAchievementDto} from './achievement.dto';
 import {Achievement} from './achievement.schema';
+import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 
 @Injectable()
-export class AchievementService {
+@EventRepository()
+export class AchievementService extends MongooseRepository<Achievement, never> {
   constructor(
-    @InjectModel(Achievement.name) private model: Model<Achievement>,
+    @InjectModel(Achievement.name) model: Model<Achievement>,
     private eventEmitter: EventService,
   ) {
-  }
-
-  async upsert(user: string, id: string, dto: UpdateAchievementDto): Promise<Achievement> {
-    const res = await this.model.findOneAndUpdate({ user, id }, { ...dto, user, id }, {
-      upsert: true,
-      new: true,
-      rawResult: true,
-    });
-    const { value } = res;
-    if (!value) {
-      throw new Error('Failed to create achievement');
-    }
-
-    this.emit(res.lastErrorObject?.updatedExisting ? 'updated' : 'created', value);
-    return value;
-  }
-
-  async findAll(user: string, filter?: FilterQuery<Achievement>): Promise<Achievement[]> {
-    return this.model.find({ ...filter, user }).exec();
-  }
-
-  async findOne(user: string, id: string): Promise<Achievement | null> {
-    return this.model.findOne({ user, id }).exec();
-  }
-
-  async deleteUser(user: string): Promise<Achievement[]> {
-    const achievements = await this.model.find({ user }).exec();
-    for (const achievement of achievements) {
-      this.emit('deleted', achievement);
-    }
-    await this.model.deleteMany({ user }).exec();
-    return achievements;
-  }
-
-  async delete(user: string, id: string): Promise<Achievement | null> {
-    const deleted = await this.model.findOneAndDelete({ user, id }).exec();
-    deleted && this.emit('deleted', deleted);
-    return deleted;
+    super(model as any);
   }
 
   private emit(event: string, achievement: Achievement): void {

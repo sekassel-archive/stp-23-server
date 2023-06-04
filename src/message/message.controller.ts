@@ -97,7 +97,7 @@ export class MessageController {
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Message | null> {
     await this.messageService.checkParent(namespace, parent, user);
-    return this.messageService.findOne(id);
+    return this.messageService.find(id);
   }
 
   @Patch(':id')
@@ -113,7 +113,7 @@ export class MessageController {
     @Body() dto: UpdateMessageDto,
   ): Promise<Message | null> {
     await this.messageService.checkParent(namespace, parent, user);
-    const existing = await this.messageService.findOne(id);
+    const existing = await this.messageService.find(id);
     if (!existing) {
       return null;
     }
@@ -135,7 +135,7 @@ export class MessageController {
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Message | null> {
     await this.messageService.checkParent(namespace, parent, user);
-    const existing = await this.messageService.findOne(id);
+    const existing = await this.messageService.find(id);
     if (!existing) {
       return null;
     }

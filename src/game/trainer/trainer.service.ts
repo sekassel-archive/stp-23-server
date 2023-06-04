@@ -24,7 +24,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
   }
 
   async createSimple(region: Types.ObjectId, user: string, dto: CreateTrainerDto): Promise<Trainer> {
-    const regionDoc = await this.regionService.findOne(region);
+    const regionDoc = await this.regionService.find(region);
     if (!regionDoc) {
       throw new NotFoundException('Region not found');
     }
