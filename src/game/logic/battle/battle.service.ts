@@ -46,7 +46,7 @@ export class BattleService {
 
     await this.makeNPCMoves(opponents);
     // notify players about NPC moves
-    await this.opponentService.saveMany(opponents);
+    await this.opponentService.saveAll(opponents);
 
     // clear results and play round
     // NB: clearing results has to happen after notifying players about NPC moves,
@@ -60,7 +60,7 @@ export class BattleService {
     for (const opponent of opponents) {
       opponent.move = undefined;
     }
-    await this.opponentService.saveMany(opponents);
+    await this.opponentService.saveAll(opponents);
 
     // remove opponents without monsters
     const monsters = await this.monsterService.findAll({
@@ -77,7 +77,7 @@ export class BattleService {
         deleteOpponents.push(opponent._id!);
       }
     }
-    await this.opponentService.deleteAll({_id: {$in: deleteOpponents}});
+    await this.opponentService.deleteMany({_id: {$in: deleteOpponents}});
   }
 
   private async makeNPCMoves(opponents: OpponentDocument[]) {

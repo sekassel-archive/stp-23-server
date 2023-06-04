@@ -44,7 +44,7 @@ export class BattleSetupService {
     }
 
     const encounter = await this.encounterService.create({region: defender.region, isWild: false});
-    await this.opponentService.create(encounter._id.toString(), defenderId, {
+    await this.opponentService.createSimple(encounter._id.toString(), defenderId, {
       isAttacker: false,
       isNPC: !!defender.npc,
       monster: defenderMonster._id.toString(),
@@ -53,7 +53,7 @@ export class BattleSetupService {
     await Promise.all(attackers.map(attacker => {
       const attackerId = attacker._id.toString();
       const monster = attacker.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
-      monster && this.opponentService.create(encounter._id.toString(), attackerId, {
+      monster && this.opponentService.createSimple(encounter._id.toString(), attackerId, {
         isAttacker: true,
         isNPC: !!attacker.npc,
         monster: monster._id.toString(),
@@ -79,13 +79,13 @@ export class BattleSetupService {
     }
 
     const encounter = await this.encounterService.create({region: defender.region, isWild: true});
-    await this.opponentService.create(encounter._id.toString(), defenderId, {
+    await this.opponentService.createSimple(encounter._id.toString(), defenderId, {
       isAttacker: false,
       isNPC: false,
       monster: defenderMonster._id.toString(),
     });
     const wildMonster = await this.monsterService.createSimple(TALL_GRASS_TRAINER, this.monsterGeneratorService.autofill(type, level));
-    await this.opponentService.create(encounter._id.toString(), TALL_GRASS_TRAINER, {
+    await this.opponentService.createSimple(encounter._id.toString(), TALL_GRASS_TRAINER, {
       isAttacker: true,
       isNPC: true,
       monster: wildMonster._id.toString(),
