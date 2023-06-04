@@ -220,7 +220,7 @@ export class BattleService {
       }
     }
 
-    await this.monsterService.saveMany(monsters);
+    await this.monsterService.saveAll(monsters);
   }
 
   private playAbility(currentOpponent: OpponentDocument, currentMonster: MonsterDocument, ability: Ability, targetMonster: MonsterDocument, targetOpponent: OpponentDocument) {

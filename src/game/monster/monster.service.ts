@@ -37,15 +37,7 @@ export class MonsterService extends MongooseRepository<Monster> {
       }
       monster.markModified('abilities');
     }
-    await this.saveMany(monsters);
-  }
-
-  async saveMany(monsters: MonsterDocument[]) {
-    const newDocs = monsters.filter(o => o.isNew);
-    const modDocs = monsters.filter(o => o.isModified());
-    await this.model.bulkSave(monsters);
-    newDocs.forEach(o => this.emit('created', o));
-    modDocs.forEach(o => this.emit('updated', o));
+    await this.saveAll(monsters);
   }
 
   emit(event: string, monster: Monster): void {
