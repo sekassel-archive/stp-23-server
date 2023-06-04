@@ -18,7 +18,7 @@ export class EncounteredMonsterTypesService {
   @OnEvent('encounters.*.opponents.*.created')
   @OnEvent('encounters.*.opponents.*.updated')
   async onOpponent(opponent: OpponentDocument) {
-    const monster = opponent.monster && await this.monsterService.findOne(new Types.ObjectId(opponent.monster));
+    const monster = opponent.monster && await this.monsterService.find(new Types.ObjectId(opponent.monster));
     if (!monster) {
       return;
     }

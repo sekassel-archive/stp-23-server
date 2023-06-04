@@ -25,8 +25,8 @@ export class NpcTalkService {
     const targetId = dto.target;
     const target_id = new Types.ObjectId(targetId);
     const [trainer, target] = await Promise.all([
-      this.trainerService.findOne(dto._id),
-      this.trainerService.findOne(target_id),
+      this.trainerService.find(dto._id),
+      this.trainerService.find(target_id),
     ]);
     if (!trainer || !target || trainer.area !== target.area || this.movementService.getDistance(trainer, target) > 2) {
       return;

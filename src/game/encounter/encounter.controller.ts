@@ -34,6 +34,6 @@ export class EncounterController {
   async findOne(
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Encounter | null> {
-    return this.encounterService.findOne(id);
+    return this.encounterService.find(id);
   }
 }

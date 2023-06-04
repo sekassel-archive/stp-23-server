@@ -133,7 +133,7 @@ export class OpponentController {
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
     await this.checkTrainerAccess(trainer, user);
-    const encounterDoc = await this.encounterService.findOne(encounter);
+    const encounterDoc = await this.encounterService.find(encounter);
     if (!encounterDoc) {
       throw new NotFoundException('Encounter not found');
     }
@@ -144,7 +144,7 @@ export class OpponentController {
   }
 
   private async checkTrainerAccess(trainer: string, user: User) {
-    const trainerDoc = await this.trainerService.findOne(new Types.ObjectId(trainer));
+    const trainerDoc = await this.trainerService.find(new Types.ObjectId(trainer));
     if (!trainerDoc) {
       throw new NotFoundException('Trainer not found');
     }

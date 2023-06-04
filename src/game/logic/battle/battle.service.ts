@@ -88,8 +88,8 @@ export class BattleService {
 
       const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker && o.monster);
       const target = targets.random();
-      const targetMonster = target.monster && await this.monsterService.findOne(new Types.ObjectId(target.monster));
-      let monster = opponent.monster && await this.monsterService.findOne(new Types.ObjectId(opponent.monster));
+      const targetMonster = target.monster && await this.monsterService.find(new Types.ObjectId(target.monster));
+      let monster = opponent.monster && await this.monsterService.find(new Types.ObjectId(opponent.monster));
       if (!monster || monster.currentAttributes.health <= 0) {
         if (opponent.trainer === TALL_GRASS_TRAINER) {
           continue;
