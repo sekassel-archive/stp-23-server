@@ -35,10 +35,7 @@ export class MessageService extends MongooseRepository<Message> {
       {$match: {sender: {$size: 0}}},
       {$unset: '_sender'},
     ]).exec();
-    this.model.deleteMany({_id: {$in: messages.map(m => m._id)}});
-    for (const message of messages) {
-      this.emit('deleted', message);
-    }
+    await this.deleteAll(messages);
     return messages;
   }
 
