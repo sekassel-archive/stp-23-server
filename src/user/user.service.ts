@@ -34,7 +34,7 @@ export class UserService extends MongooseRepository<User> {
     const hashed = await this.hash(dto);
     hashed.status = 'offline';
     try {
-      return super.create(hashed as User);
+      return await super.create(hashed as User);
     } catch (e: any) {
       if (e.code === 11000) {
         throw new ConflictException('Username already taken');
