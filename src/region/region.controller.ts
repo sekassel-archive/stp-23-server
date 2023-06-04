@@ -30,6 +30,6 @@ export class RegionController {
   @ApiOkResponse({type: Region})
   @NotFound()
   async findOne(@Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<Region | null> {
-    return this.regionService.findOne(id);
+    return this.regionService.find(id);
   }
 }

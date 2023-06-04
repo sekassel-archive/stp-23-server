@@ -69,7 +69,7 @@ export class UserController {
   @ApiOkResponse({ type: User })
   @NotFound()
   async getUser(@Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<User | null> {
-    return this.userService.findOne(id);
+    return this.userService.find(id);
   }
 
   @Patch(':id')

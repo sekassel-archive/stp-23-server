@@ -38,6 +38,6 @@ export class MonsterController {
     @Param('trainer', ParseObjectIdPipe) trainer: string,
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Monster | null> {
-    return this.monsterService.findOne(id);
+    return this.monsterService.find(id);
   }
 }

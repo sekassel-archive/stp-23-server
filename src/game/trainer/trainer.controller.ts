@@ -63,7 +63,7 @@ export class TrainerController {
     @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Trainer | null> {
-    return this.trainerService.findOne(id);
+    return this.trainerService.find(id);
   }
 
   @Patch(':id')
@@ -94,7 +94,7 @@ export class TrainerController {
   }
 
   private async checkTrainerAuth(user: User, op: string, id: Types.ObjectId) {
-    const trainer = await this.trainerService.findOne(id);
+    const trainer = await this.trainerService.find(id);
     if (trainer?.user !== user._id.toString()) {
       throw new ForbiddenException(`Cannot ${op} someone else's trainer`);
     }
