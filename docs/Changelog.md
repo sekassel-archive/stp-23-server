@@ -82,3 +82,16 @@
 
 + Added Achievements. [STP23SRV-5](https://jira.uniks.de/browse/STP23SRV-5)
 + Added the `PATCH /regions/{region}/trainers/{id}` endpoint for updating name and image. [STP23SRV-4](https://jira.uniks.de/browse/STP23SRV-4) 
+
+# v2.1.1 - Preparations for v3
+
+## Improvements
+
+### Content
+
+* Added many new Walkable Roof tiles.
+* Updated the Modern Exteriors spritesheet.
+
+### Technical
+
+* Large-scale refactoring in preparation for v3.
