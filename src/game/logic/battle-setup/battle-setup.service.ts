@@ -38,7 +38,7 @@ export class BattleSetupService {
       return;
     }
 
-    if (!monsters.some(m => m.trainer !== defenderId)) {
+    if (!monsters.some(m => attackers.some(a => a.team.includes(m._id.toString())))) {
       // the attackers have no monsters left
       return;
     }
