@@ -62,18 +62,24 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     }
   }
 
-  async findAll(filter: FilterQuery<Trainer>): Promise<TrainerDocument[]> {
-    const results = await super.findAll(filter);
-    for (const result of results) {
-      this.addLocation(result);
-    }
-    return results;
+  async find(id: Types.ObjectId): Promise<TrainerDocument | null> {
+    const result = await super.find(id);
+    result && this.addLocation(result);
+    return result;
   }
 
   async findOne(id: Types.ObjectId): Promise<TrainerDocument | null> {
     const result = await super.findOne(id);
     result && this.addLocation(result);
     return result;
+  }
+
+  async findAll(filter: FilterQuery<Trainer>): Promise<TrainerDocument[]> {
+    const results = await super.findAll(filter);
+    for (const result of results) {
+      this.addLocation(result);
+    }
+    return results;
   }
 
   addLocation(doc: Trainer) {
