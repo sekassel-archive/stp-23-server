@@ -18,7 +18,7 @@ export class MonsterService extends MongooseRepository<Monster> {
   }
 
   async createSimple(trainer: string, dto: CreateMonsterDto): Promise<Monster> {
-    return super.create({
+    return this.create({
       ...dto,
       trainer,
       experience: 0,
