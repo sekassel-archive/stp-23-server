@@ -110,9 +110,12 @@ export class GameLoader implements OnModuleInit {
     });
 
     const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
+    trainer.team = [];
     for (const monsterSpec of monsterSpecs) {
       const [type, level] = monsterSpec;
-      await this.monsterGeneratorService.createAuto(trainer._id.toString(), type, level);
+      const monster = await this.monsterGeneratorService.createAuto(trainer._id.toString(), type, level);
+      trainer.team.push(monster._id.toString());
     }
+    await trainer.save();
   }
 }
