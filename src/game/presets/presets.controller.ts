@@ -1,4 +1,4 @@
-import {Controller, Get, Param, ParseIntPipe, StreamableFile} from '@nestjs/common';
+import {Controller, Get, NotFoundException, Param, ParseIntPipe, StreamableFile} from '@nestjs/common';
 import {ApiOkResponse, ApiParam, ApiTags} from '@nestjs/swagger';
 import * as  fs from 'node:fs';
 import {NotFound} from '../../util/not-found.decorator';
@@ -24,11 +24,12 @@ export class PresetsController {
       'image/png': {},
     }
   })
+  @NotFound()
   getTileset(
     @Param('filename') filename: string,
-  ): StreamableFile {
+  ): Promise<StreamableFile> {
     filename = filename.substring(filename.lastIndexOf('/') + 1);
-    return new StreamableFile(fs.createReadStream('assets/tilesets/' + filename));
+    return this.stream('assets/tilesets/', filename);
   }
 
   @Get('characters')
@@ -42,11 +43,23 @@ export class PresetsController {
     description: 'A character image PNG.',
     content: {'image/png': {}}
   })
-  getCharacter(
+  @NotFound()
+  async getCharacter(
     @Param('filename') filename: string,
-  ): StreamableFile {
+  ): Promise<StreamableFile> {
     filename = filename.substring(filename.lastIndexOf('/') + 1);
-    return new StreamableFile(fs.createReadStream('assets/characters/' + filename));
+    if (!filename.endsWith('.png')) {
+      throw new NotFoundException(filename);
+    }
+    return this.stream('assets/characters/', filename);
+  }
+
+  private async stream(folder: string, filename: string) {
+    const path = folder + filename;
+    if (!(await fs.promises.access(path).then(() => true, () => false))) {
+      throw new NotFoundException(filename);
+    }
+    return new StreamableFile(fs.createReadStream(path));
   }
 
   @Get('monsters')
@@ -72,11 +85,11 @@ export class PresetsController {
     content: {'image/png': {}},
   })
   @NotFound()
-  getMonsterImage(
+  async getMonsterImage(
     @Param('id', ParseIntPipe) id: number,
-  ): StreamableFile | undefined {
+  ): Promise<StreamableFile | undefined> {
     const monster = monsterTypes.find(m => m.id === id);
-    return monster && new StreamableFile(fs.createReadStream('assets/monsters/' + monster.image));
+    return monster && this.stream('assets/monsters/', monster.image);
   }
 
   private maskMonster(monster: MonsterType): MonsterTypeDto {
