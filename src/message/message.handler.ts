@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Group} from '../group/group.schema';
-import {MemberResolverService, Namespace} from '../member-resolver/member-resolver.service';
+import {Namespace} from '../member-resolver/member-resolver.service';
 import {GlobalSchema} from '../util/schema';
 import {MessageService} from './message.service';
 
@@ -9,7 +9,6 @@ import {MessageService} from './message.service';
 export class MessageHandler {
   constructor(
     private messageService: MessageService,
-    private memberResolver: MemberResolverService,
   ) {
   }
 
@@ -19,8 +18,6 @@ export class MessageHandler {
   }
 
   private async onDelete(namespace: Namespace, entity: GlobalSchema): Promise<void> {
-    const id = entity._id.toString();
-    const members = await this.memberResolver.resolve(namespace, id);
-    await this.messageService.deleteAll(namespace, id, members);
+    await this.messageService.deleteMany({namespace, parent: entity._id.toString()});
   }
 }

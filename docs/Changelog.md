@@ -57,3 +57,41 @@
 * Documented some Presets endpoint with image responses.
 * Documented region and trainer parameters in Trainer and Monster endpoints.
 * Updated the Cascading Deletes documentation.
+
+# v2.0.2 - Minor Fixes
+
+## Improvements
+
+* Added error logging with Sentry.
+* Improved the check for duplicate username sign ups.
+
+## Bugfixes
+
+* Fixed a typo in the `Kid_Karen` character filename.
+* Updated the `width` and `height` of all maps.
+
+# v2.1.0 - Roof Tiles, Achievements and Update Trainer
+
+## New Features
+
+### Content
+
++ Added `Roof` tiles. [STP23SRV-6](https://jira.uniks.de/browse/STP23SRV-6)
+
+### Resources
+
++ Added Achievements. [STP23SRV-5](https://jira.uniks.de/browse/STP23SRV-5)
++ Added the `PATCH /regions/{region}/trainers/{id}` endpoint for updating name and image. [STP23SRV-4](https://jira.uniks.de/browse/STP23SRV-4) 
+
+# v2.1.1 - Preparations for v3
+
+## Improvements
+
+### Content
+
+* Added many new Walkable Roof tiles.
+* Updated the Modern Exteriors spritesheet.
+
+### Technical
+
+* Large-scale refactoring in preparation for v3.

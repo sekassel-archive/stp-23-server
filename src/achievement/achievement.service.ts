@@ -1,66 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model } from 'mongoose';
-import { AchievementSummary } from '../achievement-summary/achievement-summary.dto';
+import {Injectable} from '@nestjs/common';
+import {InjectModel} from '@nestjs/mongoose';
+import {FilterQuery, Model} from 'mongoose';
+import {AchievementSummary} from '../achievement-summary/achievement-summary.dto';
 
-import { EventService } from '../event/event.service';
-import { CreateAchievementDto, UpdateAchievementDto } from './achievement.dto';
-import { Achievement } from './achievement.schema';
+import {EventService} from '../event/event.service';
+import {Achievement} from './achievement.schema';
+import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 
 @Injectable()
-export class AchievementService {
+@EventRepository()
+export class AchievementService extends MongooseRepository<Achievement, never> {
   constructor(
-    @InjectModel('achievements') private model: Model<Achievement>,
+    @InjectModel(Achievement.name) model: Model<Achievement>,
     private eventEmitter: EventService,
   ) {
-  }
-
-  async create(userId: string, id: string, achievement: CreateAchievementDto): Promise<Achievement> {
-    const res = await this.model.findOneAndUpdate({ userId, id }, { ...achievement, userId, id }, {
-      upsert: true,
-      new: true,
-      rawResult: true,
-    });
-    const { value } = res;
-    if (!value) {
-      throw new Error('Failed to create achievement');
-    }
-
-    this.emit(res.lastErrorObject?.updatedExisting ? 'updated' : 'created', value);
-    return value;
-  }
-
-  async findAll(userId: string, filter?: FilterQuery<Achievement>): Promise<Achievement[]> {
-    return this.model.find({ ...filter, userId }).exec();
-  }
-
-  async findOne(userId: string, id: string): Promise<Achievement | null> {
-    return this.model.findOne({ userId, id }).exec();
-  }
-
-  async update(userId: string, id: string, dto: UpdateAchievementDto): Promise<Achievement | null> {
-    const updated = await this.model.findOneAndUpdate({ userId, id }, dto, { new: true }).exec();
-    updated && this.emit('updated', updated);
-    return updated;
-  }
-
-  async deleteUser(userId: string): Promise<Achievement[]> {
-    const achievements = await this.model.find({ userId }).exec();
-    for (const achievement of achievements) {
-      this.emit('deleted', achievement);
-    }
-    await this.model.deleteMany({ userId }).exec();
-    return achievements;
-  }
-
-  async delete(userId: string, id: string): Promise<Achievement | null> {
-    const deleted = await this.model.findOneAndDelete({ userId, id }).exec();
-    deleted && this.emit('deleted', deleted);
-    return deleted;
+    super(model as any);
   }
 
   private emit(event: string, achievement: Achievement): void {
-    this.eventEmitter.emit(`users.${achievement.userId}.achievements.${achievement.id}.${event}`, achievement);
+    this.eventEmitter.emit(`users.${achievement.user}.achievements.${achievement.id}.${event}`, achievement);
   }
 
   async summary(filter: FilterQuery<Achievement> = {}): Promise<AchievementSummary[]> {

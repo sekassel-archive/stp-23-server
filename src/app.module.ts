@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {HttpException, Module} from '@nestjs/common';
 import {EventEmitterModule} from '@nestjs/event-emitter';
 import {MongooseModule} from '@nestjs/mongoose';
 import {ScheduleModule} from '@nestjs/schedule';
@@ -13,6 +13,10 @@ import {GroupModule} from './group/group.module';
 import {MessageModule} from './message/message.module';
 import {RegionModule} from './region/region.module';
 import {UserModule} from './user/user.module';
+import {SentryInterceptor, SentryModule} from "@ntegral/nestjs-sentry";
+import {APP_INTERCEPTOR} from "@nestjs/core";
+import {AchievementModule} from "./achievement/achievement.module";
+import {AchievementSummaryModule} from "./achievement-summary/achievement-summary.module";
 
 @Module({
   imports: [
@@ -24,17 +28,33 @@ import {UserModule} from './user/user.module';
       wildcard: true,
     }),
     ScheduleModule.forRoot(),
+    SentryModule.forRoot({
+      dsn: environment.sentryDsn,
+      environment: environment.nodeEnv,
+      release: environment.version,
+    }),
     AuthModule,
     EventModule,
     SocketModule,
     UserModule,
-    // AchievementSummaryModule,
-    // AchievementModule,
+    AchievementSummaryModule,
+    AchievementModule,
     GroupModule,
     MessageModule,
     RegionModule,
     GameModule,
   ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useFactory: () => new SentryInterceptor({
+        filters: [{
+          type: HttpException,
+          filter: (exception: HttpException) => 500 > exception.getStatus(),
+        }],
+      }),
+    }
+  ]
 })
 export class AppModule {
 }
