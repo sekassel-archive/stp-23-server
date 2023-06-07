@@ -95,3 +95,16 @@
 ### Technical
 
 * Large-scale refactoring in preparation for v3.
+
+# v2.1.2 - Minor Fixes
+
+## Improvements
+
+* Presets endpoints now return `404 Not Found` instead of `500 Internal Server Error` when the requested preset does not exist.
+
+## Bugfixes
+
+* Fixed a bug where some update endpoints could result in a `500 Internal Server Error` instead of `404 Not Found`.
+* Fixed the `GET /regions/{region}/trainers/{id}` endpoint reporting an outdated trainer position.
+* Fixed the `GET /groups` endpoints causing an `500 Internal Server Error` when the `members` query parameter was present multiple times as an array.
+* Fixed a potential problem where newly created monsters would not trigger `created` events.
