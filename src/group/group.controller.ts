@@ -1,4 +1,15 @@
-import {Body, Controller, Delete, ForbiddenException, Get, Param, Patch, Post, Query} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  ForbiddenException,
+  Get,
+  Param,
+  ParseArrayPipe,
+  Patch,
+  Post,
+  Query
+} from '@nestjs/common';
 import {ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../auth/auth.decorator';
 import {User} from '../user/user.schema';
@@ -40,11 +51,13 @@ export class GroupController {
   })
   @ApiOkResponse({ type: [Group] })
   @ApiForbiddenResponse({ description: 'Attempt to get groups in which the current user is not a member.' })
-  async findAll(@AuthUser() user: User, @Query('members') members?: string): Promise<Group[]> {
-    if (members) {
-      const memberList = members.split(',');
-      this.checkMembership(memberList, user);
-      return this.groupService.findByMembers(memberList);
+  async findAll(
+    @AuthUser() user: User,
+    @Query('members', new ParseArrayPipe({separator: ',', optional: true})) members?: string[],
+  ): Promise<Group[]> {
+    if (members && members.length) {
+      this.checkMembership(members, user);
+      return this.groupService.findByMembers(members);
     }
     return this.groupService.findByMember(user._id.toString());
   }
