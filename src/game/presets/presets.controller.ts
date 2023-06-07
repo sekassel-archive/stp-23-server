@@ -55,6 +55,10 @@ export class PresetsController {
   }
 
   private async stream(folder: string, filename: string) {
+    if (filename.endsWith('@2x.png')) {
+      filename = filename.slice(0, -7) + '.png';
+    }
+
     const path = folder + filename;
     if (!(await fs.promises.access(path).then(() => true, () => false))) {
       throw new NotFoundException(filename);
