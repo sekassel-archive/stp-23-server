@@ -8,6 +8,7 @@ import {getProperty, Layer} from '../../tiled-map.interface';
 import {Tile} from '../../tileset.interface';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
 import {TrainerService} from '../../trainer/trainer.service';
+import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
 
 interface Portal {
   x: number;
@@ -100,6 +101,7 @@ export class MovementService implements OnModuleInit {
   }
 
   @OnEvent('udp:areas.*.trainers.*.moved')
+  @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
     const oldLocation = this.trainerService.getLocation(dto._id.toString())
       || await this.trainerService.find(dto._id);

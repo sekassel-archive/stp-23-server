@@ -35,7 +35,7 @@ export class SocketService implements OnModuleInit {
     this.socket.bind(environment.udpPort);
   }
 
-  onMessage(msg: Buffer, info: RemoteInfo) {
+  async onMessage(msg: Buffer, info: RemoteInfo) {
     const message = JSON.parse(msg.toString());
     switch (message.event) {
       case 'subscribe': {
@@ -63,7 +63,11 @@ export class SocketService implements OnModuleInit {
         break;
       }
       default:
-        this.eventEmitter.emit('udp:' + message.event, message.data);
+        try {
+          await this.eventEmitter.emitAsync('udp:' + message.event, message.data);
+        } catch (e: any) {
+          this.socket.send(JSON.stringify({event: 'error', data: e.response || e.message}), info.port, info.address);
+        }
         break;
     }
   }
