@@ -2,6 +2,7 @@ import {Injectable, OnModuleInit} from '@nestjs/common';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {createSocket, RemoteInfo, Socket} from 'node:dgram';
 import {environment} from '../environment';
+import {SentryService} from "@ntegral/nestjs-sentry";
 
 function key(rinfo: RemoteInfo) {
   return `${rinfo.address}:${rinfo.port}`;
@@ -26,6 +27,7 @@ export class SocketService implements OnModuleInit {
 
   constructor(
     private eventEmitter: EventEmitter2,
+    private sentryService: SentryService,
   ) {
   }
 
@@ -37,6 +39,13 @@ export class SocketService implements OnModuleInit {
 
   async onMessage(msg: Buffer, info: RemoteInfo) {
     const message = JSON.parse(msg.toString());
+    const tx = this.sentryService.instance().startTransaction({
+      op: 'udp',
+      name: message.event.replace(/[a-f0-9]{24}/g, '*'),
+      data: {
+        event: message.event,
+      },
+    });
     switch (message.event) {
       case 'subscribe': {
         const remoteKey = key(info);
@@ -66,10 +75,14 @@ export class SocketService implements OnModuleInit {
         try {
           await this.eventEmitter.emitAsync('udp:' + message.event, message.data);
         } catch (e: any) {
+          if (!e.response) {
+            this.sentryService.error(e.message, e.stack, 'udp:' + message.event);
+          }
           this.socket.send(JSON.stringify({event: 'error', data: e.response || e.message}), info.port, info.address);
         }
         break;
     }
+    tx.finish();
   }
 
   broadcast(event: string, data?: any): void {
