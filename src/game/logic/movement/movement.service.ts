@@ -9,6 +9,7 @@ import {Tile} from '../../tileset.interface';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
 import {TrainerService} from '../../trainer/trainer.service';
 import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
+import {notFound} from "@mean-stream/nestx";
 
 interface Portal {
   x: number;
@@ -104,16 +105,16 @@ export class MovementService implements OnModuleInit {
   @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
     const oldLocation = this.trainerService.getLocation(dto._id.toString())
-      || await this.trainerService.find(dto._id);
-    if (!oldLocation) {
-      return;
-    }
+      || await this.trainerService.find(dto._id)
+      || notFound(dto._id);
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
+      || dto.area !== oldLocation.area // Mismatching area
       || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
       || !this.isWalkable(dto)
     ) {
+      dto.area = oldLocation.area;
       dto.x = oldLocation.x;
       dto.y = oldLocation.y;
     }
@@ -126,6 +127,8 @@ export class MovementService implements OnModuleInit {
       dto.y = y;
       // inform old area that the trainer left
       this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+      // NB: this is required, because the GET /trainers?area= endpoint relies on
+      //     the database knowing the trainer is in the new area.
       await this.trainerService.saveLocations([dto]);
     }
 
