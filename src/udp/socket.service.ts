@@ -16,7 +16,7 @@ function regex(pattern: string): RegExp {
 
 interface Remote {
   info: RemoteInfo;
-  subscribed: RegExp[];
+  subscribed: Map<string, RegExp>;
 }
 
 @Injectable()
@@ -35,25 +35,29 @@ export class SocketService implements OnModuleInit {
     this.socket.bind(environment.udpPort);
   }
 
-  onMessage(msg: Buffer, rinfo: RemoteInfo) {
+  onMessage(msg: Buffer, info: RemoteInfo) {
     const message = JSON.parse(msg.toString());
     switch (message.event) {
       case 'subscribe': {
-        const remote = this.remotes.get(key(rinfo));
+        const remoteKey = key(info);
+        const remote = this.remotes.get(remoteKey);
         const regExp = regex(message.data);
         if (remote) {
-          remote.subscribed.push(regExp);
+          remote.subscribed.set(message.data, regExp);
         } else {
-          this.remotes.set(key(rinfo), {info: rinfo, subscribed: [regExp]});
+          const subscribed = new Map<string, RegExp>;
+          subscribed.set(message.data, regExp);
+          this.remotes.set(remoteKey, {info, subscribed});
         }
         break;
       }
       case 'unsubscribe': {
-        const remote = this.remotes.get(key(rinfo));
+        const remoteKey = key(info);
+        const remote = this.remotes.get(remoteKey);
         if (remote) {
-          remote.subscribed.splice(remote.subscribed.indexOf(regex(message.data)), 1);
-          if (!remote.subscribed.length) {
-            this.remotes.delete(key(rinfo));
+          remote.subscribed.delete(message.data);
+          if (!remote.subscribed.size) {
+            this.remotes.delete(remoteKey);
           }
         }
         break;
@@ -67,8 +71,11 @@ export class SocketService implements OnModuleInit {
   broadcast(event: string, data?: any): void {
     const message = JSON.stringify({event, data});
     for (const remote of this.remotes.values()) {
-      if (remote.subscribed.some(regExp => regExp.test(event))) {
-        this.socket.send(message, remote.info.port, remote.info.address);
+      for (const value of remote.subscribed.values()) {
+        if (value.test(event)) {
+          this.socket.send(message, remote.info.port, remote.info.address);
+          break;
+        }
       }
     }
   }
