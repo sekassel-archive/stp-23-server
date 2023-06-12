@@ -108,3 +108,14 @@
 * Fixed the `GET /regions/{region}/trainers/{id}` endpoint reporting an outdated trainer position.
 * Fixed the `GET /groups` endpoints causing an `500 Internal Server Error` when the `members` query parameter was present multiple times as an array.
 * Fixed a potential problem where newly created monsters would not trigger `created` events.
+
+# v2.1.3 - UDP Fixes
+
+## Improvements
+
+* UDP commands are now properly validated and send an `error` event when invalid.
+
+## Bugfixes
+
+* Fixed a problem with UDP sessions that would not unsubscribe correctly.
+* It is no longer possible to teleport to other areas using trainer move commands.
