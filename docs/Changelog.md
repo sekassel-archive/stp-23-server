@@ -119,3 +119,9 @@
 
 * Fixed a problem with UDP sessions that would not unsubscribe correctly.
 * It is no longer possible to teleport to other areas using trainer move commands.
+
+# v2.1.4 - Presets Rate Limits
+
+## General
+
++ Added rate limits for presets (some endpoints use different rate limits).
