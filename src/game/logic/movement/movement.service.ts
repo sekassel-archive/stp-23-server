@@ -136,12 +136,13 @@ export class MovementService implements OnModuleInit {
     this.trainerService.setLocation(dto._id.toString(), dto);
   }
 
-  getTopTile({area, x, y}: MoveTrainerDto): number {
+  getTiles({area, x, y}: MoveTrainerDto): number[] {
     const layers = this.tilelayers.get(area);
     if (!layers) {
-      return 0;
+      return [];
     }
 
+    const tiles: number[] = [];
     for (let i = (layers.length || 0) - 1; i >= 0; i--) {
       const layer = layers[i];
       if (layer.type !== 'tilelayer') {
@@ -155,20 +156,29 @@ export class MovementService implements OnModuleInit {
         if (x >= chunk.x && x < chunk.x + chunk.width && y >= chunk.y && y < chunk.y + chunk.height) {
           const tile = chunk.data[(y - chunk.y) * chunk.width + (x - chunk.x)];
           if (tile != 0) {
-            return tile;
+            tiles.push(tile);
           }
         }
       }
     }
 
-    return 0;
+    return tiles;
   }
 
   isWalkable(dto: MoveTrainerDto): boolean {
-    const topTile = this.getTopTile(dto);
-    if (topTile === 0) return false;
-    const tile = this.tiles.get(dto.area)?.[topTile];
-    return tile && getProperty<boolean>(tile, 'Walkable') || false;
+    const tileMap = this.tiles.get(dto.area);
+    if (!tileMap) return false;
+
+    const tileIds = this.getTiles(dto);
+    if (!tileIds.length) return false;
+
+    for (const tileId of tileIds) {
+      const tile = tileMap[tileId];
+      if (tile && !getProperty<boolean>(tile, 'Walkable')) {
+        return false;
+      }
+    }
+    return true;
   }
 
   getPortal(area: string, x: number, y: number) {
