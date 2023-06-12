@@ -1,4 +1,4 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
+import {HttpStatus, Injectable, OnModuleInit} from '@nestjs/common';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {createSocket, RemoteInfo, Socket} from 'node:dgram';
 import {environment} from '../environment';
@@ -75,7 +75,10 @@ export class SocketService implements OnModuleInit {
         try {
           await this.eventEmitter.emitAsync('udp:' + message.event, message.data);
         } catch (e: any) {
-          if (!e.response) {
+          if (e.response) {
+            tx.setStatus(HttpStatus[e.response.status]);
+            tx.setHttpStatus(e.response.status);
+          } else {
             this.sentryService.error(e.message, e.stack, 'udp:' + message.event);
           }
           this.socket.send(JSON.stringify({event: 'error', data: e.response || e.message}), info.port, info.address);
