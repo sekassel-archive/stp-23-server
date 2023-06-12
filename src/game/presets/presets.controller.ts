@@ -1,5 +1,5 @@
 import {Controller, Get, NotFoundException, Param, ParseIntPipe, StreamableFile} from '@nestjs/common';
-import {ApiOkResponse, ApiParam, ApiTags} from '@nestjs/swagger';
+import {ApiOkResponse, ApiOperation, ApiParam, ApiTags} from '@nestjs/swagger';
 import * as  fs from 'node:fs';
 import {NotFound} from '../../util/not-found.decorator';
 import {
@@ -12,9 +12,13 @@ import {
   MonsterTypeDto,
   monsterTypes,
 } from '../constants';
+import {Throttled} from "../../util/throttled.decorator";
+import {Throttle} from "@nestjs/throttler";
+import {environment} from "../../environment";
 
 @Controller('presets')
 @ApiTags('Presets')
+@Throttled()
 export class PresetsController {
   @Get('tilesets/:filename')
   @ApiOkResponse({
@@ -39,11 +43,15 @@ export class PresetsController {
   }
 
   @Get('characters/:filename')
+  @ApiOperation({
+    description: `NOTE: This endpoint is throttled to ${characters.length} requests per ${environment.rateLimit.presetsTtl}s.`,
+  })
   @ApiOkResponse({
     description: 'A character image PNG.',
     content: {'image/png': {}}
   })
   @NotFound()
+  @Throttle(characters.length, environment.rateLimit.presetsTtl)
   async getCharacter(
     @Param('filename') filename: string,
   ): Promise<StreamableFile> {
@@ -84,11 +92,15 @@ export class PresetsController {
   }
 
   @Get('monsters/:id/image')
+  @ApiOperation({
+    description: `NOTE: This endpoint is throttled to ${monsterTypes.length} requests per ${environment.rateLimit.presetsTtl}s.`,
+  })
   @ApiOkResponse({
     description: 'A monster image PNG.',
     content: {'image/png': {}},
   })
   @NotFound()
+  @Throttle(monsterTypes.length, environment.rateLimit.presetsTtl)
   async getMonsterImage(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<StreamableFile | undefined> {

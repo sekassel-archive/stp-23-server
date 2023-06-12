@@ -21,6 +21,7 @@ export const environment = {
   rateLimit: {
     ttl: +(process.env.RATE_LIMIT_TTL || 60),
     limit: +(process.env.RATE_LIMIT || 60),
+    presetsTtl: +(process.env.RATE_LIMIT_PRESETS_TTL || 60),
   },
   passive: !!process.env.PASSIVE,
   cleanup: {
