@@ -13,10 +13,11 @@ import {GroupModule} from './group/group.module';
 import {MessageModule} from './message/message.module';
 import {RegionModule} from './region/region.module';
 import {UserModule} from './user/user.module';
-import {SentryInterceptor, SentryModule} from "@ntegral/nestjs-sentry";
-import {APP_INTERCEPTOR} from "@nestjs/core";
+import {SentryInterceptor, SentryModule, SentryModuleOptions} from "@ntegral/nestjs-sentry";
+import {APP_INTERCEPTOR, HttpAdapterHost} from "@nestjs/core";
 import {AchievementModule} from "./achievement/achievement.module";
 import {AchievementSummaryModule} from "./achievement-summary/achievement-summary.module";
+import {Integrations} from "@sentry/node";
 
 @Module({
   imports: [
@@ -28,10 +29,20 @@ import {AchievementSummaryModule} from "./achievement-summary/achievement-summar
       wildcard: true,
     }),
     ScheduleModule.forRoot(),
-    SentryModule.forRoot({
-      dsn: environment.sentryDsn,
-      environment: environment.nodeEnv,
-      release: environment.version,
+    SentryModule.forRootAsync({
+      inject: [HttpAdapterHost],
+      useFactory: async (adapterHost: HttpAdapterHost) => ({
+        dsn: environment.sentry.dsn,
+        environment: environment.nodeEnv,
+        release: environment.version,
+        tracesSampleRate: environment.sentry.tracesSampleRate,
+        integrations: [
+          new Integrations.Http({tracing: true}),
+          new Integrations.Express({
+            app: adapterHost.httpAdapter.getInstance(),
+          }),
+        ],
+      } satisfies SentryModuleOptions),
     }),
     AuthModule,
     EventModule,
