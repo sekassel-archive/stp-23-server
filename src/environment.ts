@@ -39,6 +39,7 @@ export const environment = {
     spamMessagePattern: process.env.SPAM_MESSAGE_PATTERN
       ? new RegExp(process.env.SPAM_MESSAGE_PATTERN)
       : /^.$|(.{1,3})\1{2,}|^This message was deleted$/,
+    unprogressedTrainerLifetimeHours: +(process.env.UNPROGRESSED_TRAINER_LIFETIME_HOURS || 2),
   },
   nats: {
     servers: process.env.NATS_URL || 'nats://localhost:4222',
