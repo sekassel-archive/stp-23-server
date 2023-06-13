@@ -19,6 +19,6 @@ export class TrainerHandler {
 
   @OnEvent('trainers.*.monsters.*.created')
   async onMonsterCreated(monster: Monster): Promise<void> {
-    await this.trainerService.addToTeam(new Types.ObjectId(monster.trainer), monster._id.toString());
+    await this.trainerService.addToTeam(new Types.ObjectId(monster.trainer), monster);
   }
 }

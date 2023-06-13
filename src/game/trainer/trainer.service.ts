@@ -10,6 +10,7 @@ import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto} from './trainer.dt
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
 import {DeleteManyResult, EventRepository, MongooseRepository} from "@mean-stream/nestx";
 import {Spawn} from "../../region/region.schema";
+import {Monster} from "../monster/monster.schema";
 
 @Injectable()
 @EventRepository()
@@ -94,8 +95,13 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     }
   }
 
-  async addToTeam(id: Types.ObjectId, monster: string): Promise<Trainer | null> {
-    return this.update(id, {$addToSet: {team: monster}});
+  async addToTeam(id: Types.ObjectId, monster: Monster): Promise<Trainer | null> {
+    return this.update(id, {
+      $addToSet: {
+        team: monster._id.toString(),
+        encounteredMonsterTypes: monster.type,
+      },
+    });
   }
 
   private emit(event: string, trainer: Trainer): void {

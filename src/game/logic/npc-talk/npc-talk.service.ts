@@ -47,11 +47,6 @@ export class NpcTalkService {
           $addToSet: {'npc.encountered': trainerId},
         });
         await this.monsterGeneratorService.createAuto(trainerId, starterId, 1);
-        await this.trainerService.update(dto._id, {
-          $addToSet: {
-            encounteredMonsterTypes: starterId,
-          },
-        });
       }
     }
     if (target.npc.encounterOnTalk) {
