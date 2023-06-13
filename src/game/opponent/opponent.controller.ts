@@ -12,7 +12,7 @@ import {
 import {
   ApiConflictResponse,
   ApiForbiddenResponse,
-  ApiOkResponse,
+  ApiOkResponse, ApiOperation,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
@@ -72,6 +72,12 @@ export class OpponentController {
   }
 
   @Patch('encounters/:encounter/opponents/:id')
+  @ApiOperation({
+    summary: 'Make a move or switch monsters',
+    description: 'Directly switching monsters is only allowed (and required) if the current monster is dead. ' +
+      'Otherwise, you must use a move to switch monsters. ' +
+      'If you switch monsters without a move, you have to call this endpoint again to make a move.',
+  })
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot modify another trainer\'s opponent'})
   @ApiConflictResponse({description: 'You cannot switch the monster without a move if your current monster is not dead'})
@@ -116,6 +122,7 @@ export class OpponentController {
   }
 
   @Delete('encounters/:encounter/opponents/:id')
+  @ApiOperation({summary: 'Flee from a wild encounter'})
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot make another trainer flee, or flee from a trainer encounter'})
   @NotFound()
