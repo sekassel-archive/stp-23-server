@@ -1039,17 +1039,17 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Natchester"
+                         "value":"Adromere"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":48
+                         "value":25
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":56
+                         "value":25
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1142,15 +1142,114 @@
                  "width":112,
                  "x":864,
                  "y":544
+                }, 
+                {
+                 "height":0,
+                 "id":38,
+                 "name":"Worker",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Bouncer_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[56,47]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":480,
+                 "y":464
+                }, 
+                {
+                 "height":0,
+                 "id":39,
+                 "name":"Fisherman",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Fishmonger_1_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[3,39], [4,42]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":928,
+                 "y":176
+                }, 
+                {
+                 "height":0,
+                 "id":44,
+                 "name":"Fisherwomen",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Fishmonger_2_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[87,41], [4,42], [104,45]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":880,
+                 "y":304
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":38,
+ "nextobjectid":45,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
