@@ -33,6 +33,10 @@ export class NPCInfo {
   @IsBoolean()
   encounterOnSight: boolean;
 
+  @ApiProperty({description: 'Whether the NPC will start an encounter when talked to.'})
+  @IsBoolean()
+  encounterOnTalk: boolean;
+
   @ApiProperty({description: 'Whether the NPC can heal the player\'s team (nurse).'})
   @IsBoolean()
   canHeal: boolean;

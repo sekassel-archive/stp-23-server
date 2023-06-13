@@ -54,7 +54,7 @@ export class NpcTalkService {
         });
       }
     }
-    if (target.npc.encounterOnSight) {
+    if (target.npc.encounterOnTalk) {
       await this.trainerService.update(target_id, {
         $addToSet: {'npc.encountered': trainerId},
       });
