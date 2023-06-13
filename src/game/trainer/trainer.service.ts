@@ -100,7 +100,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     const pipeline = [
       {
         $match: {
-          updatedAt: {
+          createdAt: {
             $lt: new Date(Date.now() - olderThanMs),
           },
           area: spawn.area,

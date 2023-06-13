@@ -20,6 +20,6 @@ export class TrainerScheduler {
     const regions = await this.regionService.findAll();
     const results = await Promise.all(regions.map(region => this.trainerService.deleteUnprogressed(olderThanMs, region.spawn)));
     const deleted = results.reduce((acc, val) => acc + val.deletedCount, 0);
-    deleted && this.logger.log(`Deleted ${deleted} unprogressed trainers`);
+    deleted && this.logger.warn(`Deleted ${deleted} unprogressed trainers`);
   }
 }
