@@ -57,25 +57,24 @@ export class OpponentController {
     return this.opponentService.findAll({trainer});
   }
 
-  @Get('encounters/:encounterId/opponents')
+  @Get('encounters/:encounter/opponents')
   @ApiOkResponse({type: [Opponent]})
   async findByEncounter(
-    @Param('encounterId', ParseObjectIdPipe) encounter: string,
+    @Param('encounter', ParseObjectIdPipe) encounter: string,
   ): Promise<Opponent[]> {
     return this.opponentService.findAll({encounter});
   }
 
-  @Get('encounters/:encounterId/opponents/:trainerId')
+  @Get('encounters/:encounter/opponents/:id')
   @ApiOkResponse({type: Opponent})
   @NotFound()
   async findOne(
-    @Param('encounterId', ParseObjectIdPipe) encounter: string,
-    @Param('trainerId', ParseObjectIdPipe) trainer: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Opponent | null> {
-    return this.opponentService.findOne({encounter, trainer});
+    return this.opponentService.find(id);
   }
 
-  @Patch('encounters/:encounterId/opponents/:trainerId')
+  @Patch('encounters/:encounterId/opponents/:id')
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot modify another trainer\'s opponent'})
   @ApiConflictResponse({description: 'You cannot switch the monster without a move if your current monster is not dead'})
@@ -83,13 +82,13 @@ export class OpponentController {
   @NotFound()
   async updateOne(
     @Param('encounterId', ParseObjectIdPipe) encounter: string,
-    @Param('trainerId', ParseObjectIdPipe) trainer: string,
+    @Param('trainer', ObjectIdPipe) id: Types.ObjectId,
     @Body() dto: UpdateOpponentDto,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    await this.checkTrainerAccess(trainer, user);
+    await this.checkTrainerAccess(id, user);
     // TODO check Trainer team
-    const current = await this.opponentService.findOne({encounter, trainer});
+    const current = await this.opponentService.find(id);
     if (dto.monster) {
       // Changing the monster happens immediately
       const monster = await this.monsterService.find(new Types.ObjectId(dto.monster));
@@ -100,10 +99,10 @@ export class OpponentController {
         throw new UnprocessableEntityException(`Monster ${dto.monster} is dead`);
       }
       if (current && current.monster) {
-        throw new ConflictException(`Opponent ${trainer} already has a monster`);
+        throw new ConflictException(`Opponent ${id} already has a monster`);
       }
     } else if (current && !current.monster) {
-      throw new UnprocessableEntityException(`Opponent ${trainer} does not have a monster`);
+      throw new UnprocessableEntityException(`Opponent ${id} does not have a monster`);
     }
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately
@@ -120,19 +119,19 @@ export class OpponentController {
     if (dto.move) {
       update.results = [];
     }
-    return this.opponentService.updateOne({encounter, trainer}, update);
+    return this.opponentService.update(id, update);
   }
 
-  @Delete('encounters/:encounterId/opponents/:trainerId')
+  @Delete('encounters/:encounter/opponents/:id')
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot make another trainer flee, or flee from a trainer encounter'})
   @NotFound()
   async deleteOne(
-    @Param('encounterId', ObjectIdPipe) encounter: Types.ObjectId,
-    @Param('trainerId', ParseObjectIdPipe) trainer: string,
+    @Param('encounter', ObjectIdPipe) encounter: Types.ObjectId,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    await this.checkTrainerAccess(trainer, user);
+    await this.checkTrainerAccess(id, user);
     const encounterDoc = await this.encounterService.find(encounter);
     if (!encounterDoc) {
       throw new NotFoundException('Encounter not found');
@@ -140,11 +139,12 @@ export class OpponentController {
     if (!encounterDoc.isWild) {
       throw new ForbiddenException('You cannot flee from a trainer encounter');
     }
-    return this.opponentService.deleteOne({encounter: encounter.toString(), trainer});
+    return this.opponentService.delete(id);
   }
 
-  private async checkTrainerAccess(trainer: string, user: User) {
-    const trainerDoc = await this.trainerService.find(new Types.ObjectId(trainer));
+  private async checkTrainerAccess(id: Types.ObjectId, user: User) {
+    // FIXME
+    const trainerDoc = await this.trainerService.find(id);
     if (!trainerDoc) {
       throw new NotFoundException('Trainer not found');
     }

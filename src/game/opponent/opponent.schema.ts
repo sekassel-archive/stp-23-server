@@ -3,8 +3,15 @@ import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/sw
 import {Type} from 'class-transformer';
 import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
+import {
+  GLOBAL_SCHEMA_OPTIONS,
+  GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
+  GlobalSchema,
+  GlobalSchemaWithoutID,
+  MONGO_ID_FORMAT
+} from '../../util/schema';
 import {abilities} from '../constants';
+import {Doc} from "@mean-stream/nestx";
 
 @Schema()
 export class AbilityMove {
@@ -80,9 +87,9 @@ export class Result {
   effectiveness?: Effectiveness;
 }
 
-@Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
+@Schema(GLOBAL_SCHEMA_OPTIONS)
 @ApiExtraModels(AbilityMove, ChangeMonsterMove)
-export class Opponent extends GlobalSchemaWithoutID {
+export class Opponent extends GlobalSchema {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
@@ -146,7 +153,7 @@ export class Opponent extends GlobalSchemaWithoutID {
   coins: number;
 }
 
-export type OpponentDocument = Opponent & Document<never, any, Opponent>;
+export type OpponentDocument = Doc<Opponent>;
 
 export const OpponentSchema = SchemaFactory.createForClass(Opponent)
   .index({encounter: 1, trainer: 1}, {unique: true})
