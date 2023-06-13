@@ -2,6 +2,8 @@ FROM node:18-slim as builder
 RUN npm install -g pnpm
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
+RUN mkdir -p patches
+COPY patches ./patches
 RUN pnpm install
 COPY . .
 RUN pnpm run build
@@ -11,6 +13,8 @@ RUN npm install -g pnpm
 WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json pnpm-lock.yaml ./
+RUN mkdir -p patches
+COPY patches ./patches
 RUN pnpm install
 COPY --from=builder /app/dist ./dist
 COPY assets ./assets

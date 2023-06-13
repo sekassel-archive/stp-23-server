@@ -8,7 +8,8 @@ import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
 import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
-import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
+import {DeleteManyResult, EventRepository, MongooseRepository} from "@mean-stream/nestx";
+import {Spawn} from "../../region/region.schema";
 
 @Injectable()
 @EventRepository()
@@ -101,6 +102,63 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     this.eventEmitter.emit(`regions.${trainer.region}.trainers.${trainer._id}.${event}`, trainer);
   }
 
+  async deleteUnprogressed(olderThanMs: number, spawn: Spawn, radius = 5): Promise<DeleteManyResult> {
+    const pipeline = [
+      {
+        $match: {
+          createdAt: {
+            $lt: new Date(Date.now() - olderThanMs),
+          },
+          area: spawn.area,
+          x: {
+            $gt: spawn.x - radius,
+            $lt: spawn.x + radius,
+          },
+          y: {
+            $gt: spawn.y - radius,
+            $lt: spawn.y + radius,
+          },
+        } satisfies FilterQuery<Trainer>,
+      },
+      {
+        $addFields: {
+          id: {
+            $toString: '$_id'
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'monsters',
+          localField: 'id',
+          foreignField: 'trainer',
+          as: 'monsters',
+        },
+      },
+      {
+        $match: {
+          coins: 0,
+          npc: {$exists: false},
+          $or: [
+            {monsters: {$size: 0}},
+            {
+              'monsters.0.level': 1,
+              'monsters.0.experience': 0,
+            },
+          ],
+        } satisfies FilterQuery<Trainer>,
+      },
+      {
+        $project: {
+          id: 0,
+          monsters: 0,
+        },
+      },
+    ];
+    const trainers = await this.model.aggregate(pipeline);
+    return this.deleteAll(trainers);
+  }
+
   // --------------- Movement/Locations ---------------
 
   getLocations(): IterableIterator<MoveTrainerDto> {
@@ -126,7 +184,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
 
   async onModuleInit() {
     for await (const doc of this.model.find().select([...MOVE_TRAINER_PROPS])) {
-      this.locations.set(doc._id.toString(), doc);
+      this.setLocation(doc._id.toString(), doc.toObject());
     }
   }
 

@@ -1,14 +1,14 @@
-import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { WsAdapter } from '@nestjs/platform-ws';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { readFile } from 'fs/promises';
-import { AppModule } from './app.module';
-import { environment } from './environment';
-import { ErrorResponse, ValidationErrorResponse } from './util/error-response';
-import { ThrottlerExceptionFilter } from './util/throttler-exception.filter';
-import Sentry from '@sentry/node';
+import {NestFactory} from '@nestjs/core';
+import {Transport} from '@nestjs/microservices';
+import {NestExpressApplication} from '@nestjs/platform-express';
+import {WsAdapter} from '@nestjs/platform-ws';
+import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
+import {readFile} from 'fs/promises';
+import {AppModule} from './app.module';
+import {environment} from './environment';
+import {ErrorResponse, ValidationErrorResponse} from './util/error-response';
+import {ThrottlerExceptionFilter} from './util/throttler-exception.filter';
+import {Handlers} from '@sentry/node';
 
 import './polyfills';
 
@@ -44,6 +44,7 @@ async function bootstrap() {
   app.enableCors();
   app.useWebSocketAdapter(new WsAdapter(app));
   app.useGlobalFilters(new ThrottlerExceptionFilter());
+  app.use(Handlers.tracingHandler());
 
   app.connectMicroservice({
     transport: Transport.NATS,

@@ -1,0 +1,14 @@
+diff --git a/dist/services/schema-object-factory.js b/dist/services/schema-object-factory.js
+index 8db8fbcd3f2ed6c84bbd07fa5eb56c24283054ea..4bc7754469f680bbb96953e44567586d081a6b4e 100644
+--- a/dist/services/schema-object-factory.js
++++ b/dist/services/schema-object-factory.js
+@@ -53,6 +53,9 @@ class SchemaObjectFactory {
+         if ((0, is_date_ctor_util_1.isDateCtor)(param.type)) {
+             return Object.assign(Object.assign({ format: 'date-time' }, param), { type: 'string' });
+         }
++        if (param.type.name === 'ObjectId') {
++            return Object.assign(Object.assign({ format: 'objectid' }, param), { type: 'string' });
++        }
+         if ((0, lodash_1.isFunction)(param.type)) {
+             const propertiesWithType = this.extractPropertiesFromType(param.type, schemas);
+             if (!propertiesWithType) {

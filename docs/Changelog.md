@@ -109,6 +109,34 @@
 * Fixed the `GET /groups` endpoints causing an `500 Internal Server Error` when the `members` query parameter was present multiple times as an array.
 * Fixed a potential problem where newly created monsters would not trigger `created` events.
 
+# v2.1.3 - UDP Fixes
+
+## Improvements
+
+* UDP commands are now properly validated and send an `error` event when invalid.
+
+## Bugfixes
+
+* Fixed a problem with UDP sessions that would not unsubscribe correctly.
+* It is no longer possible to teleport to other areas using trainer move commands.
+
+# v2.1.4 - Presets Rate Limits
+
+## General
+
++ Added rate limits for presets (some endpoints use different rate limits).
+
+# v2.1.5 - Trainer Cleanup
+
+## Improvements
+
+* Trainers without any progress near spawn are now deleted after a while.
+
+## Bugfixes
+
+* Fixed an edge case where Roof tiles would allow walking through walls.
+* Fixed some missing parameters in Swagger.
+
 # v3.0.0 - Battle
 
 ## New Features
