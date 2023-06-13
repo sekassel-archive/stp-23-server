@@ -3,6 +3,7 @@ import * as fs from 'node:fs/promises';
 import chalk from 'chalk';
 
 const foundMonsters = {};
+const areaLevels = {};
 
 for (const file of await fs.readdir(`maps/${region}/`)) {
   const area = file.slice(0, -5);
@@ -22,6 +23,7 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
         const monsters = JSON.parse(monstersProp);
         for (const [type, level] of monsters) {
           (foundMonsters[type] ||= new Set).add(area);
+          (areaLevels[area] ||= []).push(level);
         }
       }
 
@@ -42,11 +44,19 @@ let found = 0;
 for (const monster of baseMonsters) {
   const areas = foundMonsters[monster.id];
   if (!areas || !areas.size) {
-    console.log(`#${monster.id} ${monster.name} ${chalk.red('not found')} in any area`);
+    console.log(`❌ #${monster.id} ${monster.name} ${chalk.red('not found')}`);
   } else {
     found++;
-    console.log(`#${monster.id} ${monster.name} ${chalk.green('found')} in ${chalk.blue([...areas].join(', '))}`);
+    console.log(`✅ #${monster.id} ${monster.name} ${chalk.green('found')} in ${chalk.blue([...areas].join(', '))}`);
   }
 }
 
 console.log(`Found ${found}/${baseMonsters.length} base monsters`);
+
+for (const area in areaLevels) {
+  const levels = areaLevels[area];
+  const min = Math.min(...levels);
+  const max = Math.max(...levels);
+  const avg = levels.reduce((a, b) => a + b, 0) / levels.length;
+  console.log(`${chalk.blue(area)} has monsters from level ${chalk.green(min)} to ${chalk.red(max)} (average ${chalk.yellow(avg.toFixed(1))})`);
+}
