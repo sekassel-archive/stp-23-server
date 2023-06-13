@@ -4,7 +4,7 @@ import {Types} from 'mongoose';
 import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
-  attackGain,
+  attackGain, coinsGain,
   defenseGain,
   EVOLUTION_LEVELS,
   expGain,
@@ -249,6 +249,9 @@ export class BattleService {
       targetOpponent.monster = undefined;
       if (!currentOpponent.isNPC) {
         this.gainExp(currentOpponent, currentMonster, targetMonster);
+        if (targetMonster.trainer !== TALL_GRASS_TRAINER) {
+          currentOpponent.$inc('coins', coinsGain(targetMonster.level));
+        }
       }
     }
   }

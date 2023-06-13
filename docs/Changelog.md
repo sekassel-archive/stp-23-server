@@ -165,3 +165,6 @@
 * Players can trigger encounters by talking to other trainers.
 * Players can heal their monsters by talking to a Nurse.
 * NPCs may start encounters when they see you.
+* Defeating a monster now grants experience.
+* Monsters can now level up and evolve.
+* Winning encounters now grants coins.

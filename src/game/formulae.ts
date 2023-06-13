@@ -3,6 +3,8 @@ import {Monster} from './monster/monster.schema';
 export const expGain = (defeatedMonsterLevel: number): number => Math.round(defeatedMonsterLevel * 10 * (0.9 + Math.random() * 0.2));
 export const expRequired = (currentLevel: number): number => currentLevel ** 3 - (currentLevel - 1) ** 3;
 
+export const coinsGain = (defeatedMonsterLevel: number): number => Math.round(defeatedMonsterLevel * 20 * (0.9 + Math.random() * 0.2));
+
 export const healthGain = (level: number) => 3 + Math.round(Math.random() * 2);
 export const attackGain = (level: number) => 2 + Math.round(Math.random());
 export const defenseGain = (level: number) => 2 + Math.round(Math.random());

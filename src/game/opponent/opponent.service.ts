@@ -22,6 +22,7 @@ export class OpponentService extends MongooseRepository<Opponent, never> {
       encounter,
       trainer,
       results: [],
+      coins: 0,
     });
   }
 

@@ -139,6 +139,11 @@ export class Opponent extends GlobalSchemaWithoutID {
   @IsArray()
   @IsIn(RESULTS, {each: true})
   results: Result[];
+
+  @Prop({default: 0})
+  @ApiProperty({description: 'The number of coins that will be earned when the encounter is won.'})
+  @IsInt()
+  coins: number;
 }
 
 export type OpponentDocument = Opponent & Document<never, any, Opponent>;
