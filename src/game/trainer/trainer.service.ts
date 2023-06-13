@@ -178,7 +178,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
 
   async onModuleInit() {
     for await (const doc of this.model.find().select([...MOVE_TRAINER_PROPS])) {
-      this.locations.set(doc._id.toString(), doc);
+      this.setLocation(doc._id.toString(), doc.toObject());
     }
   }
 
