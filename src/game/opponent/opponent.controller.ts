@@ -5,17 +5,14 @@ import {
   Delete,
   ForbiddenException,
   Get,
-  NotFoundException,
   Param,
   Patch,
-  Query,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
   ApiForbiddenResponse,
   ApiOkResponse,
-  ApiQuery,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
@@ -35,7 +32,7 @@ import {notFound, ObjectIdPipe} from '@mean-stream/nestx';
 import {MonsterService} from "../monster/monster.service";
 import {Trainer} from "../trainer/trainer.schema";
 
-@Controller('regions/:regionId')
+@Controller('regions/:region')
 @ApiTags('Encounter Opponents')
 @Validated()
 @Auth()
@@ -49,11 +46,10 @@ export class OpponentController {
   ) {
   }
 
-  @Get('opponents')
-  @ApiQuery({name: 'trainer'})
+  @Get('trainers/:trainer/opponents')
   @ApiOkResponse({type: [Opponent]})
-  async findAll(
-    @Query('trainer') trainer: string,
+  async findByTrainer(
+    @Param('trainer') trainer: string,
   ): Promise<Opponent[]> {
     return this.opponentService.findAll({trainer});
   }
@@ -75,15 +71,14 @@ export class OpponentController {
     return this.opponentService.find(id);
   }
 
-  @Patch('encounters/:encounterId/opponents/:id')
+  @Patch('encounters/:encounter/opponents/:id')
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot modify another trainer\'s opponent'})
   @ApiConflictResponse({description: 'You cannot switch the monster without a move if your current monster is not dead'})
   @ApiUnprocessableEntityResponse({description: 'Monster is dead'})
   @NotFound()
   async updateOne(
-    @Param('encounterId', ParseObjectIdPipe) encounter: string,
-    @Param('trainer', ObjectIdPipe) id: Types.ObjectId,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @Body() dto: UpdateOpponentDto,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
@@ -111,10 +106,7 @@ export class OpponentController {
   }
 
   private async checkMonster(monsterId: string, trainer: Trainer) {
-    const monster = await this.monsterService.find(new Types.ObjectId(monsterId));
-    if (!monster) {
-      throw new NotFoundException(`Monster ${monsterId} not found`);
-    }
+    const monster = await this.monsterService.find(new Types.ObjectId(monsterId)) || notFound(monsterId);
     if (!trainer.team.includes(monsterId)) {
       throw new ForbiddenException(`Monster ${monsterId} is not on trainer ${trainer._id} team`);
     }
@@ -132,10 +124,7 @@ export class OpponentController {
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    const encounterDoc = await this.encounterService.find(encounter);
-    if (!encounterDoc) {
-      throw new NotFoundException('Encounter not found');
-    }
+    const encounterDoc = await this.encounterService.find(encounter) || notFound(encounter);
     if (!encounterDoc.isWild) {
       throw new ForbiddenException('You cannot flee from a trainer encounter');
     }
@@ -145,10 +134,7 @@ export class OpponentController {
   }
 
   private async checkTrainerAccess(opponent: Opponent, user: User): Promise<Trainer> {
-    const trainer = await this.trainerService.find(new Types.ObjectId(opponent.trainer));
-    if (!trainer) {
-      throw new NotFoundException('Trainer not found');
-    }
+    const trainer = await this.trainerService.find(new Types.ObjectId(opponent.trainer)) || notFound(opponent.trainer);
     if (!user._id.equals(trainer.user)) {
       throw new ForbiddenException('You are not the trainer of this opponent');
     }
