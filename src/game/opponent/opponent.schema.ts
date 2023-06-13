@@ -49,16 +49,16 @@ export type Move = AbilityMove | ChangeMonsterMove;
 export const RESULTS_WITH_DESCRIPTION = {
   'ability-success': 'The ability was successful',
   'target-defeated': 'The target monster was defeated',
-  'monster-changed': 'The monster was changed',
+  'monster-changed': 'The monster was changed successfully',
   'monster-defeated': 'The monster was defeated',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
   'monster-learned': 'The monster learned a new ability',
   // Error cases
-  'monster-dead': 'The monster is dead',
+  'monster-dead': 'The monster is dead before it made a move',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
   'ability-no-uses': 'The monster doesn\'t have any uses left for the ability',
-  'target-unknown': 'The target trainer does not exist or has fled',
+  'target-unknown': 'The target opponent does not exist or has fled',
   'target-dead': 'The target monster is already dead',
 } as const;
 
@@ -101,12 +101,13 @@ export class Opponent extends GlobalSchema {
   trainer: string;
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty({description: 'Whether the opponent started the encounter. ' +
+      'Allows grouping opponents into two teams.'})
   @IsBoolean()
   isAttacker: boolean;
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty({description: 'Whether the opponent is an NPC. Handled by the server.'})
   @IsBoolean()
   isNPC: boolean;
 
@@ -114,7 +115,7 @@ export class Opponent extends GlobalSchema {
   @ApiPropertyOptional({
     ...MONGO_ID_FORMAT, description: 'Can be patched when set to undefined/null. ' +
       'This happens after the monster died. ' +
-      'You can then patch a new monster ID to change the monster without expending your move.',
+      'You then have to patch a new monster ID to change the monster without expending your move.',
   })
   @IsOptional()
   @IsMongoId()
