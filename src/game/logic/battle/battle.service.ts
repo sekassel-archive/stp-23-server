@@ -244,6 +244,7 @@ export class BattleService {
 
     if (currentMonster.currentAttributes.health <= 0) {
       currentOpponent.results.push({type: 'monster-defeated'});
+      currentOpponent.monster = undefined;
     } else if (targetMonster.currentAttributes.health <= 0) {
       currentOpponent.results.push({type: 'target-defeated'});
       targetOpponent.monster = undefined;
