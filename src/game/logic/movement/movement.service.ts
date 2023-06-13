@@ -174,7 +174,7 @@ export class MovementService implements OnModuleInit {
 
     for (const tileId of tileIds) {
       const tile = tileMap[tileId];
-      if (tile && !getProperty<boolean>(tile, 'Walkable')) {
+      if (!tile || !getProperty<boolean>(tile, 'Walkable')) {
         return false;
       }
     }
