@@ -96,7 +96,7 @@ export class BattleService {
         }
         const liveMonsters = await this.monsterService.findAll({
           trainer: opponent.trainer,
-          // TODO check for Trainer.team
+          // NB: no check for Trainer.team, because NPCs usually don't have that many monsters
           'currentAttributes.health': {$gt: 0},
         });
         if (!liveMonsters.length) {
@@ -128,7 +128,7 @@ export class BattleService {
 
       const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
       if (!attackDamage) {
-        // TODO support other effects
+        // FIXME Giulio until v4: support other effects
         continue;
       }
 
@@ -302,7 +302,6 @@ export class BattleService {
   }
 
   private gainExp(opponent: OpponentDocument, currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
-    // TODO improve experience gain
     currentMonster.experience += expGain(effectTarget.level);
 
     while (true) {

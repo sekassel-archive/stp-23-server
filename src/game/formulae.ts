@@ -1,5 +1,6 @@
 import {Monster} from './monster/monster.schema';
 
+// TODO improve experience gain?
 export const expGain = (defeatedMonsterLevel: number): number => Math.round(defeatedMonsterLevel * 10 * (0.9 + Math.random() * 0.2));
 export const expRequired = (currentLevel: number): number => currentLevel ** 3 - (currentLevel - 1) ** 3;
 
