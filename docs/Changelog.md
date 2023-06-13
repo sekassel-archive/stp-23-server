@@ -125,3 +125,14 @@
 ## General
 
 + Added rate limits for presets (some endpoints use different rate limits).
+
+# v2.1.5 - Trainer Cleanup
+
+## Improvements
+
+* Trainers without any progress near spawn are now deleted after a while.
+
+## Bugfixes
+
+* Fixed an edge case where Roof tiles would allow walking through walls.
+* Fixed some missing parameters in Swagger.
