@@ -33,6 +33,7 @@ import {OpponentService} from './opponent.service';
 import {Types, UpdateQuery} from "mongoose";
 import {notFound, ObjectIdPipe} from '@mean-stream/nestx';
 import {MonsterService} from "../monster/monster.service";
+import {Trainer} from "../trainer/trainer.schema";
 
 @Controller('regions/:regionId')
 @ApiTags('Encounter Opponents')
@@ -86,18 +87,11 @@ export class OpponentController {
     @Body() dto: UpdateOpponentDto,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    // TODO check Trainer team
     const current = await this.opponentService.find(id) || notFound(id);
-    await this.checkTrainerAccess(current, user);
+    const trainer = await this.checkTrainerAccess(current, user);
     if (dto.monster) {
       // Changing the monster happens immediately
-      const monster = await this.monsterService.find(new Types.ObjectId(dto.monster));
-      if (!monster) {
-        throw new NotFoundException(`Monster ${dto.monster} not found`);
-      }
-      if (monster.currentAttributes.health <= 0) {
-        throw new UnprocessableEntityException(`Monster ${dto.monster} is dead`);
-      }
+      await this.checkMonster(dto.monster, trainer);
       if (current && current.monster) {
         throw new ConflictException(`Opponent ${id} already has a monster`);
       }
@@ -106,13 +100,7 @@ export class OpponentController {
     }
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately
-      const monster = await this.monsterService.find(new Types.ObjectId(dto.move.monster));
-      if (!monster) {
-        throw new NotFoundException(`Monster ${dto.move.monster} not found`);
-      }
-      if (monster.currentAttributes.health <= 0) {
-        throw new UnprocessableEntityException(`Monster ${dto.move.monster} is dead`);
-      }
+      await this.checkMonster(dto.move.monster, trainer);
       dto.monster = dto.move.monster;
     }
     const update: UpdateQuery<Opponent> = dto;
@@ -120,6 +108,19 @@ export class OpponentController {
       update.results = [];
     }
     return this.opponentService.update(id, update);
+  }
+
+  private async checkMonster(monsterId: string, trainer: Trainer) {
+    const monster = await this.monsterService.find(new Types.ObjectId(monsterId));
+    if (!monster) {
+      throw new NotFoundException(`Monster ${monsterId} not found`);
+    }
+    if (!trainer.team.includes(monsterId)) {
+      throw new ForbiddenException(`Monster ${monsterId} is not on trainer ${trainer._id} team`);
+    }
+    if (monster.currentAttributes.health <= 0) {
+      throw new UnprocessableEntityException(`Monster ${monsterId} is dead`);
+    }
   }
 
   @Delete('encounters/:encounter/opponents/:id')
@@ -143,13 +144,14 @@ export class OpponentController {
     return this.opponentService.delete(id);
   }
 
-  private async checkTrainerAccess(opponent: Opponent, user: User) {
-    const trainerDoc = await this.trainerService.find(new Types.ObjectId(opponent.trainer));
-    if (!trainerDoc) {
+  private async checkTrainerAccess(opponent: Opponent, user: User): Promise<Trainer> {
+    const trainer = await this.trainerService.find(new Types.ObjectId(opponent.trainer));
+    if (!trainer) {
       throw new NotFoundException('Trainer not found');
     }
-    if (!user._id.equals(trainerDoc.user)) {
+    if (!user._id.equals(trainer.user)) {
       throw new ForbiddenException('You are not the trainer of this opponent');
     }
+    return trainer;
   }
 }
