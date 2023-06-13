@@ -2511,6 +2511,12 @@
                  "height":464,
                  "id":37,
                  "name":"G1",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[92,25],[65,27],[19,30]]"
+                        }],
                  "rotation":0,
                  "type":"TallGrass",
                  "visible":true,
@@ -2522,6 +2528,12 @@
                  "height":128,
                  "id":38,
                  "name":"G2",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[82,19],[93,35],[38,28]]"
+                        }],
                  "rotation":0,
                  "type":"TallGrass",
                  "visible":true,
@@ -2533,6 +2545,12 @@
                  "height":112,
                  "id":39,
                  "name":"G3",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[53,25],[61,12],[65,29]]"
+                        }],
                  "rotation":0,
                  "type":"TallGrass",
                  "visible":true,
@@ -2544,6 +2562,12 @@
                  "height":144,
                  "id":40,
                  "name":"G4",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[63,29],[70,33],[71,25]]"
+                        }],
                  "rotation":0,
                  "type":"TallGrass",
                  "visible":true,
@@ -2554,7 +2578,13 @@
                 {
                  "height":96,
                  "id":41,
-                 "name":"G",
+                 "name":"G6",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[28,35],[92,29],[65,36],[93,37]]"
+                        }],
                  "rotation":0,
                  "type":"TallGrass",
                  "visible":true,
@@ -2565,22 +2595,277 @@
                 {
                  "height":192,
                  "id":42,
-                 "name":"G",
+                 "name":"G7",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[99,37],[101,35],[82,39]]"
+                        }],
                  "rotation":0,
                  "type":"TallGrass",
                  "visible":true,
                  "width":208,
                  "x":2864,
                  "y":256
+                }, 
+                {
+                 "height":256,
+                 "id":43,
+                 "name":"G5",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[10,29],[18,31],[61,36]]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":128,
+                 "x":1776,
+                 "y":80
+                }, 
+                {
+                 "height":0,
+                 "id":45,
+                 "name":"Kid Mitty",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Kid_Mitty_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[93,25],[61,8]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":224,
+                 "y":128
+                }, 
+                {
+                 "height":0,
+                 "id":46,
+                 "name":"Old woman Jenny",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Old_woman_Jenny_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[44,38],[51,22]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":496,
+                 "y":128
+                }, 
+                {
+                 "height":0,
+                 "id":47,
+                 "name":"Kid Karen",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Kid_Karen_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[65,33],[61,22],[28,31]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":624,
+                 "y":528
+                }, 
+                {
+                 "height":0,
+                 "id":48,
+                 "name":"Kid Abby",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Kid_Abby_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[10,25],[10,16],[10,5]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":1152,
+                 "y":176
+                }, 
+                {
+                 "height":0,
+                 "id":49,
+                 "name":"Premade Character 04",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Premade_Character_04.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[93,33],[92,22],[18,31]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":1664,
+                 "y":416
+                }, 
+                {
+                 "height":0,
+                 "id":50,
+                 "name":"Old man Josh",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Old_man_Josh_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[78,37],[79,50],[81,12]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":2304,
+                 "y":320
+                },
+            
+                {
+                 "height":0,
+                 "id":51,
+                 "name":"Pier",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Pier_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[76,33],[84,29]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":2416,
+                 "y":144
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":43,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
