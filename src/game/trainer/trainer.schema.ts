@@ -29,11 +29,11 @@ export class NPCInfo {
   @IsBoolean()
   walkRandomly: boolean;
 
-  // TODO @ApiProperty()
+  @ApiProperty({description: 'Whether the NPC will start an encounter on sight. Handled by the server.'})
   @IsBoolean()
   encounterOnSight: boolean;
 
-  @ApiProperty()
+  @ApiProperty({description: 'Whether the NPC can heal the player\'s team (nurse).'})
   @IsBoolean()
   canHeal: boolean;
 
@@ -43,13 +43,14 @@ export class NPCInfo {
   @IsInt({each: true})
   path?: number[];
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({description: 'The Trainer IDs that the NPC has encountered. ' +
+      'Applies to both encounters and NPCs that offer starters, so they cannot be received again.'})
   @IsOptional()
   @IsArray()
   @IsMongoId({each: true})
   encountered?: string[];
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({description: 'Monster IDs that the NPC offers as starters.'})
   @IsOptional()
   @IsArray()
   @IsInt({each: true})
