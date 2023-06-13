@@ -55,7 +55,7 @@ export class NpcTalkService {
       }
     }
     if (target.npc.encounterOnSight) {
-      await this.trainerService.update(dto._id, {
+      await this.trainerService.update(target_id, {
         $addToSet: {'npc.encountered': trainerId},
       });
       await this.battleSetupService.createTrainerBattle(target, [trainer]);
