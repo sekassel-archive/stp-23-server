@@ -31,7 +31,7 @@ import {UpdateOpponentDto} from './opponent.dto';
 import {ChangeMonsterMove, Opponent} from './opponent.schema';
 import {OpponentService} from './opponent.service';
 import {Types, UpdateQuery} from "mongoose";
-import {ObjectIdPipe} from '@mean-stream/nestx';
+import {notFound, ObjectIdPipe} from '@mean-stream/nestx';
 import {MonsterService} from "../monster/monster.service";
 
 @Controller('regions/:regionId')
@@ -86,9 +86,9 @@ export class OpponentController {
     @Body() dto: UpdateOpponentDto,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    await this.checkTrainerAccess(id, user);
     // TODO check Trainer team
-    const current = await this.opponentService.find(id);
+    const current = await this.opponentService.find(id) || notFound(id);
+    await this.checkTrainerAccess(current, user);
     if (dto.monster) {
       // Changing the monster happens immediately
       const monster = await this.monsterService.find(new Types.ObjectId(dto.monster));
@@ -131,7 +131,6 @@ export class OpponentController {
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    await this.checkTrainerAccess(id, user);
     const encounterDoc = await this.encounterService.find(encounter);
     if (!encounterDoc) {
       throw new NotFoundException('Encounter not found');
@@ -139,12 +138,13 @@ export class OpponentController {
     if (!encounterDoc.isWild) {
       throw new ForbiddenException('You cannot flee from a trainer encounter');
     }
+    const opponent = await this.findOne(id) || notFound(id);
+    await this.checkTrainerAccess(opponent, user);
     return this.opponentService.delete(id);
   }
 
-  private async checkTrainerAccess(id: Types.ObjectId, user: User) {
-    // FIXME
-    const trainerDoc = await this.trainerService.find(id);
+  private async checkTrainerAccess(opponent: Opponent, user: User) {
+    const trainerDoc = await this.trainerService.find(new Types.ObjectId(opponent.trainer));
     if (!trainerDoc) {
       throw new NotFoundException('Trainer not found');
     }
