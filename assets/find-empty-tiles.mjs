@@ -1,15 +1,50 @@
 import {createCanvas, loadImage} from "canvas";
+import * as fs from "node:fs/promises";
+import BitSet from "bitset";
 
-// Replace 'spritesheet.png' with the path to your spritesheet image
-const imagePath = 'tilesets/Modern_Exteriors_16x16.png';
+const region = 'Albertania';
+const tilesetName = 'Modern_Exteriors_16x16';
+const imagePath = `tilesets/${tilesetName}.png`;
 const tileSize = 16;
 
 const image = await loadImage(imagePath);
 const emptyTiles = findEmptyTilesIndices(image, tileSize);
-console.log(emptyTiles);
+
+const tileset = JSON.parse(await fs.readFile(`tilesets/${tilesetName}.json`, 'utf-8'));
+const newTiles = tileset.tiles.filter(t => !emptyTiles.get(t.id));
+const changed = tileset.tiles.length - newTiles.length;
+if (changed) {
+  tileset.tiles = newTiles;
+  console.log(`Removed ${changed} empty tiles from ${tilesetName}.json`);
+  await fs.writeFile(`tilesets/${tilesetName}.json`, JSON.stringify(tileset, null, '\t'));
+}
+
+for (const file of await fs.readdir(`maps/${region}/`)) {
+  const map = JSON.parse(await fs.readFile(`maps/${region}/${file}`, 'utf-8'));
+  if (!map.tilesets[0].source.includes(tilesetName)) {
+    continue;
+  }
+
+  let changed = 0;
+  for (const layer of map.layers) {
+    for (const chunk of layer.chunks || []) {
+      for (let i = 0; i < chunk.data.length; i++) {
+        const tileIndex = chunk.data[i] - 1;
+        if (emptyTiles.get(tileIndex)) {
+          chunk.data[i] = 0;
+          changed++;
+        }
+      }
+    }
+  }
+  if (changed) {
+    console.log(`Removed ${changed} empty tiles from map ${file}`);
+    await fs.writeFile(`maps/${region}/${file}`, JSON.stringify(map, null, '\t'));
+  }
+}
 
 function findEmptyTilesIndices(image, tileSize) {
-  const emptyTilesIndices = [];
+  const emptyTilesIndices = new BitSet();
 
   const canvas = createCanvas(image.width, image.height);
   const context = canvas.getContext('2d');
@@ -26,7 +61,7 @@ function findEmptyTilesIndices(image, tileSize) {
       const isEmpty = isTileEmpty(context, tileX, tileY, tileSize);
 
       if (isEmpty) {
-        emptyTilesIndices.push(row * numCols + col);
+        emptyTilesIndices.set(row * numCols + col);
       }
     }
   }
