@@ -47,7 +47,7 @@ for (const monster of baseMonsters) {
     console.log(`❌ #${monster.id} ${monster.name} ${chalk.red('not found')}`);
   } else {
     found++;
-    console.log(`✅ #${monster.id} ${monster.name} ${chalk.green('found')} in ${chalk.blue([...areas].join(', '))}`);
+    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green([...areas].join(', '))}`);
   }
 }
 
