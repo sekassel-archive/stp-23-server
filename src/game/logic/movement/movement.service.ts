@@ -133,7 +133,7 @@ export class MovementService implements OnModuleInit {
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || dto.area !== oldLocation.area // Mismatching area
       || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
-      || !this.getTopTileProperty(dto, 'Walkable') // Tile not walkable
+      || !this.isWalkable(dto) // Tile not walkable
     ) {
       dto.area = oldLocation.area;
       dto.x = oldLocation.x;
@@ -150,10 +150,11 @@ export class MovementService implements OnModuleInit {
         // inform old area that the trainer left
         this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
         // NB: this is required, because the GET /trainers?area= endpoint relies on
-      //     the database knowing the trainer is in the new area.await this.trainerService.saveLocations([dto]);
+        //     the database knowing the trainer is in the new area.
+        await this.trainerService.saveLocations([dto]);
         break;
       case 'TallGrass':
-        if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
+        if (this.isTallGrass(dto) && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
           const trainer = await this.trainerService.find(dto._id);
           const [type, level] = gameObject.monsters.random();
           trainer && await this.battleSetupService.createMonsterEncounter(trainer, type, level);
@@ -196,7 +197,7 @@ export class MovementService implements OnModuleInit {
     return tiles;
   }
 
-  getTopTileProperty(dto: MoveTrainerDto, property: string): boolean {
+  isWalkable(dto: MoveTrainerDto): boolean {
     const tileMap = this.tiles.get(dto.area);
     if (!tileMap) return false;
 
@@ -205,11 +206,27 @@ export class MovementService implements OnModuleInit {
 
     for (const tileId of tileIds) {
       const tile = tileMap[tileId];
-      if (!tile || !getProperty<boolean>(tile, property)) {
+      if (!tile || !getProperty<boolean>(tile, 'Walkable')) {
         return false;
       }
     }
     return true;
+  }
+
+  isTallGrass(dto: MoveTrainerDto): boolean {
+    const tileMap = this.tiles.get(dto.area);
+    if (!tileMap) return false;
+
+    const tileIds = this.getTiles(dto);
+    if (!tileIds.length) return false;
+
+    for (const tileId of tileIds) {
+      const tile = tileMap[tileId];
+      if (tile && getProperty<boolean>(tile, 'TallGrass')) {
+        return true;
+      }
+    }
+    return false;
   }
 
   getGameObject(area: string, x: number, y: number) {
