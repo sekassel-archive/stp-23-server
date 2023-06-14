@@ -25,8 +25,8 @@ Commands are sent as JSON, for example:
 
 ```json
 {
-  "event":"areas.507f191e810c19729de860ea.trainers.507f191e810c19729de860ea.moved",
-  "data":{
+  "event": "areas.507f191e810c19729de860ea.trainers.507f191e810c19729de860ea.moved",
+  "data": {
     "_id": "507f191e810c19729de860ea",
     "area": "507f191e810c19729de860ea",
     "x": 10,
@@ -36,15 +36,18 @@ Commands are sent as JSON, for example:
 }
 ```
 
+If a command is invalid, the socket will send an `error` event (see below).
+
 ## Events
 
 See the WebSocket documentation for general information about events.
 
 The following table shows which events may be sent.
-<!-- Some events are only visible to certain users for privacy reasons. -->
+Some events are only visible to certain users for privacy reasons.
 
-| Event Name                                  | Payload                                   | Visible to |
-|---------------------------------------------|-------------------------------------------|------------|
-| `areas.<areaId>.trainers.<trainerId>.moved` | [`MoveTrainerDto`](#model-MoveTrainerDto) | Everyone   |
+| Event Name                                  | Payload                                                                                                            | Visible to                       |
+|---------------------------------------------|--------------------------------------------------------------------------------------------------------------------|----------------------------------|
+| `areas.<areaId>.trainers.<trainerId>.moved` | [`MoveTrainerDto`](#model-MoveTrainerDto)                                                                          | Everyone                         |
+| `error`                                     | `string` or [`ErrorResponse`](#model-ErrorResponse) or [`ValidationErrorResponse`](#model-ValidationErrorResponse) | The socket that caused the error |
 
 [1]: https://stackoverflow.com/a/1099359/4138801

@@ -82,3 +82,40 @@
 
 + Added Achievements. [STP23SRV-5](https://jira.uniks.de/browse/STP23SRV-5)
 + Added the `PATCH /regions/{region}/trainers/{id}` endpoint for updating name and image. [STP23SRV-4](https://jira.uniks.de/browse/STP23SRV-4) 
+
+# v2.1.1 - Preparations for v3
+
+## Improvements
+
+### Content
+
+* Added many new Walkable Roof tiles.
+* Updated the Modern Exteriors spritesheet.
+
+### Technical
+
+* Large-scale refactoring in preparation for v3.
+
+# v2.1.2 - Minor Fixes
+
+## Improvements
+
+* Presets endpoints now return `404 Not Found` instead of `500 Internal Server Error` when the requested preset does not exist.
+
+## Bugfixes
+
+* Fixed a bug where some update endpoints could result in a `500 Internal Server Error` instead of `404 Not Found`.
+* Fixed the `GET /regions/{region}/trainers/{id}` endpoint reporting an outdated trainer position.
+* Fixed the `GET /groups` endpoints causing an `500 Internal Server Error` when the `members` query parameter was present multiple times as an array.
+* Fixed a potential problem where newly created monsters would not trigger `created` events.
+
+# v2.1.3 - UDP Fixes
+
+## Improvements
+
+* UDP commands are now properly validated and send an `error` event when invalid.
+
+## Bugfixes
+
+* Fixed a problem with UDP sessions that would not unsubscribe correctly.
+* It is no longer possible to teleport to other areas using trainer move commands.

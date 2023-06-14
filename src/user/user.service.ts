@@ -1,55 +1,40 @@
 import {ConflictException, Injectable} from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { InjectModel } from '@nestjs/mongoose';
+import {JwtService} from '@nestjs/jwt';
+import {InjectModel} from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
-import { FilterQuery, Model } from 'mongoose';
+import {Model, Types} from 'mongoose';
 
-import { RefreshToken } from '../auth/auth.interface';
-import { JwtStrategy } from '../auth/jwt.strategy';
-import { environment } from '../environment';
-import { EventService } from '../event/event.service';
-import { CreateUserDto, LoginDto, LoginResult, RefreshDto, UpdateUserDto } from './user.dto';
-import { Status, User, UserDocument } from './user.schema';
+import {RefreshToken} from '../auth/auth.interface';
+import {JwtStrategy} from '../auth/jwt.strategy';
+import {environment} from '../environment';
+import {EventService} from '../event/event.service';
+import {CreateUserDto, LoginDto, LoginResult, RefreshDto, UpdateUserDto} from './user.dto';
+import {User, UserDocument} from './user.schema';
+import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
+import {GlobalSchema} from "../util/schema";
 
 @Injectable()
-export class UserService {
+@EventRepository()
+export class UserService extends MongooseRepository<User> {
   constructor(
-    @InjectModel('users') private model: Model<User>,
+    @InjectModel('users') model: Model<User>,
     private eventEmitter: EventService,
     private jwtService: JwtService,
     private jwtStrategy: JwtStrategy,
   ) {
-  }
-
-  async findAll(status?: Status, ids?: string[]): Promise<User[]> {
-    const filter: FilterQuery<User> = {};
-    if (status) {
-      filter.status = status;
-    }
-    if (ids) {
-      filter._id = { $in: ids };
-    }
-    return this.model.find(filter)
-      .sort({ name: 1 })
-      .exec();
-  }
-
-  async find(id: string): Promise<UserDocument | null> {
-    return this.model.findById(id).exec();
+    super(model);
   }
 
   async findByName(name: string): Promise<UserDocument | null> {
     return this.model.findOne({ name }).exec();
   }
 
-  async create(dto: CreateUserDto): Promise<UserDocument> {
+  async create(dto: CreateUserDto | Omit<User, keyof GlobalSchema>): Promise<UserDocument> {
     const hashed = await this.hash(dto);
     hashed.status = 'offline';
     try {
-      const created = await this.model.create(hashed);
-      created && this.emit('created', created);
-      return created;
+      return await super.create(hashed as User);
     } catch (e: any) {
       if (e.code === 11000) {
         throw new ConflictException('Username already taken');
@@ -58,16 +43,8 @@ export class UserService {
     }
   }
 
-  async update(id: string, dto: UpdateUserDto): Promise<UserDocument | null> {
-    const updated = await this.model.findByIdAndUpdate(id, await this.hash(dto), { new: true }).exec();
-    updated && this.emit('updated', updated);
-    return updated;
-  }
-
-  async delete(id: string): Promise<UserDocument | null> {
-    const deleted = await this.model.findByIdAndDelete(id).exec();
-    deleted && this.emit('deleted', deleted);
-    return deleted;
+  async update(id: Types.ObjectId, dto: UpdateUserDto): Promise<UserDocument | null> {
+    return super.update(id, await this.hash(dto));
   }
 
   async deleteTempUsers(maxAgeMs: number): Promise<User[]> {
@@ -75,10 +52,7 @@ export class UserService {
       createdAt: { $lt: new Date(Date.now() - maxAgeMs) },
       name: environment.cleanup.tempUserNamePattern,
     });
-    await this.model.deleteMany({ _id: { $in: users.map(u => u._id) } });
-    for (const user of users) {
-      this.emit('deleted', user);
-    }
+    await this.deleteAll(users);
     return users;
   }
 

@@ -16,23 +16,24 @@ export class MessageScheduler {
   @Cron(CronExpression.EVERY_HOUR)
   async deleteGlobalMessages(): Promise<void> {
     const maxGlobalAgeMs = environment.cleanup.globalMessageLifetimeHours * 60 * 60 * 1000;
-    const messages = await this.messageService.deleteAll(Namespace.global, undefined, 'global', {
+    const messages = await this.messageService.deleteMany({
+      namespace: Namespace.global,
       createdAt: { $lt: new Date(Date.now() - maxGlobalAgeMs) },
     });
-    if (messages.length) {
-      this.logger.warn(`Deleted ${messages.length} global messages.`);
+    if (messages.deletedCount) {
+      this.logger.warn(`Deleted ${messages.deletedCount} global messages.`);
     }
   }
 
   @Cron(CronExpression.EVERY_HOUR)
   async deleteSpamMessages(): Promise<void> {
     const maxSpamAgeMs = environment.cleanup.spamMessageLifetimeHours * 60 * 60 * 1000;
-    const messages = await this.messageService.deleteAll(undefined, undefined, undefined, {
+    const messages = await this.messageService.deleteMany({
       createdAt: { $lt: new Date(Date.now() - maxSpamAgeMs) },
       body: environment.cleanup.spamMessagePattern,
     });
-    if (messages.length) {
-      this.logger.warn(`Deleted ${messages.length} spam messages.`);
+    if (messages.deletedCount) {
+      this.logger.warn(`Deleted ${messages.deletedCount} spam messages.`);
     }
   }
 
