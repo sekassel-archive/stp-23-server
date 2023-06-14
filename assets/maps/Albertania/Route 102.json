@@ -997,7 +997,7 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":70
+                         "value":71
                         }, 
                         {
                          "name":"Y",
@@ -1007,7 +1007,7 @@
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":144,
+                 "width":128,
                  "x":0,
                  "y":864
                 }, 
