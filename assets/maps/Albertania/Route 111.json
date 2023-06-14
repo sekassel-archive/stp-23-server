@@ -1044,17 +1044,17 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":25
+                         "value":70
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":25
+                         "value":40
                         }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":176,
+                 "width":160,
                  "x":0,
                  "y":160
                 }, 

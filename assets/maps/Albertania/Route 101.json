@@ -2572,6 +2572,16 @@
                          "name":"Map",
                          "type":"string",
                          "value":"Adromere"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":17
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":28
                         }],
                  "rotation":0,
                  "type":"Portal",
