@@ -137,6 +137,13 @@
 * Fixed an edge case where Roof tiles would allow walking through walls.
 * Fixed some missing parameters in Swagger.
 
+# v2.1.6 - Fix Ghost Trainers
+
+## Bugfixes
+
+* Fixed a bug where trainers would still block tiles after being deleted (manually or during cleanup).
+* Preset requests for `@2x` images now return `404 Not Found` instead of the original image.
+
 # v3.0.0 - Battle
 
 ## New Features
