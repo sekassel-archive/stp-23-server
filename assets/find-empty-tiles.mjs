@@ -21,7 +21,8 @@ if (changed) {
 
 for (const file of await fs.readdir(`maps/${region}/`)) {
   const map = JSON.parse(await fs.readFile(`maps/${region}/${file}`, 'utf-8'));
-  if (!map.tilesets[0].source.includes(tilesetName)) {
+  const tileset = map.tilesets.find(t => t.source.includes(tilesetName));
+  if (!tileset) {
     continue;
   }
 
@@ -29,7 +30,7 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
   for (const layer of map.layers) {
     for (const chunk of layer.chunks || []) {
       for (let i = 0; i < chunk.data.length; i++) {
-        const tileIndex = chunk.data[i] - 1;
+        const tileIndex = chunk.data[i] - tileset.firstgid;
         if (emptyTiles.get(tileIndex)) {
           chunk.data[i] = 0;
           changed++;
