@@ -64,7 +64,7 @@ export class ItemService {
       moneyChange = Math.abs(price) * positiveAmount / 2;
     }
 
-    await this.trainerService.update(trainer._id.toString(), {$inc: {coins: moneyChange}});
+    await this.trainerService.update(trainer._id, {$inc: {coins: moneyChange}});
     return this.updateAmount(trainer._id.toString(), dto.type, dto.amount);
   }
 

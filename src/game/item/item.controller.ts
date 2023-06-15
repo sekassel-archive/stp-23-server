@@ -22,6 +22,7 @@ import {UpdateItemDto} from './item.dto';
 import {Item} from './item.schema';
 import {ItemService} from './item.service';
 import {ItemAction} from "./item.action";
+import {Types} from "mongoose";
 
 @Controller('regions/:regionId/trainers/:trainerId/items')
 @ApiTags('Trainer Items')
@@ -51,7 +52,7 @@ export class ItemController {
     if (!itemType?.price) {
       throw new ForbiddenException('This item cannot be bought, sold or used');
     }
-    const trainer = await this.trainerService.findOne(trainerId);
+    const trainer = await this.trainerService.find(new Types.ObjectId(trainerId));
     if (!trainer) {
       throw new NotFoundException('Trainer not found');
     }
@@ -62,9 +63,9 @@ export class ItemController {
       if (amount !== 1) {
         throw new BadRequestException('Amount must be exactly 1 when using items');
       }
-      const monster = dto.monster ? await this.monsterService.findOne(dto.monster) : null;
+      const monster = dto.monster ? await this.monsterService.find(new Types.ObjectId(dto.monster)) : null;
       const result = await this.itemService.useItem(trainer._id.toString(), dto.type, monster);
-      monster && await this.monsterService.saveMany([monster]);
+      monster && await this.monsterService.saveAll([monster]);
       return result;
     }
     return this.itemService.updateOne(trainer, dto);
