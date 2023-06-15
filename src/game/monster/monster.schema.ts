@@ -4,6 +4,7 @@ import {Type} from 'class-transformer';
 import {IsAlpha, IsArray, IsEnum, IsInt, IsMongoId, IsObject, ValidateNested} from 'class-validator';
 import {Document, SchemaTypes, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
+import {expRequired} from "../formulae";
 
 export class MonsterAttributes {
   @ApiProperty()
@@ -52,7 +53,13 @@ export class Monster extends GlobalSchema {
   level: number;
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty({
+    description: `The required experience for levelup is calculated as:
+
+\`\`\`js
+${expRequired.toString()}
+\`\`\``,
+  })
   @IsInt()
   experience: number;
 

@@ -12,6 +12,8 @@ import {MoveTrainerDto} from '../../trainer/trainer.dto';
 import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
+import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
+import {notFound} from "@mean-stream/nestx";
 
 export interface BaseGameObject {
   x: number;
@@ -31,7 +33,7 @@ export interface Portal extends BaseGameObject {
 
 export interface TallGrass extends BaseGameObject {
   type: 'TallGrass';
-  monsters: [number, number][];
+  monsters: [number, number, number?][];
 }
 
 export type GameObject = Portal | TallGrass;
@@ -120,19 +122,20 @@ export class MovementService implements OnModuleInit {
   }
 
   @OnEvent('udp:areas.*.trainers.*.moved')
+  @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
     const oldLocation = this.trainerService.getLocation(trainerId)
-      || await this.trainerService.findOne(trainerId);
-    if (!oldLocation) {
-      return;
-    }
+      || await this.trainerService.find(dto._id)
+      || notFound(dto._id);
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
+      || dto.area !== oldLocation.area // Mismatching area
       || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
-      || !this.getTopTileProperty(dto, 'Walkable') // Tile not walkable
+      || !this.isWalkable(dto) // Tile not walkable
     ) {
+      dto.area = oldLocation.area;
       dto.x = oldLocation.x;
       dto.y = oldLocation.y;
     }
@@ -146,12 +149,15 @@ export class MovementService implements OnModuleInit {
         dto.y = y;
         // inform old area that the trainer left
         this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+        // NB: this is required, because the GET /trainers?area= endpoint relies on
+        //     the database knowing the trainer is in the new area.
         await this.trainerService.saveLocations([dto]);
         break;
       case 'TallGrass':
-        if (this.getTopTileProperty(dto, 'TallGrass') && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
-          const trainer = await this.trainerService.findOne(trainerId);
-          const [type, level] = gameObject.monsters.random();
+        if (this.isTallGrass(dto) && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
+          const trainer = await this.trainerService.find(dto._id);
+          const [type, minLevel, maxLevel] = gameObject.monsters.random();
+          const level = maxLevel ? Math.floor(Math.random() * (maxLevel - minLevel + 1)) + minLevel : minLevel;
           trainer && await this.battleSetupService.createMonsterEncounter(trainer, type, level);
         }
         break;
@@ -163,12 +169,13 @@ export class MovementService implements OnModuleInit {
     this.trainerService.setLocation(trainerId, dto);
   }
 
-  getTopTile({area, x, y}: MoveTrainerDto): number {
+  getTiles({area, x, y}: MoveTrainerDto): number[] {
     const layers = this.tilelayers.get(area);
     if (!layers) {
-      return 0;
+      return [];
     }
 
+    const tiles: number[] = [];
     for (let i = (layers.length || 0) - 1; i >= 0; i--) {
       const layer = layers[i];
       if (layer.type !== 'tilelayer') {
@@ -182,20 +189,45 @@ export class MovementService implements OnModuleInit {
         if (x >= chunk.x && x < chunk.x + chunk.width && y >= chunk.y && y < chunk.y + chunk.height) {
           const tile = chunk.data[(y - chunk.y) * chunk.width + (x - chunk.x)];
           if (tile != 0) {
-            return tile;
+            tiles.push(tile);
           }
         }
       }
     }
 
-    return 0;
+    return tiles;
   }
 
-  getTopTileProperty(dto: MoveTrainerDto, property: string): boolean {
-    const topTile = this.getTopTile(dto);
-    if (topTile === 0) return false;
-    const tile = this.tiles.get(dto.area)?.[topTile];
-    return tile && getProperty<boolean>(tile, property) || false;
+  isWalkable(dto: MoveTrainerDto): boolean {
+    const tileMap = this.tiles.get(dto.area);
+    if (!tileMap) return false;
+
+    const tileIds = this.getTiles(dto);
+    if (!tileIds.length) return false;
+
+    for (const tileId of tileIds) {
+      const tile = tileMap[tileId];
+      if (!tile || !getProperty<boolean>(tile, 'Walkable')) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  isTallGrass(dto: MoveTrainerDto): boolean {
+    const tileMap = this.tiles.get(dto.area);
+    if (!tileMap) return false;
+
+    const tileIds = this.getTiles(dto);
+    if (!tileIds.length) return false;
+
+    for (const tileId of tileIds) {
+      const tile = tileMap[tileId];
+      if (tile && getProperty<boolean>(tile, 'TallGrass')) {
+        return true;
+      }
+    }
+    return false;
   }
 
   getGameObject(area: string, x: number, y: number) {
@@ -210,7 +242,7 @@ export class MovementService implements OnModuleInit {
 
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
-    const trainer = await this.trainerService.findOne(trainerId);
+    const trainer = await this.trainerService.find(dto._id);
     if (!trainer || trainer.npc) {
       return;
     }
@@ -237,7 +269,7 @@ export class MovementService implements OnModuleInit {
         for (let i = 0; i <= moveRange; i++) {
           path.push(npc.x + i * x, npc.y + i * y);
         }
-        await this.trainerService.update(npc._id.toString(), {
+        await this.trainerService.update(npc._id, {
           'npc.path': path,
           $addToSet: {'npc.encountered': trainerId},
         });

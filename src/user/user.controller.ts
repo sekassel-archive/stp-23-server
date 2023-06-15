@@ -18,14 +18,15 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, AuthUser } from '../auth/auth.decorator';
-import { NotFound } from '../util/not-found.decorator';
-import { ParseObjectIdPipe } from '../util/parse-object-id.pipe';
-import { Throttled } from '../util/throttled.decorator';
-import { Validated } from '../util/validated.decorator';
-import { CreateUserDto, QueryUsersDto, UpdateUserDto } from './user.dto';
-import { User } from './user.schema';
-import { UserService } from './user.service';
+import {Auth, AuthUser} from '../auth/auth.decorator';
+import {NotFound} from '../util/not-found.decorator';
+import {Throttled} from '../util/throttled.decorator';
+import {Validated} from '../util/validated.decorator';
+import {CreateUserDto, QueryUsersDto, UpdateUserDto} from './user.dto';
+import {User} from './user.schema';
+import {UserService} from './user.service';
+import {FilterQuery, Types} from "mongoose";
+import {ObjectIdPipe} from "@mean-stream/nestx";
 
 @Controller('users')
 @ApiTags('Users')
@@ -52,7 +53,14 @@ export class UserController {
   async getUsers(
     @Query() { status, ids }: QueryUsersDto,
   ): Promise<User[]> {
-    return this.userService.findAll(status, ids);
+    const filter: FilterQuery<User> = {};
+    if (status) {
+      filter.status = status;
+    }
+    if (ids) {
+      filter._id = { $in: ids };
+    }
+    return this.userService.findAll(filter, {sort: '+name'});
   }
 
   @Get(':id')
@@ -60,7 +68,7 @@ export class UserController {
   @ApiOperation({ description: 'Informs about the user with the given ID.' })
   @ApiOkResponse({ type: User })
   @NotFound()
-  async getUser(@Param('id', ParseObjectIdPipe) id: string): Promise<User | null> {
+  async getUser(@Param('id', ObjectIdPipe) id: Types.ObjectId): Promise<User | null> {
     return this.userService.find(id);
   }
 
@@ -72,7 +80,7 @@ export class UserController {
   @ApiConflictResponse({ description: 'Username was already taken.' })
   async update(
     @AuthUser() user: User,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @Body() dto: UpdateUserDto,
   ): Promise<User | null> {
     if (dto.name) {
@@ -82,7 +90,7 @@ export class UserController {
       }
     }
 
-    if (id !== user._id.toString()) {
+    if (!id.equals(user._id)) {
       throw new ForbiddenException('Cannot change someone else\'s user.');
     }
     return this.userService.update(id, dto);
@@ -95,9 +103,9 @@ export class UserController {
   @ApiForbiddenResponse({ description: 'Attempt to delete someone else\'s user.' })
   async delete(
     @AuthUser() user: User,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<User | null> {
-    if (id !== user._id.toString()) {
+    if (!id.equals(user._id)) {
       throw new ForbiddenException('Cannot delete someone else\'s user.');
     }
     return this.userService.delete(id);

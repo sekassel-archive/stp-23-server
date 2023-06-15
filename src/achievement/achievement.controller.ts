@@ -24,19 +24,19 @@ export class AchievementController {
   @Get()
   @ApiOkResponse({ type: [Achievement] })
   async findAll(
-    @Param('user', ParseObjectIdPipe) userId: string,
+    @Param('user', ParseObjectIdPipe) user: string,
   ): Promise<Achievement[]> {
-    return this.achievementService.findAll(userId);
+    return this.achievementService.findAll({user});
   }
 
   @Get(':id')
   @ApiOkResponse({ type: Achievement })
   @NotFound()
   async findOne(
-    @Param('user', ParseObjectIdPipe) userId: string,
+    @Param('user', ParseObjectIdPipe) user: string,
     @Param('id') id: string,
   ): Promise<Achievement | null> {
-    return this.achievementService.findOne(userId, id);
+    return this.achievementService.findOne({user, id});
   }
 
   @Put(':id')
@@ -51,7 +51,7 @@ export class AchievementController {
     if (user._id.toString() !== userId) {
       throw new ForbiddenException('Cannot add achievement for another user.');
     }
-    return this.achievementService.upsert(userId, id, achievement);
+    return this.achievementService.upsert({user: userId, id}, achievement);
   }
 
   @Delete(':id')
@@ -66,6 +66,6 @@ export class AchievementController {
     if (user._id.toString() !== userId) {
       throw new ForbiddenException('Cannot delete achievement of another user.');
     }
-    return this.achievementService.delete(userId, id);
+    return this.achievementService.deleteOne({user: userId, id});
   }
 }

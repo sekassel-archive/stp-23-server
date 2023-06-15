@@ -83,6 +83,67 @@
 + Added Achievements. [STP23SRV-5](https://jira.uniks.de/browse/STP23SRV-5)
 + Added the `PATCH /regions/{region}/trainers/{id}` endpoint for updating name and image. [STP23SRV-4](https://jira.uniks.de/browse/STP23SRV-4) 
 
+# v2.1.1 - Preparations for v3
+
+## Improvements
+
+### Content
+
+* Added many new Walkable Roof tiles.
+* Updated the Modern Exteriors spritesheet.
+
+### Technical
+
+* Large-scale refactoring in preparation for v3.
+
+# v2.1.2 - Minor Fixes
+
+## Improvements
+
+* Presets endpoints now return `404 Not Found` instead of `500 Internal Server Error` when the requested preset does not exist.
+
+## Bugfixes
+
+* Fixed a bug where some update endpoints could result in a `500 Internal Server Error` instead of `404 Not Found`.
+* Fixed the `GET /regions/{region}/trainers/{id}` endpoint reporting an outdated trainer position.
+* Fixed the `GET /groups` endpoints causing an `500 Internal Server Error` when the `members` query parameter was present multiple times as an array.
+* Fixed a potential problem where newly created monsters would not trigger `created` events.
+
+# v2.1.3 - UDP Fixes
+
+## Improvements
+
+* UDP commands are now properly validated and send an `error` event when invalid.
+
+## Bugfixes
+
+* Fixed a problem with UDP sessions that would not unsubscribe correctly.
+* It is no longer possible to teleport to other areas using trainer move commands.
+
+# v2.1.4 - Presets Rate Limits
+
+## General
+
++ Added rate limits for presets (some endpoints use different rate limits).
+
+# v2.1.5 - Trainer Cleanup
+
+## Improvements
+
+* Trainers without any progress near spawn are now deleted after a while.
+
+## Bugfixes
+
+* Fixed an edge case where Roof tiles would allow walking through walls.
+* Fixed some missing parameters in Swagger.
+
+# v2.1.6 - Fix Ghost Trainers
+
+## Bugfixes
+
+* Fixed a bug where trainers would still block tiles after being deleted (manually or during cleanup).
+* Preset requests for `@2x` images now return `404 Not Found` instead of the original image.
+
 # v3.0.0 - Battle
 
 ## New Features
@@ -111,3 +172,6 @@
 * Players can trigger encounters by talking to other trainers.
 * Players can heal their monsters by talking to a Nurse.
 * NPCs may start encounters when they see you.
+* Defeating a monster now grants experience.
+* Monsters can now level up and evolve.
+* Winning encounters now grants coins.

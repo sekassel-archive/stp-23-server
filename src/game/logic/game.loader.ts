@@ -34,8 +34,8 @@ export class GameLoader implements OnModuleInit {
         continue;
       }
 
-      const region = await this.regionService.findByNameOrCreate(regionName);
-      region.map = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
+      const map = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
+      const region = await this.regionService.upsert({name: regionName}, {name: regionName, map});
 
       const spawn = JSON.parse(getProperty<string>(region.map, 'Spawn') || '{}');
 
@@ -83,7 +83,9 @@ export class GameLoader implements OnModuleInit {
 
   private async loadTrainer(region: Region, area: AreaDocument, object: any, map: any) {
     const starters = getProperty<string>(object, 'Starters');
+    const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
     const sells = getProperty<string>(object, 'Sells');
+
     const trainer = await this.trainerService.upsert({
       region: region._id.toString(),
       area: area._id.toString(),
@@ -104,6 +106,7 @@ export class GameLoader implements OnModuleInit {
       y: (object.y / map.tileheight) | 0,
       direction: getProperty<number>(object, 'Direction') ?? Direction.DOWN,
       'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
+      'npc.encounterOnTalk': monsterSpecs?.length > 0,
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
       'npc.sells': sells ? JSON.parse(sells) : undefined,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
@@ -111,10 +114,11 @@ export class GameLoader implements OnModuleInit {
       'npc.starters': starters ? JSON.parse(starters) : undefined,
     });
 
-    const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
-    for (const monsterSpec of monsterSpecs) {
-      const [type, level] = monsterSpec;
-      await this.monsterGeneratorService.createAuto(trainer._id.toString(), type, level);
+    trainer.team = [];
+    for (const [type, level] of monsterSpecs) {
+      const monster = await this.monsterGeneratorService.createAuto(trainer._id.toString(), type, level);
+      trainer.team.push(monster._id.toString());
     }
+    await trainer.save();
   }
 }

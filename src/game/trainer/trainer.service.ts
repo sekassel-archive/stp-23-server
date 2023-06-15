@@ -1,34 +1,40 @@
 import {ConflictException, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Cron, CronExpression} from '@nestjs/schedule';
-import {FilterQuery, Model, UpdateQuery} from 'mongoose';
+import {FilterQuery, Model, Types} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
 import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
+import {DeleteManyResult, EventRepository, MongooseRepository} from "@mean-stream/nestx";
+import {Spawn} from "../../region/region.schema";
+import {OnEvent} from "@nestjs/event-emitter";
+import {Monster} from "../monster/monster.schema";
 
 @Injectable()
-export class TrainerService implements OnModuleInit, OnModuleDestroy {
+@EventRepository()
+export class TrainerService extends MongooseRepository<Trainer> implements OnModuleInit, OnModuleDestroy {
   locations = new Map<string, MoveTrainerDto>;
 
   constructor(
-    @InjectModel(Trainer.name) private model: Model<Trainer>,
+    @InjectModel(Trainer.name) model: Model<Trainer>,
     private eventEmitter: EventService,
     private regionService: RegionService,
   ) {
+    super(model);
   }
 
-  async create(region: string, user: string, dto: CreateTrainerDto): Promise<Trainer> {
-    const regionDoc = await this.regionService.findOne(region);
+  async createSimple(region: Types.ObjectId, user: string, dto: CreateTrainerDto): Promise<Trainer> {
+    const regionDoc = await this.regionService.find(region);
     if (!regionDoc) {
       throw new NotFoundException('Region not found');
     }
     const {area, x, y} = regionDoc.spawn;
-    const trainer: Omit<Trainer, keyof GlobalSchema> = {
+    return this.create({
       ...dto,
-      region,
+      region: region.toString(),
       user,
       coins: 0,
       team: [],
@@ -37,18 +43,12 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
       x,
       y,
       direction: Direction.DOWN,
-    };
+    });
+  }
+
+  async create(trainer: Omit<Trainer, keyof GlobalSchema>): Promise<TrainerDocument> {
     try {
-      const created = await this.model.create(trainer);
-      created && this.emit('created', created);
-      created && this.setLocation(created._id.toString(), {
-        _id: created._id,
-        area,
-        x,
-        y,
-        direction: created.direction,
-      });
-      return created;
+      return await super.create(trainer);
     } catch (err: any) {
       if (err.code === 11000) {
         throw new ConflictException('Trainer already exists');
@@ -57,28 +57,24 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  async upsert(filter: FilterQuery<Trainer>, update: UpdateQuery<Trainer>): Promise<TrainerDocument> {
-    const result = await this.model.findOneAndUpdate(filter, update, {upsert: true, new: true, rawResult: true}).exec();
-    if (!result.value) {
-      throw new Error('Upsert failed');
-    }
-    const trainer = result.value;
-    this.emit(result.lastErrorObject?.updatedExisting ? 'updated' : 'created', trainer);
-    return trainer;
+  async find(id: Types.ObjectId): Promise<TrainerDocument | null> {
+    const result = await super.find(id);
+    result && this.addLocation(result);
+    return result;
   }
 
-  async findAll(filter: FilterQuery<Trainer>): Promise<Trainer[]> {
-    const results = await this.model.find(filter).exec();
+  async findOne(id: Types.ObjectId): Promise<TrainerDocument | null> {
+    const result = await super.findOne(id);
+    result && this.addLocation(result);
+    return result;
+  }
+
+  async findAll(filter: FilterQuery<Trainer>): Promise<TrainerDocument[]> {
+    const results = await super.findAll(filter);
     for (const result of results) {
       this.addLocation(result);
     }
     return results;
-  }
-
-  async findOne(id: string): Promise<Trainer | null> {
-    const result = await this.model.findById(id).exec();
-    result && this.addLocation(result);
-    return result;
   }
 
   addLocation(doc: Trainer) {
@@ -92,36 +88,93 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  async addToTeam(id: string, monster: string): Promise<Trainer | null> {
-    return this.update(id, {$addToSet: {team: monster}});
-  }
-
-  async update(id: string, dto: UpdateQuery<Trainer>): Promise<Trainer | null> {
-    const updated = await this.model.findByIdAndUpdate(id, dto, {new: true}).exec();
-    updated && this.emit('updated', updated);
-    return updated;
-  }
-
-  async delete(id: string): Promise<Trainer | null> {
-    const deleted = await this.model.findByIdAndDelete(id).exec();
-    deleted && this.emit('deleted', deleted);
-    return deleted;
-  }
-
-  async deleteUser(user: string): Promise<Trainer[]> {
-    const trainers = await this.model.find({user}).exec();
-    for (const trainer of trainers) {
-      this.emit('deleted', trainer);
-    }
-    await this.model.deleteMany({user}).exec();
-    return trainers;
+  async addToTeam(id: Types.ObjectId, monster: Monster): Promise<Trainer | null> {
+    return this.update(id, {
+      $addToSet: {
+        team: monster._id.toString(),
+        encounteredMonsterTypes: monster.type,
+      },
+    });
   }
 
   private emit(event: string, trainer: Trainer): void {
     this.eventEmitter.emit(`regions.${trainer.region}.trainers.${trainer._id}.${event}`, trainer);
   }
 
+  async deleteUnprogressed(olderThanMs: number, spawn: Spawn, radius = 5): Promise<DeleteManyResult> {
+    const pipeline = [
+      {
+        $match: {
+          createdAt: {
+            $lt: new Date(Date.now() - olderThanMs),
+          },
+          area: spawn.area,
+          x: {
+            $gt: spawn.x - radius,
+            $lt: spawn.x + radius,
+          },
+          y: {
+            $gt: spawn.y - radius,
+            $lt: spawn.y + radius,
+          },
+        } satisfies FilterQuery<Trainer>,
+      },
+      {
+        $addFields: {
+          id: {
+            $toString: '$_id'
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'monsters',
+          localField: 'id',
+          foreignField: 'trainer',
+          as: 'monsters',
+        },
+      },
+      {
+        $match: {
+          coins: 0,
+          npc: {$exists: false},
+          $or: [
+            {monsters: {$size: 0}},
+            {
+              'monsters.0.level': 1,
+              'monsters.0.experience': 0,
+            },
+          ],
+        } satisfies FilterQuery<Trainer>,
+      },
+      {
+        $project: {
+          id: 0,
+          monsters: 0,
+        },
+      },
+    ];
+    const trainers = await this.model.aggregate(pipeline);
+    return this.deleteAll(trainers);
+  }
+
   // --------------- Movement/Locations ---------------
+
+  @OnEvent('regions.*.trainers.*.created')
+  async onTrainerCreated(trainer: Trainer): Promise<void> {
+    this.setLocation(trainer._id.toString(), {
+      _id: trainer._id,
+      area: trainer.area,
+      x: trainer.x,
+      y: trainer.y,
+      direction: trainer.direction,
+    });
+  }
+
+  @OnEvent('regions.*.trainers.*.deleted')
+  async onTrainerDeleted(trainer: Trainer): Promise<void> {
+    this.locations.delete(trainer._id.toString());
+  }
 
   getLocations(): IterableIterator<MoveTrainerDto> {
     return this.locations.values();
@@ -146,7 +199,7 @@ export class TrainerService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     for await (const doc of this.model.find().select([...MOVE_TRAINER_PROPS])) {
-      this.locations.set(doc._id.toString(), doc);
+      this.setLocation(doc._id.toString(), doc.toObject());
     }
   }
 

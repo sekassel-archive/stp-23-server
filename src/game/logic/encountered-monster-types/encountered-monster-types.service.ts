@@ -18,23 +18,21 @@ export class EncounteredMonsterTypesService {
   @OnEvent('encounters.*.opponents.*.created')
   @OnEvent('encounters.*.opponents.*.updated')
   async onOpponent(opponent: OpponentDocument) {
-    const monster = opponent.monster && await this.monsterService.findOne(opponent.monster);
+    const monster = opponent.monster && await this.monsterService.find(new Types.ObjectId(opponent.monster));
     if (!monster) {
       return;
     }
 
     const otherOpponents = await this.opponentService.findAll({
       encounter: opponent.encounter,
-      $id: {$ne: opponent._id},
+      _id: {$ne: opponent._id},
     });
-    const otherTrainers = await this.trainerService.findAll({_id: {$in: otherOpponents.map(o => new Types.ObjectId(o.trainer))}});
-
-    for (const trainer of otherTrainers) {
-      await this.trainerService.update(trainer._id.toString(), {
-        $addToSet: {
-          encounteredMonsterTypes: monster.type,
-        },
-      });
-    }
+    await this.trainerService.updateMany({
+      _id: {$in: otherOpponents.map(o => new Types.ObjectId(o.trainer))},
+    }, {
+      $addToSet: {
+        encounteredMonsterTypes: monster.type,
+      },
+    });
   }
 }

@@ -2,9 +2,9 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
 import {Equals, IsArray, IsBoolean, IsEnum, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
-import {Document, Types} from 'mongoose';
-import {GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS, GlobalSchemaWithoutID, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities, itemTypes, StatusEffect} from '../constants';
+import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
+import {abilities, itemTypes} from '../constants';
+import {Doc} from "@mean-stream/nestx";
 import {MonsterStatus} from '../monster/monster.schema';
 
 @Schema()
@@ -64,17 +64,17 @@ export const RESULTS_WITH_DESCRIPTION = {
   'status-added': 'The status was added',
   'status-removed': 'The status was removed',
   'target-defeated': 'The target monster was defeated',
-  'monster-changed': 'The monster was changed',
+  'monster-changed': 'The monster was changed successfully',
   'monster-defeated': 'The monster was defeated',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
   'monster-learned': 'The monster learned a new ability',
   // Error cases
-  'monster-dead': 'The monster is dead',
+  'monster-dead': 'The monster is dead before it made a move',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
   'ability-no-uses': 'The monster doesn\'t have any uses left for the ability',
   'item-failed': 'The item use failed',
-  'target-unknown': 'The target trainer does not exist or has fled',
+  'target-unknown': 'The target opponent does not exist or has fled',
   'target-dead': 'The target monster is already dead',
 } as const;
 
@@ -114,9 +114,9 @@ export class Result {
   status?: MonsterStatus;
 }
 
-@Schema(GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS)
+@Schema(GLOBAL_SCHEMA_OPTIONS)
 @ApiExtraModels(AbilityMove, ChangeMonsterMove, UseItemMove)
-export class Opponent extends GlobalSchemaWithoutID {
+export class Opponent extends GlobalSchema {
   @Prop()
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
@@ -128,12 +128,13 @@ export class Opponent extends GlobalSchemaWithoutID {
   trainer: string;
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty({description: 'Whether the opponent started the encounter. ' +
+      'Allows grouping opponents into two teams.'})
   @IsBoolean()
   isAttacker: boolean;
 
   @Prop()
-  @ApiProperty()
+  @ApiProperty({description: 'Whether the opponent is an NPC. Handled by the server.'})
   @IsBoolean()
   isNPC: boolean;
 
@@ -141,7 +142,7 @@ export class Opponent extends GlobalSchemaWithoutID {
   @ApiPropertyOptional({
     ...MONGO_ID_FORMAT, description: 'Can be patched when set to undefined/null. ' +
       'This happens after the monster died. ' +
-      'You can then patch a new monster ID to change the monster without expending your move.',
+      'You then have to patch a new monster ID to change the monster without expending your move.',
   })
   @IsOptional()
   @IsMongoId()
@@ -174,9 +175,14 @@ export class Opponent extends GlobalSchemaWithoutID {
   @IsArray()
   @IsIn(RESULTS, {each: true})
   results: Result[];
+
+  @Prop({default: 0})
+  @ApiProperty({description: 'The number of coins that will be earned when the encounter is won.'})
+  @IsInt()
+  coins: number;
 }
 
-export type OpponentDocument = Opponent & Document<Types.ObjectId, any, Opponent>;
+export type OpponentDocument = Doc<Opponent>;
 
 export const OpponentSchema = SchemaFactory.createForClass(Opponent)
   .index({encounter: 1, trainer: 1}, {unique: true})

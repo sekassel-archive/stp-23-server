@@ -6,6 +6,7 @@ import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
 import {MovementService} from '../movement/movement.service';
+import {Types} from "mongoose";
 
 @Injectable()
 export class NpcTalkService {
@@ -22,9 +23,10 @@ export class NpcTalkService {
   async onTrainerTalked(dto: TalkTrainerDto) {
     const trainerId = dto._id.toString();
     const targetId = dto.target;
+    const target_id = new Types.ObjectId(targetId);
     const [trainer, target] = await Promise.all([
-      this.trainerService.findOne(trainerId),
-      this.trainerService.findOne(targetId),
+      this.trainerService.find(dto._id),
+      this.trainerService.find(target_id),
     ]);
     if (!trainer || !target || trainer.area !== target.area || this.movementService.getDistance(trainer, target) > 2) {
       return;
@@ -41,19 +43,14 @@ export class NpcTalkService {
     if (target.npc.starters && dto.selection != null && !target.npc.encountered?.includes(trainerId)) {
       const starterId = target.npc.starters[dto.selection];
       if (starterId) {
-        await this.trainerService.update(targetId, {
+        await this.trainerService.update(target_id, {
           $addToSet: {'npc.encountered': trainerId},
         });
         await this.monsterGeneratorService.createAuto(trainerId, starterId, 1);
-        await this.trainerService.update(trainerId, {
-          $addToSet: {
-            encounteredMonsterTypes: starterId,
-          },
-        });
       }
     }
-    if (target.npc.encounterOnSight) {
-      await this.trainerService.update(targetId, {
+    if (target.npc.encounterOnTalk) {
+      await this.trainerService.update(target_id, {
         $addToSet: {'npc.encountered': trainerId},
       });
       await this.battleSetupService.createTrainerBattle(target, [trainer]);

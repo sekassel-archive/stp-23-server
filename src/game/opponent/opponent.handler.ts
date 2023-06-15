@@ -13,12 +13,12 @@ export class OpponentHandler {
 
   @OnEvent('regions.*.trainers.*.deleted')
   async onTrainerDeleted(trainer: Trainer): Promise<void> {
-    await this.opponentService.deleteAll({trainer: trainer._id.toString()});
+    await this.opponentService.deleteMany({trainer: trainer._id.toString()});
   }
 
   @OnEvent('regions.*.encounters.*.deleted')
   async onEncounterDeleted(encounter: Encounter): Promise<void> {
-    await this.opponentService.deleteAll({encounter: encounter._id.toString()});
+    await this.opponentService.deleteMany({encounter: encounter._id.toString()});
   }
 
 }

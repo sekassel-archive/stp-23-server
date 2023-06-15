@@ -12,6 +12,6 @@ export class AchievementHandler {
 
   @OnEvent('users.*.deleted')
   async onUserDelete(user: User): Promise<void> {
-    await this.achievementService.deleteUser(user._id.toString());
+    await this.achievementService.deleteMany({user: user._id.toString()});
   }
 }
