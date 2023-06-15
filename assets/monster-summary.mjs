@@ -19,7 +19,7 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
       }
 
       const monstersProp = object.properties?.find(p => p.name === 'Monsters')?.value;
-      if (monstersProp) {
+      if (monstersProp) try {
         const monsters = JSON.parse(monstersProp);
         for (const [type, level, maxLevel] of monsters) {
           (foundMonsters[type] ||= new Set).add(area);
@@ -28,6 +28,8 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
             (areaLevels[area] ||= []).push(i);
           }
         }
+      } catch (e) {
+        console.error(`Error parsing monsters for ${area} object ${object.id} '${object.name}'`, e);
       }
 
       const startersProp = object.properties?.find(p => p.name === 'Starters')?.value;
@@ -58,7 +60,8 @@ for (const monster of baseMonsters) {
     console.log(`❌ #${monster.id} ${monster.name} ${chalk.red('not found')}`);
   } else {
     found++;
-    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green([...areas].join(', '))}`);
+    const areasText = [...areas].join(', ').replace(/Route /g, 'R');
+    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green(areasText)}`);
   }
 }
 
