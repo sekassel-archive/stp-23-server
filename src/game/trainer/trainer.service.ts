@@ -8,7 +8,10 @@ import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
 import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
-import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
+import {DeleteManyResult, EventRepository, MongooseRepository} from "@mean-stream/nestx";
+import {Spawn} from "../../region/region.schema";
+import {OnEvent} from "@nestjs/event-emitter";
+import {Monster} from "../monster/monster.schema";
 
 @Injectable()
 @EventRepository()
@@ -45,15 +48,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
 
   async create(trainer: Omit<Trainer, keyof GlobalSchema>): Promise<TrainerDocument> {
     try {
-      const created = await super.create(trainer);
-      created && this.setLocation(created._id.toString(), {
-        _id: created._id,
-        area: trainer.area,
-        x: trainer.x,
-        y: trainer.y,
-        direction: trainer.direction,
-      });
-      return created;
+      return await super.create(trainer);
     } catch (err: any) {
       if (err.code === 11000) {
         throw new ConflictException('Trainer already exists');
@@ -93,15 +88,93 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     }
   }
 
-  async addToTeam(id: Types.ObjectId, monster: string): Promise<Trainer | null> {
-    return this.update(id, {$addToSet: {team: monster}});
+  async addToTeam(id: Types.ObjectId, monster: Monster): Promise<Trainer | null> {
+    return this.update(id, {
+      $addToSet: {
+        team: monster._id.toString(),
+        encounteredMonsterTypes: monster.type,
+      },
+    });
   }
 
   private emit(event: string, trainer: Trainer): void {
     this.eventEmitter.emit(`regions.${trainer.region}.trainers.${trainer._id}.${event}`, trainer);
   }
 
+  async deleteUnprogressed(olderThanMs: number, spawn: Spawn, radius = 5): Promise<DeleteManyResult> {
+    const pipeline = [
+      {
+        $match: {
+          createdAt: {
+            $lt: new Date(Date.now() - olderThanMs),
+          },
+          area: spawn.area,
+          x: {
+            $gt: spawn.x - radius,
+            $lt: spawn.x + radius,
+          },
+          y: {
+            $gt: spawn.y - radius,
+            $lt: spawn.y + radius,
+          },
+        } satisfies FilterQuery<Trainer>,
+      },
+      {
+        $addFields: {
+          id: {
+            $toString: '$_id'
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'monsters',
+          localField: 'id',
+          foreignField: 'trainer',
+          as: 'monsters',
+        },
+      },
+      {
+        $match: {
+          coins: 0,
+          npc: {$exists: false},
+          $or: [
+            {monsters: {$size: 0}},
+            {
+              'monsters.0.level': 1,
+              'monsters.0.experience': 0,
+            },
+          ],
+        } satisfies FilterQuery<Trainer>,
+      },
+      {
+        $project: {
+          id: 0,
+          monsters: 0,
+        },
+      },
+    ];
+    const trainers = await this.model.aggregate(pipeline);
+    return this.deleteAll(trainers);
+  }
+
   // --------------- Movement/Locations ---------------
+
+  @OnEvent('regions.*.trainers.*.created')
+  async onTrainerCreated(trainer: Trainer): Promise<void> {
+    this.setLocation(trainer._id.toString(), {
+      _id: trainer._id,
+      area: trainer.area,
+      x: trainer.x,
+      y: trainer.y,
+      direction: trainer.direction,
+    });
+  }
+
+  @OnEvent('regions.*.trainers.*.deleted')
+  async onTrainerDeleted(trainer: Trainer): Promise<void> {
+    this.locations.delete(trainer._id.toString());
+  }
 
   getLocations(): IterableIterator<MoveTrainerDto> {
     return this.locations.values();
@@ -126,7 +199,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
 
   async onModuleInit() {
     for await (const doc of this.model.find().select([...MOVE_TRAINER_PROPS])) {
-      this.locations.set(doc._id.toString(), doc);
+      this.setLocation(doc._id.toString(), doc.toObject());
     }
   }
 

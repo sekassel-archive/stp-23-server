@@ -92,5 +92,10 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@nestjs/swagger@6.3.0": "patches/@nestjs__swagger@6.3.0.patch"
+    }
   }
 }

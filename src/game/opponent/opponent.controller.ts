@@ -5,17 +5,14 @@ import {
   Delete,
   ForbiddenException,
   Get,
-  NotFoundException,
   Param,
   Patch,
-  Query,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
   ApiForbiddenResponse,
-  ApiOkResponse,
-  ApiQuery,
+  ApiOkResponse, ApiOperation,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
@@ -31,10 +28,11 @@ import {UpdateOpponentDto} from './opponent.dto';
 import {ChangeMonsterMove, Opponent} from './opponent.schema';
 import {OpponentService} from './opponent.service';
 import {Types, UpdateQuery} from "mongoose";
-import {ObjectIdPipe} from '@mean-stream/nestx';
+import {notFound, ObjectIdPipe} from '@mean-stream/nestx';
 import {MonsterService} from "../monster/monster.service";
+import {Trainer} from "../trainer/trainer.schema";
 
-@Controller('regions/:regionId')
+@Controller('regions/:region')
 @ApiTags('Encounter Opponents')
 @Validated()
 @Auth()
@@ -48,108 +46,105 @@ export class OpponentController {
   ) {
   }
 
-  @Get('opponents')
-  @ApiQuery({name: 'trainer'})
+  @Get('trainers/:trainer/opponents')
   @ApiOkResponse({type: [Opponent]})
-  async findAll(
-    @Query('trainer') trainer: string,
+  async findByTrainer(
+    @Param('trainer') trainer: string,
   ): Promise<Opponent[]> {
     return this.opponentService.findAll({trainer});
   }
 
-  @Get('encounters/:encounterId/opponents')
+  @Get('encounters/:encounter/opponents')
   @ApiOkResponse({type: [Opponent]})
   async findByEncounter(
-    @Param('encounterId', ParseObjectIdPipe) encounter: string,
+    @Param('encounter', ParseObjectIdPipe) encounter: string,
   ): Promise<Opponent[]> {
     return this.opponentService.findAll({encounter});
   }
 
-  @Get('encounters/:encounterId/opponents/:trainerId')
+  @Get('encounters/:encounter/opponents/:id')
   @ApiOkResponse({type: Opponent})
   @NotFound()
   async findOne(
-    @Param('encounterId', ParseObjectIdPipe) encounter: string,
-    @Param('trainerId', ParseObjectIdPipe) trainer: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Opponent | null> {
-    return this.opponentService.findOne({encounter, trainer});
+    return this.opponentService.find(id);
   }
 
-  @Patch('encounters/:encounterId/opponents/:trainerId')
+  @Patch('encounters/:encounter/opponents/:id')
+  @ApiOperation({
+    summary: 'Make a move or switch monsters',
+    description: 'Directly switching monsters is only allowed (and required) if the current monster is dead. ' +
+      'Otherwise, you must use a move to switch monsters. ' +
+      'If you switch monsters without a move, you have to call this endpoint again to make a move.',
+  })
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot modify another trainer\'s opponent'})
   @ApiConflictResponse({description: 'You cannot switch the monster without a move if your current monster is not dead'})
   @ApiUnprocessableEntityResponse({description: 'Monster is dead'})
   @NotFound()
   async updateOne(
-    @Param('encounterId', ParseObjectIdPipe) encounter: string,
-    @Param('trainerId', ParseObjectIdPipe) trainer: string,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @Body() dto: UpdateOpponentDto,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    await this.checkTrainerAccess(trainer, user);
-    // TODO check Trainer team
-    const current = await this.opponentService.findOne({encounter, trainer});
+    const current = await this.opponentService.find(id) || notFound(id);
+    const trainer = await this.checkTrainerAccess(current, user);
     if (dto.monster) {
       // Changing the monster happens immediately
-      const monster = await this.monsterService.find(new Types.ObjectId(dto.monster));
-      if (!monster) {
-        throw new NotFoundException(`Monster ${dto.monster} not found`);
-      }
-      if (monster.currentAttributes.health <= 0) {
-        throw new UnprocessableEntityException(`Monster ${dto.monster} is dead`);
-      }
+      await this.checkMonster(dto.monster, trainer);
       if (current && current.monster) {
-        throw new ConflictException(`Opponent ${trainer} already has a monster`);
+        throw new ConflictException(`Opponent ${id} already has a monster`);
       }
     } else if (current && !current.monster) {
-      throw new UnprocessableEntityException(`Opponent ${trainer} does not have a monster`);
+      throw new UnprocessableEntityException(`Opponent ${id} does not have a monster`);
     }
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately
-      const monster = await this.monsterService.find(new Types.ObjectId(dto.move.monster));
-      if (!monster) {
-        throw new NotFoundException(`Monster ${dto.move.monster} not found`);
-      }
-      if (monster.currentAttributes.health <= 0) {
-        throw new UnprocessableEntityException(`Monster ${dto.move.monster} is dead`);
-      }
+      await this.checkMonster(dto.move.monster, trainer);
       dto.monster = dto.move.monster;
     }
     const update: UpdateQuery<Opponent> = dto;
     if (dto.move) {
       update.results = [];
     }
-    return this.opponentService.updateOne({encounter, trainer}, update);
+    return this.opponentService.update(id, update);
   }
 
-  @Delete('encounters/:encounterId/opponents/:trainerId')
+  private async checkMonster(monsterId: string, trainer: Trainer) {
+    const monster = await this.monsterService.find(new Types.ObjectId(monsterId)) || notFound(monsterId);
+    if (!trainer.team.includes(monsterId)) {
+      throw new ForbiddenException(`Monster ${monsterId} is not on trainer ${trainer._id} team`);
+    }
+    if (monster.currentAttributes.health <= 0) {
+      throw new UnprocessableEntityException(`Monster ${monsterId} is dead`);
+    }
+  }
+
+  @Delete('encounters/:encounter/opponents/:id')
+  @ApiOperation({summary: 'Flee from a wild encounter'})
   @ApiOkResponse({type: Opponent})
   @ApiForbiddenResponse({description: 'You cannot make another trainer flee, or flee from a trainer encounter'})
   @NotFound()
   async deleteOne(
-    @Param('encounterId', ObjectIdPipe) encounter: Types.ObjectId,
-    @Param('trainerId', ParseObjectIdPipe) trainer: string,
+    @Param('encounter', ObjectIdPipe) encounter: Types.ObjectId,
+    @Param('id', ObjectIdPipe) id: Types.ObjectId,
     @AuthUser() user: User,
   ): Promise<Opponent | null> {
-    await this.checkTrainerAccess(trainer, user);
-    const encounterDoc = await this.encounterService.find(encounter);
-    if (!encounterDoc) {
-      throw new NotFoundException('Encounter not found');
-    }
+    const encounterDoc = await this.encounterService.find(encounter) || notFound(encounter);
     if (!encounterDoc.isWild) {
       throw new ForbiddenException('You cannot flee from a trainer encounter');
     }
-    return this.opponentService.deleteOne({encounter: encounter.toString(), trainer});
+    const opponent = await this.findOne(id) || notFound(id);
+    await this.checkTrainerAccess(opponent, user);
+    return this.opponentService.delete(id);
   }
 
-  private async checkTrainerAccess(trainer: string, user: User) {
-    const trainerDoc = await this.trainerService.find(new Types.ObjectId(trainer));
-    if (!trainerDoc) {
-      throw new NotFoundException('Trainer not found');
-    }
-    if (!user._id.equals(trainerDoc.user)) {
+  private async checkTrainerAccess(opponent: Opponent, user: User): Promise<Trainer> {
+    const trainer = await this.trainerService.find(new Types.ObjectId(opponent.trainer)) || notFound(opponent.trainer);
+    if (!user._id.equals(trainer.user)) {
       throw new ForbiddenException('You are not the trainer of this opponent');
     }
+    return trainer;
   }
 }

@@ -7,6 +7,7 @@ import {EncounterController} from './encounter.controller';
 import {EncounterHandler} from './encounter.handler';
 import {Encounter, EncounterSchema} from './encounter.schema';
 import {EncounterService} from './encounter.service';
+import {TrainerModule} from "../trainer/trainer.module";
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import {EncounterService} from './encounter.service';
     ]),
     EventModule,
     MonsterModule,
+    TrainerModule,
     forwardRef(() => OpponentModule),
   ],
   providers: [EncounterService, EncounterHandler],

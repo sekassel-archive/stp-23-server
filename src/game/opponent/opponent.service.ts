@@ -5,10 +5,11 @@ import {EventService} from '../../event/event.service';
 import {CreateOpponentDto} from './opponent.dto';
 import {Opponent, OpponentDocument} from './opponent.schema';
 import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
+import {GlobalSchema} from "../../util/schema";
 
 @Injectable()
 @EventRepository()
-export class OpponentService extends MongooseRepository<Opponent, never> {
+export class OpponentService extends MongooseRepository<Opponent> {
   constructor(
     @InjectModel(Opponent.name) model: Model<Opponent>,
     private eventService: EventService,
@@ -22,10 +23,11 @@ export class OpponentService extends MongooseRepository<Opponent, never> {
       encounter,
       trainer,
       results: [],
+      coins: 0,
     });
   }
 
-  async create(dto: Omit<Opponent, 'createdAt' | 'updatedAt'>): Promise<OpponentDocument> {
+  async create(dto: Omit<Opponent, keyof GlobalSchema>): Promise<OpponentDocument> {
     try {
       return await super.create(dto);
     } catch (err: any) {
@@ -37,6 +39,6 @@ export class OpponentService extends MongooseRepository<Opponent, never> {
   }
 
   emit(event: string, opponent: Opponent) {
-    this.eventService.emit(`encounters.${opponent.encounter}.opponents.${opponent.trainer}.${event}`, opponent);
+    this.eventService.emit(`encounters.${opponent.encounter}.opponents.${opponent._id}.${event}`, opponent);
   }
 }

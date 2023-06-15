@@ -4,7 +4,7 @@ import {Types} from 'mongoose';
 import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
-  attackGain,
+  attackGain, coinsGain,
   defenseGain,
   EVOLUTION_LEVELS,
   expGain,
@@ -96,7 +96,7 @@ export class BattleService {
         }
         const liveMonsters = await this.monsterService.findAll({
           trainer: opponent.trainer,
-          // TODO check for Trainer.team
+          // NB: no check for Trainer.team, because NPCs usually don't have that many monsters
           'currentAttributes.health': {$gt: 0},
         });
         if (!liveMonsters.length) {
@@ -128,7 +128,7 @@ export class BattleService {
 
       const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
       if (!attackDamage) {
-        // TODO support other effects
+        // FIXME Giulio until v4: support other effects
         continue;
       }
 
@@ -244,11 +244,15 @@ export class BattleService {
 
     if (currentMonster.currentAttributes.health <= 0) {
       currentOpponent.results.push({type: 'monster-defeated'});
+      currentOpponent.monster = undefined;
     } else if (targetMonster.currentAttributes.health <= 0) {
       currentOpponent.results.push({type: 'target-defeated'});
       targetOpponent.monster = undefined;
       if (!currentOpponent.isNPC) {
         this.gainExp(currentOpponent, currentMonster, targetMonster);
+        if (targetMonster.trainer !== TALL_GRASS_TRAINER) {
+          currentOpponent.$inc('coins', coinsGain(targetMonster.level));
+        }
       }
     }
   }
@@ -299,7 +303,6 @@ export class BattleService {
   }
 
   private gainExp(opponent: OpponentDocument, currentMonster: MonsterDocument, effectTarget: MonsterDocument) {
-    // TODO improve experience gain
     currentMonster.experience += expGain(effectTarget.level);
 
     while (true) {

@@ -12,6 +12,7 @@ import {TrainerController} from './trainer.controller';
 import {TrainerHandler} from './trainer.handler';
 import {Trainer, TrainerSchema} from './trainer.schema';
 import {TrainerService} from './trainer.service';
+import {TrainerScheduler} from "./trainer.scheduler";
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import {TrainerService} from './trainer.service';
     forwardRef(() => OpponentModule),
   ],
   controllers: [TrainerController],
-  providers: [TrainerService, TrainerHandler],
+  providers: [TrainerService, TrainerHandler, TrainerScheduler],
   exports: [TrainerService],
 })
 export class TrainerModule {

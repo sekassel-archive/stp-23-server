@@ -420,6 +420,7 @@
     "image": "Tentacolon_1.png",
     "name": "Infernoptic",
     "type": ["fire"],
+    "evolution": 58,
     "description": "A small brain-like body encased in a burning red crystal with a single eye."
   },
   {
@@ -427,6 +428,7 @@
     "image": "Tentacolon_2.png",
     "name": "Infernoptacle",
     "type": ["fire"],
+    "evolution": 59,
     "description": "The evolved form of Infernoptic with two fiery tentacles emerging from the crystal."
   },
   {
