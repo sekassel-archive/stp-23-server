@@ -21,9 +21,12 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
       const monstersProp = object.properties?.find(p => p.name === 'Monsters')?.value;
       if (monstersProp) {
         const monsters = JSON.parse(monstersProp);
-        for (const [type, level] of monsters) {
+        for (const [type, level, maxLevel] of monsters) {
           (foundMonsters[type] ||= new Set).add(area);
           (areaLevels[area] ||= []).push(level);
+          for (let i = level + 1; i <= maxLevel; i++) {
+            (areaLevels[area] ||= []).push(i);
+          }
         }
       }
 

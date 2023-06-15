@@ -33,7 +33,7 @@ export interface Portal extends BaseGameObject {
 
 export interface TallGrass extends BaseGameObject {
   type: 'TallGrass';
-  monsters: [number, number][];
+  monsters: [number, number, number?][];
 }
 
 export type GameObject = Portal | TallGrass;
@@ -156,7 +156,8 @@ export class MovementService implements OnModuleInit {
       case 'TallGrass':
         if (this.isTallGrass(dto) && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
           const trainer = await this.trainerService.find(dto._id);
-          const [type, level] = gameObject.monsters.random();
+          const [type, minLevel, maxLevel] = gameObject.monsters.random();
+          const level = maxLevel ? Math.floor(Math.random() * (maxLevel - minLevel + 1)) + minLevel : minLevel;
           trainer && await this.battleSetupService.createMonsterEncounter(trainer, type, level);
         }
         break;
