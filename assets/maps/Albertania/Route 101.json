@@ -2598,7 +2598,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[92,10],[65,10],[19,11]]"
+                         "value":"[\n[92,10,14],\n[65,10,14],\n[19,10,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2615,7 +2615,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[82,10],[93,14],[38,10]]"
+                         "value":"[\n[82,10,14],\n[93,10,14],\n[38,10,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2632,7 +2632,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[53,11],[61,12],[65,13]]"
+                         "value":"[\n[53,10,14],\n[61,10,14],\n[65,10,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2649,7 +2649,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[63,12],[70,13],[71,11]]"
+                         "value":"[\n[63,10,14],\n[70,10,14],\n[71,10,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2666,7 +2666,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[28,13],[92,14],[65,12],[93,10]]"
+                         "value":"[\n[28,10,14],\n[92,10,14],\n[65,10,14],\n[93,10,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2683,7 +2683,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[99,14],[101,10],[82,13]]"
+                         "value":"[\n[99,10,14],\n[101,10,14],\n[82,10,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2700,7 +2700,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[10,12],[18,13],[61,10]]"
+                         "value":"[\n[10,10,14],\n[18,10,14],\n[61,10,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
