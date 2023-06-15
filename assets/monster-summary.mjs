@@ -39,6 +39,14 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
 }
 
 const monsters = JSON.parse(await fs.readFile('monsters.json'));
+
+for (let i = 1; i < monsters.length; i++) {
+  const m = monsters[i];
+  if (m.id !== monsters[i - 1].evolution && (m.image.endsWith('_2.png') || m.image.endsWith('_3.png'))) {
+    console.log(`❌ #${m.id} ${m.name} ${chalk.red('cannot be evolved to')}`);
+  }
+}
+
 const baseMonsters = monsters.filter((m, index) => index === 0 || m.id !== monsters[index - 1].evolution);
 let found = 0;
 for (const monster of baseMonsters) {
