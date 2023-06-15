@@ -2520,7 +2520,7 @@
          "name":"Objects",
          "objects":[
                 {
-                 "height":144,
+                 "height":128,
                  "id":34,
                  "name":"Wesers Peak",
                  "properties":[
@@ -2528,6 +2528,16 @@
                          "name":"Map",
                          "type":"string",
                          "value":"Wesers Peak"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":57
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":73
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -2948,7 +2958,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":52,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
