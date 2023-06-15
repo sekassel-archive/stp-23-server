@@ -1664,7 +1664,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[68,10],[52,6],[37,12]]"
+                         "value":"[[68,10],[52,7],[37,11]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1681,7 +1681,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[68,13],[100,14]]"
+                         "value":"[[68,9],[100,10]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1698,7 +1698,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[68,11],[89,3],[37,17]]"
+                         "value":"[[68,11],[89,7],[37,8]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1715,7 +1715,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[37,14],[23,12]]"
+                         "value":"[[37,9],[23,9]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1749,7 +1749,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[100,11],[23,13]]"
+                         "value":"[[100,11],[23,9]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1766,7 +1766,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[69,15],[28,14],[23,15]]"
+                         "value":"[[69,11],[28,10],[23,11]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1783,7 +1783,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[68,16],[69,18],[101,12],[28,16]]"
+                         "value":"[[68,11],[69,10],[101,10],[28,11]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1849,7 +1849,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[70,14]]"
+                         "value":"[[70,10]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -1882,7 +1882,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[65,4]]"
+                         "value":"[[65,9]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -1915,7 +1915,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[28,15], [37,12]]"
+                         "value":"[[28,11], [37,8]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
