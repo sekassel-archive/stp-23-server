@@ -34,7 +34,7 @@ The following resources will be deleted automatically under certain conditions.
 | Message | ${environment.cleanup.orphanMessageLifetimeHours} h       | the sender was deleted            |
 | Trainer | ${environment.cleanup.unprogressedTrainerLifetimeHours} h | they did not progress<sup>1</sup> |
 
-<sup>1</sup>: A Trainer is considered to have progressed if they moved at least 5 tiles from the spawn,
+<sup>1</sup>: A Trainer is considered to have progressed if they moved to different area from spawn,
 or acquired coins, or have a monster with some experience.
 
 ## Cascading Deletes
