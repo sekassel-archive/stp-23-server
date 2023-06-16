@@ -1,10 +1,10 @@
 import {Injectable} from '@nestjs/common';
-import {EventEmitter2} from '@nestjs/event-emitter';
 import {Cron, CronExpression} from '@nestjs/schedule';
 import {Types} from 'mongoose';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
 import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
+import {EventEmitter2} from "@nestjs/event-emitter";
 
 @Injectable()
 export class NpcMovementService {
@@ -16,7 +16,12 @@ export class NpcMovementService {
 
   @Cron(CronExpression.EVERY_SECOND)
   async onTick() {
-    const npcs = await this.trainerService.findAll({npc: {$exists: true}});
+    const npcs = await this.trainerService.findAll({
+      $or: [
+        {'npc.walkRandomly': true},
+        {'npc.path.1': {$exists: true}},
+      ],
+    });
     for (const npc of npcs) {
       const path = npc.npc?.path;
       if (path) {
@@ -56,7 +61,7 @@ export class NpcMovementService {
 
   private move(_id: Types.ObjectId, area: string, x: number, y: number, direction: Direction) {
     const move: MoveTrainerDto = {_id, area, x, y, direction};
-    this.eventEmitter.emit(`areas.${area}.trainers.${_id}.moved`, move);
+    this.eventEmitter.emit(`udp:areas.${area}.trainers.${_id}.moved`, move);
   }
 
   private getDirection(x1: number, y1: number, x2: number, y2: number): Direction {
