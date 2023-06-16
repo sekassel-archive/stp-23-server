@@ -148,15 +148,20 @@ export class MovementService implements OnModuleInit {
       if (layer.type !== 'tilelayer') {
         continue;
       }
-      if (!(x >= layer.startx && x < layer.startx + layer.width && y >= layer.starty && y < layer.starty + layer.height)) {
-        continue;
-      }
-
-      for (const chunk of layer.chunks) {
-        if (x >= chunk.x && x < chunk.x + chunk.width && y >= chunk.y && y < chunk.y + chunk.height) {
-          const tile = chunk.data[(y - chunk.y) * chunk.width + (x - chunk.x)];
+      if (layer.data) {
+        if (x >= layer.x && x < layer.x + layer.width && y >= layer.y && y < layer.y + layer.height) {
+          const tile = layer.data[(y - layer.y) * layer.width + (x - layer.x)];
           if (tile != 0) {
             tiles.push(tile);
+          }
+        }
+      } else if (layer.chunks) {
+        for (const chunk of layer.chunks) {
+          if (x >= chunk.x && x < chunk.x + chunk.width && y >= chunk.y && y < chunk.y + chunk.height) {
+            const tile = chunk.data[(y - chunk.y) * chunk.width + (x - chunk.x)];
+            if (tile != 0) {
+              tiles.push(tile);
+            }
           }
         }
       }

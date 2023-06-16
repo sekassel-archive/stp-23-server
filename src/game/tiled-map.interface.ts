@@ -22,9 +22,8 @@ export interface BaseLayer {
 
 export interface TileLayer extends BaseLayer {
   type: 'tilelayer';
-  startx: number;
-  starty: number;
-  chunks: Chunk[];
+  data?: number[];
+  chunks?: Chunk[];
 }
 
 export interface Chunk {
