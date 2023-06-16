@@ -89,7 +89,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     this.eventEmitter.emit(`regions.${trainer.region}.trainers.${trainer._id}.${event}`, trainer);
   }
 
-  async deleteUnprogressed(olderThanMs: number, spawn: Spawn, radius = 5): Promise<DeleteManyResult> {
+  async deleteUnprogressed(olderThanMs: number, spawn: Spawn): Promise<DeleteManyResult> {
     const pipeline = [
       {
         $match: {
@@ -97,14 +97,6 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
             $lt: new Date(Date.now() - olderThanMs),
           },
           area: spawn.area,
-          x: {
-            $gt: spawn.x - radius,
-            $lt: spawn.x + radius,
-          },
-          y: {
-            $gt: spawn.y - radius,
-            $lt: spawn.y + radius,
-          },
         } satisfies FilterQuery<Trainer>,
       },
       {
