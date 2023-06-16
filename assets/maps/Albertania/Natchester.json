@@ -1561,12 +1561,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":86
+                         "value":72
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":37
+                         "value":34
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1584,12 +1584,12 @@
                          "name":"Map",
                          "type":"string",
                          "value":"Route 101"
-                        }, 
+                        },
                         {
                          "name":"X",
                          "type":"int",
                          "value":17
-                        }, 
+                        },
                         {
                          "name":"Y",
                          "type":"int",
@@ -1611,12 +1611,12 @@
                          "name":"Map",
                          "type":"string",
                          "value":"Route 102"
-                        }, 
+                        },
                         {
                          "name":"X",
                          "type":"int",
                          "value":8
-                        }, 
+                        },
                         {
                          "name":"Y",
                          "type":"int",
