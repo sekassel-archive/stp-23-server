@@ -6,9 +6,11 @@ import {Region} from '../../region/region.schema';
 import {RegionService} from '../../region/region.service';
 import {AreaDocument} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
+import {MonsterService} from '../monster/monster.service';
 import {getProperty, TiledMap} from '../tiled-map.interface';
 import {Direction} from '../trainer/trainer.schema';
 import {TrainerService} from '../trainer/trainer.service';
+import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 
 @Injectable()
 export class GameLoader implements OnModuleInit {
@@ -16,6 +18,8 @@ export class GameLoader implements OnModuleInit {
     private areaService: AreaService,
     private regionService: RegionService,
     private trainerService: TrainerService,
+    private monsterService: MonsterService,
+    private monsterGeneratorService: MonsterGeneratorService,
   ) {
   }
 
@@ -70,29 +74,49 @@ export class GameLoader implements OnModuleInit {
           continue;
         }
 
-        await this.trainerService.upsert({
-          region: region._id.toString(),
-          area: area._id.toString(),
-          name: object.name,
-          npc: {$exists: true},
-        }, {
-          $setOnInsert: {
-            user: new Types.ObjectId(),
-          },
-          region: region._id.toString(),
-          area: area._id.toString(),
-          name: object.name,
-          image: getProperty<string>(object, 'Image') || 'Adam_16x16.png',
-          coins: getProperty<number>(object, 'Coins') ?? Infinity,
-          x: (object.x / map.tilewidth) | 0,
-          y: (object.y / map.tileheight) | 0,
-          direction: getProperty<number>(object, 'Direction') ?? Direction.DOWN,
-          'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
-          'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s),
-        });
+        await this.loadTrainer(region, area, object, map);
       }
     }
 
     return area;
+  }
+
+  private async loadTrainer(region: Region, area: AreaDocument, object: any, map: any) {
+    const starters = getProperty<string>(object, 'Starters');
+    const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
+
+    const trainer = await this.trainerService.upsert({
+      region: region._id.toString(),
+      area: area._id.toString(),
+      name: object.name,
+      npc: {$exists: true},
+    }, {
+      $setOnInsert: {
+        user: new Types.ObjectId(),
+        team: [],
+        'npc.encountered': [],
+      },
+      region: region._id.toString(),
+      area: area._id.toString(),
+      name: object.name,
+      image: getProperty<string>(object, 'Image') || 'Adam_16x16.png',
+      coins: getProperty<number>(object, 'Coins') ?? Infinity,
+      x: (object.x / map.tilewidth) | 0,
+      y: (object.y / map.tileheight) | 0,
+      direction: getProperty<number>(object, 'Direction') ?? Direction.DOWN,
+      'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
+      'npc.encounterOnTalk': monsterSpecs?.length > 0,
+      'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
+      'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
+      'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
+      'npc.starters': starters ? JSON.parse(starters) : undefined,
+    });
+
+    trainer.team = [];
+    for (const [type, level] of monsterSpecs) {
+      const monster = await this.monsterGeneratorService.createAuto(trainer._id.toString(), type, level);
+      trainer.team.push(monster._id.toString());
+    }
+    await trainer.save();
   }
 }

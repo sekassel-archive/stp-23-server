@@ -10,6 +10,8 @@ import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto} from './trainer.dt
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
 import {DeleteManyResult, EventRepository, MongooseRepository} from "@mean-stream/nestx";
 import {Spawn} from "../../region/region.schema";
+import {OnEvent} from "@nestjs/event-emitter";
+import {Monster} from "../monster/monster.schema";
 
 @Injectable()
 @EventRepository()
@@ -35,6 +37,8 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
       region: region.toString(),
       user,
       coins: 0,
+      team: [],
+      encounteredMonsterTypes: [],
       area,
       x,
       y,
@@ -44,15 +48,7 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
 
   async create(trainer: Omit<Trainer, keyof GlobalSchema>): Promise<TrainerDocument> {
     try {
-      const created = await super.create(trainer);
-      created && this.setLocation(created._id.toString(), {
-        _id: created._id,
-        area: trainer.area,
-        x: trainer.x,
-        y: trainer.y,
-        direction: trainer.direction,
-      });
-      return created;
+      return await super.create(trainer);
     } catch (err: any) {
       if (err.code === 11000) {
         throw new ConflictException('Trainer already exists');
@@ -90,6 +86,15 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
       // @ts-ignore
       doc[key] = location[key];
     }
+  }
+
+  async addToTeam(id: Types.ObjectId, monster: Monster): Promise<Trainer | null> {
+    return this.update(id, {
+      $addToSet: {
+        team: monster._id.toString(),
+        encounteredMonsterTypes: monster.type,
+      },
+    });
   }
 
   private emit(event: string, trainer: Trainer): void {
@@ -154,6 +159,22 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
   }
 
   // --------------- Movement/Locations ---------------
+
+  @OnEvent('regions.*.trainers.*.created')
+  async onTrainerCreated(trainer: Trainer): Promise<void> {
+    this.setLocation(trainer._id.toString(), {
+      _id: trainer._id,
+      area: trainer.area,
+      x: trainer.x,
+      y: trainer.y,
+      direction: trainer.direction,
+    });
+  }
+
+  @OnEvent('regions.*.trainers.*.deleted')
+  async onTrainerDeleted(trainer: Trainer): Promise<void> {
+    this.locations.delete(trainer._id.toString());
+  }
 
   getLocations(): IterableIterator<MoveTrainerDto> {
     return this.locations.values();

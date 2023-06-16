@@ -15,7 +15,7 @@ import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
 import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
-import {CreateTrainerDto, MoveTrainerDto, UpdateTrainerDto} from './trainer.dto';
+import {CreateTrainerDto, MoveTrainerDto, TalkTrainerDto, UpdateTrainerDto} from './trainer.dto';
 import {Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 import {ObjectIdPipe} from "@mean-stream/nestx";
@@ -23,7 +23,7 @@ import {Types} from "mongoose";
 
 @Controller('regions/:region/trainers')
 @ApiTags('Region Trainers')
-@ApiExtraModels(MoveTrainerDto)
+@ApiExtraModels(MoveTrainerDto, TalkTrainerDto)
 @Validated()
 @Auth()
 @Throttled()

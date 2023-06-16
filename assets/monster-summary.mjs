@@ -19,12 +19,17 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
       }
 
       const monstersProp = object.properties?.find(p => p.name === 'Monsters')?.value;
-      if (monstersProp) {
+      if (monstersProp) try {
         const monsters = JSON.parse(monstersProp);
-        for (const [type, level] of monsters) {
+        for (const [type, level, maxLevel] of monsters) {
           (foundMonsters[type] ||= new Set).add(area);
           (areaLevels[area] ||= []).push(level);
+          for (let i = level + 1; i <= maxLevel; i++) {
+            (areaLevels[area] ||= []).push(i);
+          }
         }
+      } catch (e) {
+        console.error(`Error parsing monsters for ${area} object ${object.id} '${object.name}'`, e);
       }
 
       const startersProp = object.properties?.find(p => p.name === 'Starters')?.value;
@@ -39,6 +44,14 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
 }
 
 const monsters = JSON.parse(await fs.readFile('monsters.json'));
+
+for (let i = 1; i < monsters.length; i++) {
+  const m = monsters[i];
+  if (m.id !== monsters[i - 1].evolution && (m.image.endsWith('_2.png') || m.image.endsWith('_3.png'))) {
+    console.log(`❌ #${m.id} ${m.name} ${chalk.red('cannot be evolved to')}`);
+  }
+}
+
 const baseMonsters = monsters.filter((m, index) => index === 0 || m.id !== monsters[index - 1].evolution);
 let found = 0;
 for (const monster of baseMonsters) {
@@ -47,7 +60,8 @@ for (const monster of baseMonsters) {
     console.log(`❌ #${monster.id} ${monster.name} ${chalk.red('not found')}`);
   } else {
     found++;
-    console.log(`✅ #${monster.id} ${monster.name} ${chalk.green('found')} in ${chalk.blue([...areas].join(', '))}`);
+    const areasText = [...areas].join(', ').replace(/Route /g, 'R');
+    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green(areasText)}`);
   }
 }
 

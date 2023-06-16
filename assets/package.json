@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "bitset": "^5.1.1",
+    "canvas": "^2.11.2",
+    "chalk": "^5.2.0"
+  }
+}

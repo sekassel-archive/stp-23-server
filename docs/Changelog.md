@@ -136,3 +136,43 @@
 
 * Fixed an edge case where Roof tiles would allow walking through walls.
 * Fixed some missing parameters in Swagger.
+
+# v2.1.6 - Fix Ghost Trainers
+
+## Bugfixes
+
+* Fixed a bug where trainers would still block tiles after being deleted (manually or during cleanup).
+* Preset requests for `@2x` images now return `404 Not Found` instead of the original image.
+
+# v3.0.0 - Battle
+
+## New Features
+
+### Content
+
++ Added the Encounter Test region.
++ Added Route 101, 102 and 111.
++ Added Adromere.
++ Overhauled Route 100.
++ Optimized all maps and tilesets -- some maps now use layer data instead of chunks.
+
+### Resources
+
++ Added Encounters.
++ Added Opponents, the representation of a trainer in battle.
++ Added `TalkTrainerDto`, a UDP action for talking to trainers.
++ Added `encounterOnSight`, `encounterOnTalk`, `canHeal`, `encountered` and `starters` to `NPCInfo`.
++ Added `team` to `Trainer`.
++ Added `encounteredMonsterTypes` to `Trainer`.
+
+## Improvements
+
+* Trainers no longer receive a monster when they are created.
+* Players can receive a starter monster from the Prof.
+* Wild Encounters can be triggered by Tall Grass.
+* Players can trigger encounters by talking to other trainers.
+* Players can heal their monsters by talking to a Nurse.
+* NPCs may start encounters when they see you.
+* Defeating a monster now grants experience.
+* Monsters can now level up and evolve.
+* Winning encounters now grants coins.

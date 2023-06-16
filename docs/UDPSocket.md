@@ -11,11 +11,12 @@ The maximum safe message size is 508 bytes (see [1]).
 
 The UDP Socket supports the following commands:
 
-| Command                                     | Payload                                   |
-|---------------------------------------------|-------------------------------------------|
-| `subscribe`                                 | Event Pattern (string)                    |
-| `unsubscribe`                               | Event Pattern (string)                    |
-| `areas.<areaId>.trainers.<trainerId>.moved` | [`MoveTrainerDto`](#model-MoveTrainerDto) |
+| Command                                      | Payload                                   |
+|----------------------------------------------|-------------------------------------------|
+| `subscribe`                                  | Event Pattern (string)                    |
+| `unsubscribe`                                | Event Pattern (string)                    |
+| `areas.<areaId>.trainers.<trainerId>.moved`  | [`MoveTrainerDto`](#model-MoveTrainerDto) |
+| `areas.<areaId>.trainers.<trainerId>.talked` | [`TalkTrainerDto`](#model-TalkTrainerDto) |
 
 Commands are sent as JSON, for example:
 

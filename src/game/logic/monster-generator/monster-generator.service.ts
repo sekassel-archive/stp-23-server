@@ -14,12 +14,6 @@ export class MonsterGeneratorService {
   ) {
   }
 
-  // TODO remove in v3 - monsters can be received from a Prof.
-  @OnEvent('regions.*.trainers.*.created')
-  async onTrainerCreated(trainer: Trainer): Promise<void> {
-    await this.createAuto(trainer._id.toString(), 1, 1);
-  }
-
   autofill(type: number, level: number): CreateMonsterDto {
     const monsterType = monsterTypes.find(t => t.id === type);
     if (!monsterType) {
