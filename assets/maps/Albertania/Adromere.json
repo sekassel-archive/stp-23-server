@@ -1529,6 +1529,106 @@
                  "width":144,
                  "x":128,
                  "y":416
+                }, 
+                {
+                 "height":0,
+                 "id":22,
+                 "name":"Fred",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Samuel_16x16.png"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":480,
+                 "y":336
+                }, 
+                {
+                 "height":0,
+                 "id":23,
+                 "name":"Duke",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Dan_16x16.png"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":800,
+                 "y":336
+                }, 
+                {
+                 "height":0,
+                 "id":24,
+                 "name":"Mr. Donald",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Conference_man_16x16.png"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":672,
+                 "y":608
+                }, 
+                {
+                 "height":0,
+                 "id":25,
+                 "name":"Harold",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Bruce_16x16.png"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":752,
+                 "y":848
+                }, 
+                {
+                 "height":0,
+                 "id":26,
+                 "name":"Timmy",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Kid_Oscar_16x16.png"
+                        }, 
+                        {
+                         "name":"Path",
+                         "type":"string",
+                         "value":"19,69;19,68;19,69"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":304,
+                 "y":1104
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1537,7 +1637,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":15,
+ "nextobjectid":27,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
