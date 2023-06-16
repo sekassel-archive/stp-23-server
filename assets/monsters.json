@@ -810,5 +810,102 @@
     "name": "Zuendorm",
     "type": ["fire"],
     "description": "Zuendorm is a fire-type creature with a body made of living flame, and can ignite anything it touches."
+  },
+  {
+    "id": 110,
+    "image": "Obsidior_1.png",
+    "name": "Obsidior",
+    "type": ["normal"],
+    "evolution": 111,
+    "description": "Obsidior is a fierce creature with obsidian-like scales, known for its brute strength and sharp fangs."
+  },
+  {
+    "id": 111,
+    "image": "Obsidior_2.png",
+    "name": "Ignisaur",
+    "type": ["fire"],
+    "evolution": 112,
+    "description": "Ignisaur is a fiery creature, ablaze with an unstoppable spirit and control over intense flames."
+  },
+  {
+    "id": 112,
+    "image": "Obsidior_3.png",
+    "name": "Infernodon",
+    "type": ["fire"],
+    "description": "Infernodon, the ultimate evolution, is a mighty fire-type Pokemon that radiates scorching heat and unleashes devastating firestorms."
+  },
+  {
+    "id": 113,
+    "image": "Frostclaw_1.png",
+    "name": "Frostclaw",
+    "type": ["ice"],
+    "evolution": 114,
+    "description": "Frostclaw is an ice-mantis creature with icy claws, capable of freezing its foes with ease."
+  },
+  {
+    "id": 114,
+    "image": "Frostclaw_2.png",
+    "name": "Frostblade",
+    "type": ["ice"],
+    "description": "Frostblade is an ice-mantis creature adorned with shimmering ice blades, swiftly slicing through enemies with frigid precision."
+  },
+  {
+    "id": 115,
+    "image": "Bushling_1.png",
+    "name": "Bushling",
+    "type": ["grass", "flying"],
+    "evolution": 116,
+    "description": "Bushling is an earth wisp creature that takes the form of a floating bush."
+  },
+  {
+    "id": 116,
+    "image": "Bushling_2.png",
+    "name": "Turbush",
+    "type": ["grass"],
+    "description": "Turbush is a earth-turtle with a vibrant bush growing on its back and its profound link to nature becomes a devastating force, posing a significant threat to its opponents."
+  },
+  {
+    "id": 117,
+    "image": "Volcanool_1.png",
+    "name": "Volcanool",
+    "type": ["rock", "fire"],
+    "description": "Volcanowool is a white, rock-like sheep with a miniature volcano on its back. It radiates intense heat and can unleash powerful fire-based attacks."
+  },
+  {
+    "id": 118,
+    "image": "Bramblehorn_1.png",
+    "name": "Bramblehorn",
+    "type": ["normal"],
+    "description": "Bramblehorn is a brown deer with imposing antlers and piercing red eyes, roaming the forest with an aura of mystery."
+  },
+  {
+    "id": 119,
+    "image": "Noxluff_1.png",
+    "name": "Noxluff",
+    "type": ["grass"],
+    "description": "Noxluff is a grass-type creature with yellow eyes and a huge aura of sweetness around it."
+  },
+  {
+    "id": 120,
+    "image": "Parrobert_1.png",
+    "name": "Parrobert",
+    "type": ["flying"],
+    "legendary": true,
+    "description": "Parrobert is a flying parrot creature adorned with an explosion of vibrant, multicolored feathers and moves with unparalleled grace and agility."
+  },
+  {
+    "id": 121,
+    "image": "Chromapede_1.png",
+    "name": "Chromapede",
+    "type": ["bug", "ground"],
+    "legendary": true,
+    "description": "A colossal centipede with a mesmerizing display of vivid hues. Swift, agile, and captivating with piercing eyes, it traverses landscapes with unmatched speed."
+  },
+  {
+    "id": 122,
+    "image": "Adrevil_1.png",
+    "name": "Adrevil",
+    "type": ["dark"],
+    "description": "Adrevil embodies pure evil. Despite its seemingly weak appearance, this creature should not be underestimated, as it forces opponents to sort through images of monsters."
   }
 ]
