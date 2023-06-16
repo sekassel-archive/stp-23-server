@@ -154,6 +154,7 @@
 + Added Route 101, 102 and 111.
 + Added Adromere.
 + Overhauled Route 100.
++ Added `Buildings` to cities in the Albertania region map.
 + Optimized all maps and tilesets -- some maps now use layer data instead of chunks.
 
 ### Resources
