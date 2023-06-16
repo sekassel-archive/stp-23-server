@@ -1,11 +1,10 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
-import {OnEvent} from '@nestjs/event-emitter';
+import {Injectable} from '@nestjs/common';
 import {abilities as allAbilities, Ability, monsterTypes} from '../../constants';
-import {attackAtLevel, defenseAtLevel, healthAtLevel, speedAtLevel} from '../../formulae';
+import {attackAtLevel, defenseAtLevel, EVOLUTION_LEVELS, healthAtLevel, speedAtLevel} from '../../formulae';
 import {CreateMonsterDto} from '../../monster/monster.dto';
 import {MAX_ABILITIES, MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
-import {Trainer} from '../../trainer/trainer.schema';
+import {notFound} from "@mean-stream/nestx";
 
 @Injectable()
 export class MonsterGeneratorService {
@@ -15,9 +14,12 @@ export class MonsterGeneratorService {
   }
 
   autofill(type: number, level: number): CreateMonsterDto {
-    const monsterType = monsterTypes.find(t => t.id === type);
-    if (!monsterType) {
-      throw new NotFoundException('Invalid monster type');
+    let monsterType = monsterTypes.find(t => t.id === type) || notFound('Invalid monster type');
+    for (const evolutionLevel of EVOLUTION_LEVELS) {
+      if (level >= evolutionLevel && monsterType.evolution) {
+        type = monsterType.evolution;
+        monsterType = monsterTypes.find(t => t.id === type) || monsterType;
+      }
     }
     const abilities = this.findBestAbilities(this.getPossibleAbilities(level, monsterType.type));
     return {
