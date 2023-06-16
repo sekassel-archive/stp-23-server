@@ -151,9 +151,10 @@
 ### Content
 
 + Added the Encounter Test region.
-+ Added Route 101, 102 and 111.
-+ Added Adromere.
 + Overhauled Route 100.
++ Added Route 101, 102, 103 and 111.
++ Added Adromere.
++ Added Wesers Peak.
 + Added `Buildings` to cities in the Albertania region map.
 + Optimized all maps and tilesets -- some maps now use layer data instead of chunks.
 
