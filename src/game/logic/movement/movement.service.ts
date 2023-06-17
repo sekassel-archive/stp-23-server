@@ -20,11 +20,13 @@ export interface AreaInfo {
   height: number;
   objects: GameObject[];
   walkable: BitSet;
+  tallGrass: BitSet;
 }
 
 export interface TilesetInfo {
   firstgid?: number;
   walkable: BitSet;
+  tallGrass: BitSet;
 }
 
 export interface BaseGameObject {
@@ -89,16 +91,25 @@ export class MovementService implements OnApplicationBootstrap {
 
   private async loadTileset(name: string): Promise<TilesetInfo> {
     const walkable = new BitSet();
+    const tallGrass = new BitSet();
     const text = await fs.readFile(`./assets/tilesets/${name}`, 'utf8').catch(() => '{}');
     const tileset = JSON.parse(text);
     for (const tile of tileset.tiles || []) {
       for (const property of tile.properties) {
-        if (property.name === 'Walkable' && property.value) {
-          walkable.set(tile.id);
+        if (!property.value) {
+          continue;
+        }
+        switch (property.name) {
+          case 'Walkable':
+            walkable.set(tile.id);
+            break;
+          case 'TallGrass':
+            tallGrass.set(tile.id);
+            break;
         }
       }
     }
-    return {walkable};
+    return {walkable, tallGrass};
   }
 
   private loadArea(area: Area, areas: Area[], tilesets: Map<string, TilesetInfo>): AreaInfo {
@@ -107,6 +118,7 @@ export class MovementService implements OnApplicationBootstrap {
     const objects: GameObject[] = [];
     const walkable = new BitSet();
     walkable.setRange(0, width * height);
+    const tallGrass = new BitSet();
 
     const tilesetsWithFirstgid = area.map.tilesets.map(({source, firstgid}) => {
       const name = source.substring(source.lastIndexOf('/') + 1);
@@ -124,31 +136,42 @@ export class MovementService implements OnApplicationBootstrap {
           break;
         case 'tilelayer':
           if (layer.data) {
-            this.loadChunk(layer as Chunk, tilesetsWithFirstgid, width, walkable);
+            this.loadChunk(layer as Chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
           } else if (layer.chunks) {
             for (const chunk of layer.chunks) {
-              this.loadChunk(chunk, tilesetsWithFirstgid, width, walkable);
+              this.loadChunk(chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
             }
           }
           break;
       }
     }
 
-    return {width, height, objects, walkable};
+    return {width, height, objects, walkable, tallGrass};
   }
 
-  private loadChunk(layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], width: number, walkable: BitSet) {
+  private loadChunk(
+    layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], width: number,
+    walkable: BitSet, tallGrass: BitSet,
+  ) {
     for (let i = 0; i < layer.data.length; i++) {
       const tileId = layer.data[i];
       if (tileId === 0) {
         continue;
       }
       const tilesetRef = tilesetsWithFirstgid.find(tsr => tsr.firstgid <= tileId);
+      if (!tilesetRef) {
+        continue;
+      }
+
       const x = layer.x + i % layer.width;
       const y = layer.y + (i / layer.width) | 0;
       const index = x * width + y;
-      if (tilesetRef && !tilesetRef.walkable.get(tileId - tilesetRef.firstgid)) {
+      const tileIdInTileset = tileId - tilesetRef.firstgid;
+      if (!tilesetRef.walkable.get(tileIdInTileset)) {
         walkable.clear(index);
+      }
+      if (tilesetRef.tallGrass.get(tileIdInTileset)) {
+        tallGrass.set(index);
       }
     }
   }
@@ -239,27 +262,20 @@ export class MovementService implements OnApplicationBootstrap {
     return !!areaInfo.walkable.get(dto.x * areaInfo.width + dto.y);
   }
 
+  isTallGrass(dto: MoveTrainerDto): boolean {
+    const areaInfo = this.areas.get(dto.area);
+    if (!areaInfo) {
+      return false;
+    }
+
+    return !!areaInfo.tallGrass.get(dto.x * areaInfo.width + dto.y);
+  }
+
   getGameObject(area: string, x: number, y: number): GameObject | undefined {
     const areaInfo = this.areas.get(area);
     if (!areaInfo) {
       return;
     }
-
-  isTallGrass(dto: MoveTrainerDto): boolean {
-    const tileMap = this.tiles.get(dto.area);
-    if (!tileMap) return false;
-
-    const tileIds = this.getTiles(dto);
-    if (!tileIds.length) return false;
-
-    for (const tileId of tileIds) {
-      const tile = tileMap[tileId];
-      if (tile && getProperty<boolean>(tile, 'TallGrass')) {
-        return true;
-      }
-    }
-    return false;
-  }
 
     for (const object of areaInfo.objects) {
       if (x >= object.x && x < object.x + object.width && y >= object.y && y < object.y + object.height) {
