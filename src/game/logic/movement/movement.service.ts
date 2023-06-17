@@ -1,4 +1,4 @@
-import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
+import {Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import * as fs from 'node:fs/promises';
 import {SocketService} from '../../../udp/socket.service';
@@ -42,7 +42,7 @@ export interface Portal extends BaseGameObject {
 export type GameObject = Portal;
 
 @Injectable()
-export class MovementService implements OnModuleInit {
+export class MovementService implements OnApplicationBootstrap {
   logger = new Logger(MovementService.name, {timestamp: true});
 
   constructor(
@@ -54,7 +54,7 @@ export class MovementService implements OnModuleInit {
 
   areas = new Map<string, AreaInfo>;
 
-  async onModuleInit() {
+  async onApplicationBootstrap() {
     this.logger.log('Loading areas...');
     const areas = await this.areaService.findAll();
     const tilesets = new Map<string, TilesetInfo>();
