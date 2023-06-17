@@ -7,7 +7,8 @@ import {TrainerModule} from '../trainer/trainer.module';
 import {GameLoader} from './game.loader';
 import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 import {MovementService} from './movement/movement.service';
-import {NpcMovementService} from './npc-movement/npc-movement.service';
+import {NpcMovementScheduler} from './npc-movement/npc-movement.scheduler';
+import {environment} from "../../environment";
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import {NpcMovementService} from './npc-movement/npc-movement.service';
     GameLoader,
     MovementService,
     MonsterGeneratorService,
-    NpcMovementService,
+    ...(environment.passive ? [] : [NpcMovementScheduler]),
   ],
 })
 export class LogicModule {

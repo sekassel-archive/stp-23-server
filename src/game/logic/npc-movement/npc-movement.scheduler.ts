@@ -7,7 +7,7 @@ import {TrainerService} from '../../trainer/trainer.service';
 import {EventEmitter2} from "@nestjs/event-emitter";
 
 @Injectable()
-export class NpcMovementService {
+export class NpcMovementScheduler {
   constructor(
     private trainerService: TrainerService,
     private eventEmitter: EventEmitter2,
