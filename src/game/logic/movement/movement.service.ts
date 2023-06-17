@@ -92,7 +92,11 @@ export class MovementService implements OnApplicationBootstrap {
     const text = await fs.readFile(`./assets/tilesets/${name}`, 'utf8').catch(() => '{}');
     const tileset = JSON.parse(text);
     for (const tile of tileset.tiles || []) {
-      walkable.set(tile.id);
+      for (const property of tile.properties) {
+        if (property.name === 'Walkable' && property.value) {
+          walkable.set(tile.id);
+        }
+      }
     }
     return {walkable};
   }
