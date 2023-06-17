@@ -104,15 +104,16 @@ export class MovementService implements OnModuleInit {
   @OnEvent('udp:areas.*.trainers.*.moved')
   @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
-    const oldLocation = this.trainerService.getLocation(dto._id.toString())
+    const trainerId = dto._id.toString();
+    const oldLocation = this.trainerService.getLocation(trainerId)
       || await this.trainerService.find(dto._id)
       || notFound(dto._id);
     const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
 
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || dto.area !== oldLocation.area // Mismatching area
-      || otherTrainer && otherTrainer._id.toString() !== dto._id.toString() // Trainer already at location
-      || !this.isWalkable(dto)
+      || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
+      || !this.isWalkable(dto) // Tile not walkable
     ) {
       dto.area = oldLocation.area;
       dto.x = oldLocation.x;
@@ -133,7 +134,7 @@ export class MovementService implements OnModuleInit {
     }
 
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
-    this.trainerService.setLocation(dto._id.toString(), dto);
+    this.trainerService.setLocation(trainerId, dto);
   }
 
   getTiles({area, x, y}: MoveTrainerDto): number[] {
