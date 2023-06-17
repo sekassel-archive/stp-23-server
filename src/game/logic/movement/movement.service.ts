@@ -136,7 +136,7 @@ export class MovementService implements OnApplicationBootstrap {
       const tilesetRef = tilesetsWithFirstgid.find(tsr => tsr.firstgid <= tileId);
       const x = layer.x + i % layer.width;
       const y = layer.y + (i / layer.width) | 0;
-      const index = x * width + y;
+      const index = y * width + x;
       if (tilesetRef && !tilesetRef.walkable.get(tileId - tilesetRef.firstgid)) {
         walkable.clear(index);
       }
@@ -211,7 +211,7 @@ export class MovementService implements OnApplicationBootstrap {
       return false;
     }
 
-    return !!areaInfo.walkable.get(dto.x * areaInfo.width + dto.y);
+    return !!areaInfo.walkable.get(dto.y * areaInfo.width + dto.x);
   }
 
   getGameObject(area: string, x: number, y: number): GameObject | undefined {
