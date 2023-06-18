@@ -193,3 +193,14 @@
 * Defeating a monster now grants experience.
 * Monsters can now level up and evolve.
 * Winning encounters now grants coins.
+
+# v3.0.1 - Minor Improvements
+
+## Improvements
+
+* Minor improvements to exterior tile definitions.
+* Improved movement and tall grass check performance.
+
+## Bugfixes
+
+* Trainer cleanup and NPC movement are now disabled for outdated servers.
