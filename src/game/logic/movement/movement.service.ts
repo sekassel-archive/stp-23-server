@@ -124,7 +124,7 @@ export class MovementService implements OnApplicationBootstrap {
       const name = source.substring(source.lastIndexOf('/') + 1);
       const tileset = tilesets.get(name)!;
       return {firstgid, ...tileset};
-    });
+    }).reverse();
 
     for (const layer of area.map.layers) {
       switch (layer.type) {

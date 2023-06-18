@@ -144,6 +144,21 @@
 * Fixed a bug where trainers would still block tiles after being deleted (manually or during cleanup).
 * Preset requests for `@2x` images now return `404 Not Found` instead of the original image.
 
+# v2.1.7 - v3 Backport
+
+## Improvements
+
+* Updated tilesets with v3 tile definitions.
+* JSON presets are now minimized.
+* Improved UDP error handling.
+* Improved movement check performance.
+* Trainer cleanup now happens regardless of position in the spawn area.
+
+## Bugfixes
+
+* Fixed tile Walkable check in non-infinite maps.
+* Trainer cleanup and NPC movement are now disabled for outdated servers.
+
 # v3.0.0 - Battle
 
 ## New Features
