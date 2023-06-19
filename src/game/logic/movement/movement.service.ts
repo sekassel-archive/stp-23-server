@@ -229,8 +229,6 @@ export class MovementService implements OnApplicationBootstrap {
         dto.area = area;
         dto.x = x;
         dto.y = y;
-        // inform old area that the trainer left
-        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
         break;
       case 'TallGrass':
         if (this.isTallGrass(dto) && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
@@ -238,13 +236,19 @@ export class MovementService implements OnApplicationBootstrap {
           const [type, minLevel, maxLevel] = gameObject.monsters.random();
           const level = maxLevel ? Math.floor(Math.random() * (maxLevel - minLevel + 1)) + minLevel : minLevel;
           trainer && await this.battleSetupService.createMonsterEncounter(trainer, type, level);
+          break;
         }
-        break;
+        // fallthrough -- NPCs can still attack in tall grass
+      default:
+        // NB: no await here, we don't care about the result or the order
+        this.checkAllNPCsOnSight(dto);
     }
 
-    this.checkAllNPCsOnSight(dto);
-
     await this.trainerService.update(dto._id, dto);
+    if (dto.area !== oldLocation.area) {
+      // inform old area that the trainer left
+      this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+    }
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
   }
 
