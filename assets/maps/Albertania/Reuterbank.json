@@ -270,7 +270,7 @@
                         {
                          "name":"Image",
                          "type":"string",
-                         "value":"Conference_man_16x16"
+                         "value":"Conference_man_16x16.png"
                         }, 
                         {
                          "name":"Sells",
@@ -293,7 +293,7 @@
                         {
                          "name":"Image",
                          "type":"string",
-                         "value":"Conference_woman_16x16"
+                         "value":"Conference_woman_16x16.png"
                         }, 
                         {
                          "name":"Sells",

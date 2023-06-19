@@ -3104,9 +3104,9 @@
          "name":"Objects",
          "objects":[
                 {
-                 "height":24,
+                 "height":35,
                  "id":2,
-                 "name":"Simon's House",
+                 "name":"Timon's House",
                  "properties":[
                         {
                          "name":"Map",
@@ -3116,15 +3116,36 @@
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":27.3333333333333,
+                 "width":16.7083333333333,
                  "x":1170,
                  "y":966.33333333333
                 }, 
                 {
                  "height":0,
                  "id":3,
-                 "name":"Simon",
+                 "name":"Timon",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"0"
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Pier_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[86,9]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -3167,7 +3188,7 @@
                  "y":612
                 }, 
                 {
-                 "height":26,
+                 "height":143.666666666667,
                  "id":11,
                  "name":"Route 107",
                  "rotation":0,

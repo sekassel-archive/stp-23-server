@@ -257,14 +257,14 @@
                  "point":true,
                  "properties":[
                         {
-                         "name":"Image",
-                         "type":"string",
-                         "value":"Premade_Character_20"
-                        }, 
-                        {
-                         "name":"canHeal",
+                         "name":"CanHeal",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Premade_Character_20.png"
                         }],
                  "rotation":0,
                  "type":"Trainer",
