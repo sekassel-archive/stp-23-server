@@ -191,12 +191,14 @@ export class MovementService implements OnApplicationBootstrap {
         dto.area = area;
         dto.x = x;
         dto.y = y;
-        // inform old area that the trainer left
-        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
         break;
     }
 
     await this.trainerService.update(dto._id, dto);
+    if (dto.area !== oldLocation.area) {
+      // inform old area that the trainer left
+      this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+    }
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
   }
 
