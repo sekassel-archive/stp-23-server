@@ -1827,7 +1827,7 @@
                  "y":1.52043483426394
                 }, 
                 {
-                 "height":69.5,
+                 "height":36.5,
                  "id":34,
                  "name":"Earth-Tech-AG",
                  "properties":[
@@ -1839,12 +1839,12 @@
                         {
                          "name":"X",
                          "type":"string",
-                         "value":""
+                         "value":"9"
                         }, 
                         {
                          "name":"Y",
                          "type":"string",
-                         "value":""
+                         "value":"12"
                         }],
                  "rotation":0,
                  "type":"Portal",

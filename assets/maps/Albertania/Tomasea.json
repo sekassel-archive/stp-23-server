@@ -3245,6 +3245,16 @@
                          "name":"Map",
                          "type":"string",
                          "value":"Tomasea Moncenter"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"string",
+                         "value":"9"
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"string",
+                         "value":"9"
                         }],
                  "rotation":0,
                  "type":"Portal",
