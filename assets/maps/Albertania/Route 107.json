@@ -1305,13 +1305,13 @@
                 }],
          "height":48,
          "id":7,
-         "name":"RapeWood1",
+         "name":"GrapeWood1",
          "opacity":1,
-         "startx":-16,
+         "startx":0,
          "starty":0,
          "type":"tilelayer",
          "visible":true,
-         "width":112,
+         "width":96,
          "x":0,
          "y":0
         }, 
@@ -1495,7 +1495,7 @@
                 }],
          "height":48,
          "id":8,
-         "name":"RapeWood2",
+         "name":"GrapeWood2",
          "opacity":1,
          "startx":-16,
          "starty":0,
@@ -1597,13 +1597,13 @@
                 }],
          "height":48,
          "id":9,
-         "name":"RapeWood3",
+         "name":"GrapeWood3",
          "opacity":1,
-         "startx":-16,
+         "startx":0,
          "starty":0,
          "type":"tilelayer",
          "visible":true,
-         "width":112,
+         "width":96,
          "x":0,
          "y":0
         }, 
@@ -1834,7 +1834,7 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"EarthTech"
+                         "value":"EarthTechAG"
                         }, 
                         {
                          "name":"X",
@@ -1852,6 +1852,29 @@
                  "width":126,
                  "x":737,
                  "y":198.5
+                }, 
+                {
+                 "height":0,
+                 "id":35,
+                 "name":"Nessava",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Doctor_2_16x16"
+                        }, 
+                        {
+                         "name":"Sells",
+                         "type":"string",
+                         "value":"[20,21]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":904,
+                 "y":467.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1860,7 +1883,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":35,
+ "nextobjectid":36,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.0",
