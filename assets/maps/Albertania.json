@@ -133,6 +133,11 @@
                  "name":"Natchester",
                  "properties":[
                         {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Moncenter+Store"
+                        }, 
+                        {
                          "name":"Description",
                          "type":"string",
                          "value":"A small town that hosts the monster park."
@@ -166,6 +171,11 @@
                  "id":21,
                  "name":"Clemeville",
                  "properties":[
+                        {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Store\nMoncenter\nUniversity"
+                        }, 
                         {
                          "name":"Description",
                          "type":"string",
@@ -217,6 +227,11 @@
                  "id":26,
                  "name":"Adromere",
                  "properties":[
+                        {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Moncenter+Store"
+                        }, 
                         {
                          "name":"Description",
                          "type":"string",

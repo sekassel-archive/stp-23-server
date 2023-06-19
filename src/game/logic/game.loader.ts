@@ -1,4 +1,4 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
+import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
 import {environment} from '../../environment';
@@ -14,6 +14,8 @@ import {MonsterGeneratorService} from './monster-generator/monster-generator.ser
 
 @Injectable()
 export class GameLoader implements OnModuleInit {
+  private logger = new Logger(GameLoader.name, {timestamp: true});
+
   constructor(
     private areaService: AreaService,
     private regionService: RegionService,
@@ -34,6 +36,7 @@ export class GameLoader implements OnModuleInit {
         continue;
       }
 
+      this.logger.log(`Loading ${regionName} region`);
       const map = JSON.parse(await fs.readFile(`./assets/maps/${regionName}.json`, 'utf8').catch(() => '{}'));
       const region = await this.regionService.upsert({name: regionName}, {name: regionName, map});
 
@@ -51,6 +54,7 @@ export class GameLoader implements OnModuleInit {
       }
       await region.save();
     }
+    this.logger.log('Game loaded');
   }
 
   private async loadArea(areaFileName: string, region: Region): Promise<AreaDocument> {

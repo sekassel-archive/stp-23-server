@@ -1,4 +1,4 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
+import {Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
@@ -6,14 +6,28 @@ import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
 import {AreaService} from '../../area/area.service';
 import {TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
-import {getProperty, Layer} from '../../tiled-map.interface';
-import {Tile} from '../../tileset.interface';
+import {Chunk, getProperty, TiledObject} from '../../tiled-map.interface';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
 import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
 import {notFound} from "@mean-stream/nestx";
+import BitSet from "bitset";
+
+export interface AreaInfo {
+  width: number;
+  height: number;
+  objects: GameObject[];
+  walkable: BitSet;
+  tallGrass: BitSet;
+}
+
+export interface TilesetInfo {
+  firstgid?: number;
+  walkable: BitSet;
+  tallGrass: BitSet;
+}
 
 export interface BaseGameObject {
   x: number;
@@ -39,7 +53,9 @@ export interface TallGrass extends BaseGameObject {
 export type GameObject = Portal | TallGrass;
 
 @Injectable()
-export class MovementService implements OnModuleInit {
+export class MovementService implements OnApplicationBootstrap {
+  logger = new Logger(MovementService.name, {timestamp: true});
+
   constructor(
     private trainerService: TrainerService,
     private socketService: SocketService,
@@ -48,77 +64,145 @@ export class MovementService implements OnModuleInit {
   ) {
   }
 
-  objects = new Map<string, GameObject[]>;
-  tilelayers = new Map<string, Layer[]>;
-  tiles = new Map<string, Tile[]>;
+  areas = new Map<string, AreaInfo>;
 
-  async onModuleInit() {
+  async onApplicationBootstrap() {
+    this.logger.log('Loading areas...');
     const areas = await this.areaService.findAll();
+    const tilesets = new Map<string, TilesetInfo>();
+
+    const tilesetNames = new Set<string>();
     for (const area of areas) {
-      const portals = this.loadObjects(area, areas);
-      this.objects.set(area._id.toString(), portals);
-
-      this.tilelayers.set(area._id.toString(), area.map.layers);
-
-      const tiles = await this.loadTiles(area);
-      this.tiles.set(area._id.toString(), tiles);
+      for (const {source} of area.map.tilesets) {
+        tilesetNames.add(source.substring(source.lastIndexOf('/') + 1));
+      }
     }
+    this.logger.log('Loading tilesets...');
+    await Promise.all([...tilesetNames].map(async name => {
+      tilesets.set(name, await this.loadTileset(name));
+    }));
+
+    this.logger.log('Processing areas...');
+    await Promise.all(areas.map(async area => {
+      this.areas.set(area._id.toString(), await this.loadArea(area, areas, tilesets));
+    }));
+    this.logger.log('Initialized');
   }
 
-  private loadObjects(area: Area, areas: Area[]) {
-    const objects: GameObject[] = [];
-
-    for (const layer of area.map.layers) {
-      if (layer.type !== 'objectgroup') {
-        continue;
-      }
-      for (const object of layer.objects) {
-        const x = object.x / area.map.tilewidth;
-        const y = object.y / area.map.tileheight;
-        const width = object.width / area.map.tilewidth;
-        const height = object.height / area.map.tileheight;
-        switch (object.type) {
-          case 'Portal':
-            const targetName = getProperty(object, 'Map');
-            const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
-            if (!targetArea) {
-              console.log('Invalid portal target:', targetName, 'in area', area.name, 'object', object.id);
-              continue;
-            }
-            objects.push({
-              type: 'Portal', x, y, width, height,
-              target: {
-                area: targetArea._id.toString(),
-                x: getProperty<number>(object, 'X') || 0,
-                y: getProperty<number>(object, 'Y') || 0,
-              },
-            });
+  private async loadTileset(name: string): Promise<TilesetInfo> {
+    const walkable = new BitSet();
+    const tallGrass = new BitSet();
+    const text = await fs.readFile(`./assets/tilesets/${name}`, 'utf8').catch(() => '{}');
+    const tileset = JSON.parse(text);
+    for (const tile of tileset.tiles || []) {
+      for (const property of tile.properties) {
+        if (!property.value) {
+          continue;
+        }
+        switch (property.name) {
+          case 'Walkable':
+            walkable.set(tile.id);
             break;
           case 'TallGrass':
-            objects.push({
-              type: 'TallGrass', x, y, width, height,
-              monsters: JSON.parse(getProperty<string>(object, 'Monsters') || '[]'),
-            });
+            tallGrass.set(tile.id);
             break;
         }
       }
     }
-    return objects;
+    return {walkable, tallGrass};
   }
 
-  private async loadTiles(area: Area): Promise<Tile[]> {
-    const tiles: Tile[] = [];
+  private loadArea(area: Area, areas: Area[], tilesets: Map<string, TilesetInfo>): AreaInfo {
+    const width = Math.max(...area.map.layers.map(l => l.x + l.width || 0));
+    const height = Math.max(...area.map.layers.map(l => l.y + l.height || 0));
+    const objects: GameObject[] = [];
+    const walkable = new BitSet();
+    walkable.setRange(0, width * height);
+    const tallGrass = new BitSet();
 
-    await Promise.all(area.map.tilesets.map(async tsr => {
-      const sourceFileName = tsr.source.substring(tsr.source.lastIndexOf('/') + 1);
-      const text = await fs.readFile(`./assets/tilesets/${sourceFileName}`, 'utf8').catch(() => '{}');
-      const tileset = JSON.parse(text);
-      for (const tile of tileset.tiles || []) {
-        tiles[tsr.firstgid + tile.id] = tile;
+    const tilesetsWithFirstgid = area.map.tilesets.map(({source, firstgid}) => {
+      const name = source.substring(source.lastIndexOf('/') + 1);
+      const tileset = tilesets.get(name)!;
+      return {firstgid, ...tileset};
+    }).reverse();
+
+    for (const layer of area.map.layers) {
+      switch (layer.type) {
+        case 'objectgroup':
+          for (const object of layer.objects) {
+            const gameObject = this.loadObject(object, area, areas);
+            gameObject && objects.push(gameObject);
+          }
+          break;
+        case 'tilelayer':
+          if (layer.data) {
+            this.loadChunk(layer as Chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
+          } else if (layer.chunks) {
+            for (const chunk of layer.chunks) {
+              this.loadChunk(chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
+            }
+          }
+          break;
       }
-    }));
+    }
 
-    return tiles;
+    return {width, height, objects, walkable, tallGrass};
+  }
+
+  private loadChunk(
+    layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], width: number,
+    walkable: BitSet, tallGrass: BitSet,
+  ) {
+    for (let i = 0; i < layer.data.length; i++) {
+      const tileId = layer.data[i];
+      if (tileId === 0) {
+        continue;
+      }
+      const tilesetRef = tilesetsWithFirstgid.find(tsr => tsr.firstgid <= tileId);
+      if (!tilesetRef) {
+        continue;
+      }
+
+      const x = layer.x + i % layer.width;
+      const y = layer.y + (i / layer.width) | 0;
+      const index = y * width + x;
+      const tileIdInTileset = tileId - tilesetRef.firstgid;
+      if (!tilesetRef.walkable.get(tileIdInTileset)) {
+        walkable.clear(index);
+      }
+      if (tilesetRef.tallGrass.get(tileIdInTileset)) {
+        tallGrass.set(index);
+      }
+    }
+  }
+
+  private loadObject(object: TiledObject, area: Area, areas: Area[]): GameObject | undefined {
+    const x = object.x / area.map.tilewidth;
+    const y = object.y / area.map.tileheight;
+    const width = object.width / area.map.tilewidth;
+    const height = object.height / area.map.tileheight;
+    switch (object.type) {
+      case 'Portal':
+        const targetName = getProperty(object, 'Map');
+        const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
+        if (!targetArea) {
+          this.logger.warn(`Invalid portal target: ${targetName} in area ${area.name} object ${object.id}`);
+          return;
+        }
+        return {
+          type: 'Portal', x, y, width, height,
+          target: {
+            area: targetArea._id.toString(),
+            x: getProperty<number>(object, 'X') || 0,
+            y: getProperty<number>(object, 'Y') || 0,
+          },
+        };
+      case 'TallGrass':
+        return {
+          type: 'TallGrass', x, y, width, height,
+          monsters: JSON.parse(getProperty<string>(object, 'Monsters') || '[]'),
+        };
+    }
   }
 
   @OnEvent('udp:areas.*.trainers.*.moved')
@@ -169,75 +253,36 @@ export class MovementService implements OnModuleInit {
     this.trainerService.setLocation(trainerId, dto);
   }
 
-  getTiles({area, x, y}: MoveTrainerDto): number[] {
-    const layers = this.tilelayers.get(area);
-    if (!layers) {
-      return [];
-    }
-
-    const tiles: number[] = [];
-    for (let i = (layers.length || 0) - 1; i >= 0; i--) {
-      const layer = layers[i];
-      if (layer.type !== 'tilelayer') {
-        continue;
-      }
-      if (!(x >= layer.startx && x < layer.startx + layer.width && y >= layer.starty && y < layer.starty + layer.height)) {
-        continue;
-      }
-
-      for (const chunk of layer.chunks) {
-        if (x >= chunk.x && x < chunk.x + chunk.width && y >= chunk.y && y < chunk.y + chunk.height) {
-          const tile = chunk.data[(y - chunk.y) * chunk.width + (x - chunk.x)];
-          if (tile != 0) {
-            tiles.push(tile);
-          }
-        }
-      }
-    }
-
-    return tiles;
-  }
-
   isWalkable(dto: MoveTrainerDto): boolean {
-    const tileMap = this.tiles.get(dto.area);
-    if (!tileMap) return false;
-
-    const tileIds = this.getTiles(dto);
-    if (!tileIds.length) return false;
-
-    for (const tileId of tileIds) {
-      const tile = tileMap[tileId];
-      if (!tile || !getProperty<boolean>(tile, 'Walkable')) {
-        return false;
-      }
+    const areaInfo = this.areas.get(dto.area);
+    if (!areaInfo) {
+      return false;
     }
-    return true;
+
+    return !!areaInfo.walkable.get(dto.y * areaInfo.width + dto.x);
   }
 
   isTallGrass(dto: MoveTrainerDto): boolean {
-    const tileMap = this.tiles.get(dto.area);
-    if (!tileMap) return false;
-
-    const tileIds = this.getTiles(dto);
-    if (!tileIds.length) return false;
-
-    for (const tileId of tileIds) {
-      const tile = tileMap[tileId];
-      if (tile && getProperty<boolean>(tile, 'TallGrass')) {
-        return true;
-      }
+    const areaInfo = this.areas.get(dto.area);
+    if (!areaInfo) {
+      return false;
     }
-    return false;
+
+    return !!areaInfo.tallGrass.get(dto.y * areaInfo.width + dto.x);
   }
 
-  getGameObject(area: string, x: number, y: number) {
-    const portals = this.objects.get(area) || [];
-    for (const portal of portals) {
-      if (x >= portal.x && x < portal.x + portal.width && y >= portal.y && y < portal.y + portal.height) {
-        return portal;
+  getGameObject(area: string, x: number, y: number): GameObject | undefined {
+    const areaInfo = this.areas.get(area);
+    if (!areaInfo) {
+      return;
+    }
+
+    for (const object of areaInfo.objects) {
+      if (x >= object.x && x < object.x + object.width && y >= object.y && y < object.y + object.height) {
+        return object;
       }
     }
-    return null;
+    return;
   }
 
   async checkAllNPCsOnSight(dto: MoveTrainerDto) {

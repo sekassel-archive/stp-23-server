@@ -1,7 +1,7 @@
 import { SchemaOptions } from '@nestjs/mongoose';
 import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger';
 import { Types } from 'mongoose';
-import {Transform} from "class-transformer";
+import {Transform, Type} from "class-transformer";
 import {IsInstance} from "class-validator";
 
 
@@ -44,7 +44,9 @@ export class GlobalSchemaWithoutID {
 
 export class GlobalSchema extends GlobalSchemaWithoutID {
   @ApiProperty(MONGO_ID_FORMAT)
-  @Transform(({value}) => new Types.ObjectId(value))
+  @Type(() => Types.ObjectId)
+  // TODO add w/a to @mean-stream https://github.com/typestack/class-transformer/issues/484#issuecomment-755872178
+  @Transform(({obj}) => new Types.ObjectId(obj._id))
   @IsInstance(Types.ObjectId)
   _id!: Types.ObjectId;
 }
