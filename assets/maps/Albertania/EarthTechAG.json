@@ -249,6 +249,29 @@
                  "width":64,
                  "x":127.75,
                  "y":207.5
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"Wulian",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Premade_Character_20"
+                        }, 
+                        {
+                         "name":"canHeal",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":159.5,
+                 "y":175.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -257,7 +280,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.0",
