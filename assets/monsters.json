@@ -809,6 +809,7 @@
     "image": "Zuendorm_1.png",
     "name": "Zuendorm",
     "type": ["fire"],
+    "legendary": true,
     "description": "Zuendorm is a fire-type creature with a body made of living flame, and can ignite anything it touches."
   },
   {
@@ -1098,5 +1099,21 @@
     "name": "Lumican",
     "type": ["flying", "dark"],
     "description": "Lumican evolves from Shadodo, donning striking black and yellow feathers and a brilliantly colorful beak, exuding an aura of tropical allure."
+  },
+  {
+    "id": 149,
+    "image": "Dragoking_1.png",
+    "name": "Dragoking",
+    "type": ["dragon", "flying"],
+    "legendary": true,
+    "description": "Dragoking possesses an otherworldly aura and commands the powers of the heavens, embodying grace, wisdom, and untamed power."
+  },
+  {
+    "id": 150,
+    "image": "Kitsurin_1.png",
+    "name": "Kitsurin",
+    "type": ["psychic"],
+    "legendary": true,
+    "description": "Kitsurin is a mystical creature, resembling a fox with a long, flowing tail, exuding an air of mystery and intrigue as it navigates Albertania with grace and agility."
   }
 ]
