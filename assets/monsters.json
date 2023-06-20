@@ -585,7 +585,7 @@
     "name": "Sebkun",
     "type": ["dragon", "dark"],
     "evolution": 80,
-    "description": "Sebkun is a dragon and dark type creature that is incredibly agile and has a keen sense of smell to track its prey."
+      "description": "Sebkun is a dragon and dark type creature that is incredibly agile and has a keen sense of smell to track its prey."
   },
   {
     "id": 80,
@@ -907,5 +907,112 @@
     "name": "Adrevil",
     "type": ["dark"],
     "description": "Adrevil embodies pure evil. Despite its seemingly weak appearance, this creature should not be underestimated, as it forces opponents to sort through images of monsters."
+  },
+  {
+    "id": 123,
+    "image": "Furrobit_1.png",
+    "name": "Furrobit",
+    "type": ["normal"],
+    "evolution": 124,
+    "description": "Furrobit is a normal type creature that resembles a fluffy rabbit with vibrant fur. Its adorable appearance can captivate opponents, making it difficult to resist its charm."
+  },
+  {
+    "id": 124,
+    "image": "Furrobit_2.png",
+    "name": "Skelehare",
+    "type": ["ghost"],
+    "description": "Skelehare is a haunting apparition of a rabbit. Its skeletal form is draped in an ethereal aura, emitting an eerie presence that chills those who witness it."
+  },
+  {
+    "id": 125,
+    "image": "Lickitoad_1.png",
+    "name": "Lickitoad",
+    "type": ["water"],
+    "evolution": 126,
+    "description": "Lickitoad is a water type creature resembling a lively green frog. With its vibrant hue and a remarkably tongue, it adeptly catches prey and surprises opponents in battles."
+  },
+  {
+    "id": 126,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["water", "fighting"],
+    "description": ""
+  },
+  {
+    "id": 127,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 128,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 129,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 130,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 131,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 132,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 133,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 134,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 135,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 136,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
+  },
+  {
+    "id": 137,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["normal"],
+    "description": ""
   }
 ]
