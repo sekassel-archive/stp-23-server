@@ -2900,11 +2900,11 @@
          "id":8,
          "name":"Buildings 1",
          "opacity":1,
-         "startx":-32,
+         "startx":0,
          "starty":0,
          "type":"tilelayer",
          "visible":true,
-         "width":160,
+         "width":96,
          "x":0,
          "y":0
         }, 
@@ -3935,7 +3935,7 @@
                 {
                  "height":0,
                  "id":17,
-                 "name":"Lil Tom",
+                 "name":"Lil Lom",
                  "point":true,
                  "properties":[
                         {
@@ -3991,7 +3991,7 @@
                 {
                  "height":0,
                  "id":19,
-                 "name":"Salty Sandro",
+                 "name":"Jealous Jandro",
                  "point":true,
                  "properties":[
                         {
