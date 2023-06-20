@@ -159,6 +159,13 @@
 * Fixed tile Walkable check in non-infinite maps.
 * Trainer cleanup and NPC movement are now disabled for outdated servers.
 
+# v2.1.8
+
+## Bugfixes
+
+* Removed the trainer location cache to avoid ghost trainers and conflicts with newer server instances.
+* Fixed an internal error in the UDP socket.
+
 # v3.0.0 - Battle
 
 ## New Features
@@ -204,3 +211,17 @@
 ## Bugfixes
 
 * Trainer cleanup and NPC movement are now disabled for outdated servers.
+
+# v3.0.2 - Minor Fixes
+
+## Improvements
+
++ Added some sand tiles for future use.
+
+## Bugfixes
+
+* Removed some strange Tile IDs from Route 111.
+* Removed the trainer location cache to avoid ghost trainers and conflicts with newer server instances.
+* Fixed an internal error in the UDP socket.
+* Fixed an internal error when an encounter ends.
+* Fixed an internal error when talking to a trainer with an invalid ID.
