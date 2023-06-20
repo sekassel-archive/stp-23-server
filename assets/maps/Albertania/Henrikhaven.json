@@ -1243,7 +1243,71 @@
          "draworder":"topdown",
          "id":3,
          "name":"Objects",
-         "objects":[],
+         "objects":[
+                {
+                 "height":16,
+                 "id":17,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Class",
+                         "type":"string",
+                         "value":"Portal"
+                        }, 
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Henrikhaven North"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":43
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":43
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":672,
+                 "y":80
+                }, 
+                {
+                 "height":192,
+                 "id":18,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Class",
+                         "type":"string",
+                         "value":"Portal"
+                        }, 
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Henrikhaven East"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":19
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":21
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":976,
+                 "y":96
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -1251,7 +1315,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":13,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
