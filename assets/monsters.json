@@ -936,83 +936,167 @@
     "image": "Lickitoad_2.png",
     "name": "Tortoad",
     "type": ["water", "fighting"],
-    "description": ""
+    "description": "Tortoad, the evolved form of Lickitoad, is a formidable green creature. With its turtle-like appearance and razor-sharp claws, it delivers powerful blows in battle."
   },
   {
     "id": 127,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
+    "image": "Maxoterus_1.png",
+    "name": "Maxoterus",
     "type": ["normal"],
-    "description": ""
+    "evolution": 128,
+    "description": "Maxoterus is a normal type creature that resembles a bull with a vibrant mane. Its imposing horns and muscular physique make it a formidable opponent in battle."
   },
   {
     "id": 128,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
+    "image": "Maxoterus_2.png",
+    "name": "Terrahorn",
     "type": ["normal"],
-    "description": ""
+    "description": "Terrahorn exudes a formidable presence with its majestic horns and piercing red eyes. With its unyielding spirit it navigates steep terrains with ease, embodying the spirit of a resilient mountain climber."
   },
   {
     "id": 129,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
-    "type": ["normal"],
-    "description": ""
+    "image": "Gullwing_1.png",
+    "name": "Gullwing",
+    "type": ["flying"],
+    "evolution": 130,
+    "description": "Gullwing, a serene white seagull, soars gracefully through the skies above the sea. Its wings catch the breeze, allowing it to dive and glide effortlessly."
   },
   {
     "id": 130,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
-    "type": ["normal"],
-    "description": ""
+    "image": "Gullwing_2.png",
+    "name": "Pelisurge",
+    "type": ["flying", "water"],
+    "description": "Pelisurge, a majestic seabird with a vibrant white plumage and a distinctive yellow bill. Its enormous size and powerful beak make it an adept hunter, diving into the waters to catch its prey."
   },
   {
     "id": 131,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
-    "type": ["normal"],
-    "description": ""
+    "image": "Nightshade_1.png",
+    "name": "Nightshade",
+    "type": ["dark"],
+    "description": "Nightshade, a shadowy black cat with ruby eyes, moves with eerie grace, ensnaring foes in its enigmatic presence."
   },
   {
     "id": 132,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
-    "type": ["normal"],
-    "description": ""
+    "image": "Frostfang_1.png",
+    "name": "Frostfang",
+    "type": ["ice"],
+    "description": "Frostfang, a towering white wolf with crimson eyes, commands the chilling power of the winter winds, striking fear into the hearts of all who witness its majestic presence."
   },
   {
     "id": 133,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
+    "image": "Emberroot_1.png",
+    "name": "Emberroot",
     "type": ["normal"],
-    "description": ""
+    "description": "Emberroot, a withered brown tree stump adorned with fiery red eyes and a haunting mouth, possesses an ancient and mysterious power, radiating an aura that foretells the impending blaze it can unleash."
   },
   {
     "id": 134,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
-    "type": ["normal"],
-    "description": ""
+    "image": "Coralwisp_1.png",
+    "name": "Coralwisp",
+    "type": ["water"],
+    "evolution": 135,
+    "description": "Coralwisp, a petite seahorse with vibrant hues, glides through the ocean depths, leaving a trail of shimmering light in its wake."
   },
   {
     "id": 135,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
-    "type": ["normal"],
-    "description": ""
+    "image": "Coralwisp_2.png",
+    "name": "Crimsonfin",
+    "type": ["water"],
+    "description": "Monster 2: Crimsonfin, a colossal red fish with razor-sharp fins, emerges from the depths with an unwavering presence, embodying the might and resilience of the deep sea, ready to dominate any challengers that dare to cross its path."
   },
   {
     "id": 136,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
-    "type": ["normal"],
-    "description": ""
+    "image": "Bloodfin_1.png",
+    "name": "Bloodfin",
+    "type": ["water"],
+    "description": "Bloodfin, a colossal great white shark, commands the depths of the ocean with its immense power and relentless hunger, striking fear into the hearts of all who witness its presence."
   },
   {
     "id": 137,
-    "image": "Lickitoad_2.png",
-    "name": "Tortoad",
+    "image": "Hoglin_1.png",
+    "name": "Hoglin",
     "type": ["normal"],
-    "description": ""
+    "description": "Hoglin, a massive boar with a menacing presence, is a formidable opponent in battle, charging at its foes with its razor-sharp tusks."
+  },
+  {
+    "id": 138,
+    "image": "Marinotort_1.png",
+    "name": "Marinotort",
+    "type": ["water"],
+    "description": "Marinotort, a water type creature reminiscent of a sea turtle, boasts a lush green body and a regal purple shell, utilizing the ocean's might for defense."
+  },
+  {
+    "id": 139,
+    "image": "Spikeshroud_1.png",
+    "name": "Spikeshroud",
+    "type": ["water"],
+    "evolution": 140,
+    "description": "Spikeshroud is a small pink jellyfish-like creature that disguises itself by snatching the shell of another creature, donning a grey-green spiked head covering for protection."
+  },
+  {
+    "id": 140,
+    "image": "Spikeshroud_2.png",
+    "name": "Gloomander",
+    "type": ["water"],
+    "evolution": 141,
+    "description": "Gloomander evolves from Spikeshroud, losing its shell in the process, becoming a slightly menacing pink jellyfish with heightened strength and an eerie appearance."
+  },
+  {
+    "id": 141,
+    "image": "Spikeshroud_3.png",
+    "name": "Apexsting",
+    "type": ["water", "psychic"],
+    "description": "Apexsting, the final evolution, is a formidable and menacing giant pink jellyfish that exudes an aura of danger, commanding respect with its imposing size and powerful capabilities."
+  },
+  {
+    "id": 142,
+    "image": "Sandyshell_1.png",
+    "name": "Sandyshell",
+    "type": ["ground"],
+    "description": "Sandyshell is a diminutive hermit crab found on the sandy shores, boasting a charming brown hue that blends seamlessly with its beach surroundings, seeking refuge in discarded seashells."
+  },
+  {
+    "id": 143,
+    "image": "Blufin_1.png",
+    "name": "Blufin",
+    "type": ["water"],
+    "evolution": 144,
+    "description": "Blufin, the initial evolution, is a vibrant sea fish with a striking combination of blue and yellow scales, gracefully gliding through ocean currents with agility and finesse."
+  },
+  {
+    "id": 144,
+    "image": "Blufin_2.png",
+    "name": "Crimsonfin",
+    "type": ["water"],
+    "description": "Crimsonfin, the evolved form of Blufin, exhibits a stunning transformation, now adorned in a captivating shade of red, radiating an air of intensity as it navigates the depths of the sea with unparalleled speed."
+  },
+  {
+    "id": 145,
+    "image": "Snowwing_1.png",
+    "name": "Snowwing",
+    "type": ["flying"],
+    "description": "Snowwing is a majestic creature, reminiscent of a griffon, with pristine white feathers that shimmer like freshly fallen snow, soaring through the skies with elegance and grace."
+  },
+  {
+    "id": 146,
+    "image": "Vamphibian_1.png",
+    "name": "Vampibian",
+    "type": ["flying", "water"],
+    "description": "Vamphibian is a sea-dwelling creature, resembling a captivating purple frog with delicate blue wings, effortlessly navigating both land and water as it enthralls its victims with its enchanting croak."
+  },
+  {
+    "id": 147,
+    "image": "Shadodo_1.png",
+    "name": "Shadodo",
+    "type": ["flying", "dark"],
+    "evolution": 148,
+    "description": "Shadodo is a black-feathered dodo with an air of mystery, flitting through the shadows with its distinct waddle, leaving a trail of intrigue in its wake."
+  },
+  {
+    "id": 148,
+    "image": "Shadodo_2.png",
+    "name": "Lumican",
+    "type": ["flying", "dark"],
+    "description": "Lumican evolves from Shadodo, donning striking black and yellow feathers and a brilliantly colorful beak, exuding an aura of tropical allure."
   }
 ]
