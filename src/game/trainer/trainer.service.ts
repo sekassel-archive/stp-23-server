@@ -9,7 +9,6 @@ import {CreateTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
 import {DeleteManyResult, EventRepository, MongooseRepository} from "@mean-stream/nestx";
 import {Spawn} from "../../region/region.schema";
-import {Monster} from "../monster/monster.schema";
 
 @Injectable()
 @EventRepository()
