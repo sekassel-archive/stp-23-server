@@ -26,15 +26,15 @@ export class EncounterHandler {
     const trainers = await this.trainerService.findAll({
       _id: {$in: opponents.map(o => new Types.ObjectId(o.trainer))},
     });
-    for (const trainer of trainers) {
+    await this.trainerService.saveAll(trainers.filter(trainer => {
       const opponent = opponents.find(o => o.trainer === trainer._id.toString());
-      if (!opponent) {
-        continue;
+      if (!opponent || opponent.isNPC) {
+        return false;
       }
 
       trainer.$inc('coins', opponent.coins);
-    }
-    await this.trainerService.saveAll(trainers);
+      return true;
+    }));
 
     // all opponents on one side have been defeated
     await this.encounterService.delete(new Types.ObjectId(opponent.encounter));

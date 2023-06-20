@@ -22,7 +22,7 @@ interface Remote {
 }
 
 interface Message {
-  event: string;
+  event?: string;
   data?: any;
 }
 
@@ -45,12 +45,14 @@ export class SocketService implements OnModuleInit {
 
   async onMessage(msg: Buffer, info: RemoteInfo) {
     let message: Message = {event: 'unknown'};
+    let maskedEvent = 'unknown';
     let tx: Transaction | undefined;
     try {
       message = JSON.parse(msg.toString());
+      maskedEvent = message.event?.toString().replace(/[a-f0-9]{24}/g, '*') || maskedEvent;
       tx = this.sentryService.instance().startTransaction({
         op: 'udp',
-        name: message.event.replace(/[a-f0-9]{24}/g, '*'),
+        name: maskedEvent,
         data: {
           event: message.event,
         },
@@ -61,7 +63,7 @@ export class SocketService implements OnModuleInit {
         tx.setStatus(HttpStatus[e.response.status]);
         tx.setHttpStatus(e.response.status);
       } else {
-        this.sentryService.error(e.message, e.stack, 'udp:' + message.event);
+        this.sentryService.error(e.message, e.stack, 'udp:' + maskedEvent);
       }
       this.socket.send(JSON.stringify({event: 'error', data: e.response || e.message}), info.port, info.address);
     } finally {

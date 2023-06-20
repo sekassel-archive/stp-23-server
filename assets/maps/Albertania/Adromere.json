@@ -1423,12 +1423,12 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Clemeville Moncenter"
+                         "value":"Adromere Moncenter+Store"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":9
+                         "value":5
                         }, 
                         {
                          "name":"Y",
@@ -1438,7 +1438,7 @@
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":176,
+                 "width":80,
                  "x":592,
                  "y":256
                 }, 
@@ -1629,6 +1629,33 @@
                  "width":0,
                  "x":304,
                  "y":1104
+                }, 
+                {
+                 "height":80,
+                 "id":27,
+                 "name":"Store",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Adromere Moncenter+Store"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":13
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":80,
+                 "x":672,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1637,7 +1664,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":27,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

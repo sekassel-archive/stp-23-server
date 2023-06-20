@@ -10,10 +10,11 @@ import {BattleService} from './battle/battle.service';
 import {GameLoader} from './game.loader';
 import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 import {MovementService} from './movement/movement.service';
-import {NpcMovementService} from './npc-movement/npc-movement.service';
-import { EncounteredMonsterTypesService } from './encountered-monster-types/encountered-monster-types.service';
-import { BattleSetupService } from './battle-setup/battle-setup.service';
-import { NpcTalkService } from './npc-talk/npc-talk.service';
+import {NpcMovementScheduler} from './npc-movement/npc-movement.scheduler';
+import {environment} from "../../environment";
+import {EncounteredMonsterTypesService} from './encountered-monster-types/encountered-monster-types.service';
+import {BattleSetupService} from './battle-setup/battle-setup.service';
+import {NpcTalkService} from './npc-talk/npc-talk.service';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { NpcTalkService } from './npc-talk/npc-talk.service';
     GameLoader,
     MovementService,
     MonsterGeneratorService,
-    NpcMovementService,
+    ...(environment.passive ? [] : [NpcMovementScheduler]),
     BattleService,
     EncounteredMonsterTypesService,
     BattleSetupService,
