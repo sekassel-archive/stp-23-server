@@ -2,6 +2,7 @@ import {createCanvas, loadImage} from "canvas";
 import BitSet from "bitset";
 import * as fs from "node:fs/promises";
 import {gzipSync} from "zlib";
+import chalk from "chalk";
 
 const region = 'Albertania';
 const tilesetName = 'Modern_Exteriors_16x16';
@@ -77,8 +78,16 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
   const optimizedSize = optimized.length;
   const optimizedGzipSize = gzipSync(optimized).length;
   console.log(`${file}: 
-  Minified: ${initialSize} -> ${optimizedSize} (${Math.round(100 * optimizedSize / initialSize)}%)
-  Min+Gzip: ${initialGzipSize} -> ${optimizedGzipSize} (${Math.round(100 * optimizedGzipSize / initialGzipSize)}%)`);
+  Minified: ${initialSize} -> ${optimizedSize} (${colorPercent(optimizedSize / initialSize)})
+  Min+Gzip: ${initialGzipSize} -> ${optimizedGzipSize} (${colorPercent(optimizedGzipSize / initialGzipSize)})`);
+}
+
+function colorPercent(percent) {
+  return chalk.rgb(
+    Math.round(255 * percent),
+    Math.round(255 * (1 - percent)),
+    0
+  )(Math.round(100 * percent) + '%');
 }
 
 function findOpaqueTilesIndices(image, tileSize) {
