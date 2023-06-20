@@ -1,8 +1,9 @@
 import {ApiProperty, PickType} from '@nestjs/swagger';
-import {IsMongoId} from 'class-validator';
 import {PartialType} from '../../util/partial-type';
 import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Trainer} from './trainer.schema';
+import {AsObjectId} from "@mean-stream/nestx";
+import {Types} from "mongoose";
 
 export class CreateTrainerDto extends PickType(Trainer, [
   'name',
@@ -36,8 +37,8 @@ export class TalkTrainerDto extends PickType(Trainer, ['_id']) {
 - Talking to someone who offers Starters (npc.starters) will allow you to receive a starter monster.
 - Talking to a Trainer (npc.encounterOnSight) will start an encounter, even if that NPC already battled with you ("rematch").`,
   })
-  @IsMongoId()
-  target: string;
+  @AsObjectId()
+  target: Types.ObjectId;
 
   @ApiProperty({
     description: 'The selection for some NPC dialog options. ' +
