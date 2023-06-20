@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@mean-stream/nestx": "^0.9.2",
+    "@mean-stream/nestx": "^0.10.1",
     "@nestjs/common": "^9.4.3",
     "@nestjs/core": "^9.4.3",
     "@nestjs/event-emitter": "^1.4.2",
