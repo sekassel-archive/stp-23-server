@@ -244,7 +244,7 @@ export class MovementService implements OnApplicationBootstrap {
         this.checkAllNPCsOnSight(dto);
     }
 
-    await this.trainerService.update(dto._id, dto);
+    await this.trainerService.updateWithoutEvent(dto._id, dto);
     if (dto.area !== oldLocation.area) {
       // inform old area that the trainer left
       this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
