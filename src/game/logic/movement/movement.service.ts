@@ -209,10 +209,8 @@ export class MovementService implements OnApplicationBootstrap {
   @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
-    const oldLocation = this.trainerService.getLocation(trainerId)
-      || await this.trainerService.find(dto._id)
-      || notFound(dto._id);
-    const otherTrainer = this.trainerService.getTrainerAt(dto.area, dto.x, dto.y);
+    const oldLocation = await this.trainerService.find(dto._id) || notFound(dto._id);
+    const otherTrainer = await this.trainerService.findOne({area: dto.area, x: dto.x, y: dto.y});
 
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || dto.area !== oldLocation.area // Mismatching area
@@ -231,11 +229,6 @@ export class MovementService implements OnApplicationBootstrap {
         dto.area = area;
         dto.x = x;
         dto.y = y;
-        // inform old area that the trainer left
-        this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
-        // NB: this is required, because the GET /trainers?area= endpoint relies on
-        //     the database knowing the trainer is in the new area.
-        await this.trainerService.saveLocations([dto]);
         break;
       case 'TallGrass':
         if (this.isTallGrass(dto) && Math.random() < TALL_GRASS_ENCOUNTER_CHANCE) {
@@ -243,14 +236,20 @@ export class MovementService implements OnApplicationBootstrap {
           const [type, minLevel, maxLevel] = gameObject.monsters.random();
           const level = maxLevel ? Math.floor(Math.random() * (maxLevel - minLevel + 1)) + minLevel : minLevel;
           trainer && await this.battleSetupService.createMonsterEncounter(trainer, type, level);
+          break;
         }
-        break;
+        // fallthrough -- NPCs can still attack in tall grass
+      default:
+        // NB: no await here, we don't care about the result or the order
+        this.checkAllNPCsOnSight(dto);
     }
 
-    this.checkAllNPCsOnSight(dto);
-
+    await this.trainerService.update(dto._id, dto);
+    if (dto.area !== oldLocation.area) {
+      // inform old area that the trainer left
+      this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+    }
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
-    this.trainerService.setLocation(trainerId, dto);
   }
 
   isWalkable(dto: MoveTrainerDto): boolean {

@@ -1,23 +1,19 @@
-import {ConflictException, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit} from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import {Cron, CronExpression} from '@nestjs/schedule';
 import {FilterQuery, Model, Types} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {RegionService} from '../../region/region.service';
 import {GlobalSchema} from '../../util/schema';
-import {CreateTrainerDto, MOVE_TRAINER_PROPS, MoveTrainerDto} from './trainer.dto';
+import {CreateTrainerDto} from './trainer.dto';
 import {Direction, Trainer, TrainerDocument} from './trainer.schema';
 import {DeleteManyResult, EventRepository, MongooseRepository} from "@mean-stream/nestx";
 import {Spawn} from "../../region/region.schema";
-import {OnEvent} from "@nestjs/event-emitter";
 import {Monster} from "../monster/monster.schema";
 
 @Injectable()
 @EventRepository()
-export class TrainerService extends MongooseRepository<Trainer> implements OnModuleInit, OnModuleDestroy {
-  locations = new Map<string, MoveTrainerDto>;
-
+export class TrainerService extends MongooseRepository<Trainer> {
   constructor(
     @InjectModel(Trainer.name) model: Model<Trainer>,
     private eventEmitter: EventService,
@@ -54,37 +50,6 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
         throw new ConflictException('Trainer already exists');
       }
       throw err;
-    }
-  }
-
-  async find(id: Types.ObjectId): Promise<TrainerDocument | null> {
-    const result = await super.find(id);
-    result && this.addLocation(result);
-    return result;
-  }
-
-  async findOne(id: Types.ObjectId): Promise<TrainerDocument | null> {
-    const result = await super.findOne(id);
-    result && this.addLocation(result);
-    return result;
-  }
-
-  async findAll(filter: FilterQuery<Trainer>): Promise<TrainerDocument[]> {
-    const results = await super.findAll(filter);
-    for (const result of results) {
-      this.addLocation(result);
-    }
-    return results;
-  }
-
-  addLocation(doc: Trainer) {
-    const location = this.getLocation(doc._id.toString());
-    if (!location) {
-      return;
-    }
-    for (const key of MOVE_TRAINER_PROPS) {
-      // @ts-ignore
-      doc[key] = location[key];
     }
   }
 
@@ -148,68 +113,5 @@ export class TrainerService extends MongooseRepository<Trainer> implements OnMod
     ];
     const trainers = await this.model.aggregate(pipeline);
     return this.deleteAll(trainers);
-  }
-
-  // --------------- Movement/Locations ---------------
-
-  @OnEvent('regions.*.trainers.*.created')
-  async onTrainerCreated(trainer: Trainer): Promise<void> {
-    this.setLocation(trainer._id.toString(), {
-      _id: trainer._id,
-      area: trainer.area,
-      x: trainer.x,
-      y: trainer.y,
-      direction: trainer.direction,
-    });
-  }
-
-  @OnEvent('regions.*.trainers.*.deleted')
-  async onTrainerDeleted(trainer: Trainer): Promise<void> {
-    this.locations.delete(trainer._id.toString());
-  }
-
-  getLocations(): IterableIterator<MoveTrainerDto> {
-    return this.locations.values();
-  }
-
-  getLocation(id: string): MoveTrainerDto | undefined {
-    return this.locations.get(id);
-  }
-
-  getTrainerAt(area: string, x: number, y: number): MoveTrainerDto | undefined {
-    for (const location of this.locations.values()) {
-      if (location.area === area && location.x === x && location.y === y) {
-        return location;
-      }
-    }
-    return undefined;
-  }
-
-  setLocation(id: string, dto: MoveTrainerDto): void {
-    this.locations.set(id, dto);
-  }
-
-  async onModuleInit() {
-    for await (const doc of this.model.find().select([...MOVE_TRAINER_PROPS])) {
-      this.setLocation(doc._id.toString(), doc.toObject());
-    }
-  }
-
-  async onModuleDestroy() {
-    await this.flushLocations();
-  }
-
-  @Cron(CronExpression.EVERY_MINUTE)
-  async flushLocations() {
-    await this.saveLocations(Array.from(this.locations.values()));
-  }
-
-  async saveLocations(locations: MoveTrainerDto[]) {
-    await this.model.bulkWrite(locations.map(({_id, ...rest}) => ({
-      updateOne: {
-        filter: {_id},
-        update: {$set: rest},
-      },
-    })));
   }
 }
