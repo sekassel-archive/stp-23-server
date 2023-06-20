@@ -1,6 +1,6 @@
 import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import {FilterQuery, Model, Types} from 'mongoose';
+import {FilterQuery, Model, Types, UpdateQuery} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {RegionService} from '../../region/region.service';
@@ -49,6 +49,11 @@ export class TrainerService extends MongooseRepository<Trainer> {
       }
       throw err;
     }
+  }
+
+  // Avoid EventRepository decorator using a new method name
+  updateWithoutEvent(id: Types.ObjectId, update: UpdateQuery<Trainer>): Promise<TrainerDocument | null> {
+    return super.update(id, update);
   }
 
   private emit(event: string, trainer: Trainer): void {
