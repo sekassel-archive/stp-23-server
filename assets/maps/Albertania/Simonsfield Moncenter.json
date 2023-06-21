@@ -130,12 +130,12 @@
                 {
                  "height":16,
                  "id":1,
-                 "name":"Simonsfeld",
+                 "name":"Simonsfield",
                  "properties":[
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Simonsfeld"
+                         "value":"Simonsfield"
                         }, 
                         {
                          "name":"X",
