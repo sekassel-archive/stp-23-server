@@ -3199,7 +3199,7 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"House"
+                         "value":"Tomasea Timon's House"
                         }, 
                         {
                          "name":"X",
@@ -3278,6 +3278,22 @@
                  "height":143.666666666667,
                  "id":11,
                  "name":"Route 107",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Route 107"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"string",
+                         "value":"61"
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"string",
+                         "value":"5"
+                        }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
@@ -3293,7 +3309,7 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Reuterbank"
+                         "value":"Tomasea Reuterbank"
                         }, 
                         {
                          "name":"X",
@@ -3347,7 +3363,7 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"TubeTown"
+                         "value":"Tomasea TubeTown"
                         }, 
                         {
                          "name":"X",
@@ -3374,7 +3390,7 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"TubeTown"
+                         "value":"Tomasea TubeTown"
                         }, 
                         {
                          "name":"X",
@@ -3397,6 +3413,22 @@
                  "height":111.333333333333,
                  "id":25,
                  "name":"Arena Wulinarium",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Tomasea Arena Wulinarium"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"string",
+                         "value":"82"
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"string",
+                         "value":"23"
+                        }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
