@@ -262,6 +262,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"3"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Premade_Character_20.png"

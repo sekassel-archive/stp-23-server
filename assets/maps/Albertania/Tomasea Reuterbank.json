@@ -256,6 +256,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"3"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Conference_man_16x16.png"
@@ -278,6 +283,11 @@
                  "name":"Corpa",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"3"
+                        }, 
                         {
                          "name":"Image",
                          "type":"string",

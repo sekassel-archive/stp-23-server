@@ -232,6 +232,34 @@
                  "width":32,
                  "x":624.25,
                  "y":80.25
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"Lil CaLa",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"3"
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Prisoner_2_16x16.png"
+                        }, 
+                        {
+                         "name":"Sells",
+                         "type":"string",
+                         "value":"[20,42,46]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":502.837894736842,
+                 "y":405.288421052632
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -240,7 +268,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":9,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.0",

@@ -166,6 +166,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"3"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Nurse_1_16x16.png"
@@ -183,6 +188,11 @@
                  "name":"Dan the Man",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"string",
+                         "value":"0"
+                        }, 
                         {
                          "name":"Image",
                          "type":"string",

@@ -3227,7 +3227,7 @@
                         {
                          "name":"Direction",
                          "type":"string",
-                         "value":"0"
+                         "value":"3"
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -3242,7 +3242,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[86,9]]"
+                         "value":"[[86,25]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -3257,6 +3257,11 @@
                  "name":"Jesse Pinkman",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"CanHeal",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"Direction",
                          "type":"string",
