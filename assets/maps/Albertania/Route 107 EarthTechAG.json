@@ -263,8 +263,8 @@
                         }, 
                         {
                          "name":"Direction",
-                         "type":"string",
-                         "value":"3"
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"Image",

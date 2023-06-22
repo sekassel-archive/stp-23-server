@@ -2197,8 +2197,8 @@
                  "properties":[
                         {
                          "name":"Direction",
-                         "type":"string",
-                         "value":"0"
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -2230,8 +2230,8 @@
                  "properties":[
                         {
                          "name":"Direction",
-                         "type":"string",
-                         "value":"3"
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -2263,8 +2263,8 @@
                  "properties":[
                         {
                          "name":"Direction",
-                         "type":"string",
-                         "value":"0"
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -2296,8 +2296,8 @@
                  "properties":[
                         {
                          "name":"Direction",
-                         "type":"string",
-                         "value":"1"
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"EncounterOnSight",

@@ -167,8 +167,8 @@
                         }, 
                         {
                          "name":"Direction",
-                         "type":"string",
-                         "value":"3"
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"Image",
@@ -190,8 +190,8 @@
                  "properties":[
                         {
                          "name":"Direction",
-                         "type":"string",
-                         "value":"0"
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"Image",
