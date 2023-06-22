@@ -101,7 +101,7 @@ export class Trainer extends GlobalSchema {
   @IsInt({each: true})
   encounteredMonsterTypes: number[];
 
-  @Prop()
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   area: string;
