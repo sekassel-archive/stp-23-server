@@ -4639,7 +4639,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -4670,6 +4670,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Premade_Character_17.png"
@@ -4692,6 +4697,11 @@
                  "name":"Elderly Enrik",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
                         {
                          "name":"EncounterOnSight",
                          "type":"bool",
@@ -4720,6 +4730,11 @@
                  "name":"Camping Cio",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
                         {
                          "name":"Image",
                          "type":"string",
@@ -4800,7 +4815,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":2
+                         "value":1
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -4833,7 +4848,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -4864,6 +4879,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"EncounterOnSight",
                          "type":"bool",
                          "value":true
@@ -4891,6 +4911,11 @@
                  "name":"Hungry Haterian",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
                         {
                          "name":"EncounterOnSight",
                          "type":"bool",
@@ -4920,6 +4945,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Pier_16x16.png"
@@ -4942,6 +4972,11 @@
                  "name":"Keb",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
                         {
                          "name":"Image",
                          "type":"string",
@@ -4993,6 +5028,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Premade_Character_14_16x16.png"
@@ -5017,6 +5057,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Premade_Character_12_16x16.png"
@@ -5039,6 +5084,11 @@
                  "name":"Nax",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
                         {
                          "name":"Image",
                          "type":"string",

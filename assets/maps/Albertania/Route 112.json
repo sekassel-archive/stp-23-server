@@ -1238,13 +1238,13 @@
                 {
                  "height":0,
                  "id":40,
-                 "name":"Gio",
+                 "name":"Jercy Packson",
                  "point":true,
                  "properties":[
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -1265,8 +1265,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":1302.45283018868,
-                 "y":855.698113207547
+                 "x":280.036163522013,
+                 "y":430.03144654088
                 }, 
                 {
                  "height":0,
@@ -1277,7 +1277,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }, 
                         {
                          "name":"EncounterOnSight",
