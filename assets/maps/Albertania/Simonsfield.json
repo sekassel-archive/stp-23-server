@@ -4616,12 +4616,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":8
+                         "value":25
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":10
+                         "value":60
                         }],
                  "rotation":0,
                  "type":"Portal",
