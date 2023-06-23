@@ -6,6 +6,7 @@ import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
 import {MovementService} from '../movement/movement.service';
+import {ValidatedEvent} from "../../../util/validated.decorator";
 
 @Injectable()
 export class NpcTalkService {
@@ -19,6 +20,7 @@ export class NpcTalkService {
   }
 
   @OnEvent('udp:areas.*.trainers.*.talked')
+  @ValidatedEvent()
   async onTrainerTalked(dto: TalkTrainerDto) {
     const trainerId = dto._id.toString();
     const [trainer, target] = await Promise.all([
