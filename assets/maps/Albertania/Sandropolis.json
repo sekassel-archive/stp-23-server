@@ -996,7 +996,7 @@
                  "x":128,
                  "y":64
                 }],
-         "height":112,
+         "height":80,
          "id":1,
          "name":"Ground",
          "opacity":1,
@@ -2385,12 +2385,28 @@
                 {
                  "height":53,
                  "id":17,
-                 "name":"Moncenter",
+                 "name":"Moncenter 1",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Sandropolis Moncenter"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"string",
+                         "value":"8"
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"string",
+                         "value":"13"
+                        }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":143.5,
-                 "x":1586,
+                 "width":85.4999999999998,
+                 "x":1566.66666666667,
                  "y":395.5
                 }, 
                 {
@@ -2486,6 +2502,33 @@
                  "width":89.3333333333334,
                  "x":608.666666666667,
                  "y":403.333333333333
+                }, 
+                {
+                 "height":51.9999999999999,
+                 "id":26,
+                 "name":"Moncenter 2",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Sandropolis Moncenter"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"string",
+                         "value":"17"
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"string",
+                         "value":"13"
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":87.3333333333333,
+                 "x":1662,
+                 "y":396.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2494,7 +2537,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":26,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
