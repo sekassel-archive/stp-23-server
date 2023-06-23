@@ -159,13 +159,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"34"
+                         "type":"int",
+                         "value":34
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"28"
+                         "type":"int",
+                         "value":28
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -186,13 +186,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"40"
+                         "type":"int",
+                         "value":40
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"28"
+                         "type":"int",
+                         "value":28
                         }],
                  "rotation":0,
                  "type":"Portal",
