@@ -3203,13 +3203,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"7"
+                         "type":"int",
+                         "value":7
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"5"
+                         "type":"int",
+                         "value":5
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -3291,13 +3291,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"61"
+                         "type":"int",
+                         "value":61
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"5"
+                         "type":"int",
+                         "value":5
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -3318,13 +3318,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"19"
+                         "type":"int",
+                         "value":19
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"27"
+                         "type":"int",
+                         "value":27
                         }],
                  "rotation":0,
                  "type":"Building",
@@ -3345,13 +3345,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"9"
+                         "type":"int",
+                         "value":9
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"9"
+                         "type":"int",
+                         "value":9
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -3372,13 +3372,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"4"
+                         "type":"int",
+                         "value":4
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"5"
+                         "type":"int",
+                         "value":5
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -3399,13 +3399,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"38"
+                         "type":"int",
+                         "value":38
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"8"
+                         "type":"int",
+                         "value":8
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -3426,13 +3426,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"82"
+                         "type":"int",
+                         "value":82
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"23"
+                         "type":"int",
+                         "value":23
                         }],
                  "rotation":0,
                  "type":"Portal",

@@ -1838,13 +1838,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"9"
+                         "type":"int",
+                         "value":9
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"12"
+                         "type":"int",
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"Portal",

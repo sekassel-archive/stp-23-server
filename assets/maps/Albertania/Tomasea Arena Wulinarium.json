@@ -2174,13 +2174,13 @@
                         }, 
                         {
                          "name":"X",
-                         "type":"string",
-                         "value":"33"
+                         "type":"int",
+                         "value":33
                         }, 
                         {
                          "name":"Y",
-                         "type":"string",
-                         "value":"31"
+                         "type":"int",
+                         "value":31
                         }],
                  "rotation":0,
                  "type":"Portal",
