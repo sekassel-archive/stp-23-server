@@ -126,26 +126,48 @@
                 {
                  "height":0,
                  "id":4,
-                 "name":"Verk\u00e4ufer 1 Name ",
+                 "name":"Clerk 1",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Butcher_16x16.png"
+                        }, 
+                        {
+                         "name":"Sells",
+                         "type":"string",
+                         "value":""
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":118,
-                 "y":84.5
+                 "x":112,
+                 "y":80
                 }, 
                 {
                  "height":0,
                  "id":5,
-                 "name":"Verk\u00e4ufer 2 Name",
+                 "name":"Clerk 2",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Ash_16x16.png"
+                        }, 
+                        {
+                         "name":"Sells",
+                         "type":"string",
+                         "value":""
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":294.5,
-                 "y":84.5
+                 "x":288,
+                 "y":80
                 }, 
                 {
                  "height":15.3333333333333,
