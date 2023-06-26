@@ -7,8 +7,8 @@ import {RegionService} from '../../region/region.service';
 import {AreaDocument} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {MonsterService} from '../monster/monster.service';
-import {getProperty, TiledMap} from '../tiled-map.interface';
-import {Direction, Path} from '../trainer/trainer.schema';
+import {getProperty, TiledMap, TiledObject} from '../tiled-map.interface';
+import {Direction, NormalizedPath, Path} from '../trainer/trainer.schema';
 import {TrainerService} from '../trainer/trainer.service';
 import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 
@@ -85,12 +85,9 @@ export class GameLoader implements OnModuleInit {
     return area;
   }
 
-  private async loadTrainer(region: Region, area: AreaDocument, object: any, map: any) {
+  private async loadTrainer(region: Region, area: AreaDocument, object: TiledObject, map: TiledMap) {
     const starters = getProperty<string>(object, 'Starters');
     const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
-    const path = getProperty<string>(object, 'Path');
-    const parsedPath: Path = !path ? null : path.startsWith('[') ? JSON.parse(path) : path.split(/[,;]/g).map(s => +s);
-
     const trainer = await this.trainerService.upsert({
       region: region._id.toString(),
       area: area._id.toString(),
@@ -114,7 +111,7 @@ export class GameLoader implements OnModuleInit {
       'npc.encounterOnTalk': monsterSpecs?.length > 0,
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
-      'npc.path': parsedPath,
+      'npc.path': this.parsePath(getProperty(object, 'Path'), map),
       'npc.starters': starters ? JSON.parse(starters) : undefined,
     });
 
@@ -124,5 +121,35 @@ export class GameLoader implements OnModuleInit {
       trainer.team.push(monster._id.toString());
     }
     await trainer.save();
+  }
+
+  private parsePath(path: string | number | undefined | boolean, map: TiledMap): Path | null{
+    switch (typeof path) {
+      case 'string':
+        if (path.startsWith('[')) {
+          return JSON.parse(path);
+        } else {
+          return path.split(/[,;]/g).map(s => +s);
+        }
+      case 'number': // path is an polygon object reference
+        for (const layer of map.layers) {
+          if (layer.type !== 'objectgroup') {
+            continue;
+          }
+
+          for (const obj of layer.objects) {
+            if (obj.id === path && obj.polygon) {
+              const path = obj.polygon.map(({x, y}) => ([
+                ((obj.x + x) / map.tilewidth) | 0,
+                ((obj.y + y) / map.tileheight) | 0,
+              ] as NormalizedPath[number]));
+              path.push(path[0]); // close path loop
+              return path;
+            }
+          }
+        }
+        break;
+    }
+    return null;
   }
 }

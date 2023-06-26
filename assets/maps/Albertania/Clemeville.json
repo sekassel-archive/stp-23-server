@@ -690,8 +690,8 @@
                         }, 
                         {
                          "name":"Path",
-                         "type":"string",
-                         "value":"46,24;47,24;47,25;46,25;46,24"
+                         "type":"object",
+                         "value":15
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -828,6 +828,34 @@
                  "width":144,
                  "x":128,
                  "y":576
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"AdamPath",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":16,
+                         "y":0
+                        }, 
+                        {
+                         "x":16,
+                         "y":16
+                        }, 
+                        {
+                         "x":0,
+                         "y":16
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":736,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -836,7 +864,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":15,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
