@@ -151,7 +151,7 @@
                  "y":224
                 }, 
                 {
-                 "height":14.3333333333333,
+                 "height":15.3333333333333,
                  "id":7,
                  "name":"Sandropolis 2",
                  "properties":[
@@ -175,7 +175,7 @@
                  "visible":true,
                  "width":47.6666666666666,
                  "x":256,
-                 "y":225
+                 "y":224
                 }, 
                 {
                  "height":0,
@@ -214,7 +214,7 @@
                         {
                          "name":"Image",
                          "type":"string",
-                         "value":"Nurce_2_16x16.png"
+                         "value":"Nurse_2_16x16.png"
                         }],
                  "rotation":0,
                  "type":"Trainer",

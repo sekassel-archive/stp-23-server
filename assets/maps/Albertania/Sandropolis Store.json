@@ -197,7 +197,7 @@
                  "y":224
                 }, 
                 {
-                 "height":14.3333333333333,
+                 "height":15.3333333333333,
                  "id":7,
                  "name":"Sandropolis 2",
                  "properties":[
@@ -221,7 +221,7 @@
                  "visible":true,
                  "width":47.6666666666666,
                  "x":256,
-                 "y":225
+                 "y":224
                 }],
          "opacity":1,
          "type":"objectgroup",
