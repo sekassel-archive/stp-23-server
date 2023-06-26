@@ -1305,7 +1305,7 @@
                 }],
          "height":48,
          "id":7,
-         "name":"GrapeWood1",
+         "name":"Wood1",
          "opacity":1,
          "startx":0,
          "starty":0,
@@ -1495,7 +1495,7 @@
                 }],
          "height":48,
          "id":8,
-         "name":"GrapeWood2",
+         "name":"Wood2",
          "opacity":1,
          "startx":-16,
          "starty":0,
@@ -1597,7 +1597,7 @@
                 }],
          "height":48,
          "id":9,
-         "name":"GrapeWood3",
+         "name":"Wood3",
          "opacity":1,
          "startx":0,
          "starty":0,
@@ -1812,12 +1812,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":8
+                         "value":45
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":30
+                         "value":93
                         }],
                  "rotation":0,
                  "type":"Portal",
