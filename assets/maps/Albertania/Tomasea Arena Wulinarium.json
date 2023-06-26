@@ -2219,8 +2219,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":1063.33333333334,
-                 "y":377.833333333333
+                 "x":1056,
+                 "y":368
                 }, 
                 {
                  "height":0,
@@ -2252,8 +2252,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":424.5,
-                 "y":266.333333333334
+                 "x":416,
+                 "y":256
                 }, 
                 {
                  "height":0,
@@ -2285,8 +2285,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":551.5,
-                 "y":488.833333333333
+                 "x":544,
+                 "y":480
                 }, 
                 {
                  "height":0,
@@ -2318,8 +2318,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":904.5,
-                 "y":585.083333333333
+                 "x":896,
+                 "y":576
                 }],
          "opacity":1,
          "type":"objectgroup",

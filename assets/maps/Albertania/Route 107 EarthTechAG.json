@@ -275,8 +275,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":159.5,
-                 "y":175.75
+                 "x":144,
+                 "y":176
                 }],
          "opacity":1,
          "type":"objectgroup",

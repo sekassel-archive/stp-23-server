@@ -179,8 +179,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":87.7626794258373,
-                 "y":110.377033492823
+                 "x":80,
+                 "y":96
                 }, 
                 {
                  "height":0,
@@ -207,8 +207,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":107.146411483254,
-                 "y":88.8191387559809
+                 "x":96,
+                 "y":80
                 }],
          "opacity":1,
          "type":"objectgroup",
