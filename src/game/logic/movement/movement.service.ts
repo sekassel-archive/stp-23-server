@@ -297,30 +297,7 @@ export class MovementService implements OnApplicationBootstrap {
       'npc.encounterOnSight': true,
       'npc.encountered': {$ne: trainerId},
     });
-    const attackers: Trainer[] = [];
-    for (const npc of npcs) {
-      if (this.checkNPConSight(dto, npc, 5)) {
-        // FIXME Player blockieren
-        // Finds the movement direction of the npc towards the player
-        const x = npc.direction === Direction.LEFT ? -1 : npc.direction === Direction.RIGHT ? 1 : 0;
-        const y = npc.direction === Direction.UP ? -1 : npc.direction === Direction.DOWN ? 1 : 0;
-
-        // Finds how many steps the npc has to walk to the player
-        const moveRange = this.getDistance(dto, npc) - 1;
-
-        // Add path points for moving npc towards player
-        const path: number[] = [];
-        for (let i = 0; i <= moveRange; i++) {
-          path.push(npc.x + i * x, npc.y + i * y);
-        }
-        await this.trainerService.update(npc._id, {
-          'npc.path': path,
-          $addToSet: {'npc.encountered': trainerId},
-        });
-        attackers.push(npc);
-      }
-    }
-
+    const attackers = npcs.filter(npc => this.checkNPConSight(dto, npc, 5));
     if (attackers.length <= 0) {
       return;
     }
