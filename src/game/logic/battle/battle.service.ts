@@ -91,27 +91,15 @@ export class BattleService {
       const targetMonster = target.monster && await this.monsterService.find(new Types.ObjectId(target.monster));
       let monster = opponent.monster && await this.monsterService.find(new Types.ObjectId(opponent.monster));
       if (!monster || monster.currentAttributes.health <= 0) {
-        if (opponent.trainer === TALL_GRASS_TRAINER) {
-          continue;
-        }
-        const liveMonsters = await this.monsterService.findAll({
-          trainer: opponent.trainer,
-          // NB: no check for Trainer.team, because NPCs usually don't have that many monsters
-          'currentAttributes.health': {$gt: 0},
-        });
-        if (!liveMonsters.length) {
-          continue;
-        }
-
-        monster = this.findNPCnextMonster(liveMonsters, targetMonster || undefined);
-        opponent.monster = monster._id.toString();
+        monster = await this.findNPCnextMonster(opponent.trainer, targetMonster || undefined);
+        opponent.monster = monster?._id.toString();
       }
       opponent.results = [];
-      opponent.move = {
+      opponent.move = monster && targetMonster ? {
         type: 'ability',
         target: target.trainer,
-        ability: targetMonster ? this.findNPCAbility(monster, targetMonster) : -1,
-      };
+        ability: this.findNPCAbility(monster, targetMonster),
+      } : undefined;
     }
   }
 
@@ -144,10 +132,23 @@ export class BattleService {
     return chosenAbilityID;
   }
 
-  private findNPCnextMonster(liveMonster: MonsterDocument[], target?: MonsterDocument): MonsterDocument {
-    let chosenMonster = liveMonster[0];
+  private async findNPCnextMonster(trainer: string, target?: MonsterDocument): Promise<MonsterDocument | undefined> {
+    if (trainer === TALL_GRASS_TRAINER) {
+      return;
+    }
+
+    const liveMonsters = await this.monsterService.findAll({
+      trainer,
+      // NB: no check for Trainer.team, because NPCs usually don't have that many monsters
+      'currentAttributes.health': {$gt: 0},
+    });
+    if (!liveMonsters.length) {
+      return;
+    }
+
+    let chosenMonster = liveMonsters[0];
     let maxSum = -1;
-    for (const monster of liveMonster) {
+    for (const monster of liveMonsters) {
       const monsterLevel = monster.level;
       const types = monsterTypes.find(t => t.id === monster.type)?.type as Type[] || [];
       const monsterTypeMultiplier = target ? Math.max(1, ...types.map(t => this.getAttackMultiplier(monster, t, target))) : 1;
