@@ -19,12 +19,14 @@ import {MonsterService} from '../../monster/monster.service';
 import {Effectiveness, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
+import {TrainerService} from "../../trainer/trainer.service";
 
 @Injectable()
 export class BattleService {
   constructor(
     private encounterService: EncounterService,
     private opponentService: OpponentService,
+    private trainerService: TrainerService,
     private monsterService: MonsterService,
     private monsterGeneratorService: MonsterGeneratorService,
   ) {
@@ -67,17 +69,28 @@ export class BattleService {
       trainer: {$in: opponents.map(o => o.trainer)},
       'currentAttributes.health': {$gt: 0},
     });
-    const deleteOpponents: Types.ObjectId[] = [];
-    for (const opponent of opponents) {
+    const deleteOpponents = opponents.filter(opponent => {
       if (opponent.trainer === TALL_GRASS_TRAINER) {
         if (!monsters.find(m => m._id.toString() === opponent.monster)) {
-          deleteOpponents.push(opponent._id!);
+          return true;
         }
       } else if (!monsters.find(m => m.trainer === opponent.trainer)) {
-        deleteOpponents.push(opponent._id!);
+        return true;
       }
-    }
-    await this.opponentService.deleteMany({_id: {$in: deleteOpponents}});
+      return false;
+    });
+    await this.opponentService.deleteMany({_id: {$in: deleteOpponents.map(o => o._id)}});
+
+    const playerIds = opponents.filter(o => !o.isNPC && !deleteOpponents.includes(o)).map(o => o.trainer);
+    // defeated opponents remember the players they encountered
+    deleteOpponents.length && await this.trainerService.updateMany({
+      _id: {$in: deleteOpponents.map(o => new Types.ObjectId(o.trainer))},
+      npc: {$exists: true},
+    }, {
+      $addToSet: {
+        'npc.encountered': {$each: playerIds},
+      },
+    });
   }
 
   private async makeNPCMoves(opponents: OpponentDocument[]) {
