@@ -8,7 +8,7 @@ import {AreaDocument} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {MonsterService} from '../monster/monster.service';
 import {getProperty, TiledMap} from '../tiled-map.interface';
-import {Direction} from '../trainer/trainer.schema';
+import {Direction, Path} from '../trainer/trainer.schema';
 import {TrainerService} from '../trainer/trainer.service';
 import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 
@@ -88,6 +88,8 @@ export class GameLoader implements OnModuleInit {
   private async loadTrainer(region: Region, area: AreaDocument, object: any, map: any) {
     const starters = getProperty<string>(object, 'Starters');
     const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
+    const path = getProperty<string>(object, 'Path');
+    const parsedPath: Path = !path ? null : path.startsWith('[') ? JSON.parse(path) : path.split(/[,;]/g).map(s => +s);
 
     const trainer = await this.trainerService.upsert({
       region: region._id.toString(),
@@ -112,7 +114,7 @@ export class GameLoader implements OnModuleInit {
       'npc.encounterOnTalk': monsterSpecs?.length > 0,
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
-      'npc.path': getProperty<string>(object, 'Path')?.split(/[,;]/g)?.map(s => +s) || null,
+      'npc.path': parsedPath,
       'npc.starters': starters ? JSON.parse(starters) : undefined,
     });
 
