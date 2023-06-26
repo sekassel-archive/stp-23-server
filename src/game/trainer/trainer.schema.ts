@@ -24,6 +24,9 @@ export enum Direction {
   DOWN,
 }
 
+export type NormalizedPath = [number, number, Direction?][];
+export type Path = number[] | NormalizedPath;
+
 export class NPCInfo {
   @ApiProperty({description: 'Whether the NPC should walk randomly. Handled by the server.'})
   @IsBoolean()
@@ -43,9 +46,7 @@ export class NPCInfo {
 
   // @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
   @IsOptional()
-  @IsArray()
-  @IsInt({each: true})
-  path?: number[];
+  path?: Path;
 
   @ApiPropertyOptional({description: 'The Trainer IDs that the NPC has encountered. ' +
       'Applies to both encounters and NPCs that offer starters, so they cannot be received again.'})
