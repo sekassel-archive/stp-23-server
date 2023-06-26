@@ -24,8 +24,7 @@ export enum Direction {
   DOWN,
 }
 
-export type NormalizedPath = [number, number, Direction?][];
-export type Path = number[] | NormalizedPath;
+export type Path = [number, number, Direction?][];
 
 export class NPCInfo {
   @ApiProperty({description: 'Whether the NPC should walk randomly. Handled by the server.'})
