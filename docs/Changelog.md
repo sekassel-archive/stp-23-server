@@ -228,6 +228,14 @@
 
 # v3.1.0 - Battle Improvements
 
+## New Features
+
+### Content
+
++ Added Tomasea and buildings
++ Added Route 107 and a building
++ Added Sandropolis and buildings
+
 ## Improvements
 
 * NPCs no longer move when they start an encounter.
