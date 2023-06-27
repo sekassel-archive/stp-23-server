@@ -2048,8 +2048,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":1312,
-                 "y":352
+                 "x":1296,
+                 "y":336
                 }, 
                 {
                  "height":0,
@@ -2116,6 +2116,39 @@
                  "width":0,
                  "x":1776,
                  "y":496
+                }, 
+                {
+                 "height":0,
+                 "id":68,
+                 "name":"Der Bewacher des heiligen Eises",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Bob_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[15,22],[37,22],[15,22],[70,21],[5,22],[51,19]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":1472,
+                 "y":272
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2124,7 +2157,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":68,
+ "nextobjectid":69,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
