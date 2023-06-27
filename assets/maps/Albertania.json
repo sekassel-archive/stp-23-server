@@ -211,6 +211,11 @@
                  "name":"Sandropolis",
                  "properties":[
                         {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Arena\nMoncenter\nStore"
+                        }, 
+                        {
                          "name":"Description",
                          "type":"string",
                          "value":"The capital city of the isles. Mining in the surrounding mountains drew many locals and made the city quite wealthy."
@@ -249,6 +254,11 @@
                  "id":27,
                  "name":"Tomasea",
                  "properties":[
+                        {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Arena Wulinarium\nMoncenter\nReuterbank\nTimon's House\nTubeTown"
+                        }, 
                         {
                          "name":"Description",
                          "type":"string",
@@ -493,6 +503,11 @@
                          "y":-16
                         }],
                  "properties":[
+                        {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"EarthTech AG"
+                        }, 
                         {
                          "name":"Description",
                          "type":"string",
