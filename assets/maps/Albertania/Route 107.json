@@ -1817,12 +1817,12 @@
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":126.683576888044,
-                 "x":1.31642311195596,
+                 "width":128,
+                 "x":0,
                  "y":464
                 }, 
                 {
-                 "height":63.5,
+                 "height":64,
                  "id":12,
                  "name":"Tomasea",
                  "properties":[
@@ -1844,12 +1844,12 @@
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":159.5,
-                 "x":912.962397528811,
-                 "y":1.52043483426394
+                 "width":160,
+                 "x":912,
+                 "y":0
                 }, 
                 {
-                 "height":36.5,
+                 "height":32,
                  "id":34,
                  "name":"Earth-Tech-AG",
                  "properties":[
@@ -1871,9 +1871,9 @@
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":126,
-                 "x":737,
-                 "y":198.5
+                 "width":128,
+                 "x":736,
+                 "y":208
                 }, 
                 {
                  "height":0,
