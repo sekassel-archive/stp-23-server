@@ -8,7 +8,7 @@ import {AreaDocument} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
 import {MonsterService} from '../monster/monster.service';
 import {getProperty, TiledMap, TiledObject} from '../tiled-map.interface';
-import {Direction, NormalizedPath, Path} from '../trainer/trainer.schema';
+import {Direction, Path} from '../trainer/trainer.schema';
 import {TrainerService} from '../trainer/trainer.service';
 import {MonsterGeneratorService} from './monster-generator/monster-generator.service';
 
@@ -111,7 +111,7 @@ export class GameLoader implements OnModuleInit {
       'npc.encounterOnTalk': monsterSpecs?.length > 0,
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
-      'npc.path': this.parsePath(getProperty(object, 'Path'), map),
+      'npc.path': this.getPath(object, area),
       'npc.starters': starters ? JSON.parse(starters) : undefined,
     });
 
@@ -123,13 +123,32 @@ export class GameLoader implements OnModuleInit {
     await trainer.save();
   }
 
+  private getPath(object: TiledObject, area: AreaDocument) {
+    const path = getProperty<string>(object, 'Path');
+    if (!path) {
+      return null;
+    }
+
+    const parsedPath = this.parsePath(path, area.map);
+    if (!parsedPath) {
+      return null;
+    }
+
+    try {
+      return this.interpolatePath(parsedPath);
+    } catch (e: any) {
+      this.logger.warn(`Invalid path in area ${area.name} object ${object.id}: ${e.message}`);
+      return null;
+    }
+  }
+
   private parsePath(path: string | number | undefined | boolean, map: TiledMap): Path | null{
     switch (typeof path) {
       case 'string':
         if (path.startsWith('[')) {
-          return JSON.parse(path);
+          return this.convertPath(JSON.parse(path));
         } else {
-          return path.split(/[,;]/g).map(s => +s);
+          return this.convertPath(path.split(/[,;]/g).map(s => +s));
         }
       case 'number': // path is an polygon object reference
         for (const layer of map.layers) {
@@ -142,7 +161,7 @@ export class GameLoader implements OnModuleInit {
               const path = obj.polygon.map(({x, y}) => ([
                 ((obj.x + x) / map.tilewidth) | 0,
                 ((obj.y + y) / map.tileheight) | 0,
-              ] as NormalizedPath[number]));
+              ] as Path[number]));
               path.push(path[0]); // close path loop
               return path;
             }
@@ -151,5 +170,47 @@ export class GameLoader implements OnModuleInit {
         break;
     }
     return null;
+  }
+
+  private convertPath(path: number[] | Path): Path {
+    if (Array.isArray(path[0])) {
+      return path as Path;
+    }
+    return (path as number[]).reduce((acc, v, i, path) => {
+      if (i % 2 === 0) {
+        acc.push([v, path[i + 1]]);
+      }
+      return acc;
+    }, [] as Path);
+  }
+
+  private interpolatePath(path: Path): Path {
+    const newPath: Path = [];
+    for (let i = 0; i < path.length - 1; i++) {
+      const [x1, y1] = path[i];
+      const [x2, y2] = path[i + 1];
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      if (dx === 0 && dy === 0) {
+        // direction might be changed, otherwise it's a duplicate
+        if (path[i][2]) {
+          newPath.push(path[i]);
+        }
+      } else if (dx === 0) {
+        const dy1 = dy > 0 ? 1 : -1;
+        for (let y = y1; y !== y2; y += dy1) {
+          newPath.push([x1, y]);
+        }
+      } else if (dy === 0) {
+        const dx1 = dx > 0 ? 1 : -1;
+        for (let x = x1; x !== x2; x += dx1) {
+          newPath.push([x, y1]);
+        }
+      } else {
+        throw new Error('Diagonal paths are not supported');
+      }
+    }
+    newPath.push(path[path.length - 1]);
+    return newPath;
   }
 }
