@@ -4,6 +4,7 @@ import chalk from 'chalk';
 
 const foundMonsters = {};
 const areaLevels = {};
+const areaMonsters = {};
 
 for (const file of await fs.readdir(`maps/${region}/`)) {
   const area = file.slice(0, -5);
@@ -23,6 +24,9 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
         const monsters = JSON.parse(monstersProp);
         for (const [type, level, maxLevel] of monsters) {
           (foundMonsters[type] ||= new Set).add(area);
+          if (object.type === 'TallGrass') {
+            (areaMonsters[area] ||= new Set).add(type);
+          }
           (areaLevels[area] ||= []).push(level);
           for (let i = level + 1; i <= maxLevel; i++) {
             (areaLevels[area] ||= []).push(i);
@@ -43,7 +47,7 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
   }
 }
 
-const monsters = JSON.parse(await fs.readFile('monsters.json'));
+const monsters = JSON.parse(await fs.readFile('monsters.json', 'utf8'));
 
 for (let i = 1; i < monsters.length; i++) {
   const m = monsters[i];
@@ -73,4 +77,36 @@ for (const area in areaLevels) {
   const max = Math.max(...levels);
   const avg = levels.reduce((a, b) => a + b, 0) / levels.length;
   console.log(`${chalk.blue(area)} has monsters from level ${chalk.green(min)} to ${chalk.red(max)} (average ${chalk.yellow(avg.toFixed(1))})`);
+}
+
+const map = JSON.parse(await fs.readFile(`maps/${region}.json`, 'utf8'));
+let changed = false;
+for (const layer of map.layers) {
+  if (layer.type !== 'objectgroup') {
+    continue;
+  }
+
+  for (const object of layer.objects) {
+    const areaMonster = areaMonsters[object.name];
+    if (!areaMonster) {
+      continue;
+    }
+
+    const properties = object.properties ||= [];
+    let monsters = properties.find(p => p.name === 'Monsters');
+    if (!monsters) {
+      monsters = { name: 'Monsters', type: 'string', value: '[]' };
+      properties.push(monsters);
+    }
+
+    const newValue = JSON.stringify([...areaMonster]);
+    if (monsters.value !== newValue) {
+      changed = true;
+    }
+    monsters.value = newValue;
+  }
+}
+
+if (changed) {
+  await fs.writeFile(`maps/${region}.json`, JSON.stringify(map, null, 2));
 }
