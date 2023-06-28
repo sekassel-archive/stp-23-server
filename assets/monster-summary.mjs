@@ -64,8 +64,12 @@ for (const monster of baseMonsters) {
     console.log(`❌ #${monster.id} ${monster.name} ${chalk.red('not found')}`);
   } else {
     found++;
-    const areasText = [...areas].join(', ').replace(/Route /g, 'R');
-    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green(areasText)}`);
+    const rarity = {
+      1: '🥇',
+      2: '🥈',
+      3: '🥉',
+    }
+    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green(areas.size)} areas ${rarity[areas.size] || ''}`);
   }
 }
 
