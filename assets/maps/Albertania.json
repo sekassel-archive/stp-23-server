@@ -731,6 +731,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[12,15,24,27,32,33,52,54,75,84,90,100,18,22,57,68,95]"
                         }],
                  "rotation":0,
                  "type":"Route",
