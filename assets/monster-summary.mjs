@@ -69,7 +69,7 @@ for (const monster of baseMonsters) {
       2: '🥈',
       3: '🥉',
     }
-    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green(areas.size)} areas ${rarity[areas.size] || ''}`);
+    console.log(`✅ #${monster.id} ${monster.name}${monster.legendary ? ' 🐉' : ''} in ${chalk.green(areas.size)} areas ${rarity[areas.size] || ''}`);
   }
 }
 
