@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {Cron, CronExpression} from '@nestjs/schedule';
 import {Types} from 'mongoose';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
-import {Direction, Trainer} from '../../trainer/trainer.schema';
+import {Direction, Path, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {EventEmitter2} from "@nestjs/event-emitter";
 
@@ -40,22 +40,21 @@ export class NpcMovementScheduler {
     this.move(_id, area, newX, newY, direction);
   }
 
-  private moveByPath(trainer: Trainer, path: number[]) {
+  private moveByPath(trainer: Trainer, path: Path) {
     const {_id, area, x, y} = trainer;
-    const index = path.findIndex((v, i) => i % 2 === 0 && v === x && path[i + 1] === y);
+    const index = path.findIndex(([px, py, pd]) => px === x && py === y && (pd === undefined || pd === trainer.direction));
     if (index < 0) {
       return;
     }
 
-    const next = (index + 2) % path.length;
-    const newX = path[next];
-    const newY = path[next + 1];
+    const next = (index + 1) % path.length;
+    const [newX, newY, newDir] = path[next];
     if (Math.abs(newX - x) + Math.abs(newY - y) > 1) {
       // Path cannot be followed, probably because it was not intended to loop
       return;
     }
 
-    const direction = this.getDirection(x, y, newX, newY);
+    const direction = newDir ?? this.getDirection(x, y, newX, newY);
     this.move(_id, area, newX, newY, direction);
   }
 

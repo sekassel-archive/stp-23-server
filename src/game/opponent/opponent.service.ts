@@ -40,5 +40,6 @@ export class OpponentService extends MongooseRepository<Opponent> {
 
   emit(event: string, opponent: Opponent) {
     this.eventService.emit(`encounters.${opponent.encounter}.opponents.${opponent._id}.${event}`, opponent);
+    this.eventService.emit(`encounters.${opponent.encounter}.trainers.${opponent.trainer}.opponents.${opponent._id}.${event}`, opponent);
   }
 }
