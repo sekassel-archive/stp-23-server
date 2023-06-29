@@ -1,6 +1,6 @@
 import {Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
-import {Types} from 'mongoose';
+import {FilterQuery, Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
 import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
@@ -8,14 +8,17 @@ import {AreaService} from '../../area/area.service';
 import {TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
 import {Chunk, getProperty, TiledObject} from '../../tiled-map.interface';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
-import {Direction, Trainer} from '../../trainer/trainer.schema';
+import {Direction, Trainer, TrainerDocument} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
 import {notFound} from "@mean-stream/nestx";
 import BitSet from "bitset";
+import {Cron, CronExpression} from "@nestjs/schedule";
+import {environment} from "../../../environment";
 
 export interface AreaInfo {
+  _id: Types.ObjectId;
   width: number;
   height: number;
   objects: GameObject[];
@@ -45,12 +48,21 @@ export interface Portal extends BaseGameObject {
   };
 }
 
+export interface ProtectedZone extends BaseGameObject {
+  type: 'ProtectedZone';
+  jail: {
+    area: string;
+    x: number;
+    y: number;
+  };
+}
+
 export interface TallGrass extends BaseGameObject {
   type: 'TallGrass';
   monsters: [number, number, number?][];
 }
 
-export type GameObject = Portal | TallGrass;
+export type GameObject = Portal | TallGrass | ProtectedZone;
 
 @Injectable()
 export class MovementService implements OnApplicationBootstrap {
@@ -146,7 +158,7 @@ export class MovementService implements OnApplicationBootstrap {
       }
     }
 
-    return {width, height, objects, walkable, tallGrass};
+    return {_id: area._id, width, height, objects, walkable, tallGrass};
   }
 
   private loadChunk(
@@ -183,16 +195,21 @@ export class MovementService implements OnApplicationBootstrap {
     const height = object.height / area.map.tileheight;
     switch (object.type) {
       case 'Portal':
-        const targetName = getProperty(object, 'Map');
-        const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
-        if (!targetArea) {
-          this.logger.warn(`Invalid portal target: ${targetName} in area ${area.name} object ${object.id}`);
-          return;
-        }
-        return {
+        const targetArea = this.getArea(object, area, areas);
+        return targetArea && {
           type: 'Portal', x, y, width, height,
           target: {
             area: targetArea._id.toString(),
+            x: getProperty<number>(object, 'X') || 0,
+            y: getProperty<number>(object, 'Y') || 0,
+          },
+        };
+      case 'ProtectedZone':
+        const jailArea = this.getArea(object, area, areas);
+        return jailArea && {
+          type: 'ProtectedZone', x, y, width, height,
+          jail: {
+            area: jailArea._id.toString(),
             x: getProperty<number>(object, 'X') || 0,
             y: getProperty<number>(object, 'Y') || 0,
           },
@@ -203,6 +220,16 @@ export class MovementService implements OnApplicationBootstrap {
           monsters: JSON.parse(getProperty<string>(object, 'Monsters') || '[]'),
         };
     }
+  }
+
+  private getArea(object: TiledObject, area: Area, areas: Area[]): Area | undefined {
+    const targetName = getProperty(object, 'Map');
+    const targetArea = areas.find(a => a.name === targetName && a.region === area.region);
+    if (!targetArea) {
+      this.logger.warn(`Invalid ${object.type} target: ${targetName} in area ${area.name} object ${object.id}`);
+      return;
+    }
+    return targetArea;
   }
 
   @OnEvent('udp:areas.*.trainers.*.moved')
@@ -245,9 +272,13 @@ export class MovementService implements OnApplicationBootstrap {
     }
 
     await this.trainerService.updateWithoutEvent(dto._id, dto);
-    if (dto.area !== oldLocation.area) {
+    this.broadcast(dto, oldLocation.area);
+  }
+
+  private broadcast(dto: MoveTrainerDto, oldArea: string) {
+    if (dto.area !== oldArea) {
       // inform old area that the trainer left
-      this.socketService.broadcast(`areas.${oldLocation.area}.trainers.${dto._id}.moved`, dto);
+      this.socketService.broadcast(`areas.${oldArea}.trainers.${dto._id}.moved`, dto);
     }
     this.socketService.broadcast(`areas.${dto.area}.trainers.${dto._id}.moved`, dto);
   }
@@ -325,5 +356,44 @@ export class MovementService implements OnApplicationBootstrap {
         return player.y === npc.y && player.x > npc.x && Math.abs(player.x - npc.x) <= maxRange;
     }
     return false;
+  }
+
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async sendLoiteringTrainersToJail() {
+    if (environment.passive) {
+      return;
+    }
+
+    let jailed = 0;
+    const updatedBefore = new Date(Date.now() - environment.cleanup.loiteringMinutes * 60 * 1000);
+    for (const area of this.areas.values()) {
+      const areaId = area._id.toString();
+      for (const gameObject of area.objects) {
+        if (gameObject.type !== 'ProtectedZone') {
+          continue;
+        }
+
+        const {x, y, width, height, jail} = gameObject;
+        const trainers = await this.trainerService.findAll({
+          npc: {$exists: false},
+          updatedAt: {$lt: updatedBefore},
+          area: areaId,
+          x: {$gte: x, $lt: x + width},
+          y: {$gte: y, $lt: y + height},
+        });
+        for (const trainer of trainers) {
+          trainer.area = jail.area;
+          trainer.x = jail.x;
+          trainer.y = jail.y;
+        }
+        await this.trainerService.saveAll(trainers);
+        for (const {_id, area, direction, x, y} of trainers) {
+          this.broadcast({_id, area, x, y, direction}, areaId);
+          jailed++;
+        }
+      }
+    }
+
+    jailed && this.logger.log(`Jailed ${jailed} loitering trainers`);
   }
 }

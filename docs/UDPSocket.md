@@ -39,6 +39,8 @@ Commands are sent as JSON, for example:
 
 If a command is invalid, the socket will send an `error` event (see below).
 
+UDP clients that do not send a command are disconnected after ${environment.cleanup.udpLifetimeMinutes} minutes.
+
 ## Events
 
 See the WebSocket documentation for general information about events.
