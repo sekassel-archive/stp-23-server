@@ -235,7 +235,7 @@
 + Added Tomasea and buildings
 + Added Route 107 and a building
 + Added Sandropolis and buildings
-+ Added Route 105
++ Added Routes 105 and 106.
 + Added the Clemeville Police Station.
 + Added information to the Region map about the Monsters that can be found in each area.
 
