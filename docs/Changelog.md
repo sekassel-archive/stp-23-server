@@ -225,3 +225,22 @@
 * Fixed an internal error in the UDP socket.
 * Fixed an internal error when an encounter ends.
 * Fixed an internal error when talking to a trainer with an invalid ID.
+
+# v3.1.0 - Battle Improvements
+
+## New Features
+
+### Content
+
++ Added Tomasea and buildings
++ Added Route 107 and a building
++ Added Sandropolis and buildings
+
+## Improvements
+
+* NPCs no longer move when they start an encounter.
+* NPCs now remember the player as encountered only when they are defeated.
+
+## Bugfixes
+
+* `TalkTrainerDto`s are now properly validated.
