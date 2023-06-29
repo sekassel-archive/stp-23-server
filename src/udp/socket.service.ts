@@ -1,9 +1,10 @@
-import {HttpStatus, Injectable, OnModuleInit} from '@nestjs/common';
+import {HttpStatus, Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {createSocket, RemoteInfo, Socket} from 'node:dgram';
 import {environment} from '../environment';
 import {SentryService} from "@ntegral/nestjs-sentry";
 import {Transaction} from "@sentry/node";
+import {Cron, CronExpression} from "@nestjs/schedule";
 
 function key(rinfo: RemoteInfo) {
   return `${rinfo.address}:${rinfo.port}`;
@@ -30,6 +31,8 @@ interface Message {
 export class SocketService implements OnModuleInit {
   remotes = new Map<string, Remote>;
   socket: Socket;
+
+  private logger = new Logger(SocketService.name);
 
   constructor(
     private eventEmitter: EventEmitter2,
@@ -116,5 +119,14 @@ export class SocketService implements OnModuleInit {
         }
       }
     }
+  }
+
+  @Cron(CronExpression.EVERY_HOUR)
+  logRemotes() {
+    let subs = 0;
+    for (const [, value] of this.remotes) {
+      subs += value.subscribed.size;
+    }
+    subs && this.logger.debug(`Remotes: ${this.remotes.size} Total Subscriptions: ${subs}`);
   }
 }
