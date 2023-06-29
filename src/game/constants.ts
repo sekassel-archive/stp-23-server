@@ -105,3 +105,5 @@ export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
 export const TALL_GRASS_TRAINER = '0'.repeat(24);
 
 export const MAX_TEAM_SIZE = 6;
+
+export const NPC_SIGHT_RANGE = 5;

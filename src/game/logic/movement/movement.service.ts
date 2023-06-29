@@ -5,7 +5,7 @@ import * as fs from 'node:fs/promises';
 import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
 import {AreaService} from '../../area/area.service';
-import {TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
+import {NPC_SIGHT_RANGE, TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
 import {Chunk, getProperty, TiledObject} from '../../tiled-map.interface';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
 import {Direction, Trainer} from '../../trainer/trainer.schema';
@@ -268,7 +268,7 @@ export class MovementService implements OnApplicationBootstrap {
         // fallthrough -- NPCs can still attack in tall grass
       default:
         // NB: no await here, we don't care about the result or the order
-        this.checkAllNPCsOnSight(dto);
+        this.checkAllNPCsOnSight(oldLocation, dto);
     }
 
     await this.trainerService.updateWithoutEvent(dto._id, dto);
@@ -315,47 +315,25 @@ export class MovementService implements OnApplicationBootstrap {
     return;
   }
 
-  async checkAllNPCsOnSight(dto: MoveTrainerDto) {
+  async checkAllNPCsOnSight(trainer: Trainer, dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
-    const trainer = await this.trainerService.find(dto._id);
-    if (!trainer || trainer.npc) {
-      return;
-    }
-
-    const npcs = await this.trainerService.findAll({
-      _id: {$ne: new Types.ObjectId(dto._id)},
+    const attackers = await this.trainerService.findAll({
+      _id: {$ne: dto._id},
       area: dto.area,
       'npc.encounterOnSight': true,
       'npc.encountered': {$ne: trainerId},
+      $or: [
+        {direction: Direction.UP, x: dto.x, y: {$gt: dto.y, $lte: dto.y + NPC_SIGHT_RANGE}},
+        {direction: Direction.DOWN, x: dto.x, y: {$lt: dto.y, $gte: dto.y - NPC_SIGHT_RANGE}},
+        {direction: Direction.LEFT, x: {$gt: dto.x, $lte: dto.x + NPC_SIGHT_RANGE}, y: dto.y},
+        {direction: Direction.RIGHT, x: {$lt: dto.x, $gte: dto.x - NPC_SIGHT_RANGE}, y: dto.y},
+      ],
     });
-    const attackers = npcs.filter(npc => this.checkNPConSight(dto, npc, 5));
-    if (attackers.length <= 0) {
-      return;
-    }
-
-    await this.battleSetupService.createTrainerBattle(trainer, attackers);
+    attackers.length && await this.battleSetupService.createTrainerBattle(trainer, attackers);
   }
 
   getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
     return Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y);
-  }
-
-  checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number): boolean {
-    if (npc._id.equals(player._id)) {
-      return false;
-    }
-
-    switch (npc.direction) {
-      case Direction.UP:
-        return player.x === npc.x && player.y < npc.y && Math.abs(player.y - npc.y) <= maxRange;
-      case Direction.DOWN:
-        return player.x === npc.x && player.y > npc.y && Math.abs(player.y - npc.y) <= maxRange;
-      case Direction.LEFT:
-        return player.y === npc.y && player.x < npc.x && Math.abs(player.x - npc.x) <= maxRange;
-      case Direction.RIGHT:
-        return player.y === npc.y && player.x > npc.x && Math.abs(player.x - npc.x) <= maxRange;
-    }
-    return false;
   }
 
   @Cron(CronExpression.EVERY_10_MINUTES)
