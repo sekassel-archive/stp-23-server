@@ -5,6 +5,7 @@ import {MonsterService} from '../../monster/monster.service';
 import {OpponentService} from '../../opponent/opponent.service';
 import {Trainer} from '../../trainer/trainer.schema';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
+import {Encounter} from "../../encounter/encounter.schema";
 
 @Injectable()
 export class BattleSetupService {
@@ -16,13 +17,13 @@ export class BattleSetupService {
   ) {
   }
 
-  async createTrainerBattle(defender: Trainer, attackers: Trainer[]) {
+  async createTrainerBattle(defender: Trainer, attackers: Trainer[]): Promise<'in-battle' | 'defender-not-ready' | 'attackers-not-ready' | Encounter> {
     const defenderId = defender._id.toString();
     const attackerIds = attackers.map(a => a._id.toString());
     const isOpponentInBattle = await this.isInBattle([defenderId, ...attackerIds]);
     if (isOpponentInBattle) {
       // one of the trainers is already in a battle
-      return;
+      return 'in-battle';
     }
 
     await this.monsterService.healAll({
@@ -35,12 +36,12 @@ export class BattleSetupService {
     });
     const defenderMonster = defender.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
     if (!defenderMonster) {
-      return;
+      return 'defender-not-ready';
     }
 
     if (!monsters.some(m => attackers.some(a => a.team.includes(m._id.toString())))) {
       // the attackers have no monsters left
-      return;
+      return 'attackers-not-ready';
     }
 
     const encounter = await this.encounterService.create({region: defender.region, isWild: false});
@@ -59,6 +60,7 @@ export class BattleSetupService {
         monster: monster._id.toString(),
       });
     }));
+    return encounter;
   }
 
   async createMonsterEncounter(defender: Trainer, type: number, level: number) {

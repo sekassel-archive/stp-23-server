@@ -240,8 +240,21 @@ export class MovementService implements OnApplicationBootstrap {
         }
         // fallthrough -- NPCs can still attack in tall grass
       default:
-        // NB: no await here, we don't care about the result or the order
-        this.checkAllNPCsOnSight(oldLocation, dto);
+        if (!oldLocation.npc) {
+          const npcResult = await this.checkAllNPCsOnSight(oldLocation, dto);
+          switch (npcResult) {
+            case 0: // no NPCs on sight
+            case 'attackers-not-ready': // attackers are not ready
+              break;
+            case 'in-battle': // either the trainer or the NPC is in battle
+            case 'defender-not-ready': // defender is not ready
+              // revert movement
+              dto.area = oldLocation.area;
+              dto.x = oldLocation.x;
+              dto.y = oldLocation.y;
+              break;
+          }
+        }
     }
 
     await this.trainerService.updateWithoutEvent(dto._id, dto);
@@ -298,7 +311,7 @@ export class MovementService implements OnApplicationBootstrap {
         {direction: Direction.RIGHT, x: {$lt: dto.x, $gte: dto.x - NPC_SIGHT_RANGE}, y: dto.y},
       ],
     });
-    attackers.length && await this.battleSetupService.createTrainerBattle(trainer, attackers);
+    return attackers.length && await this.battleSetupService.createTrainerBattle(trainer, attackers);
   }
 
   getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
