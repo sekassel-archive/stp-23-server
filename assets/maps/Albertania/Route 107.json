@@ -1807,12 +1807,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":54
+                         "value":42
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":24
+                         "value":50
                         }],
                  "rotation":0,
                  "type":"Portal",
