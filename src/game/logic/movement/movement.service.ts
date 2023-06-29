@@ -14,6 +14,7 @@ import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
 import {notFound} from "@mean-stream/nestx";
 import BitSet from "bitset";
+import {OpponentService} from "../../opponent/opponent.service";
 
 export interface AreaInfo {
   width: number;
@@ -61,6 +62,7 @@ export class MovementService implements OnApplicationBootstrap {
     private socketService: SocketService,
     private areaService: AreaService,
     private battleSetupService: BattleSetupService,
+    private opponentService: OpponentService,
   ) {
   }
 
@@ -209,10 +211,17 @@ export class MovementService implements OnApplicationBootstrap {
   @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
-    const oldLocation = await this.trainerService.find(dto._id) || notFound(dto._id);
-    const otherTrainer = await this.trainerService.findOne({area: dto.area, x: dto.x, y: dto.y});
+    const [oldLocation, otherTrainer, opponent] = await Promise.all([
+      this.trainerService.find(dto._id),
+      this.trainerService.findOne({area: dto.area, x: dto.x, y: dto.y}),
+      this.opponentService.findOne({trainer: trainerId}),
+    ]);
+    if (!oldLocation) {
+      return notFound(trainerId);
+    }
 
-    if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
+    if (opponent // Trainer in battle
+      || this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || dto.area !== oldLocation.area // Mismatching area
       || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
       || !this.isWalkable(dto) // Tile not walkable
