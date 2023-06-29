@@ -40118,6 +40118,20 @@
                 }]
         }, 
         {
+         "id":20041,
+         "properties":[
+                {
+                 "name":"Roof",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":20099,
          "properties":[
                 {
@@ -40514,6 +40528,20 @@
         }, 
         {
          "id":20199,
+         "properties":[
+                {
+                 "name":"Roof",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":20217,
          "properties":[
                 {
                  "name":"Roof",
