@@ -37,6 +37,8 @@ The following resources will be deleted automatically under certain conditions.
 <sup>1</sup>: A Trainer is considered to have progressed if they moved to different area from spawn,
 or acquired coins, or have a monster with some experience.
 
+Trainers that loiter in protected zones are sent to Jail after ${environment.cleanup.loiteringMinutes} minutes.
+
 ## Cascading Deletes
 
 The following table shows which delete operations trigger other deletes.
