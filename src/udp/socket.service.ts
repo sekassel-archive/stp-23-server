@@ -19,6 +19,7 @@ function regex(pattern: string): RegExp {
 
 interface Remote {
   info: RemoteInfo;
+  lastCommand: number;
   subscribed: Map<string, RegExp>;
 }
 
@@ -72,6 +73,9 @@ export class SocketService implements OnModuleInit {
     } finally {
       tx?.finish();
     }
+
+    const remote = this.remotes.get(key(info));
+    remote && (remote.lastCommand = Date.now());
   }
 
   private async onEvent(info: RemoteInfo, message: Message): Promise<unknown> {
@@ -94,7 +98,7 @@ export class SocketService implements OnModuleInit {
     } else {
       const subscribed = new Map<string, RegExp>;
       subscribed.set(pattern, regExp);
-      this.remotes.set(remoteKey, {info, subscribed});
+      this.remotes.set(remoteKey, {info, subscribed, lastCommand: Date.now()});
     }
   }
 
@@ -121,12 +125,19 @@ export class SocketService implements OnModuleInit {
     }
   }
 
-  @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   logRemotes() {
+    const removeBefore = Date.now() - environment.cleanup.udpLifetimeMinutes * 60 * 1000;
     let subs = 0;
+    let cleared = 0;
     for (const [, value] of this.remotes) {
-      subs += value.subscribed.size;
+      if (value.lastCommand < removeBefore) {
+        this.remotes.delete(key(value.info));
+        cleared++;
+      } else {
+        subs += value.subscribed.size;
+      }
     }
-    subs && this.logger.debug(`Remotes: ${this.remotes.size} Total Subscriptions: ${subs}`);
+    cleared && this.logger.debug(`Removed ${cleared} stale remotes. Remaining ${this.remotes.size} remotes, ${subs} subscriptions`);
   }
 }
