@@ -1822,7 +1822,7 @@
                  "y":464
                 }, 
                 {
-                 "height":64,
+                 "height":96,
                  "id":12,
                  "name":"Tomasea",
                  "properties":[
@@ -1839,7 +1839,7 @@
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":93
+                         "value":97
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1913,7 +1913,7 @@
  "nextobjectid":36,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
