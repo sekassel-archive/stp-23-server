@@ -9560,6 +9560,48 @@
                 }]
         }, 
         {
+         "id":2076,
+         "properties":[
+                {
+                 "name":"Jumpable",
+                 "type":"int",
+                 "value":3
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":2077,
+         "properties":[
+                {
+                 "name":"Jumpable",
+                 "type":"int",
+                 "value":3
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":2078,
+         "properties":[
+                {
+                 "name":"Jumpable",
+                 "type":"int",
+                 "value":3
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":2090,
          "properties":[
                 {
