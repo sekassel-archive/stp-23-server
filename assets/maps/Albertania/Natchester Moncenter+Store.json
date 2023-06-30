@@ -151,6 +151,33 @@
                  "width":0,
                  "x":224,
                  "y":80
+                }, 
+                {
+                 "height":48,
+                 "id":5,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":224,
+                 "x":48,
+                 "y":112
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -159,10 +186,10 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
