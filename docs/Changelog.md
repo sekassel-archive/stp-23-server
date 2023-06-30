@@ -226,7 +226,7 @@
 * Fixed an internal error when an encounter ends.
 * Fixed an internal error when talking to a trainer with an invalid ID.
 
-# v3.1.0 - Battle Improvements
+# v3.1.0 - Central Areas and Battle Improvements
 
 ## New Features
 
