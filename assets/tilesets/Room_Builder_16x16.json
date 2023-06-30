@@ -6,7 +6,7 @@
  "name":"Room_Builder_16x16",
  "spacing":0,
  "tilecount":8284,
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tiles":[
         {
@@ -2198,6 +2198,15 @@
         }, 
         {
          "id":1948,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1954,
          "properties":[
                 {
                  "name":"Walkable",
@@ -7346,5 +7355,5 @@
         }],
  "tilewidth":16,
  "type":"tileset",
- "version":"1.9"
+ "version":"1.10"
 }
