@@ -1,6 +1,6 @@
 import {Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
-import {FilterQuery, Types} from 'mongoose';
+import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
 import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
@@ -8,7 +8,7 @@ import {AreaService} from '../../area/area.service';
 import {TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
 import {Chunk, getProperty, TiledObject} from '../../tiled-map.interface';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
-import {Direction, Trainer, TrainerDocument} from '../../trainer/trainer.schema';
+import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
