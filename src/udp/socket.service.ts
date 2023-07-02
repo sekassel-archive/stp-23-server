@@ -80,6 +80,8 @@ export class SocketService implements OnModuleInit {
 
   private async onEvent(info: RemoteInfo, message: Message): Promise<unknown> {
     switch (message.event) {
+      case 'ping':
+        return this.socket.send('{"event":"pong"}', info.port, info.address);
       case 'subscribe':
         return this.subscribe(info, message.data);
       case 'unsubscribe':

@@ -13,6 +13,7 @@ The number of event patters that can be subscribed to is limited to **${environm
 Wildcard subscriptions count as one subscription.
 
 UDP clients that do not send a command are disconnected after **${environment.cleanup.udpLifetimeMinutes}** minutes.
+The `ping` command can be used to keep the connection alive.
 
 ## Commands
 
@@ -20,6 +21,7 @@ The UDP Socket supports the following commands:
 
 | Command                                      | Payload                                   |
 |----------------------------------------------|-------------------------------------------|
+| `ping`                                       | Optional, Ignored                         |
 | `subscribe`                                  | Event Pattern (string)                    |
 | `unsubscribe`                                | Event Pattern (string)                    |
 | `areas.<areaId>.trainers.<trainerId>.moved`  | [`MoveTrainerDto`](#model-MoveTrainerDto) |
@@ -55,6 +57,7 @@ Some events are only visible to certain users for privacy reasons.
 
 | Event Name                                  | Payload                                                                                                            | Visible to                       |
 |---------------------------------------------|--------------------------------------------------------------------------------------------------------------------|----------------------------------|
+| `pong`                                      | Nothing                                                                                                            | Sender of the `ping` command     |
 | `areas.<areaId>.trainers.<trainerId>.moved` | [`MoveTrainerDto`](#model-MoveTrainerDto)                                                                          | Everyone                         |
 | `error`                                     | `string` or [`ErrorResponse`](#model-ErrorResponse) or [`ValidationErrorResponse`](#model-ValidationErrorResponse) | The socket that caused the error |
 
