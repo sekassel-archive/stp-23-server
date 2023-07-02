@@ -24,12 +24,14 @@ export interface AreaInfo {
   objects: GameObject[];
   walkable: BitSet;
   tallGrass: BitSet;
+  jumpable: Record<number, Direction>;
 }
 
 export interface TilesetInfo {
   firstgid?: number;
   walkable: BitSet;
   tallGrass: BitSet;
+  jumpable: Record<number, Direction>;
 }
 
 export interface BaseGameObject {
@@ -104,6 +106,7 @@ export class MovementService implements OnApplicationBootstrap {
   private async loadTileset(name: string): Promise<TilesetInfo> {
     const walkable = new BitSet();
     const tallGrass = new BitSet();
+    const jumpable: Direction[] = [];
     const text = await fs.readFile(`./assets/tilesets/${name}`, 'utf8').catch(() => '{}');
     const tileset = JSON.parse(text);
     for (const tile of tileset.tiles || []) {
@@ -118,10 +121,13 @@ export class MovementService implements OnApplicationBootstrap {
           case 'TallGrass':
             tallGrass.set(tile.id);
             break;
+          case 'Jumpable':
+            jumpable[tile.id] = property.value;
+            break;
         }
       }
     }
-    return {walkable, tallGrass};
+    return {walkable, tallGrass, jumpable};
   }
 
   private loadArea(area: Area, areas: Area[], tilesets: Map<string, TilesetInfo>): AreaInfo {
@@ -131,6 +137,8 @@ export class MovementService implements OnApplicationBootstrap {
     const walkable = new BitSet();
     walkable.setRange(0, width * height);
     const tallGrass = new BitSet();
+    const jumpable: Direction[] = [];
+    const info: AreaInfo = {_id: area._id, width, height, objects, walkable, tallGrass, jumpable};
 
     const tilesetsWithFirstgid = area.map.tilesets.map(({source, firstgid}) => {
       const name = source.substring(source.lastIndexOf('/') + 1);
@@ -148,23 +156,20 @@ export class MovementService implements OnApplicationBootstrap {
           break;
         case 'tilelayer':
           if (layer.data) {
-            this.loadChunk(layer as Chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
+            this.loadChunk(layer as Chunk, tilesetsWithFirstgid, info);
           } else if (layer.chunks) {
             for (const chunk of layer.chunks) {
-              this.loadChunk(chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
+              this.loadChunk(chunk, tilesetsWithFirstgid, info);
             }
           }
           break;
       }
     }
 
-    return {_id: area._id, width, height, objects, walkable, tallGrass};
+    return info;
   }
 
-  private loadChunk(
-    layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], width: number,
-    walkable: BitSet, tallGrass: BitSet,
-  ) {
+  private loadChunk(layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], info: AreaInfo) {
     for (let i = 0; i < layer.data.length; i++) {
       const tileId = layer.data[i];
       if (tileId === 0) {
@@ -177,13 +182,17 @@ export class MovementService implements OnApplicationBootstrap {
 
       const x = layer.x + i % layer.width;
       const y = layer.y + (i / layer.width) | 0;
-      const index = y * width + x;
+      const index = y * info.width + x;
       const tileIdInTileset = tileId - tilesetRef.firstgid;
       if (!tilesetRef.walkable.get(tileIdInTileset)) {
-        walkable.clear(index);
+        info.walkable.clear(index);
       }
       if (tilesetRef.tallGrass.get(tileIdInTileset)) {
-        tallGrass.set(index);
+        info.tallGrass.set(index);
+      }
+      const jumpable = tilesetRef.jumpable[tileIdInTileset];
+      if (jumpable) {
+        info.jumpable[index] = jumpable;
       }
     }
   }
@@ -239,14 +248,19 @@ export class MovementService implements OnApplicationBootstrap {
     const oldLocation = await this.trainerService.find(dto._id) || notFound(dto._id);
     const otherTrainer = await this.trainerService.findOne({area: dto.area, x: dto.x, y: dto.y});
 
+    const direction = this.getDirection(oldLocation.x, oldLocation.y, dto.x, dto.y);
+    const jumpable = this.getJumpable(dto);
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || dto.area !== oldLocation.area // Mismatching area
       || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
       || !this.isWalkable(dto) // Tile not walkable
+      || jumpable && direction !== jumpable
     ) {
       dto.area = oldLocation.area;
       dto.x = oldLocation.x;
       dto.y = oldLocation.y;
+    } else if (jumpable) {
+      this.addDirection(dto, jumpable);
     }
 
     const gameObject = this.getGameObject(dto.area, dto.x, dto.y);
@@ -292,6 +306,11 @@ export class MovementService implements OnApplicationBootstrap {
     return !!areaInfo.walkable.get(dto.y * areaInfo.width + dto.x);
   }
 
+  getJumpable(dto: MoveTrainerDto): Direction | undefined {
+    const areaInfo = this.areas.get(dto.area);
+    return areaInfo && areaInfo.jumpable[dto.y * areaInfo.width + dto.x];
+  }
+
   isTallGrass(dto: MoveTrainerDto): boolean {
     const areaInfo = this.areas.get(dto.area);
     if (!areaInfo) {
@@ -334,6 +353,30 @@ export class MovementService implements OnApplicationBootstrap {
 
   getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
     return Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y);
+  }
+
+  getDirection(x1: number, y1: number, x2: number, y2: number): Direction {
+    if (x1 === x2) {
+      return y1 < y2 ? Direction.DOWN : Direction.UP;
+    }
+    return x1 < x2 ? Direction.RIGHT : Direction.LEFT;
+  }
+
+  addDirection(dto: MoveTrainerDto, direction: Direction) {
+    switch (direction) {
+      case Direction.UP:
+        dto.y--;
+        break;
+      case Direction.DOWN:
+        dto.y++;
+        break;
+      case Direction.LEFT:
+        dto.x--;
+        break;
+      case Direction.RIGHT:
+        dto.x++;
+        break;
+    }
   }
 
   @Cron(CronExpression.EVERY_10_MINUTES)
