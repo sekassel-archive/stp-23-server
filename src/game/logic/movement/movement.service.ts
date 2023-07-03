@@ -245,6 +245,7 @@ export class MovementService implements OnApplicationBootstrap {
     dto.area = oldLocation.area;
     dto.x = oldLocation.x;
     dto.y = oldLocation.y;
+    // "Silently" inform the client that the movement was processed but not applied
     this.broadcast(dto, oldLocation.area);
   }
 
@@ -255,19 +256,26 @@ export class MovementService implements OnApplicationBootstrap {
     const oldLocation = await this.trainerService.find(dto._id) || notFound(dto._id);
     const otherTrainer = await this.trainerService.findOne({area: dto.area, x: dto.x, y: dto.y});
 
-    const direction = this.getDirection(oldLocation.x, oldLocation.y, dto.x, dto.y);
-    const jumpable = this.getJumpable(dto);
     if (this.getDistance(dto, oldLocation) > 1 // Invalid movement
       || dto.area !== oldLocation.area // Mismatching area
       || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
       || !this.isWalkable(dto) // Tile not walkable
-      || jumpable && direction !== jumpable
     ) {
       this.cancelMovement(dto, oldLocation);
       return;
-    } else if (jumpable) {
+    }
+
+    const jumpable = this.getJumpable(dto);
+    if (jumpable) {
+      if (jumpable !== this.getDirection(oldLocation.x, oldLocation.y, dto.x, dto.y)) {
+        // Jumpable tiles can only be entered from the correct direction
+        this.cancelMovement(dto, oldLocation);
+        return;
+      }
+
       this.addDirection(dto, jumpable);
       if (!this.isWalkable(dto)) {
+        // The tile after the jumpable tile must be walkable
         this.cancelMovement(dto, oldLocation);
         return;
       }
