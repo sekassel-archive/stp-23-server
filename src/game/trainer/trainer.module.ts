@@ -13,6 +13,7 @@ import {TrainerHandler} from './trainer.handler';
 import {Trainer, TrainerSchema} from './trainer.schema';
 import {TrainerService} from './trainer.service';
 import {TrainerScheduler} from "./trainer.scheduler";
+import {environment} from "../../environment";
 
 @Module({
   imports: [
@@ -29,7 +30,11 @@ import {TrainerScheduler} from "./trainer.scheduler";
     forwardRef(() => OpponentModule),
   ],
   controllers: [TrainerController],
-  providers: [TrainerService, TrainerHandler, TrainerScheduler],
+  providers: [
+    TrainerService,
+    TrainerHandler,
+    ...(environment.passive ? [] : [TrainerScheduler]),
+  ],
   exports: [TrainerService],
 })
 export class TrainerModule {

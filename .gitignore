@@ -25,6 +25,7 @@ coverage
 *.launch
 .settings/
 *.sublime-workspace
+*.tiled-session
 
 # IDE - VSCode
 .vscode/*

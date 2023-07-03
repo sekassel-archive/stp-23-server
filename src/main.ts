@@ -63,8 +63,8 @@ async function bootstrap() {
   });
   SwaggerModule.setup(globalPrefix, app, document);
 
-  await app.startAllMicroservices();
   await app.listen(environment.port);
+  await app.startAllMicroservices();
 }
 
 bootstrap();

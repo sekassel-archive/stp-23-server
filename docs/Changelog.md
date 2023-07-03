@@ -144,6 +144,28 @@
 * Fixed a bug where trainers would still block tiles after being deleted (manually or during cleanup).
 * Preset requests for `@2x` images now return `404 Not Found` instead of the original image.
 
+# v2.1.7 - v3 Backport
+
+## Improvements
+
+* Updated tilesets with v3 tile definitions.
+* JSON presets are now minimized.
+* Improved UDP error handling.
+* Improved movement check performance.
+* Trainer cleanup now happens regardless of position in the spawn area.
+
+## Bugfixes
+
+* Fixed tile Walkable check in non-infinite maps.
+* Trainer cleanup and NPC movement are now disabled for outdated servers.
+
+# v2.1.8
+
+## Bugfixes
+
+* Removed the trainer location cache to avoid ghost trainers and conflicts with newer server instances.
+* Fixed an internal error in the UDP socket.
+
 # v3.0.0 - Battle
 
 ## New Features
@@ -151,23 +173,26 @@
 ### Content
 
 + Added the Encounter Test region.
++ Overhauled Route 100.
++ Added Route 101, 102, 103 and 111.
++ Added Adromere.
++ Added Wesers Peak.
++ Added `Buildings` to cities in the Albertania region map.
++ Optimized all maps and tilesets -- some maps now use layer data instead of chunks.
 
 ### Resources
 
 + Added Encounters.
-+ Added Opponents
-  > This is the representation of a trainer in battle.
-+ Added `TalkTrainerDto`
-  > This UDP action can be used to talk to trainers.
-+ Added `encounterOnSight`, `canHeal`, `encountered` and `starters` to `Trainer.npc`.
++ Added Opponents, the representation of a trainer in battle.
++ Added `TalkTrainerDto`, a UDP action for talking to trainers.
++ Added `encounterOnSight`, `encounterOnTalk`, `canHeal`, `encountered` and `starters` to `NPCInfo`.
 + Added `team` to `Trainer`.
 + Added `encounteredMonsterTypes` to `Trainer`.
-  > I.e. the Mondex.
 
 ## Improvements
 
 * Trainers no longer receive a monster when they are created.
-  > Visit the Prof. to select your start monster.
+* Players can receive a starter monster from the Prof.
 * Wild Encounters can be triggered by Tall Grass.
 * Players can trigger encounters by talking to other trainers.
 * Players can heal their monsters by talking to a Nurse.
@@ -175,3 +200,54 @@
 * Defeating a monster now grants experience.
 * Monsters can now level up and evolve.
 * Winning encounters now grants coins.
+
+# v3.0.1 - Minor Improvements
+
+## Improvements
+
+* Minor improvements to exterior tile definitions.
+* Improved movement and tall grass check performance.
+
+## Bugfixes
+
+* Trainer cleanup and NPC movement are now disabled for outdated servers.
+
+# v3.0.2 - Minor Fixes
+
+## Improvements
+
++ Added some sand tiles for future use.
+
+## Bugfixes
+
+* Removed some strange Tile IDs from Route 111.
+* Removed the trainer location cache to avoid ghost trainers and conflicts with newer server instances.
+* Fixed an internal error in the UDP socket.
+* Fixed an internal error when an encounter ends.
+* Fixed an internal error when talking to a trainer with an invalid ID.
+
+# v3.1.0 - Central Areas and Battle Improvements
+
+## New Features
+
+### Content
+
++ Added Tomasea and buildings.
++ Added Sandropolis and buildings.
++ Added Jenshire.
++ Added Routes 104, 105 and 106.
++ Added Route 107 and a building.
++ Added the Clemeville Police Station.
++ Added information to the Region map about the Monsters that can be found in each area.
+
+## Improvements
+
+* NPCs no longer move when they start an encounter.
+* NPCs now remember the player as encountered only when they are defeated.
+* The `GET /regions/{region}/areas` endpoint no longer includes Layer `chunks` and `data` for faster response.
+* Loitering trainers in busy areas are now sent to Jail after a few minutes.
+
+## Bugfixes
+
+* `TalkTrainerDto`s are now properly validated.
+* UDP clients that did not send a command in a while are now disconnected.

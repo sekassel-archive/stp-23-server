@@ -2014,6 +2014,29 @@
                  "width":0,
                  "x":608,
                  "y":272
+                }, 
+                {
+                 "height":0,
+                 "id":50,
+                 "name":"Prof. Spruce",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Premade_Character_08.png"
+                        }, 
+                        {
+                         "name":"Starters",
+                         "type":"string",
+                         "value":"[9,27,61]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":144
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2022,10 +2045,10 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":50,
+ "nextobjectid":51,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
