@@ -83,6 +83,10 @@ export class TrainerController {
     await this.checkTrainerAuth(user, 'update', id);
     if (dto.area) {
       const oldTrainer = await this.trainerService.find(id) || notFound(id);
+      if (oldTrainer.area === dto.area) {
+        return this.trainerService.update(id, dto);
+      }
+
       if (!oldTrainer.visitedAreas.includes(dto.area)) {
         throw new ForbiddenException(`Cannot move trainer to unvisited area ${dto.area}`);
       }
