@@ -2,7 +2,7 @@ import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {Types} from 'mongoose';
 import * as fs from 'node:fs/promises';
 import {environment} from '../../environment';
-import {Region} from '../../region/region.schema';
+import {Region, Spawn} from '../../region/region.schema';
 import {RegionService} from '../../region/region.service';
 import {AreaDocument} from '../area/area.schema';
 import {AreaService} from '../area/area.service';
@@ -60,6 +60,7 @@ export class GameLoader implements OnModuleInit {
   private async loadArea(areaFileName: string, region: Region): Promise<AreaDocument> {
     const name = areaFileName.replace('.json', '');
     const map: TiledMap = JSON.parse(await fs.readFile(`./assets/maps/${region.name}/${areaFileName}`, 'utf8'));
+    const spawn = getProperty<string>(map, 'Spawn');
     const area = await this.areaService.upsert({
       region: region._id.toString(),
       name,
@@ -67,6 +68,7 @@ export class GameLoader implements OnModuleInit {
       region: region._id.toString(),
       name,
       map,
+      spawn: spawn ? JSON.parse(spawn) : undefined,
     });
 
     for (const layer of map.layers) {
