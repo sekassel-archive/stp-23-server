@@ -35,6 +35,7 @@ export class TrainerService extends MongooseRepository<Trainer> {
       coins: 0,
       team: [],
       encounteredMonsterTypes: [],
+      visitedAreas: [area],
       area,
       x,
       y,

@@ -316,6 +316,60 @@
                  "width":0,
                  "x":416,
                  "y":128
+                }, 
+                {
+                 "height":32,
+                 "id":11,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":272,
+                 "x":160,
+                 "y":80
+                }, 
+                {
+                 "height":160,
+                 "id":12,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":32,
+                 "x":272,
+                 "y":112
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -324,7 +378,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":11,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

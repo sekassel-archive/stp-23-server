@@ -2136,7 +2136,7 @@
          "name":"Objects",
          "objects":[
                 {
-                 "height":123.5,
+                 "height":80,
                  "id":12,
                  "name":"Tomasea",
                  "properties":[
@@ -2153,17 +2153,17 @@
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":31
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":163.166666666667,
-                 "x":1261.62906419548,
-                 "y":495.853768167597
+                 "width":112,
+                 "x":1296,
+                 "y":560
                 }, 
                 {
-                 "height":415,
+                 "height":416,
                  "id":36,
                  "name":"Tomasea",
                  "properties":[
@@ -2180,14 +2180,14 @@
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":31
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":320,
-                 "x":1,
-                 "y":2
+                 "width":208,
+                 "x":0,
+                 "y":0
                 }, 
                 {
                  "height":0,
@@ -2331,7 +2331,7 @@
  "nextobjectid":41,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

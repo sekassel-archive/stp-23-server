@@ -883,6 +883,115 @@
                  "width":112,
                  "x":640,
                  "y":224
+                }, 
+                {
+                 "height":96,
+                 "id":20,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":64,
+                 "x":832,
+                 "y":352
+                }, 
+                {
+                 "height":48,
+                 "id":21,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":48,
+                 "x":640,
+                 "y":544
+                }, 
+                {
+                 "height":48,
+                 "id":22,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":48,
+                 "x":512,
+                 "y":544
+                },
+            
+                {
+                 "height":64,
+                 "id":23,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":176,
+                 "x":576,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -891,7 +1000,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":19,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

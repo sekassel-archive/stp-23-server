@@ -226,21 +226,28 @@
 * Fixed an internal error when an encounter ends.
 * Fixed an internal error when talking to a trainer with an invalid ID.
 
-# v3.1.0 - Battle Improvements
+# v3.1.0 - Central Areas and Battle Improvements
 
 ## New Features
 
 ### Content
 
-+ Added Tomasea and buildings
-+ Added Route 107 and a building
-+ Added Sandropolis and buildings
++ Added Tomasea and buildings.
++ Added Sandropolis and buildings.
++ Added Jenshire.
++ Added Routes 104, 105 and 106.
++ Added Route 107 and a building.
++ Added the Clemeville Police Station.
++ Added information to the Region map about the Monsters that can be found in each area.
 
 ## Improvements
 
 * NPCs no longer move when they start an encounter.
 * NPCs now remember the player as encountered only when they are defeated.
+* The `GET /regions/{region}/areas` endpoint no longer includes Layer `chunks` and `data` for faster response.
+* Loitering trainers in busy areas are now sent to Jail after a few minutes.
 
 ## Bugfixes
 
 * `TalkTrainerDto`s are now properly validated.
+* UDP clients that did not send a command in a while are now disconnected.

@@ -2,14 +2,7 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
 import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
-import {Document, Types} from 'mongoose';
-import {
-  GLOBAL_SCHEMA_OPTIONS,
-  GLOBAL_SCHEMA_WITHOUT_ID_OPTIONS,
-  GlobalSchema,
-  GlobalSchemaWithoutID,
-  MONGO_ID_FORMAT
-} from '../../util/schema';
+import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
 import {abilities} from '../constants';
 import {Doc} from "@mean-stream/nestx";
 
