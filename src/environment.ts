@@ -22,6 +22,7 @@ export const environment = {
     ttl: +(process.env.RATE_LIMIT_TTL || 60),
     limit: +(process.env.RATE_LIMIT || 60),
     presetsTtl: +(process.env.RATE_LIMIT_PRESETS_TTL || 60),
+    udpSubscriptionLimit: +(process.env.MAX_UDP_SUBSCRIPTIONS || 4),
   },
   passive: !!process.env.PASSIVE,
   cleanup: {

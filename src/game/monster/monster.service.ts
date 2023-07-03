@@ -4,7 +4,7 @@ import {FilterQuery, Model} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterDocument} from './monster.schema';
+import {Monster} from './monster.schema';
 import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 import {abilities} from "../constants";
 

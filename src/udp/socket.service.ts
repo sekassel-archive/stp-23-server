@@ -1,4 +1,4 @@
-import {HttpStatus, Injectable, Logger, OnModuleInit} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {createSocket, RemoteInfo, Socket} from 'node:dgram';
 import {environment} from '../environment';
@@ -80,6 +80,8 @@ export class SocketService implements OnModuleInit {
 
   private async onEvent(info: RemoteInfo, message: Message): Promise<unknown> {
     switch (message.event) {
+      case 'ping':
+        return this.socket.send('{"event":"pong"}', info.port, info.address);
       case 'subscribe':
         return this.subscribe(info, message.data);
       case 'unsubscribe':
@@ -93,13 +95,21 @@ export class SocketService implements OnModuleInit {
     const remoteKey = key(info);
     const remote = this.remotes.get(remoteKey);
     const regExp = regex(pattern);
-    if (remote) {
-      remote.subscribed.set(pattern, regExp);
-    } else {
+    if (!remote) {
       const subscribed = new Map<string, RegExp>;
       subscribed.set(pattern, regExp);
       this.remotes.set(remoteKey, {info, subscribed, lastCommand: Date.now()});
+      return;
     }
+
+    if (remote.subscribed.has(pattern)) {
+      return;
+    }
+
+    if (remote.subscribed.size >= environment.rateLimit.udpSubscriptionLimit) {
+      throw new HttpException('Too many subscriptions', HttpStatus.TOO_MANY_REQUESTS);
+    }
+    remote.subscribed.set(pattern, regExp);
   }
 
   private unsubscribe(info: RemoteInfo, pattern: string) {

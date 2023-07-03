@@ -1957,6 +1957,60 @@
                  "width":0,
                  "x":912,
                  "y":400
+                }, 
+                {
+                 "height":112,
+                 "id":35,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":64,
+                 "x":128,
+                 "y":432
+                }, 
+                {
+                 "height":48,
+                 "id":36,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Clemeville Police"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":80,
+                 "x":544,
+                 "y":208
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1965,10 +2019,10 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":35,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

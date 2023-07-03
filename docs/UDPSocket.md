@@ -4,8 +4,16 @@ The asynchronous UDP socket is available under the `${environment.udpAddress}` a
 It accepts incoming commands and sends outgoing events.
 To receive events, you first need to subscribe to them.
 
+## Limitations and Important Notes
+
 Neither subscription nor event delivery is guaranteed due to limitations of UDP.
 The maximum safe message size is 508 bytes (see [1]).
+
+The number of event patters that can be subscribed to is limited to **${environment.rateLimit.udpSubscriptionLimit}**.
+Wildcard subscriptions count as one subscription.
+
+UDP clients that do not send a command are disconnected after **${environment.cleanup.udpLifetimeMinutes}** minutes.
+The `ping` command can be used to keep the connection alive.
 
 ## Commands
 
@@ -13,6 +21,7 @@ The UDP Socket supports the following commands:
 
 | Command                                      | Payload                                   |
 |----------------------------------------------|-------------------------------------------|
+| `ping`                                       | Optional, Ignored                         |
 | `subscribe`                                  | Event Pattern (string)                    |
 | `unsubscribe`                                | Event Pattern (string)                    |
 | `areas.<areaId>.trainers.<trainerId>.moved`  | [`MoveTrainerDto`](#model-MoveTrainerDto) |
@@ -39,8 +48,6 @@ Commands are sent as JSON, for example:
 
 If a command is invalid, the socket will send an `error` event (see below).
 
-UDP clients that do not send a command are disconnected after ${environment.cleanup.udpLifetimeMinutes} minutes.
-
 ## Events
 
 See the WebSocket documentation for general information about events.
@@ -50,6 +57,7 @@ Some events are only visible to certain users for privacy reasons.
 
 | Event Name                                  | Payload                                                                                                            | Visible to                       |
 |---------------------------------------------|--------------------------------------------------------------------------------------------------------------------|----------------------------------|
+| `pong`                                      | Nothing                                                                                                            | Sender of the `ping` command     |
 | `areas.<areaId>.trainers.<trainerId>.moved` | [`MoveTrainerDto`](#model-MoveTrainerDto)                                                                          | Everyone                         |
 | `error`                                     | `string` or [`ErrorResponse`](#model-ErrorResponse) or [`ValidationErrorResponse`](#model-ValidationErrorResponse) | The socket that caused the error |
 

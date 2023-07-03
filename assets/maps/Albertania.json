@@ -422,6 +422,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A deep lake forms the eye of the isles. It is theorized to be the crater of an enormous meteorite."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[44,50,61,82,72,17]"
                         }],
                  "rotation":0,
                  "type":"Lake",
@@ -481,6 +486,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[52,75,91,96,33,90,35,20,89,55]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -618,6 +628,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[91,5,64,68,61,66,67,81,89,35,100,37,33,53]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -1049,7 +1064,7 @@
          "value":"{\"area\":\"Clemeville\",\"x\":40,\"y\":23}"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

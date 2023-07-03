@@ -1,14 +1,14 @@
 import {Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
-import {FilterQuery, Types} from 'mongoose';
+import {Types, UpdateQuery} from 'mongoose';
 import * as fs from 'node:fs/promises';
 import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
 import {AreaService} from '../../area/area.service';
-import {TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
+import {NPC_SIGHT_RANGE, TALL_GRASS_ENCOUNTER_CHANCE} from '../../constants';
 import {Chunk, getProperty, TiledObject} from '../../tiled-map.interface';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
-import {Direction, Trainer, TrainerDocument} from '../../trainer/trainer.schema';
+import {Direction, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {ValidatedEvent, VALIDATION_PIPE} from "../../../util/validated.decorator";
@@ -24,12 +24,14 @@ export interface AreaInfo {
   objects: GameObject[];
   walkable: BitSet;
   tallGrass: BitSet;
+  jumpable: Record<number, Direction>;
 }
 
 export interface TilesetInfo {
   firstgid?: number;
   walkable: BitSet;
   tallGrass: BitSet;
+  jumpable: Record<number, Direction>;
 }
 
 export interface BaseGameObject {
@@ -104,6 +106,7 @@ export class MovementService implements OnApplicationBootstrap {
   private async loadTileset(name: string): Promise<TilesetInfo> {
     const walkable = new BitSet();
     const tallGrass = new BitSet();
+    const jumpable: Direction[] = [];
     const text = await fs.readFile(`./assets/tilesets/${name}`, 'utf8').catch(() => '{}');
     const tileset = JSON.parse(text);
     for (const tile of tileset.tiles || []) {
@@ -118,10 +121,13 @@ export class MovementService implements OnApplicationBootstrap {
           case 'TallGrass':
             tallGrass.set(tile.id);
             break;
+          case 'Jumpable':
+            jumpable[tile.id] = property.value;
+            break;
         }
       }
     }
-    return {walkable, tallGrass};
+    return {walkable, tallGrass, jumpable};
   }
 
   private loadArea(area: Area, areas: Area[], tilesets: Map<string, TilesetInfo>): AreaInfo {
@@ -131,6 +137,8 @@ export class MovementService implements OnApplicationBootstrap {
     const walkable = new BitSet();
     walkable.setRange(0, width * height);
     const tallGrass = new BitSet();
+    const jumpable: Direction[] = [];
+    const info: AreaInfo = {_id: area._id, width, height, objects, walkable, tallGrass, jumpable};
 
     const tilesetsWithFirstgid = area.map.tilesets.map(({source, firstgid}) => {
       const name = source.substring(source.lastIndexOf('/') + 1);
@@ -148,23 +156,20 @@ export class MovementService implements OnApplicationBootstrap {
           break;
         case 'tilelayer':
           if (layer.data) {
-            this.loadChunk(layer as Chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
+            this.loadChunk(layer as Chunk, tilesetsWithFirstgid, info);
           } else if (layer.chunks) {
             for (const chunk of layer.chunks) {
-              this.loadChunk(chunk, tilesetsWithFirstgid, width, walkable, tallGrass);
+              this.loadChunk(chunk, tilesetsWithFirstgid, info);
             }
           }
           break;
       }
     }
 
-    return {_id: area._id, width, height, objects, walkable, tallGrass};
+    return info;
   }
 
-  private loadChunk(
-    layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], width: number,
-    walkable: BitSet, tallGrass: BitSet,
-  ) {
+  private loadChunk(layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], info: AreaInfo) {
     for (let i = 0; i < layer.data.length; i++) {
       const tileId = layer.data[i];
       if (tileId === 0) {
@@ -177,13 +182,17 @@ export class MovementService implements OnApplicationBootstrap {
 
       const x = layer.x + i % layer.width;
       const y = layer.y + (i / layer.width) | 0;
-      const index = y * width + x;
+      const index = y * info.width + x;
       const tileIdInTileset = tileId - tilesetRef.firstgid;
       if (!tilesetRef.walkable.get(tileIdInTileset)) {
-        walkable.clear(index);
+        info.walkable.clear(index);
       }
       if (tilesetRef.tallGrass.get(tileIdInTileset)) {
-        tallGrass.set(index);
+        info.tallGrass.set(index);
+      }
+      const jumpable = tilesetRef.jumpable[tileIdInTileset];
+      if (jumpable) {
+        info.jumpable[index] = jumpable;
       }
     }
   }
@@ -232,6 +241,14 @@ export class MovementService implements OnApplicationBootstrap {
     return targetArea;
   }
 
+  private cancelMovement(dto: MoveTrainerDto, oldLocation: Trainer) {
+    dto.area = oldLocation.area;
+    dto.x = oldLocation.x;
+    dto.y = oldLocation.y;
+    // "Silently" inform the client that the movement was processed but not applied
+    this.broadcast(dto, oldLocation.area);
+  }
+
   @OnEvent('udp:areas.*.trainers.*.moved')
   @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
@@ -244,9 +261,24 @@ export class MovementService implements OnApplicationBootstrap {
       || otherTrainer && otherTrainer._id.toString() !== trainerId // Trainer already at location
       || !this.isWalkable(dto) // Tile not walkable
     ) {
-      dto.area = oldLocation.area;
-      dto.x = oldLocation.x;
-      dto.y = oldLocation.y;
+      this.cancelMovement(dto, oldLocation);
+      return;
+    }
+
+    const jumpable = this.getJumpable(dto);
+    if (jumpable) {
+      if (jumpable !== this.getDirection(oldLocation.x, oldLocation.y, dto.x, dto.y)) {
+        // Jumpable tiles can only be entered from the correct direction
+        this.cancelMovement(dto, oldLocation);
+        return;
+      }
+
+      this.addDirection(dto, jumpable);
+      if (!this.isWalkable(dto)) {
+        // The tile after the jumpable tile must be walkable
+        this.cancelMovement(dto, oldLocation);
+        return;
+      }
     }
 
     const gameObject = this.getGameObject(dto.area, dto.x, dto.y);
@@ -268,10 +300,14 @@ export class MovementService implements OnApplicationBootstrap {
         // fallthrough -- NPCs can still attack in tall grass
       default:
         // NB: no await here, we don't care about the result or the order
-        this.checkAllNPCsOnSight(dto);
+        this.checkAllNPCsOnSight(oldLocation, dto);
     }
 
-    await this.trainerService.updateWithoutEvent(dto._id, dto);
+    const update: UpdateQuery<Trainer> = {...dto};
+    if (dto.area !== oldLocation.area) {
+      update.$addToSet = {visitedAreas: dto.area};
+    }
+    await this.trainerService.updateWithoutEvent(dto._id, update);
     this.broadcast(dto, oldLocation.area);
   }
 
@@ -290,6 +326,11 @@ export class MovementService implements OnApplicationBootstrap {
     }
 
     return !!areaInfo.walkable.get(dto.y * areaInfo.width + dto.x);
+  }
+
+  getJumpable(dto: MoveTrainerDto): Direction | undefined {
+    const areaInfo = this.areas.get(dto.area);
+    return areaInfo && areaInfo.jumpable[dto.y * areaInfo.width + dto.x];
   }
 
   isTallGrass(dto: MoveTrainerDto): boolean {
@@ -315,47 +356,49 @@ export class MovementService implements OnApplicationBootstrap {
     return;
   }
 
-  async checkAllNPCsOnSight(dto: MoveTrainerDto) {
+  async checkAllNPCsOnSight(trainer: Trainer, dto: MoveTrainerDto) {
     const trainerId = dto._id.toString();
-    const trainer = await this.trainerService.find(dto._id);
-    if (!trainer || trainer.npc) {
-      return;
-    }
-
-    const npcs = await this.trainerService.findAll({
-      _id: {$ne: new Types.ObjectId(dto._id)},
+    const attackers = await this.trainerService.findAll({
+      _id: {$ne: dto._id},
       area: dto.area,
       'npc.encounterOnSight': true,
       'npc.encountered': {$ne: trainerId},
+      $or: [
+        {direction: Direction.UP, x: dto.x, y: {$gt: dto.y, $lte: dto.y + NPC_SIGHT_RANGE}},
+        {direction: Direction.DOWN, x: dto.x, y: {$lt: dto.y, $gte: dto.y - NPC_SIGHT_RANGE}},
+        {direction: Direction.LEFT, x: {$gt: dto.x, $lte: dto.x + NPC_SIGHT_RANGE}, y: dto.y},
+        {direction: Direction.RIGHT, x: {$lt: dto.x, $gte: dto.x - NPC_SIGHT_RANGE}, y: dto.y},
+      ],
     });
-    const attackers = npcs.filter(npc => this.checkNPConSight(dto, npc, 5));
-    if (attackers.length <= 0) {
-      return;
-    }
-
-    await this.battleSetupService.createTrainerBattle(trainer, attackers);
+    attackers.length && await this.battleSetupService.createTrainerBattle(trainer, attackers);
   }
 
   getDistance(dto: MoveTrainerDto, npc: MoveTrainerDto) {
     return Math.abs(dto.x - npc.x) + Math.abs(dto.y - npc.y);
   }
 
-  checkNPConSight(player: MoveTrainerDto, npc: Trainer, maxRange: number): boolean {
-    if (npc._id.equals(player._id)) {
-      return false;
+  getDirection(x1: number, y1: number, x2: number, y2: number): Direction {
+    if (x1 === x2) {
+      return y1 < y2 ? Direction.DOWN : Direction.UP;
     }
+    return x1 < x2 ? Direction.RIGHT : Direction.LEFT;
+  }
 
-    switch (npc.direction) {
+  addDirection(dto: MoveTrainerDto, direction: Direction) {
+    switch (direction) {
       case Direction.UP:
-        return player.x === npc.x && player.y < npc.y && Math.abs(player.y - npc.y) <= maxRange;
+        dto.y--;
+        break;
       case Direction.DOWN:
-        return player.x === npc.x && player.y > npc.y && Math.abs(player.y - npc.y) <= maxRange;
+        dto.y++;
+        break;
       case Direction.LEFT:
-        return player.y === npc.y && player.x < npc.x && Math.abs(player.x - npc.x) <= maxRange;
+        dto.x--;
+        break;
       case Direction.RIGHT:
-        return player.y === npc.y && player.x > npc.x && Math.abs(player.x - npc.x) <= maxRange;
+        dto.x++;
+        break;
     }
-    return false;
   }
 
   @Cron(CronExpression.EVERY_10_MINUTES)
