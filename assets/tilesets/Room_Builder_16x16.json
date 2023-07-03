@@ -6,7 +6,7 @@
  "name":"Room_Builder_16x16",
  "spacing":0,
  "tilecount":8284,
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tiles":[
         {
@@ -2198,6 +2198,15 @@
         }, 
         {
          "id":1948,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1954,
          "properties":[
                 {
                  "name":"Walkable",
@@ -7346,5 +7355,51 @@
         }],
  "tilewidth":16,
  "type":"tileset",
- "version":"1.9"
+ "version":"1.10",
+ "wangsets":[
+        {
+         "colors":[
+                {
+                 "color":"#ff0000",
+                 "name":"",
+                 "probability":1,
+                 "tile":-1
+                }],
+         "name":"Unnamed Set",
+         "tile":4693,
+         "type":"corner",
+         "wangtiles":[
+                {
+                 "tileid":4690,
+                 "wangid":[0, 1, 0, 0, 0, 1, 0, 1]
+                }, 
+                {
+                 "tileid":4693,
+                 "wangid":[0, 1, 0, 1, 0, 0, 0, 1]
+                }, 
+                {
+                 "tileid":4842,
+                 "wangid":[0, 0, 0, 0, 0, 1, 0, 1]
+                }, 
+                {
+                 "tileid":4843,
+                 "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                }, 
+                {
+                 "tileid":4844,
+                 "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                }, 
+                {
+                 "tileid":4845,
+                 "wangid":[0, 1, 0, 1, 0, 0, 0, 0]
+                }, 
+                {
+                 "tileid":4918,
+                 "wangid":[0, 0, 0, 0, 0, 0, 0, 1]
+                }, 
+                {
+                 "tileid":4921,
+                 "wangid":[0, 1, 0, 0, 0, 0, 0, 0]
+                }]
+        }]
 }

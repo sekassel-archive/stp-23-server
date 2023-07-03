@@ -24,6 +24,8 @@ export enum Direction {
   DOWN,
 }
 
+export type Path = [number, number, Direction?][];
+
 export class NPCInfo {
   @ApiProperty({description: 'Whether the NPC should walk randomly. Handled by the server.'})
   @IsBoolean()
@@ -49,9 +51,7 @@ export class NPCInfo {
 
   // TODO @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
   @IsOptional()
-  @IsArray()
-  @IsInt({each: true})
-  path?: number[];
+  path?: Path;
 
   @ApiPropertyOptional({description: 'The Trainer IDs that the NPC has encountered. ' +
       'Applies to both encounters and NPCs that offer starters, so they cannot be received again.'})
@@ -107,7 +107,13 @@ export class Trainer extends GlobalSchema {
   @IsInt({each: true})
   encounteredMonsterTypes: number[];
 
-  @Prop()
+  @Prop({default: []})
+  @ApiProperty({...MONGO_ID_ARRAY_FORMAT})
+  @IsArray()
+  @IsMongoId({each: true})
+  visitedAreas: string[];
+
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   area: string;
