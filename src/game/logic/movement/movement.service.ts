@@ -1,6 +1,6 @@
 import {Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
-import {Types} from 'mongoose';
+import {Types, UpdateQuery} from 'mongoose';
 import * as fs from 'node:fs/promises';
 import {SocketService} from '../../../udp/socket.service';
 import {Area} from '../../area/area.schema';
@@ -303,7 +303,11 @@ export class MovementService implements OnApplicationBootstrap {
         this.checkAllNPCsOnSight(oldLocation, dto);
     }
 
-    await this.trainerService.updateWithoutEvent(dto._id, dto);
+    const update: UpdateQuery<Trainer> = {...dto};
+    if (dto.area !== oldLocation.area) {
+      update.$addToSet = {visitedAreas: dto.area};
+    }
+    await this.trainerService.updateWithoutEvent(dto._id, update);
     this.broadcast(dto, oldLocation.area);
   }
 
