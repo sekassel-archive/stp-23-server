@@ -31,6 +31,7 @@ export class MonsterService extends MongooseRepository<Monster> {
   async healAll(filter: FilterQuery<Monster>): Promise<void> {
     const monsters = await this.findAll(filter);
     for (const monster of monsters) {
+      monster.status = [];
       monster.currentAttributes = monster.attributes;
       for (const abilityId in monster.abilities) {
         const ability = abilities.find(a => a.id === +abilityId);
