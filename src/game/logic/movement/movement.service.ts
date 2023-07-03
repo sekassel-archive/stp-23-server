@@ -241,6 +241,13 @@ export class MovementService implements OnApplicationBootstrap {
     return targetArea;
   }
 
+  private cancelMovement(dto: MoveTrainerDto, oldLocation: Trainer) {
+    dto.area = oldLocation.area;
+    dto.x = oldLocation.x;
+    dto.y = oldLocation.y;
+    this.broadcast(dto, oldLocation.area);
+  }
+
   @OnEvent('udp:areas.*.trainers.*.moved')
   @ValidatedEvent(VALIDATION_PIPE)
   async onTrainerMoved(dto: MoveTrainerDto) {
@@ -256,11 +263,14 @@ export class MovementService implements OnApplicationBootstrap {
       || !this.isWalkable(dto) // Tile not walkable
       || jumpable && direction !== jumpable
     ) {
-      dto.area = oldLocation.area;
-      dto.x = oldLocation.x;
-      dto.y = oldLocation.y;
+      this.cancelMovement(dto, oldLocation);
+      return;
     } else if (jumpable) {
       this.addDirection(dto, jumpable);
+      if (!this.isWalkable(dto)) {
+        this.cancelMovement(dto, oldLocation);
+        return;
+      }
     }
 
     const gameObject = this.getGameObject(dto.area, dto.x, dto.y);
