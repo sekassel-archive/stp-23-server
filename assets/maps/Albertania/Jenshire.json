@@ -2243,8 +2243,14 @@
  "nextlayerid":9,
  "nextobjectid":32,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Spawn",
+         "type":"string",
+         "value":"{\"x\":74,\"y\":50}"
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

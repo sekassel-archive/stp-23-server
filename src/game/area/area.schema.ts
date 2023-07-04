@@ -1,9 +1,15 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {ApiProperty} from '@nestjs/swagger';
-import {IsMongoId, IsNotEmpty, IsObject, MaxLength} from 'class-validator';
+import {ApiProperty, ApiPropertyOptional, PickType} from '@nestjs/swagger';
+import {IsMongoId, IsNotEmpty, IsObject, IsOptional, MaxLength, ValidateNested} from 'class-validator';
 import {Document, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema} from '../../util/schema';
 import {TiledMap} from '../tiled-map.interface';
+import {Type} from "class-transformer";
+import {Spawn} from "../../region/region.schema";
+import {Trainer} from "../trainer/trainer.schema";
+
+export class Position extends PickType(Trainer, ['x', 'y'] as const) {
+}
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 export class Area extends GlobalSchema {
@@ -18,6 +24,13 @@ export class Area extends GlobalSchema {
   @IsNotEmpty()
   @MaxLength(32)
   name: string;
+
+  @Prop()
+  @ApiPropertyOptional()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Position)
+  spawn?: Position;
 
   @Prop({type: Object})
   @ApiProperty({

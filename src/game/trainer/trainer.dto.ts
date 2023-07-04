@@ -15,6 +15,7 @@ export class UpdateTrainerDto extends PartialType(PickType(Trainer, [
   'name',
   'image',
   'team',
+  'area',
 ] as const)) {
 }
 
