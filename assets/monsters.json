@@ -585,7 +585,7 @@
     "name": "Sebkun",
     "type": ["dragon", "dark"],
     "evolution": 80,
-      "description": "Sebkun is a dragon and dark type creature that is incredibly agile and has a keen sense of smell to track its prey."
+    "description": "Sebkun is a dragon and dark type creature that is incredibly agile and has a keen sense of smell to track its prey."
   },
   {
     "id": 80,
@@ -1541,7 +1541,6 @@
     "type": ["fairy", "flying"],
     "description": "Twinklepuff is a delightful and whimsical creature. Its gentle presence brings comfort and joy, enchanting all with its soft glow and sprinkling fairy dust wherever it flies."
   },
-
   {
     "id": 209,
     "image": "Glairy_1.png",
