@@ -34226,15 +34226,6 @@
                 }]
         }, 
         {
-         "id":16104,
-         "properties":[
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":16105,
          "properties":[
                 {
@@ -39710,15 +39701,6 @@
                 }]
         }, 
         {
-         "id":19118,
-         "properties":[
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":19119,
          "properties":[
                 {
@@ -40014,15 +39996,6 @@
                  "type":"bool",
                  "value":true
                 }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "id":19273,
-         "properties":[
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -87747,35 +87720,7 @@
                 }]
         }, 
         {
-         "id":40854,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":40855,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "id":40858,
          "properties":[
                 {
                  "name":"Roof",
@@ -87803,20 +87748,6 @@
                 }]
         }, 
         {
-         "id":40862,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":40863,
          "properties":[
                 {
@@ -87831,35 +87762,7 @@
                 }]
         }, 
         {
-         "id":40866,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":40867,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "id":40869,
          "properties":[
                 {
                  "name":"Roof",
@@ -88528,20 +88431,6 @@
                 }]
         }, 
         {
-         "id":41012,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":41013,
          "properties":[
                 {
@@ -88710,20 +88599,6 @@
                 }]
         }, 
         {
-         "id":41029,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":41032,
          "properties":[
                 {
@@ -88809,20 +88684,6 @@
         }, 
         {
          "id":41044,
-         "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "id":41046,
          "properties":[
                 {
                  "name":"Roof",
