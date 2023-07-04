@@ -251,3 +251,37 @@
 
 * `TalkTrainerDto`s are now properly validated.
 * UDP clients that did not send a command in a while are now disconnected.
+
+# v3.2.0 - Travel and Jumpable Tiles
+
+## New Features
+
+### Content
+
++ Added Jenshire buildings and decoration.
++ Added Monsters info to the Central Lake, Route 106 and 107 areas in the region map.
++ Added additional protection zones to Clemeville, Route 100, Natchester and Victory Road.
++ Added more Walkable and Roof tiles.
++ Added another Prof. to Victory Road to get more than one monster.
++ Added travel spawn points to major cities and Wesers Peak.
+
+### Mechanics
+
++ Added Jumpable tiles that move the player one step further when stepped on from the right direction.
++ Trainers now track their visited areas.
++ Added `area` to `UpdateTrainerDto` to travel to other visited areas that have a spawn point.
++ Added `spawn` to `Area` that indicates if the area can be traveled to.
++ Added `spawn` query parameter to `GET /regions/{region}/areas` to filter areas that can be traveled to.
++ Added the `ping` UDP command.
+
+## Improvements
+
+* Optimized Route 107.
+* Limited the number of UDP subscriptions per client.
+* Correctly documented the type of `Trainer.npc.starters`.
+* Opponents that do not make a move are now deleted after a few minutes.
+
+## Bugfixes
+
+* Support for rotated and mirrored tiles.
+* Removed unused and deleted tilesets from Central Lake.
