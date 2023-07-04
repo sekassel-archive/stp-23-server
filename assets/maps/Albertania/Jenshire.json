@@ -2441,6 +2441,33 @@
                  "width":16,
                  "x":1408,
                  "y":416
+                }, 
+                {
+                 "height":16,
+                 "id":34,
+                 "name":"Jenshire Luap House",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Jenshire Luap House"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":16,
+                 "x":1296,
+                 "y":192
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2449,7 +2476,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":34,
+ "nextobjectid":35,
  "orientation":"orthogonal",
  "properties":[
         {
