@@ -3,6 +3,7 @@ export interface TiledMap {
   tileheight: number;
   tilesets: TileSetRef[];
   layers: Layer[];
+  properties?: TiledProperty[];
 }
 
 export interface TileSetRef {
