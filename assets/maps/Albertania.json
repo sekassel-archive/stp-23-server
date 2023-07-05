@@ -102,6 +102,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A dangerous path through a dense forest. Many wild monsters lurk around, so only experienced trainers travel this route."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[5,7,10,15,37,23,60]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -119,6 +124,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[74,81,7,40,24,27]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -141,6 +151,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A small town that hosts the monster park."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[68,52,37,100,89,23,91,69,28,101]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -158,6 +173,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A lake that forms a river to the sea. A popular hideout location for bandits."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[23,25,29,42,55,103,2,18,79,3,4,62,87]"
                         }],
                  "rotation":0,
                  "type":"Lake",
@@ -180,6 +200,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A small town in the west of the isles. Your home!"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[7,10,15,23,37,60]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -241,6 +266,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A town that primarily exports salt, mined from the nearby boulder formations."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[55,64,75,90,98,103]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -263,6 +293,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A town known for their candy exports and the introduction of the Reutercoin."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[86]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -365,6 +400,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[28,53,64,72]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -382,6 +422,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A deep lake forms the eye of the isles. It is theorized to be the crater of an enormous meteorite."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[44,50,61,82,72,17]"
                         }],
                  "rotation":0,
                  "type":"Lake",
@@ -441,6 +486,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[52,75,91,96,33,90,35,20,89,55]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -578,6 +628,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[91,5,64,68,61,66,67,81,89,35,100,37,33,53]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -628,6 +683,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[92,65,19,82,93,38,53,61,63,70,71,28,99,101,10,18]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -686,6 +746,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[12,15,24,27,32,33,52,54,75,84,90,100,18,22,57,68,95]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -877,6 +942,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"Leads to a small harbor from where Adromere exports most of its salt to other countries."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[38,39,40,54,61,78,4,42,73,87,88,104,105]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -994,7 +1064,7 @@
          "value":"{\"area\":\"Clemeville\",\"x\":40,\"y\":23}"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

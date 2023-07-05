@@ -2,7 +2,7 @@ const port = +(process.env.PORT || 3000);
 const udpPort = +(process.env.UDP_PORT || 3001);
 
 export const environment = {
-  version: process.env.API_VERSION || 'v3',
+  version: process.env.API_VERSION || 'v4',
   nodeEnv: process.env.NODE_ENV || 'development',
   port,
   udpPort,
@@ -22,6 +22,7 @@ export const environment = {
     ttl: +(process.env.RATE_LIMIT_TTL || 60),
     limit: +(process.env.RATE_LIMIT || 60),
     presetsTtl: +(process.env.RATE_LIMIT_PRESETS_TTL || 60),
+    udpSubscriptionLimit: +(process.env.MAX_UDP_SUBSCRIPTIONS || 4),
   },
   passive: !!process.env.PASSIVE,
   cleanup: {
@@ -40,6 +41,8 @@ export const environment = {
       ? new RegExp(process.env.SPAM_MESSAGE_PATTERN)
       : /^.$|(.{1,3})\1{2,}|^This message was deleted$/,
     unprogressedTrainerLifetimeHours: +(process.env.UNPROGRESSED_TRAINER_LIFETIME_HOURS || 2),
+    loiteringMinutes: +(process.env.LOITERING_MINUTES || 10),
+    udpLifetimeMinutes: +(process.env.UDP_LIFETIME_MINUTES || 5),
   },
   nats: {
     servers: process.env.NATS_URL || 'nats://localhost:4222',

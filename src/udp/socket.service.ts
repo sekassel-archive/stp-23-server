@@ -1,9 +1,10 @@
-import {HttpStatus, Injectable, OnModuleInit} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {EventEmitter2} from '@nestjs/event-emitter';
 import {createSocket, RemoteInfo, Socket} from 'node:dgram';
 import {environment} from '../environment';
 import {SentryService} from "@ntegral/nestjs-sentry";
 import {Transaction} from "@sentry/node";
+import {Cron, CronExpression} from "@nestjs/schedule";
 
 function key(rinfo: RemoteInfo) {
   return `${rinfo.address}:${rinfo.port}`;
@@ -18,6 +19,7 @@ function regex(pattern: string): RegExp {
 
 interface Remote {
   info: RemoteInfo;
+  lastCommand: number;
   subscribed: Map<string, RegExp>;
 }
 
@@ -30,6 +32,8 @@ interface Message {
 export class SocketService implements OnModuleInit {
   remotes = new Map<string, Remote>;
   socket: Socket;
+
+  private logger = new Logger(SocketService.name);
 
   constructor(
     private eventEmitter: EventEmitter2,
@@ -69,10 +73,15 @@ export class SocketService implements OnModuleInit {
     } finally {
       tx?.finish();
     }
+
+    const remote = this.remotes.get(key(info));
+    remote && (remote.lastCommand = Date.now());
   }
 
   private async onEvent(info: RemoteInfo, message: Message): Promise<unknown> {
     switch (message.event) {
+      case 'ping':
+        return this.socket.send('{"event":"pong"}', info.port, info.address);
       case 'subscribe':
         return this.subscribe(info, message.data);
       case 'unsubscribe':
@@ -86,13 +95,21 @@ export class SocketService implements OnModuleInit {
     const remoteKey = key(info);
     const remote = this.remotes.get(remoteKey);
     const regExp = regex(pattern);
-    if (remote) {
-      remote.subscribed.set(pattern, regExp);
-    } else {
+    if (!remote) {
       const subscribed = new Map<string, RegExp>;
       subscribed.set(pattern, regExp);
-      this.remotes.set(remoteKey, {info, subscribed});
+      this.remotes.set(remoteKey, {info, subscribed, lastCommand: Date.now()});
+      return;
     }
+
+    if (remote.subscribed.has(pattern)) {
+      return;
+    }
+
+    if (remote.subscribed.size >= environment.rateLimit.udpSubscriptionLimit) {
+      throw new HttpException('Too many subscriptions', HttpStatus.TOO_MANY_REQUESTS);
+    }
+    remote.subscribed.set(pattern, regExp);
   }
 
   private unsubscribe(info: RemoteInfo, pattern: string) {
@@ -116,5 +133,21 @@ export class SocketService implements OnModuleInit {
         }
       }
     }
+  }
+
+  @Cron(CronExpression.EVERY_5_MINUTES)
+  logRemotes() {
+    const removeBefore = Date.now() - environment.cleanup.udpLifetimeMinutes * 60 * 1000;
+    let subs = 0;
+    let cleared = 0;
+    for (const [, value] of this.remotes) {
+      if (value.lastCommand < removeBefore) {
+        this.remotes.delete(key(value.info));
+        cleared++;
+      } else {
+        subs += value.subscribed.size;
+      }
+    }
+    cleared && this.logger.debug(`Removed ${cleared} stale remotes. Remaining ${this.remotes.size} remotes, ${subs} subscriptions`);
   }
 }

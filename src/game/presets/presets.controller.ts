@@ -8,6 +8,9 @@ import {
   AbilityDto,
   AttributeEffect,
   characters,
+  ItemType,
+  ItemTypeDto,
+  itemTypes,
   MonsterType,
   MonsterTypeDto,
   monsterTypes,
@@ -73,6 +76,32 @@ export class PresetsController {
     return new StreamableFile(fs.createReadStream(path));
   }
 
+  @Get('items')
+  @ApiOkResponse({type: [ItemTypeDto]})
+  getItems(): ItemTypeDto[] {
+    return itemTypes.map(i => this.maskItem(i));
+  }
+
+  @Get('items/:id')
+  @NotFound()
+  @ApiOkResponse({type: ItemTypeDto})
+  @ApiParam({name: 'id', type: 'number'})
+  getItem(
+    @Param('id', ParseIntPipe) id: number,
+  ): ItemTypeDto | undefined {
+    const item = itemTypes.find(i => i.id === id);
+    return item && this.maskItem(item);
+  }
+
+  @Get('items/:id/image')
+  @NotFound()
+  getItemImage(
+    @Param('id', ParseIntPipe) id: number,
+  ): StreamableFile | undefined {
+    const item = itemTypes.find(m => m.id === id);
+    return item && new StreamableFile(fs.createReadStream('assets/items/' + item.image));
+  }
+
   @Get('monsters')
   @ApiOkResponse({type: [MonsterTypeDto]})
   getMonsters(): MonsterTypeDto[] {
@@ -109,6 +138,11 @@ export class PresetsController {
 
   private maskMonster(monster: MonsterType): MonsterTypeDto {
     const {evolution, ...masked} = monster;
+    return masked;
+  }
+
+  private maskItem(item: ItemType): ItemTypeDto {
+    const {effects, 'catch': c, ...masked} = item;
     return masked;
   }
 

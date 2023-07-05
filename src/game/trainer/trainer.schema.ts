@@ -43,7 +43,13 @@ export class NPCInfo {
   @IsBoolean()
   canHeal: boolean;
 
-  // @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
+  @ApiProperty({type: [Number], description: 'List of item IDs that the NPC sells.'})
+  @IsOptional()
+  @IsArray()
+  @IsInt({each: true})
+  sells?: number[];
+
+  // TODO @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
   @IsOptional()
   path?: Path;
 
@@ -100,6 +106,12 @@ export class Trainer extends GlobalSchema {
   @IsArray()
   @IsInt({each: true})
   encounteredMonsterTypes: number[];
+
+  @Prop({default: []})
+  @ApiProperty({...MONGO_ID_ARRAY_FORMAT})
+  @IsArray()
+  @IsMongoId({each: true})
+  visitedAreas: string[];
 
   @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
