@@ -54,8 +54,8 @@ export class NpcMovementScheduler {
       return;
     }
 
-    const direction = newDir ?? trainer.direction;
-    this.move({_id, area, x, y, direction});
+    const direction = newDir ?? this.movementService.getDirection(x, y, newX, newY);
+    this.move({_id, area, x: newX, y: newY, direction});
   }
 
   private move(dto: MoveTrainerDto) {
