@@ -40,7 +40,7 @@
             0, 0, 6971, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
             0, 0, 7047, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
             0, 0, 7123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
+            0, 0, 286, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
             0, 0, 6971, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
             0, 0, 6971, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
             0, 0, 6971, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6974, 0, 0,
@@ -146,14 +146,24 @@
                  "point":true,
                  "properties":[
                         {
-                         "name":"Image",
-                         "type":"string",
-                         "value":"Premade_Character_09.png"
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
-                         "name":"Sells",
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
                          "type":"string",
-                         "value":"[]"
+                         "value":"Scout_1_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[108,38],[105,38],[97,38],[73,38],[40,38],[31,38]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -185,7 +195,7 @@
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":16,
+                 "width":48,
                  "x":32,
                  "y":128
                 }, 
@@ -194,6 +204,27 @@
                  "id":13,
                  "name":"W\u00e4rter S. Original",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Bob_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[4,37],[9,37]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -206,6 +237,27 @@
                  "id":14,
                  "name":"Dr. Loisok",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Edward_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[14,37],[19,37],[24,36],[67,36],[69,36]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,

@@ -2522,6 +2522,91 @@
                  "width":32,
                  "x":592,
                  "y":352
+                }, 
+                {
+                 "height":96,
+                 "id":37,
+                 "name":"TG5",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[\n  [60,34,38],\n  [83,34,38],\n  [84,34,38],\n  [61,34,38],\n  [86,34,38],\n  [91,34,38],\n  [52,34,38],\n]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":64,
+                 "x":528,
+                 "y":432
+                }, 
+                {
+                 "height":32,
+                 "id":38,
+                 "name":"TG4",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[\n  [89, 2]\n]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":96,
+                 "x":672,
+                 "y":464
+                }, 
+                {
+                 "height":320,
+                 "id":39,
+                 "name":"TG3",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[\n  [60,34,38],\n  [83,34,38],\n  [84,34,38],\n  [100,34,38],\n  [86,34,38],\n  [91,34,38],\n  [52,34,38],\n]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":80,
+                 "x":800,
+                 "y":640
+                }, 
+                {
+                 "height":176,
+                 "id":41,
+                 "name":"TG2",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[\n  [60,34,38],\n  [20,34,38],\n  [33,34,38],\n  [100,34,38],\n  [61,34,38],\n  [91,34,38],\n  [52,34,38],\n]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":128,
+                 "x":240,
+                 "y":848
+                }, 
+                {
+                 "height":320,
+                 "id":42,
+                 "name":"TG1",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[\n  [1,34,38],\n  [20,34,38],\n  [32,34,38],\n  [100,34,38],\n  [61,34,38],\n  [91,34,38],\n  [98,34,38],\n]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":192,
+                 "x":448,
+                 "y":672
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2530,7 +2615,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":37,
+ "nextobjectid":44,
  "orientation":"orthogonal",
  "properties":[
         {

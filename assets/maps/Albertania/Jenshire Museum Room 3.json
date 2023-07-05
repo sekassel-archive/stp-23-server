@@ -198,6 +198,27 @@
                  "id":14,
                  "name":"Museumsw\u00e4rter Hinz",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Bob_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[24,34],[50,34]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -210,6 +231,27 @@
                  "id":15,
                  "name":"Museumsw\u00e4rter Kunz",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Bob_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[10,36],[11,37],[42,37]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -222,6 +264,27 @@
                  "id":16,
                  "name":"Museumsw\u00e4rter Gogh",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Bob_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[44,34],[54,34],[59,38],[64,36]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
