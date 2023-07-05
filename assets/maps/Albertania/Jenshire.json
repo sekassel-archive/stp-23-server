@@ -1785,7 +1785,7 @@
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 39106, 39107, 39108, 39109, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 39282, 39283, 39284, 39285, 0, 0,
-                    0, 22055, 22056, 22055, 22056, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37499, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2468,6 +2468,60 @@
                  "width":16,
                  "x":1296,
                  "y":192
+                }, 
+                {
+                 "height":16,
+                 "id":35,
+                 "name":"M1",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Jenshire Museum Entrance"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":7
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":13
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":32,
+                 "x":496,
+                 "y":352
+                }, 
+                {
+                 "height":16,
+                 "id":36,
+                 "name":"M2",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Jenshire Museum Entrance"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":18
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":14
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":32,
+                 "x":592,
+                 "y":352
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2476,7 +2530,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":35,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "properties":[
         {
