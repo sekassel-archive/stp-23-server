@@ -90,6 +90,8 @@ export class GameLoader implements OnModuleInit {
   private async loadTrainer(region: Region, area: AreaDocument, object: TiledObject, map: TiledMap) {
     const starters = getProperty<string>(object, 'Starters');
     const monsterSpecs = JSON.parse(getProperty<string>(object, 'Monsters') || '[]');
+    const sells = getProperty<string>(object, 'Sells');
+
     const trainer = await this.trainerService.upsert({
       region: region._id.toString(),
       area: area._id.toString(),
@@ -112,6 +114,7 @@ export class GameLoader implements OnModuleInit {
       'npc.encounterOnSight': getProperty<boolean>(object, 'EncounterOnSight') || false,
       'npc.encounterOnTalk': monsterSpecs?.length > 0,
       'npc.canHeal': getProperty<boolean>(object, 'CanHeal') || false,
+      'npc.sells': sells ? JSON.parse(sells) : undefined,
       'npc.walkRandomly': getProperty<boolean>(object, 'WalkRandomly') || false,
       'npc.path': this.getPath(object, area),
       'npc.starters': starters ? JSON.parse(starters) : undefined,

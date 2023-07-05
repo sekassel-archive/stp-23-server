@@ -52,7 +52,7 @@ All delete operations, whether manual, cleanup or cascading, trigger the same ev
 |---------------|------------------------------------|
 | Group         | All Messages sent within the Group |
 | User          | Their Trainer                      |
-| Trainer       | Their Monsters                     |
+| Trainer       | Their Monsters and Items           |
 
 Cascading deletes do not apply to some resources:
 

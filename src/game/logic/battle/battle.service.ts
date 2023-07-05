@@ -1,7 +1,15 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
-import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types} from '../../constants';
+import {
+  abilities,
+  Ability,
+  AttributeEffect,
+  monsterTypes,
+  TALL_GRASS_TRAINER,
+  Type,
+  types,
+} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
   attackGain, coinsGain,
@@ -14,7 +22,8 @@ import {
   SAME_TYPE_ATTACK_MULTIPLIER,
   speedGain,
 } from '../../formulae';
-import {MAX_ABILITIES, MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
+import {ItemService} from '../../item/item.service';
+import {MAX_ABILITIES, MonsterAttributes, MonsterDocument, MonsterStatus} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
 import {Effectiveness, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';
@@ -29,6 +38,7 @@ export class BattleService {
     private trainerService: TrainerService,
     private monsterService: MonsterService,
     private monsterGeneratorService: MonsterGeneratorService,
+    private itemService: ItemService,
   ) {
   }
 
@@ -231,6 +241,18 @@ export class BattleService {
         case 'change-monster':
           opponent.results = [{type: 'monster-changed'}];
           break;
+        case 'use-item':
+          const monsterInBattle = monsters.find(m => m._id.equals(move.target));
+          const trainerMonster = monsterInBattle ? undefined : await this.monsterService.find(new Types.ObjectId(move.target));
+          try {
+            await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
+            if (trainerMonster) {
+              await this.monsterService.saveAll([trainerMonster]);
+            }
+            opponent.results = [{type: 'item-success', item: move.item}];
+          } catch (err) {
+            opponent.results = [{type: 'item-failed', item: move.item}];
+          }
       }
     }
 
@@ -244,6 +266,12 @@ export class BattleService {
       if (value.chance == null || Math.random() <= value.chance) {
         if ('attribute' in value) {
           this.applyAttributeEffect(value, currentMonster, targetMonster, multiplier);
+        } else if ('status' in value) {
+          const target = value.self === true ? currentMonster : targetMonster;
+          const result = this.monsterService.applyStatusEffect(value, target);
+          if (result !== 'unchanged') {
+            currentOpponent.results.push({type: `status-${result}`, status: value.status as MonsterStatus});
+          }
         }
       }
     }

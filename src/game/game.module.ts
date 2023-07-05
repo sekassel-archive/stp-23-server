@@ -6,6 +6,7 @@ import {LogicModule} from './logic/logic.module';
 import {MonsterModule} from './monster/monster.module';
 import {PresetsModule} from './presets/presets.module';
 import {TrainerModule} from './trainer/trainer.module';
+import {ItemModule} from "./item/item.module";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import {TrainerModule} from './trainer/trainer.module';
     AreaModule,
     TrainerModule,
     MonsterModule,
+    ItemModule,
     PresetsModule,
     EncounterModule,
     LogicModule,

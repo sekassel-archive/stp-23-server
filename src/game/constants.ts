@@ -1,8 +1,9 @@
 import {ApiProperty, ApiPropertyOptional, OmitType} from '@nestjs/swagger';
-import {Max, Min} from 'class-validator';
+import {IsObject, IsOptional, Max, Min} from 'class-validator';
 import * as _abilities from '../../assets/abilities.json';
 import * as _characters from '../../assets/characters.json';
 import * as _monsterTypes from '../../assets/monsters.json';
+import * as _itemTypes from '../../assets/items.json';
 import * as _types from '../../assets/types.json';
 
 export const characters = _characters;
@@ -13,6 +14,40 @@ export const types: Record<Type, TypeDefinition> = _types;
 export interface TypeDefinition {
   multipliers: Partial<Record<string, number>>;
 }
+
+export class ItemType {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  image: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  price: number;
+
+  @ApiProperty()
+  description: string;
+
+  @ApiPropertyOptional({enum: ['ball', 'effect', 'itemBox', 'monsterBox']})
+  use?: string;
+
+  // @ApiProperty()
+  effects: Effect[];
+
+  // TODO add '*'
+  // @ApiPropertyOptional({properties: Object.fromEntries(Object.keys(types).map(t => [t, {type: 'number', optional: true}]))})
+  @IsOptional()
+  @IsObject()
+  catch?: Partial<Record<Type | '*', number>>;
+}
+
+export class ItemTypeDto extends OmitType(ItemType, ['effects', 'catch'] as const) {
+}
+
+export const itemTypes: ItemType[] = _itemTypes;
 
 export class MonsterType {
   @ApiProperty()
@@ -38,6 +73,10 @@ export class MonsterTypeDto extends OmitType(MonsterType, ['evolution'] as const
 }
 
 export const monsterTypes: MonsterType[] = _monsterTypes;
+
+export const baseMonsterTypes: MonsterType[] = monsterTypes.filter((m, index) => {
+  return index === 0 || monsterTypes[index - 1].evolution !== m.id;
+});
 
 export class AttributeEffect {
   @ApiProperty()
@@ -66,7 +105,13 @@ export class StatusEffect {
 
   @ApiProperty()
   self?: boolean;
+
+  @ApiProperty()
+  remove?: boolean;
 }
+
+export const StatusResults = ['added', 'removed', 'unchanged'] as const;
+export type StatusResult = typeof StatusResults[number];
 
 export type Effect = AttributeEffect | StatusEffect;
 
