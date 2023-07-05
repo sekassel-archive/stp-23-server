@@ -137,7 +137,7 @@
                         {
                          "name":"Sells",
                          "type":"string",
-                         "value":"11, 12, 23, 33, 45]"
+                         "value":"[11, 12, 23, 33, 45]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
