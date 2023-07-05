@@ -1077,11 +1077,6 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"Class",
-                         "type":"string",
-                         "value":"Portal"
-                        }, 
-                        {
                          "name":"Map",
                          "type":"string",
                          "value":"Henrikhaven"
@@ -1097,7 +1092,7 @@
                          "value":6
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Portal",
                  "visible":true,
                  "width":96,
                  "x":512,
@@ -1108,11 +1103,6 @@
                  "id":21,
                  "name":"",
                  "properties":[
-                        {
-                         "name":"Class",
-                         "type":"string",
-                         "value":"Portal"
-                        }, 
                         {
                          "name":"Map",
                          "type":"string",
@@ -1129,7 +1119,7 @@
                          "value":6
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Portal",
                  "visible":true,
                  "width":144,
                  "x":880,
