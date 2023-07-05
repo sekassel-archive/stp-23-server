@@ -1704,7 +1704,7 @@
                          "value":"[[7,20],[8,22]]"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":656,
@@ -1737,7 +1737,7 @@
                          "value":"[[7,20],[8,22]]"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":304,
@@ -1770,7 +1770,7 @@
                          "value":"[[7,20],[8,22]]"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":624,
@@ -1808,7 +1808,7 @@
                          "value":59
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":880,
@@ -1966,10 +1966,6 @@
                         }, 
                         {
                          "x":112,
-                         "y":48
-                        }, 
-                        {
-                         "x":16,
                          "y":48
                         }, 
                         {
