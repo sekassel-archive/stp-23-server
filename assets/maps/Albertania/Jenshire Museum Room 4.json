@@ -158,7 +158,7 @@
                         {
                          "name":"Image",
                          "type":"string",
-                         "value":"Scout_1_16x16.png"
+                         "value":"Premade_Character_09.png"
                         }, 
                         {
                          "name":"Monsters",
@@ -180,17 +180,17 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Jenshire Museum Room 1"
+                         "value":"Jenshire Museum Entrance"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":9
+                         "value":20
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":7
+                         "value":8
                         }],
                  "rotation":0,
                  "type":"Portal",
