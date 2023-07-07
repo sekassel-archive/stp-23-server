@@ -33,8 +33,8 @@ export class BattleSetupService {
       trainer: {$in: [defenderId, ...attackerIds]},
       'currentAttributes.health': {$gt: 0},
     });
-    const defenderMonster = defender.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
-    if (!defenderMonster) {
+    const defenderMonsters = defender.team.flatMap(m => monsters.find(monster => monster._id.toString() === m));
+    if (!defenderMonsters.length) {
       return;
     }
 
@@ -44,21 +44,36 @@ export class BattleSetupService {
     }
 
     const encounter = await this.encounterService.create({region: defender.region, isWild: false});
-    await this.opponentService.createSimple(encounter._id.toString(), defenderId, {
-      isAttacker: false,
-      isNPC: !!defender.npc,
-      monster: defenderMonster._id.toString(),
-    });
 
-    await Promise.all(attackers.map(attacker => {
+    const attackerOpponents = await Promise.all(attackers.map(attacker => {
       const attackerId = attacker._id.toString();
-      const monster = attacker.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
-      monster && this.opponentService.createSimple(encounter._id.toString(), attackerId, {
+      const monster = attacker.team.flatMap(m => monsters.find(monster => monster._id.equals(m)))[0];
+      if (!monster) {
+        return;
+      }
+      return this.opponentService.createSimple(encounter._id.toString(), attackerId, {
         isAttacker: true,
         isNPC: !!attacker.npc,
         monster: monster._id.toString(),
       });
     }));
+
+    for (const attackerOpponent of attackerOpponents) {
+      if (!attackerOpponent) {
+        continue;
+      }
+
+      const monster = defenderMonsters.shift();
+      if (!monster) {
+        break;
+      }
+
+      await this.opponentService.createSimple(encounter._id.toString(), defenderId, {
+        isAttacker: false,
+        isNPC: !!defender.npc,
+        monster: monster._id.toString(),
+      });
+    }
   }
 
   async createMonsterEncounter(defender: Trainer, type: number, level: number) {
