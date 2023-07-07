@@ -1176,7 +1176,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[\n[24,19,23],\n[27,19,23],\n[74,19,23]\n]"
+                         "value":"[[115,58,62],[125,58,62],[129,58,62],[138,58,62],[156,58,62],[170,58,62],[172,58,62],[195,58,62],[197,58,62],[199,58,62],[208,58,62]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1209,7 +1209,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[95,19],[91,20],[24,19]]"
+                         "value":"[[125,62],[129,62],[138,62]]"
                         }, 
                         {
                          "name":"Path",
@@ -1235,11 +1235,6 @@
                          "value":3
                         }, 
                         {
-                         "name":"EncounterOnSight",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Old_man_Josh_16x16.png"
@@ -1247,14 +1242,14 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[29,17],[10,19]]"
+                         "value":"[[156,62],[197,59]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":496,
-                 "y":144
+                 "x":432,
+                 "y":128
                 }, 
                 {
                  "height":48,
