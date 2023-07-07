@@ -1154,12 +1154,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":51
+                         "value":50
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":8
+                         "value":11
                         }],
                  "rotation":0,
                  "type":"Portal",

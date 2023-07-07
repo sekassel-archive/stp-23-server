@@ -837,7 +837,7 @@
                         {
                          "name":"Description",
                          "type":"string",
-                         "value":""
+                         "value":"Be careful when crossing this area as you may encounter angry farmers."
                         }],
                  "rotation":0,
                  "type":"Route",
