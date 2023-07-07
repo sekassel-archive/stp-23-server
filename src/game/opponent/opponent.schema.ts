@@ -184,6 +184,4 @@ export class Opponent extends GlobalSchema {
 
 export type OpponentDocument = Doc<Opponent>;
 
-export const OpponentSchema = SchemaFactory.createForClass(Opponent)
-  .index({encounter: 1, trainer: 1}, {unique: true})
-;
+export const OpponentSchema = SchemaFactory.createForClass(Opponent);
