@@ -219,6 +219,11 @@
                  "name":"Jenshire",
                  "properties":[
                         {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Moncenter\nStore\nLuap's House"
+                        }, 
+                        {
                          "name":"Description",
                          "type":"string",
                          "value":"This town is located in a swampy area that formed from the waters of the Ell Reservoir and Central Lake."
@@ -1064,7 +1069,7 @@
          "value":"{\"area\":\"Clemeville\",\"x\":40,\"y\":23}"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

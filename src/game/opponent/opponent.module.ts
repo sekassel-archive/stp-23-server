@@ -8,6 +8,8 @@ import {OpponentController} from './opponent.controller';
 import {OpponentHandler} from './opponent.handler';
 import {Opponent, OpponentSchema} from './opponent.schema';
 import {OpponentService} from './opponent.service';
+import {environment} from "../../environment";
+import {OpponentScheduler} from "./opponent.scheduler";
 
 @Module({
   imports: [
@@ -22,7 +24,11 @@ import {OpponentService} from './opponent.service';
     TrainerModule,
     forwardRef(() => EncounterModule),
   ],
-  providers: [OpponentService, OpponentHandler],
+  providers: [
+    OpponentService,
+    OpponentHandler,
+    ...(environment.passive ? [] : [OpponentScheduler]),
+  ],
   controllers: [OpponentController],
   exports: [OpponentService],
 })

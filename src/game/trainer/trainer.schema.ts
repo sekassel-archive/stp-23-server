@@ -60,7 +60,7 @@ export class NPCInfo {
   @IsMongoId({each: true})
   encountered?: string[];
 
-  @ApiPropertyOptional({description: 'Monster IDs that the NPC offers as starters.'})
+  @ApiPropertyOptional({description: 'Monster IDs that the NPC offers as starters.', type: [Number]})
   @IsOptional()
   @IsArray()
   @IsInt({each: true})
