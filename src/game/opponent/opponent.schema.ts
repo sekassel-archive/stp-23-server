@@ -83,12 +83,12 @@ export class Result {
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 @ApiExtraModels(AbilityMove, ChangeMonsterMove)
 export class Opponent extends GlobalSchema {
-  @Prop()
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   encounter: string;
 
-  @Prop()
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   trainer: string;
