@@ -2037,6 +2037,60 @@
                  "width":0,
                  "x":176,
                  "y":144
+                }, 
+                {
+                 "height":32,
+                 "id":51,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Victory Road"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":64,
+                 "x":160,
+                 "y":160
+                }, 
+                {
+                 "height":48,
+                 "id":52,
+                 "name":"Protection",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Victory Road"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"ProtectedZone",
+                 "visible":true,
+                 "width":64,
+                 "x":224,
+                 "y":144
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2045,7 +2099,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":51,
+ "nextobjectid":53,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

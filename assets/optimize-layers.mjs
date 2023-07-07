@@ -34,11 +34,19 @@ for (const file of await fs.readdir(`maps/${region}/`)) {
           continue;
         }
 
-        const targetChunk = tileLayers[0].chunks.find(c => c.x === chunk.x && c.y === chunk.y);
-        targetChunk.data[i] = chunk.data[i];
-        for (let layerBelow = 1; layerBelow <= layerIndex; layerBelow++) {
-          const chunkBelow = tileLayers[layerBelow].chunks.find(c => c.x === chunk.x && c.y === chunk.y);
-          chunkBelow && (chunkBelow.data[i] = 0);
+        let found = false;
+        for (let l = 0; l <= layerIndex; l++) {
+          const targetChunk = tileLayers[l].chunks.find(c => c.x === chunk.x && c.y === chunk.y);
+          if (!targetChunk) {
+            continue;
+          }
+
+          if (!found) {
+            targetChunk.data[i] = chunk.data[i];
+            found = true;
+          } else {
+            targetChunk.data[i] = 0;
+          }
         }
       }
     }

@@ -171,7 +171,7 @@ export class MovementService implements OnApplicationBootstrap {
 
   private loadChunk(layer: Chunk, tilesetsWithFirstgid: Required<TilesetInfo>[], info: AreaInfo) {
     for (let i = 0; i < layer.data.length; i++) {
-      const tileId = layer.data[i];
+      const tileId = layer.data[i] & 0x0fffffff;
       if (tileId === 0) {
         continue;
       }
