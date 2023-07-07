@@ -1124,6 +1124,34 @@
                  "width":144,
                  "x":880,
                  "y":304
+                }, 
+                {
+                 "height":0,
+                 "id":23,
+                 "name":"Pam",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Molly_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[118,65],[37,65]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":336,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1132,7 +1160,7 @@
          "y":0
         }],
  "nextlayerid":33,
- "nextobjectid":23,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

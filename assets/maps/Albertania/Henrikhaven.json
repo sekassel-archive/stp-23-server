@@ -1809,7 +1809,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[]"
+                         "value":"[[156,61,65],[115,61,65],[37,61,65],[170,61,65],[208,61,65]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1826,7 +1826,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[]"
+                         "value":"[[118,61,65],[115,61,65],[5,61,65],[170,61,65],[65,61,65],[199,61,65]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -1834,6 +1834,90 @@
                  "width":256,
                  "x":880,
                  "y":272
+                }, 
+                {
+                 "height":0,
+                 "id":25,
+                 "name":"Leon",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Scout_1_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[136,62],[134,61]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":432,
+                 "y":304
+                }, 
+                {
+                 "height":0,
+                 "id":27,
+                 "name":"Dan",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Dan_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[172,63],[7,64]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":640,
+                 "y":448
+                }, 
+                {
+                 "height":0,
+                 "id":28,
+                 "name":"Mike",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Chef_Pier_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[12,65],[176,62]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":800,
+                 "y":576
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1842,7 +1926,7 @@
          "y":0
         }],
  "nextlayerid":16,
- "nextobjectid":24,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "properties":[
         {
