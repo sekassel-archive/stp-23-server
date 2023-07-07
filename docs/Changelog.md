@@ -285,3 +285,21 @@
 
 * Support for rotated and mirrored tiles.
 * Removed unused and deleted tilesets from Central Lake.
+
+# v3.3.0 - Jenshire Museum
+
+## New Features
+
++ Added the Jenshire Museum.
++ Added more buildings and decoration to Jenshire.
++ Added and updated more Walkable and Roof tiles.
+
+## Bugfixes
+
+* Fixed NPCs not following their predefined paths correctly.
+* Fixed talking to NPCs marking you as encountered without winning the battle.
+* Fixed the opposing trainers in Victory Road being inaccessible via the bridge.
+
+## Documentation
+
+* Updated the documentation for `TalkTrainerDto`.
