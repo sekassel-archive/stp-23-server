@@ -13698,15 +13698,6 @@
                 }]
         }, 
         {
-         "id":2906,
-         "properties":[
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":2908,
          "properties":[
                 {

@@ -1318,6 +1318,7 @@
     "image": "Scarab_1.png",
     "name": "Gildedscarab",
     "type": ["bug"],
+    "evolution": 179,
     "description": "Gildedscarab, a shimmering scarab, glows with a golden aura. Its intricately designed carapace reflects light, dazzling onlookers as it scuttles through ancient ruins with ancient wisdom."
   },
   {
