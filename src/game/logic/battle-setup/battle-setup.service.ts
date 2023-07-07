@@ -22,7 +22,7 @@ export class BattleSetupService {
     const existingOpponents = await this.getOpponents([defenderId, ...attackerIds]);
     if (existingOpponents.length) {
       // one of the trainers is already in a battle
-      if (existingOpponents.length === 1 && existingOpponents[0].trainer === defenderId) {
+      if (existingOpponents[0].trainer === defenderId) {
         // the defender (or Trainer that is talked to) is already in a battle -- attacker joins
         return this.joinBattle(attackers[0], existingOpponents[0].encounter);
       }
