@@ -353,7 +353,7 @@
                 {
                  "height":32,
                  "id":30,
-                 "name":"Simonsfeld",
+                 "name":"Simonsfield",
                  "properties":[
                         {
                          "name":"Description",
@@ -842,7 +842,7 @@
                         {
                          "name":"Description",
                          "type":"string",
-                         "value":""
+                         "value":"Be careful when crossing this area as you may encounter angry farmers."
                         }],
                  "rotation":0,
                  "type":"Route",
