@@ -1918,6 +1918,33 @@
                  "width":0,
                  "x":800,
                  "y":576
+                }, 
+                {
+                 "height":64,
+                 "id":29,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Route 112"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":31
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":16,
+                 "x":384,
+                 "y":432
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1926,7 +1953,7 @@
          "y":0
         }],
  "nextlayerid":16,
- "nextobjectid":29,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "properties":[
         {
