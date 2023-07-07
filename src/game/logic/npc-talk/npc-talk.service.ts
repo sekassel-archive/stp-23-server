@@ -49,9 +49,6 @@ export class NpcTalkService {
       }
     }
     if (target.npc.encounterOnTalk) {
-      await this.trainerService.update(dto.target, {
-        $addToSet: {'npc.encountered': trainerId},
-      });
       await this.battleSetupService.createTrainerBattle(target, [trainer]);
     }
   }
