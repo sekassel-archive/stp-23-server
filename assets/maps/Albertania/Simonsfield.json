@@ -4741,7 +4741,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[9,10]]"
+                         "value":"[[172,45]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -4767,9 +4767,9 @@
                          "value":"Premade_Character_17.png"
                         }, 
                         {
-                         "name":"Path",
+                         "name":"Monsters",
                          "type":"string",
-                         "value":"46,24;47,24;47,25;46,25;46,24"
+                         "value":"[[199,47]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -4802,7 +4802,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[7,5]]"
+                         "value":"[[129,47]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -4823,14 +4823,19 @@
                          "value":2
                         }, 
                         {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Ash_16x16.png"
                         }, 
                         {
-                         "name":"Starters",
+                         "name":"Monsters",
                          "type":"string",
-                         "value":"[1,3,5]"
+                         "value":"[[170,45]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -4917,7 +4922,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[9,10]]"
+                         "value":"[[156,44]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -4950,7 +4955,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[9,10]]"
+                         "value":"[[138,47]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -4983,7 +4988,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[7,5]]"
+                         "value":"[[115,43]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -5016,7 +5021,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[7,5]]"
+                         "value":"[[154,47],[125,47]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -5037,14 +5042,24 @@
                          "value":3
                         }, 
                         {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Pier_16x16.png"
                         }, 
                         {
-                         "name":"Path",
+                         "name":"Monsters",
                          "type":"string",
-                         "value":"46,24;47,24;47,25;46,25;46,24"
+                         "value":"[[208,43]]"
+                        }, 
+                        {
+                         "name":"Path",
+                         "type":"object",
+                         "value":25
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -5192,6 +5207,91 @@
                  "width":0,
                  "x":816,
                  "y":1184
+                }, 
+                {
+                 "height":0,
+                 "id":25,
+                 "name":"Jealous Jandro Path",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":80,
+                         "y":0
+                        }, 
+                        {
+                         "x":80,
+                         "y":16
+                        }, 
+                        {
+                         "x":144,
+                         "y":16
+                        }, 
+                        {
+                         "x":144,
+                         "y":48
+                        }, 
+                        {
+                         "x":208,
+                         "y":48
+                        }, 
+                        {
+                         "x":208,
+                         "y":128
+                        }, 
+                        {
+                         "x":112,
+                         "y":128
+                        }, 
+                        {
+                         "x":112,
+                         "y":144
+                        }, 
+                        {
+                         "x":80,
+                         "y":144
+                        }, 
+                        {
+                         "x":80,
+                         "y":192
+                        }, 
+                        {
+                         "x":64,
+                         "y":192
+                        }, 
+                        {
+                         "x":64,
+                         "y":112
+                        }, 
+                        {
+                         "x":-16,
+                         "y":112
+                        }, 
+                        {
+                         "x":-16,
+                         "y":80
+                        }, 
+                        {
+                         "x":-80,
+                         "y":80
+                        },
+                    
+                        {
+                         "x":-80,
+                         "y":16
+                        }, 
+                        {
+                         "x":0,
+                         "y":16
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":736,
+                 "y":720
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5200,7 +5300,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":25,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "properties":[
         {
