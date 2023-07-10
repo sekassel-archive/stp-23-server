@@ -60,6 +60,7 @@ export type Move = AbilityMove | ChangeMonsterMove | UseItemMove;
 
 export const RESULTS_WITH_DESCRIPTION = {
   'ability-success': 'The ability was successful',
+  'ability-failed': 'The ability failed due to the status',
   'item-success': 'The item was used successfully',
   'status-added': 'The status was added',
   'status-removed': 'The status was removed',

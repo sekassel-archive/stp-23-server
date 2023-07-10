@@ -1,18 +1,11 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
-import {
-  abilities,
-  Ability,
-  AttributeEffect,
-  monsterTypes,
-  TALL_GRASS_TRAINER,
-  Type,
-  types,
-} from '../../constants';
+import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types,} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
-  attackGain, coinsGain,
+  attackGain,
+  coinsGain,
   defenseGain,
   EVOLUTION_LEVELS,
   expGain,
@@ -21,6 +14,8 @@ import {
   relativeStrengthMultiplier,
   SAME_TYPE_ATTACK_MULTIPLIER,
   speedGain,
+  STATUS_FAIL_CHANCE,
+  STATUS_REMOVE_CHANCE,
 } from '../../formulae';
 import {ItemService} from '../../item/item.service';
 import {MAX_ABILITIES, MonsterAttributes, MonsterDocument, MonsterStatus} from '../../monster/monster.schema';
@@ -196,7 +191,7 @@ export class BattleService {
 
     monsters.sort((a, b) => a.attributes.speed - b.attributes.speed);
 
-    for (const monster of monsters) {
+    outer: for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
       const move = opponent?.move;
       if (!move) {
@@ -208,6 +203,22 @@ export class BattleService {
             opponent.results = [{type: 'monster-dead'}];
             continue;
           }
+
+          for (const status of monster.status) {
+            const failChance = STATUS_FAIL_CHANCE[status];
+            if (failChance && Math.random() < failChance) {
+              opponent.results = [{type: 'ability-failed', status}];
+              continue outer;
+            }
+          }
+
+          monster.status = monster.status.filter(status => {
+            if (Math.random() < STATUS_REMOVE_CHANCE) {
+              opponent.results.push({type: 'status-removed', status});
+              return false;
+            }
+            return true;
+          });
 
           if (!(move.ability in monster.abilities)) {
             opponent.results = [{type: 'ability-unknown', ability: move.ability}];
