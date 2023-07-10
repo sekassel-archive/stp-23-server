@@ -376,6 +376,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"An isolated town on a small island. Home of a rare type of crab monster."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[156,115,37,170,208,118,5,65,199]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -843,6 +848,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"Be careful when crossing this area as you may encounter angry farmers."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[115,119,120,154,156,170,172,195,197,199,208]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -860,6 +870,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"Leads to a dock belonging to Simonsfeld. Once a day, a boat travels to Henrikhaven and back."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[115,125,129,138,156,170,172,195,197,199,208]"
                         }],
                  "rotation":0,
                  "type":"Route",
