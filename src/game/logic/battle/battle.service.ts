@@ -75,14 +75,25 @@ export class BattleService {
       trainer: {$in: opponents.map(o => o.trainer)},
       'currentAttributes.health': {$gt: 0},
     });
+    const teams = (await this.trainerService.findAll({
+      _id: {$in: opponents.map(o => new Types.ObjectId(o.trainer))},
+    }, {projection: {team: 1}})).flatMap(t => t.team);
+    const neededMonsters = new Set();
     const deleteOpponents = opponents.filter(opponent => {
       if (opponent.trainer === TALL_GRASS_TRAINER) {
-        if (!monsters.find(m => m._id.toString() === opponent.monster)) {
-          return true;
-        }
-      } else if (!monsters.find(m => m.trainer === opponent.trainer)) {
+        return !monsters.find(m => m._id.toString() === opponent.monster);
+      }
+
+      const monster = monsters.find(m =>
+        m.trainer === opponent.trainer
+        && !neededMonsters.has(m._id.toString())
+        && teams.includes(m._id.toString())
+      );
+      if (!monster) {
         return true;
       }
+
+      neededMonsters.add(monster._id.toString());
       return false;
     });
     await this.opponentService.deleteMany({_id: {$in: deleteOpponents.map(o => o._id)}});
