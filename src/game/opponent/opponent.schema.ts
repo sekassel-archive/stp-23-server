@@ -64,6 +64,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   'item-success': 'The item was used successfully',
   'status-added': 'The status was added',
   'status-removed': 'The status was removed',
+  'status-damage': 'The status dealt damage',
   'target-defeated': 'The target monster was defeated',
   'monster-changed': 'The monster was changed successfully',
   'monster-defeated': 'The monster was defeated',
@@ -98,7 +99,7 @@ export class Result {
   @IsIn(abilities.map(a => a.id))
   ability?: number;
 
-  @ApiPropertyOptional({description: 'For `ability-success`.', enum: EFFECTIVENESS})
+  @ApiPropertyOptional({description: 'For `ability-success` and `status-damage`.', enum: EFFECTIVENESS})
   @IsOptional()
   @IsIn(EFFECTIVENESS)
   effectiveness?: Effectiveness;

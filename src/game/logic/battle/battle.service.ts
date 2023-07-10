@@ -14,6 +14,7 @@ import {
   relativeStrengthMultiplier,
   SAME_TYPE_ATTACK_MULTIPLIER,
   speedGain,
+  STATUS_DAMAGE,
   STATUS_FAIL_CHANCE,
   STATUS_REMOVE_CHANCE,
 } from '../../formulae';
@@ -194,6 +195,8 @@ export class BattleService {
     for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
       opponent && await this.playMove(monster, opponent, opponents, monsters);
+      this.removeStatusEffects(monster, opponent);
+      this.applyStatusDamage(monster, opponent);
     }
 
     await this.monsterService.saveAll(monsters);
@@ -218,14 +221,6 @@ export class BattleService {
             return;
           }
         }
-
-        monster.status = monster.status.filter(status => {
-          if (Math.random() < STATUS_REMOVE_CHANCE) {
-            opponent.results.push({type: 'status-removed', status});
-            return false;
-          }
-          return true;
-        });
 
         if (!(move.ability in monster.abilities)) {
           opponent.results = [{type: 'ability-unknown', ability: move.ability}];
@@ -314,7 +309,43 @@ export class BattleService {
     }
   }
 
-  private getAttackMultiplier(attacker: MonsterDocument, abilityType: Type, defender: MonsterDocument) {
+  private removeStatusEffects(monster: MonsterDocument, opponent?: OpponentDocument) {
+    monster.status = monster.status.filter(status => {
+      if (Math.random() < STATUS_REMOVE_CHANCE) {
+        opponent && opponent.results.push({type: 'status-removed', status});
+        return false;
+      }
+      return true;
+    });
+  }
+
+  private applyStatusDamage(monster: MonsterDocument, opponent?: OpponentDocument) {
+    if (monster.currentAttributes.health <= 1) {
+      // status damage can't kill a monster
+      return;
+    }
+
+    for (const status of monster.status) {
+      const damage = STATUS_DAMAGE[status];
+      if (!damage) {
+        continue;
+      }
+
+      const [amount, type] = damage;
+      const multiplier = this.getAttackMultiplier(undefined, type, monster);
+      monster.currentAttributes.health -= amount * multiplier;
+      opponent && opponent.results.push({
+        type: 'status-damage',
+        status,
+        effectiveness: this.abilityEffectiveness(multiplier),
+      });
+    }
+    if (monster.currentAttributes.health < 1) {
+      monster.currentAttributes.health = 1;
+    }
+  }
+
+  private getAttackMultiplier(attacker: MonsterDocument | undefined, abilityType: Type, defender: MonsterDocument) {
     const type = types[abilityType];
 
     let multiplier = 1;
@@ -322,9 +353,11 @@ export class BattleService {
     for (const targetType of targetTypes) {
       multiplier *= type?.multipliers?.[targetType] || 1;
     }
-    const currentTypes = (monsterTypes.find(m => m.id === attacker.type)?.type || []) as Type[];
-    if (currentTypes.includes(abilityType)) {
-      multiplier *= SAME_TYPE_ATTACK_MULTIPLIER;
+    if (attacker) {
+      const currentTypes = (monsterTypes.find(m => m.id === attacker.type)?.type || []) as Type[];
+      if (currentTypes.includes(abilityType)) {
+        multiplier *= SAME_TYPE_ATTACK_MULTIPLIER;
+      }
     }
     return multiplier;
   }

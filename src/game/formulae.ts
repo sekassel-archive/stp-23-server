@@ -1,4 +1,5 @@
 import {Monster, MonsterStatus} from './monster/monster.schema';
+import {Type} from "./constants";
 
 // TODO improve experience gain?
 export const expGain = (defeatedMonsterLevel: number): number => Math.round(defeatedMonsterLevel * 10 * (0.9 + Math.random() * 0.2));
@@ -25,6 +26,12 @@ export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
   [MonsterStatus.FROZEN]: 0.5,
 };
 export const STATUS_REMOVE_CHANCE = 0.25;
+
+export const STATUS_DAMAGE: Partial<Record<MonsterStatus, [number, Type]>> = {
+  [MonsterStatus.POISONED]: [3, 'poison'],
+  [MonsterStatus.BURNED]: [3, 'fire'],
+  [MonsterStatus.FROZEN]: [3, 'ice'],
+};
 
 export const relativeStrengthMultiplier = (current: Monster, target: Monster): number => {
   const ratio = current.attributes.attack / target.attributes.defense;
