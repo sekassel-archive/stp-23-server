@@ -191,83 +191,87 @@ export class BattleService {
 
     monsters.sort((a, b) => a.attributes.speed - b.attributes.speed);
 
-    outer: for (const monster of monsters) {
+    for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
-      const move = opponent?.move;
-      if (!move) {
-        continue;
-      }
-      switch (move.type) {
-        case 'ability':
-          if (monster.currentAttributes.health <= 0) {
-            opponent.results = [{type: 'monster-dead'}];
-            continue;
-          }
-
-          for (const status of monster.status) {
-            const failChance = STATUS_FAIL_CHANCE[status];
-            if (failChance && Math.random() < failChance) {
-              opponent.results = [{type: 'ability-failed', status}];
-              continue outer;
-            }
-          }
-
-          monster.status = monster.status.filter(status => {
-            if (Math.random() < STATUS_REMOVE_CHANCE) {
-              opponent.results.push({type: 'status-removed', status});
-              return false;
-            }
-            return true;
-          });
-
-          if (!(move.ability in monster.abilities)) {
-            opponent.results = [{type: 'ability-unknown', ability: move.ability}];
-            continue;
-          }
-          const ability = abilities.find(a => a.id === move.ability);
-          if (!ability) {
-            opponent.results = [{type: 'ability-unknown'}];
-            continue;
-          }
-
-          const targetMonster = monsters.find(m => m.trainer === move.target);
-          const targetOpponent = opponents.find(o => o.trainer === move.target);
-          if (!targetMonster || !targetOpponent) {
-            opponent.results = [{type: 'target-unknown'}];
-            continue;
-          }
-
-          if (targetMonster.currentAttributes.health <= 0) {
-            opponent.results = [{type: 'target-dead'}];
-            continue;
-          }
-
-          if (monster.abilities[move.ability] <= 0) {
-            opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
-            continue;
-          }
-
-          this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
-          break;
-        case 'change-monster':
-          opponent.results = [{type: 'monster-changed'}];
-          break;
-        case 'use-item':
-          const monsterInBattle = monsters.find(m => m._id.equals(move.target));
-          const trainerMonster = monsterInBattle ? undefined : await this.monsterService.find(new Types.ObjectId(move.target));
-          try {
-            await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
-            if (trainerMonster) {
-              await this.monsterService.saveAll([trainerMonster]);
-            }
-            opponent.results = [{type: 'item-success', item: move.item}];
-          } catch (err) {
-            opponent.results = [{type: 'item-failed', item: move.item}];
-          }
-      }
+      opponent && await this.playMove(monster, opponent, opponents, monsters);
     }
 
     await this.monsterService.saveAll(monsters);
+  }
+
+  private async playMove(monster: MonsterDocument, opponent: OpponentDocument, opponents: OpponentDocument[], monsters: MonsterDocument[]) {
+    const move = opponent.move;
+    if (!move) {
+      return;
+    }
+    switch (move.type) {
+      case 'ability':
+        if (monster.currentAttributes.health <= 0) {
+          opponent.results = [{type: 'monster-dead'}];
+          return;
+        }
+
+        for (const status of monster.status) {
+          const failChance = STATUS_FAIL_CHANCE[status];
+          if (failChance && Math.random() < failChance) {
+            opponent.results = [{type: 'ability-failed', status}];
+            return;
+          }
+        }
+
+        monster.status = monster.status.filter(status => {
+          if (Math.random() < STATUS_REMOVE_CHANCE) {
+            opponent.results.push({type: 'status-removed', status});
+            return false;
+          }
+          return true;
+        });
+
+        if (!(move.ability in monster.abilities)) {
+          opponent.results = [{type: 'ability-unknown', ability: move.ability}];
+          return;
+        }
+        const ability = abilities.find(a => a.id === move.ability);
+        if (!ability) {
+          opponent.results = [{type: 'ability-unknown'}];
+          return;
+        }
+
+        const targetMonster = monsters.find(m => m.trainer === move.target);
+        const targetOpponent = opponents.find(o => o.trainer === move.target);
+        if (!targetMonster || !targetOpponent) {
+          opponent.results = [{type: 'target-unknown'}];
+          return;
+        }
+
+        if (targetMonster.currentAttributes.health <= 0) {
+          opponent.results = [{type: 'target-dead'}];
+          return;
+        }
+
+        if (monster.abilities[move.ability] <= 0) {
+          opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
+          return;
+        }
+
+        this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
+        break;
+      case 'change-monster':
+        opponent.results = [{type: 'monster-changed'}];
+        break;
+      case 'use-item':
+        const monsterInBattle = monsters.find(m => m._id.equals(move.target));
+        const trainerMonster = monsterInBattle ? undefined : await this.monsterService.find(new Types.ObjectId(move.target));
+        try {
+          await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
+          if (trainerMonster) {
+            await this.monsterService.saveAll([trainerMonster]);
+          }
+          opponent.results = [{type: 'item-success', item: move.item}];
+        } catch (err) {
+          opponent.results = [{type: 'item-failed', item: move.item}];
+        }
+    }
   }
 
   private playAbility(currentOpponent: OpponentDocument, currentMonster: MonsterDocument, ability: Ability, targetMonster: MonsterDocument, targetOpponent: OpponentDocument) {
