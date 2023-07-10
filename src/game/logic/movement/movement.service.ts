@@ -281,7 +281,7 @@ export class MovementService implements OnApplicationBootstrap {
       }
     }
 
-    const gameObject = this.getGameObject(dto.area, dto.x, dto.y);
+    const gameObject = oldLocation.npc ? undefined : this.getGameObject(dto.area, dto.x, dto.y);
     switch (gameObject?.type) {
       case 'Portal':
         const {area, x, y} = gameObject.target;
