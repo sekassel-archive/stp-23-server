@@ -34,13 +34,7 @@ export class ItemType {
   @ApiPropertyOptional({enum: ['ball', 'effect', 'itemBox', 'monsterBox']})
   use?: string;
 
-  // @ApiProperty()
   effects: Effect[];
-
-  // TODO add '*'
-  // @ApiPropertyOptional({properties: Object.fromEntries(Object.keys(types).map(t => [t, {type: 'number', optional: true}]))})
-  @IsOptional()
-  @IsObject()
   catch?: Partial<Record<Type | '*', number>>;
 }
 

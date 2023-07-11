@@ -49,7 +49,7 @@ export class NPCInfo {
   @IsInt({each: true})
   sells?: number[];
 
-  // TODO @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
+  @ApiPropertyOptional({type: [[Number]]})
   @IsOptional()
   path?: Path;
 

@@ -153,7 +153,6 @@ export class ItemService {
     const randomBaseMonster = baseMonsterTypes.random();
     // 250 -> level 6-10, 1000 -> level 10-14, 8000 -> level 20-24
     const level = Math.round(levelFromExp(itemType.price) + Math.random() * 4);
-    // TODO The monster does not evolve automatically, either we do that, or let it happen in the next battle.
     await this.monsterGenerator.createAuto(trainer, randomBaseMonster.id, level);
   }
 
