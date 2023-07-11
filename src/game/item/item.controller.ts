@@ -2,11 +2,14 @@ import {
   BadRequestException,
   Body,
   Controller,
+  DefaultValuePipe,
   ForbiddenException,
   Get,
   NotFoundException,
   Param,
-  Patch, Query,
+  ParseEnumPipe,
+  Patch,
+  Query,
 } from '@nestjs/common';
 import {ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiQuery, ApiTags} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
@@ -39,15 +42,17 @@ export class ItemController {
 
   @Patch()
   @ApiOperation({description: 'Trade and use items'})
+  @ApiQuery({name: 'action', enum: ItemAction, description: 'The action to perform. Default: trade', required: false})
   @ApiOkResponse({type: Item})
   @ApiForbiddenResponse({description: 'This item cannot be bought, sold or used, or you are not the owner of this trainer'})
   @NotFound()
   async updateOne(
     @Param('trainerId', ParseObjectIdPipe) trainerId: string,
+    @Query('action', new DefaultValuePipe(ItemAction.TRADE), new ParseEnumPipe(ItemAction)) action: ItemAction,
     @Body() dto: UpdateItemDto,
     @AuthUser() user: User,
   ): Promise<Item | null> {
-    const {type, amount, action} = dto;
+    const {type, amount} = dto;
     const itemType = itemTypes.find(itemType => itemType.id === type);
     if (!itemType?.price) {
       throw new ForbiddenException('This item cannot be bought, sold or used');
