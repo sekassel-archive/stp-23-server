@@ -303,3 +303,40 @@
 ## Documentation
 
 * Updated the documentation for `TalkTrainerDto`.
+
+# v4.0.0 - Items
+
+## New Features
+
+### Content
+
++ Added Henrikhaven.
++ Added Simonsfield.
++ Added Route 108.
++ Added Route 112.
++ Added 32 items.
++ Added 100 new monsters.
+
+### Resources
+
++ Added Items that are owned by Trainers.
++ Added Item presets.
++ Added the `UseItemMove` for using items in battle.
++ Added the `Trainer.npc.sells` property for clerks.
++ Added the `Monster.status` property.
+
+### Mechanics
+
++ Entering an encounter against 2 NPCs now creates two opponents for the player.
++ Added the ability to join a 1v2 encounter if no moves have been made yet.
++ NPCs with the `sells` property can buy and sell items using the Item endpoints near the NPC.
++ Monster status effects can deal damage or make ability moves fail randomly.
++ Monster status effects can be removed with items.
++ Monster attributes can be increased or decreased with items.
++ Monball items can be used to catch monsters.
++ Monboxes can be opened to win new monsters.
++ Itemboxes can be opened to win items.
+
+## Bugfixes
+
+* NPCs no longer switch areas or trigger tall grass.
