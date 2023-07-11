@@ -982,7 +982,7 @@
                     5534, 5535, 5536, 5537, 5538, 5539, 5540, 5541, 5542, 5543, 5544, 5545, 5546, 5547, 5548, 5549,
                     5710, 5711, 5712, 5713, 5714, 5715, 5716, 5717, 5718, 5719, 5720, 5721, 5722, 5723, 5724, 5725,
                     5886, 5887, 5888, 5889, 5890, 5891, 5892, 5893, 5894, 5895, 5896, 5897, 5898, 5899, 5900, 5901,
-                    0, 0, 0, 0, 0, 0, 0, 40699, 40699, 0, 0, 0, 0, 40699, 40699, 0],
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  "height":16,
                  "width":16,
                  "x":48,
@@ -1153,7 +1153,7 @@
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 14146, 14147, 14148, 14149, 14150, 14151, 14152,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 14322, 14323, 14324, 14325, 14326, 14327, 14328,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 14498, 14499, 14500, 14501, 14502, 14503, 14504,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40699, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 4760, 4761, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12849,
                     0, 0, 4936, 4937, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13025,
                     0, 0, 5112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13201,
@@ -2264,14 +2264,119 @@
                 {
                  "height":0,
                  "id":47,
-                 "name":"Tanki",
+                 "name":"W\u00f6rni von der Tanke",
                  "point":true,
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":960,
                  "y":832
+                }, 
+                {
+                 "height":0,
+                 "id":48,
+                 "name":"Eis Eis Werni",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":192,
+                 "y":272
+                }, 
+                {
+                 "height":0,
+                 "id":49,
+                 "name":"W\u00f6rni W\u00f6rstchen",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":1248,
+                 "y":224
+                }, 
+                {
+                 "height":16,
+                 "id":52,
+                 "name":"Store 1",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Werningham Store"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":7
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":13
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":32,
+                 "x":880,
+                 "y":480
+                }, 
+                {
+                 "height":16,
+                 "id":53,
+                 "name":"Store 2",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Werningham Store"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":17
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":13
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":32,
+                 "x":976,
+                 "y":480
+                }, 
+                {
+                 "height":16,
+                 "id":54,
+                 "name":"Moncenter",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Werningham Moncenter"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":9
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":9
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":16,
+                 "x":448,
+                 "y":896
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2280,7 +2385,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":48,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -2299,6 +2404,10 @@
         {
          "firstgid":41713,
          "source":"..\/..\/tilesets\/Modern_Exteriors_extended_16x16.json"
+        }, 
+        {
+         "firstgid":42097,
+         "source":"..\/..\/tilesets\/Modern_Interiors_16x16.json"
         }],
  "tilewidth":16,
  "type":"map",
