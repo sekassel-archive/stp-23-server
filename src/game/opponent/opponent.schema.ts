@@ -119,12 +119,12 @@ export class Result {
 @Schema(GLOBAL_SCHEMA_OPTIONS)
 @ApiExtraModels(AbilityMove, ChangeMonsterMove, UseItemMove)
 export class Opponent extends GlobalSchema {
-  @Prop()
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   encounter: string;
 
-  @Prop()
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   trainer: string;
@@ -186,6 +186,4 @@ export class Opponent extends GlobalSchema {
 
 export type OpponentDocument = Doc<Opponent>;
 
-export const OpponentSchema = SchemaFactory.createForClass(Opponent)
-  .index({encounter: 1, trainer: 1}, {unique: true})
-;
+export const OpponentSchema = SchemaFactory.createForClass(Opponent);
