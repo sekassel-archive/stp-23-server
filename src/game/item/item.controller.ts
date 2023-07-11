@@ -7,6 +7,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  ParseArrayPipe,
   ParseEnumPipe,
   Post,
   Query,
@@ -84,15 +85,15 @@ export class ItemController {
   }
 
   @Get()
-  @ApiQuery({name: 'types', description: 'Comma separated list of item ids to fetch', required: false})
+  @ApiQuery({name: 'types', description: 'Filter by numeric Item IDs (comma-separated)', required: false, type: String})
   @ApiOkResponse({type: Item})
   async findAll(
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
-    @Query('types') types?: string,
+    @Query('types', new ParseArrayPipe({items: Number})) types?: number[],
   ): Promise<Item[]> {
     return this.itemService.findAll({
       trainer,
-      type: types ? {$in: types.split(',').map(i => +i)} : undefined,
+      type: types ? {$in: types} : undefined,
     });
   }
 
