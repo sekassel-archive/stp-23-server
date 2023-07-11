@@ -43,7 +43,7 @@ export class NPCInfo {
   @IsBoolean()
   canHeal: boolean;
 
-  // @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
+  @ApiPropertyOptional({type: [[Number]]})
   @IsOptional()
   path?: Path;
 
