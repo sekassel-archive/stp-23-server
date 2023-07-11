@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
-import {abilities as allAbilities, Ability, monsterTypes} from '../../constants';
+import {abilities as allAbilities, Ability, MAX_ABILITIES, monsterTypes} from '../../constants';
 import {attackAtLevel, defenseAtLevel, EVOLUTION_LEVELS, healthAtLevel, speedAtLevel} from '../../formulae';
 import {CreateMonsterDto} from '../../monster/monster.dto';
-import {MAX_ABILITIES, MonsterDocument} from '../../monster/monster.schema';
+import {MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
 import {notFound} from "@mean-stream/nestx";
 

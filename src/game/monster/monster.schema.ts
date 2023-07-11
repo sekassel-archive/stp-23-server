@@ -1,10 +1,11 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiProperty} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {IsAlpha, IsArray, IsEnum, IsInt, IsMongoId, IsObject, ValidateNested} from 'class-validator';
+import {IsArray, IsEnum, IsInt, IsMongoId, IsObject, ValidateNested} from 'class-validator';
 import {Document, SchemaTypes, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
-import {expRequired} from "../formulae";
+import {expRequired} from '../formulae';
+import {MAX_ABILITIES, MonsterStatus} from '../constants';
 
 export class MonsterAttributes {
   @ApiProperty()
@@ -22,17 +23,6 @@ export class MonsterAttributes {
   @ApiProperty()
   @IsInt()
   speed: number;
-}
-
-export const MAX_ABILITIES = 4;
-
-export enum MonsterStatus {
-  PARALYSED = 'paralysed',
-  ASLEEP = 'asleep',
-  POISONED = 'poisoned',
-  BURNED = 'burned',
-  FROZEN = 'frozen',
-  CONFUSED = 'confused',
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)

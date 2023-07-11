@@ -3,9 +3,9 @@ import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
-import {abilities, Effect, StatusEffect, StatusResult} from '../constants';
+import {abilities, Effect, MonsterStatus, StatusEffect, StatusResult} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
-import {Monster, MonsterAttributes, MonsterDocument, MonsterStatus} from './monster.schema';
+import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
 import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
 
 @Injectable()

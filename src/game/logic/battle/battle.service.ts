@@ -1,7 +1,17 @@
 import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
-import {abilities, Ability, AttributeEffect, monsterTypes, TALL_GRASS_TRAINER, Type, types,} from '../../constants';
+import {
+  abilities,
+  Ability,
+  AttributeEffect,
+  MAX_ABILITIES,
+  MonsterStatus,
+  monsterTypes,
+  TALL_GRASS_TRAINER,
+  Type,
+  types,
+} from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
   attackGain,
@@ -19,7 +29,7 @@ import {
   STATUS_REMOVE_CHANCE,
 } from '../../formulae';
 import {ItemService} from '../../item/item.service';
-import {MAX_ABILITIES, MonsterAttributes, MonsterDocument, MonsterStatus} from '../../monster/monster.schema';
+import {MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
 import {Effectiveness, Opponent, OpponentDocument} from '../../opponent/opponent.schema';
 import {OpponentService} from '../../opponent/opponent.service';

@@ -113,6 +113,15 @@ export class StatusEffect {
 export const StatusResults = ['added', 'removed', 'unchanged'] as const;
 export type StatusResult = typeof StatusResults[number];
 
+export enum MonsterStatus {
+  PARALYSED = 'paralysed',
+  ASLEEP = 'asleep',
+  POISONED = 'poisoned',
+  BURNED = 'burned',
+  FROZEN = 'frozen',
+  CONFUSED = 'confused',
+}
+
 export type Effect = AttributeEffect | StatusEffect;
 
 export class Ability {
@@ -146,9 +155,9 @@ export class AbilityDto extends OmitType(Ability, ['minLevel', 'effects'] as con
 export const abilities: Ability[] = _abilities;
 
 export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
-
 export const TALL_GRASS_TRAINER = '0'.repeat(24);
 
 export const MAX_TEAM_SIZE = 6;
+export const MAX_ABILITIES = 4;
 
 export const NPC_SIGHT_RANGE = 5;

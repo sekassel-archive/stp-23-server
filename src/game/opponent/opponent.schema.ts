@@ -3,9 +3,8 @@ import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/sw
 import {Type} from 'class-transformer';
 import {Equals, IsArray, IsBoolean, IsEnum, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities, itemTypes} from '../constants';
+import {abilities, itemTypes, MonsterStatus} from '../constants';
 import {Doc} from "@mean-stream/nestx";
-import {MonsterStatus} from '../monster/monster.schema';
 
 @Schema()
 export class AbilityMove {

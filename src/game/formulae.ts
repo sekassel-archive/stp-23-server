@@ -1,5 +1,5 @@
-import {Monster, MonsterStatus} from './monster/monster.schema';
-import {Type} from "./constants";
+import {Monster} from './monster/monster.schema';
+import {MonsterStatus, Type} from './constants';
 
 // TODO improve experience gain?
 export const expGain = (defeatedMonsterLevel: number): number => Math.round(defeatedMonsterLevel * 10 * (0.9 + Math.random() * 0.2));
