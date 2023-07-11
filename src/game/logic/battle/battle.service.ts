@@ -137,7 +137,7 @@ export class BattleService {
       opponent.results = [];
       opponent.move = monster && targetMonster ? {
         type: 'ability',
-        target: target.trainer,
+        target: target._id.toString(),
         ability: this.findNPCAbility(monster, targetMonster),
       } : undefined;
     }
@@ -253,9 +253,10 @@ export class BattleService {
           return;
         }
 
-        const targetMonster = monsters.find(m => m.trainer === move.target);
-        const targetOpponent = opponents.find(o => o.trainer === move.target);
-        if (!targetMonster || !targetOpponent) {
+        const targetOpponent = opponents.find(o => o._id.equals(move.target) || o.trainer === move.target);
+        const targetMonsterId = targetOpponent?.monster;
+        const targetMonster = targetMonsterId && monsters.find(m => m._id.equals(targetMonsterId));
+        if (!targetOpponent || !targetMonster) {
           opponent.results = [{type: 'target-unknown'}];
           return;
         }
