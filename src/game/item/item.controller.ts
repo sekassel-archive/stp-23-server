@@ -8,10 +8,17 @@ import {
   NotFoundException,
   Param,
   ParseEnumPipe,
-  Patch,
+  Post,
   Query,
 } from '@nestjs/common';
-import {ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiQuery, ApiTags} from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiQuery,
+  ApiTags
+} from '@nestjs/swagger';
 import {Auth, AuthUser} from '../../auth/auth.decorator';
 import {User} from '../../user/user.schema';
 import {NotFound} from '../../util/not-found.decorator';
@@ -40,10 +47,10 @@ export class ItemController {
   ) {
   }
 
-  @Patch()
-  @ApiOperation({description: 'Trade and use items'})
+  @Post()
+  @ApiOperation({summary: 'Trade and use items'})
   @ApiQuery({name: 'action', enum: ItemAction, description: 'The action to perform. Default: trade', required: false})
-  @ApiOkResponse({type: Item})
+  @ApiCreatedResponse({type: Item})
   @ApiForbiddenResponse({description: 'This item cannot be bought, sold or used, or you are not the owner of this trainer'})
   @NotFound()
   async updateOne(
