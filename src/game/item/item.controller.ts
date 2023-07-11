@@ -34,6 +34,7 @@ import {Item} from './item.schema';
 import {ItemService} from './item.service';
 import {ItemAction} from "./item.action";
 import {Types} from "mongoose";
+import {exceptionDesc} from "../../util/exception.extractor";
 
 @Controller('regions/:regionId/trainers/:trainerId/items')
 @ApiTags('Trainer Items')
@@ -52,7 +53,7 @@ export class ItemController {
   @ApiOperation({summary: 'Trade and use items'})
   @ApiQuery({name: 'action', enum: ItemAction, description: 'The action to perform. Default: trade', required: false})
   @ApiCreatedResponse({type: Item})
-  @ApiForbiddenResponse({description: 'This item cannot be bought, sold or used, or you are not the owner of this trainer'})
+  @ApiForbiddenResponse({description: exceptionDesc(ForbiddenException, ItemController.prototype.updateOne, ItemService.prototype.updateOne)})
   @NotFound()
   async updateOne(
     @Param('trainerId', ParseObjectIdPipe) trainerId: string,
