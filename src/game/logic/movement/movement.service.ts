@@ -150,7 +150,7 @@ export class MovementService implements OnApplicationBootstrap {
       switch (layer.type) {
         case 'objectgroup':
           for (const object of layer.objects) {
-            const gameObject = this.loadObject(object, area, areas);
+            const gameObject = this.loadObject(object, layer.objects, area, areas);
             gameObject && objects.push(gameObject);
           }
           break;
@@ -197,13 +197,25 @@ export class MovementService implements OnApplicationBootstrap {
     }
   }
 
-  private loadObject(object: TiledObject, area: Area, areas: Area[]): GameObject | undefined {
+  private loadObject(object: TiledObject, objects: TiledObject[], area: Area, areas: Area[]): GameObject | undefined {
     const x = object.x / area.map.tilewidth;
     const y = object.y / area.map.tileheight;
     const width = object.width / area.map.tilewidth;
     const height = object.height / area.map.tileheight;
     switch (object.type) {
       case 'Portal':
+        const target = getProperty(object, 'Target');
+        if (typeof target === 'number') {
+          const targetObject = objects.find(o => o.id === target);
+          return targetObject && {
+            type: 'Portal', x, y, width, height,
+            target: {
+              area: area._id.toString(),
+              x: targetObject.x / area.map.tilewidth,
+              y: targetObject.y / area.map.tileheight,
+            },
+          };
+        }
         const targetArea = this.getArea(object, area, areas);
         return targetArea && {
           type: 'Portal', x, y, width, height,
