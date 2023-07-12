@@ -2960,6 +2960,12 @@
  "nextlayerid":6,
  "nextobjectid":55,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Forest"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
  "tileheight":16,

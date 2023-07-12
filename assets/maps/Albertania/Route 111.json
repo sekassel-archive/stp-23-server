@@ -1251,6 +1251,12 @@
  "nextlayerid":10,
  "nextobjectid":45,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Coast"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
  "tileheight":16,

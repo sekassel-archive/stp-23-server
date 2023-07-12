@@ -3455,6 +3455,11 @@
          "name":"Spawn",
          "type":"string",
          "value":"{\"x\":63,\"y\":67}"
+        }, 
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"City"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

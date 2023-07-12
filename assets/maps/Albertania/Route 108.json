@@ -1915,6 +1915,12 @@
  "nextlayerid":7,
  "nextobjectid":61,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Plains"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
  "tileheight":16,
