@@ -50,6 +50,6 @@ export class AreaController {
     @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Area | null> {
-    return this.areaService.find(id, {projection: {'map.layers.objects': 0}});
+    return this.areaService.find(id);
   }
 }
