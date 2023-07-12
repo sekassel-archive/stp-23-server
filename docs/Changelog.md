@@ -313,9 +313,11 @@
 + Added Henrikhaven.
 + Added Simonsfield.
 + Added Route 108.
++ Added Route 109.
 + Added Route 112.
 + Added 32 items.
 + Added 100 new monsters.
++ Added terrain type map property for most areas. [STP23SRV-7](https://jira.uniks.de/browse/STP23SRV-7)
 
 ### Resources
 
@@ -336,6 +338,10 @@
 + Monball items can be used to catch monsters.
 + Monboxes can be opened to win new monsters.
 + Itemboxes can be opened to win items.
+
+## Improvements
+
+* Area maps now include objects in object layers.
 
 ## Bugfixes
 
