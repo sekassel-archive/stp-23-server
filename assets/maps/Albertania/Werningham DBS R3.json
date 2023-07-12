@@ -1,0 +1,190 @@
+{ "compressionlevel":-1,
+ "height":10,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 3080, 3080, 3080, 3080, 3080, 3080, 3080,
+            3540, 3540, 3540, 3540, 3540, 3540, 3540, 3540,
+            3080, 3540, 3540, 3540, 3540, 3540, 3540, 3540,
+            3540, 3540, 3540, 3540, 3540, 3540, 3540, 3540,
+            3540, 3540, 3540, 3540, 3540, 3540, 3540, 3540,
+            3540, 3540, 3540, 3540, 3540, 3540, 3540, 3540,
+            3080, 3540, 3540, 3540, 3540, 3540, 3540, 3540,
+            0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "id":1,
+         "name":"Ground",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":8,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[7418, 7496, 7496, 7496, 7496, 7496, 7496, 7423,
+            7494, 7649, 7649, 7649, 7649, 7649, 7649, 7499,
+            7570, 7572, 7572, 7572, 7572, 7572, 7572, 7575,
+            7495, 0, 0, 0, 0, 0, 0, 7727,
+            7571, 0, 0, 0, 0, 0, 0, 7727,
+            7647, 0, 0, 0, 0, 0, 0, 7727,
+            0, 0, 0, 0, 0, 0, 0, 7727,
+            0, 0, 0, 0, 0, 0, 0, 7727,
+            7495, 0, 0, 0, 0, 0, 0, 7727,
+            7199, 5080, 5080, 5080, 5080, 5080, 5080, 7726],
+         "height":10,
+         "id":2,
+         "name":"Walls",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"Map",
+                 "type":"string",
+                 "value":"Jenshire Museum Room 1"
+                }, 
+                {
+                 "name":"X",
+                 "type":"int",
+                 "value":0
+                }, 
+                {
+                 "name":"Y",
+                 "type":"int",
+                 "value":0
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":8,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0,
+            0, 8631, 8632, 0, 0, 0, 17919, 0,
+            0, 8647, 8648, 16669, 16670, 16671, 17935, 0,
+            0, 0, 0, 16685, 16686, 16687, 17951, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            7646, 0, 0, 0, 0, 0, 16928, 0,
+            0, 17530, 0, 0, 0, 0, 16944, 0,
+            0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "id":7,
+         "name":"Interior",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":8,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 16634, 16633, 0, 0,
+            0, 0, 0, 0, 16650, 16649, 0, 0,
+            0, 0, 0, 0, 16729, 0, 0, 0,
+            0, 0, 0, 0, 16745, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "id":8,
+         "name":"Interior2",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":8,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"Objects",
+         "objects":[
+                {
+                 "height":16,
+                 "id":9,
+                 "name":"Entrance",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Werningham DBS Entrance"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":28
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":81
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":16,
+                 "x":0,
+                 "y":96
+                }, 
+                {
+                 "height":0,
+                 "id":20,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":48,
+                 "y":96
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":9,
+ "nextobjectid":21,
+ "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Map",
+         "type":"string",
+         "value":"Werningham DBS Entrance"
+        }, 
+        {
+         "name":"X",
+         "type":"int",
+         "value":8
+        }, 
+        {
+         "name":"Y",
+         "type":"int",
+         "value":8
+        }],
+ "renderorder":"right-down",
+ "tiledversion":"1.10.1",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"..\/..\/tilesets\/Room_Builder_16x16.json"
+        }, 
+        {
+         "firstgid":8285,
+         "source":"..\/..\/tilesets\/Modern_Interiors_16x16.json"
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.10",
+ "width":8
+}

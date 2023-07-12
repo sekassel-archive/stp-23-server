@@ -1562,12 +1562,12 @@
                  "x":64,
                  "y":96
                 }],
-         "height":128,
+         "height":112,
          "id":2,
          "name":"Buildings",
          "opacity":1,
          "startx":0,
-         "starty":-16,
+         "starty":0,
          "type":"tilelayer",
          "visible":true,
          "width":80,
@@ -2171,7 +2171,7 @@
          "starty":0,
          "type":"tilelayer",
          "visible":true,
-         "width":96,
+         "width":80,
          "x":0,
          "y":0
         }, 
@@ -2266,6 +2266,12 @@
                  "id":47,
                  "name":"W\u00f6rni von der Tanke",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Kid_Oscar_16x16.png"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -2278,6 +2284,12 @@
                  "id":48,
                  "name":"Eis Eis Werni",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Chef_Rob_16x16.png"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -2290,6 +2302,12 @@
                  "id":49,
                  "name":"W\u00f6rni W\u00f6rstchen",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Butcher_16x16.png"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -2377,6 +2395,33 @@
                  "width":16,
                  "x":448,
                  "y":896
+                }, 
+                {
+                 "height":16,
+                 "id":55,
+                 "name":"Dead Birds Society",
+                 "properties":[
+                        {
+                         "name":"Map",
+                         "type":"string",
+                         "value":"Werningham DBS Entrance"
+                        }, 
+                        {
+                         "name":"X",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"Y",
+                         "type":"int",
+                         "value":26
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":48,
+                 "x":432,
+                 "y":1264
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2385,7 +2430,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":55,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "properties":[
         {
