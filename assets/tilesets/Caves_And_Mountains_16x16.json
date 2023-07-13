@@ -1,5 +1,5 @@
 { "columns":24,
- "image":"..\/..\/tilesets\/Caves_And_Mountains_16x16.png",
+ "image":"Caves_And_Mountains_16x16.png",
  "imageheight":384,
  "imagewidth":384,
  "margin":0,
@@ -156,6 +156,15 @@
                 }]
         }, 
         {
+         "id":63,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":68,
          "properties":[
                 {
@@ -275,6 +284,20 @@
                 }]
         }, 
         {
+         "id":121,
+         "properties":[
+                {
+                 "name":"Roof",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":137,
          "properties":[
                 {
@@ -295,6 +318,20 @@
         {
          "id":139,
          "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":145,
+         "properties":[
+                {
+                 "name":"Roof",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -349,6 +386,34 @@
         {
          "id":187,
          "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":198,
+         "properties":[
+                {
+                 "name":"Roof",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":199,
+         "properties":[
+                {
+                 "name":"Roof",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -565,6 +630,60 @@
                 }]
         }, 
         {
+         "id":294,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":295,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":317,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":318,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":319,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":320,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":337,
          "properties":[
                 {
@@ -674,6 +793,24 @@
                 }]
         }, 
         {
+         "id":390,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":391,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":408,
          "properties":[
                 {
@@ -710,13 +847,35 @@
                 }]
         }, 
         {
-         "id":432,
+         "id":413,
          "properties":[
                 {
-                 "name":"Roof",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
-                }, 
+                }]
+        }, 
+        {
+         "id":414,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":415,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":416,
+         "properties":[
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -776,19 +935,25 @@
          "colors":[
                 {
                  "color":"#ff0000",
-                 "name":"Cavefloor",
+                 "name":"Dirt",
                  "probability":1,
                  "tile":-1
                 }, 
                 {
                  "color":"#00ff00",
-                 "name":"Gras",
+                 "name":"Grass",
                  "probability":1,
                  "tile":-1
                 }, 
                 {
-                 "color":"#0000ff",
+                 "color":"#aaffff",
                  "name":"Snow",
+                 "probability":1,
+                 "tile":-1
+                }, 
+                {
+                 "color":"#ff7700",
+                 "name":"Path",
                  "probability":1,
                  "tile":-1
                 }],
@@ -838,19 +1003,19 @@
                 }, 
                 {
                  "tileid":89,
-                 "wangid":[0, 0, 0, 3, 0, 0, 0, 0]
+                 "wangid":[0, 4, 0, 3, 0, 4, 0, 4]
                 }, 
                 {
                  "tileid":90,
-                 "wangid":[0, 0, 0, 3, 0, 3, 0, 0]
+                 "wangid":[0, 4, 0, 3, 0, 3, 0, 4]
                 }, 
                 {
                  "tileid":91,
-                 "wangid":[0, 0, 0, 0, 0, 3, 0, 0]
+                 "wangid":[0, 4, 0, 4, 0, 3, 0, 4]
                 }, 
                 {
                  "tileid":113,
-                 "wangid":[0, 3, 0, 3, 0, 0, 0, 0]
+                 "wangid":[0, 3, 0, 3, 0, 4, 0, 4]
                 }, 
                 {
                  "tileid":114,
@@ -858,35 +1023,35 @@
                 }, 
                 {
                  "tileid":115,
-                 "wangid":[0, 0, 0, 0, 0, 3, 0, 3]
+                 "wangid":[0, 4, 0, 4, 0, 3, 0, 3]
                 }, 
                 {
                  "tileid":137,
-                 "wangid":[0, 3, 0, 0, 0, 0, 0, 0]
+                 "wangid":[0, 3, 0, 4, 0, 4, 0, 4]
                 }, 
                 {
                  "tileid":138,
-                 "wangid":[0, 3, 0, 0, 0, 0, 0, 3]
+                 "wangid":[0, 3, 0, 4, 0, 4, 0, 3]
                 }, 
                 {
                  "tileid":139,
-                 "wangid":[0, 0, 0, 0, 0, 0, 0, 3]
+                 "wangid":[0, 4, 0, 4, 0, 4, 0, 3]
                 }, 
                 {
                  "tileid":161,
-                 "wangid":[0, 3, 0, 0, 0, 3, 0, 3]
+                 "wangid":[0, 3, 0, 4, 0, 3, 0, 3]
                 }, 
                 {
                  "tileid":162,
-                 "wangid":[0, 3, 0, 0, 0, 0, 0, 3]
+                 "wangid":[0, 3, 0, 4, 0, 4, 0, 3]
                 }, 
                 {
                  "tileid":163,
-                 "wangid":[0, 3, 0, 3, 0, 0, 0, 3]
+                 "wangid":[0, 3, 0, 3, 0, 4, 0, 3]
                 }, 
                 {
                  "tileid":185,
-                 "wangid":[0, 0, 0, 0, 0, 3, 0, 3]
+                 "wangid":[0, 4, 0, 4, 0, 3, 0, 3]
                 }, 
                 {
                  "tileid":186,
@@ -894,19 +1059,19 @@
                 }, 
                 {
                  "tileid":187,
-                 "wangid":[0, 3, 0, 3, 0, 0, 0, 0]
+                 "wangid":[0, 3, 0, 3, 0, 4, 0, 4]
                 }, 
                 {
                  "tileid":209,
-                 "wangid":[0, 0, 0, 3, 0, 3, 0, 3]
+                 "wangid":[0, 4, 0, 3, 0, 3, 0, 3]
                 }, 
                 {
                  "tileid":210,
-                 "wangid":[0, 0, 0, 3, 0, 3, 0, 0]
+                 "wangid":[0, 4, 0, 3, 0, 3, 0, 4]
                 }, 
                 {
                  "tileid":211,
-                 "wangid":[0, 3, 0, 3, 0, 3, 0, 0]
+                 "wangid":[0, 3, 0, 3, 0, 3, 0, 4]
                 }]
         }]
 }
