@@ -43,7 +43,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   'ability-success': 'The ability was successful',
   'target-defeated': 'The target monster was defeated',
   'monster-changed': 'The monster was changed successfully',
-  'monster-defeated': 'The monster was defeated',
+  'monster-defeated': 'The monster defeated itself by using an ability with recoil damage',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
   'monster-learned': 'The monster learned a new ability',
