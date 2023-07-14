@@ -137,10 +137,26 @@
                 {
                  "height":0,
                  "id":20,
-                 "name":"",
+                 "name":"Pom",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Samuel_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[156,22],[133,26],[123,26],[110,23]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":64,

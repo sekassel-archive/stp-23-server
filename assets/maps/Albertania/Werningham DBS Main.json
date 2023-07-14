@@ -132,6 +132,27 @@
                  "id":20,
                  "name":"CTO",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Conference_man_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[202,26],[165,26],[147,25],[119,24],[125,26]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,
@@ -144,6 +165,27 @@
                  "id":21,
                  "name":"CEO",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Conference_woman_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[79,26],[62,25],[192,26],[158,26],[186,26]]"
+                        }],
                  "rotation":0,
                  "type":"Trainer",
                  "visible":true,

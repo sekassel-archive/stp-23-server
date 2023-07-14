@@ -145,10 +145,31 @@
                 {
                  "height":0,
                  "id":20,
-                 "name":"",
+                 "name":"Pandro Pluschi",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Rob_12.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[12,26],[98,26],[107,25],[166,25]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":128,
@@ -157,10 +178,31 @@
                 {
                  "height":0,
                  "id":21,
-                 "name":"",
+                 "name":"Pio Pasta",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Premade_Character_12.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[169,24],[154,24],[136,24],[38,26]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":160,

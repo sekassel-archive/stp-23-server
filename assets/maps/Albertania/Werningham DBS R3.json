@@ -137,10 +137,26 @@
                 {
                  "height":0,
                  "id":20,
-                 "name":"",
+                 "name":"Perik",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Roki_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[142,23],[163,26],[167,25]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":48,

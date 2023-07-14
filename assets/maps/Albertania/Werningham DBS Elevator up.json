@@ -120,8 +120,24 @@
                  "id":23,
                  "name":"Timon",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Pier_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[27,23],[18,24],[78,26],[196,25]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Trainer",
                  "visible":true,
                  "width":0,
                  "x":16,

@@ -2334,6 +2334,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Kid_Oscar_16x16.png"
@@ -2352,6 +2357,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Chef_Rob_16x16.png"
@@ -2369,6 +2379,11 @@
                  "name":"W\u00f6rni W\u00f6rstchen",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
                         {
                          "name":"Image",
                          "type":"string",

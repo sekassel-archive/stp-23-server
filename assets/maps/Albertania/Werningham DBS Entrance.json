@@ -356,9 +356,24 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Lucy_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[137,22], [181,22]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
