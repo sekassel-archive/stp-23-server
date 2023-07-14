@@ -303,3 +303,20 @@
 ## Documentation
 
 * Updated the documentation for `TalkTrainerDto`.
+
+# v3.3.1 - Bugfixes
+
+## Improvements
+
+* Area maps now include objects in object layers.
+* Opponents no longer require unique encounter-trainer combinations in preparation for v4.
+
+## Bugfixes
+
+* NPCs no longer switch areas or trigger tall grass.
+* Live monsters that are not in the trainer's team no longer count when checking if an opponent should be deleted.
+
+## Documentation
+
+* Documented the `NPCInfo.path` property.
+* Improved the description for the `monster-defeated` result.
