@@ -1230,17 +1230,17 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Route 104"
+                         "value":"Gloomy_Cave"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":103
+                         "value":10
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":7
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1263,22 +1263,22 @@
                 {
                  "height":16,
                  "id":42,
-                 "name":"Dark Cave",
+                 "name":"Dark Cave U2",
                  "properties":[
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Route 104"
+                         "value":"Gloomy_Cave_U1"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":103
+                         "value":8
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":7
+                         "value":58
                         }],
                  "rotation":0,
                  "type":"Portal",
