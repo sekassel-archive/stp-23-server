@@ -14,6 +14,7 @@ import {
 } from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
+  abilityStatusScore,
   attackGain,
   coinsGain,
   defenseGain,
@@ -155,13 +156,13 @@ export class BattleService {
       }
 
       const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
-      if (!attackDamage) {
+      /*if (!attackDamage) {
         // FIXME Giulio until v4: support other effects
         continue;
-      }
+      }*/
 
       const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
-      const attackSum = attackDamage * attackMultiplier;
+      const attackSum = attackDamage * attackMultiplier + abilityStatusScore(ab) * attackMultiplier;
 
       if (maxSum < attackSum) {
         maxSum = attackSum;
