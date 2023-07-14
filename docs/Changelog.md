@@ -304,6 +304,23 @@
 
 * Updated the documentation for `TalkTrainerDto`.
 
+# v3.3.1 - Bugfixes
+
+## Improvements
+
+* Area maps now include objects in object layers.
+* Opponents no longer require unique encounter-trainer combinations in preparation for v4.
+
+## Bugfixes
+
+* NPCs no longer switch areas or trigger tall grass.
+* Live monsters that are not in the trainer's team no longer count when checking if an opponent should be deleted.
+
+## Documentation
+
+* Documented the `NPCInfo.path` property.
+* Improved the description for the `monster-defeated` result.
+
 # v4.0.0 - Items
 
 ## New Features
@@ -338,11 +355,3 @@
 + Monball items can be used to catch monsters.
 + Monboxes can be opened to win new monsters.
 + Itemboxes can be opened to win items.
-
-## Improvements
-
-* Area maps now include objects in object layers.
-
-## Bugfixes
-
-* NPCs no longer switch areas or trigger tall grass.
