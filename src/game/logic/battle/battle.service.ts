@@ -299,10 +299,11 @@ export class BattleService {
         if ('attribute' in value) {
           this.applyAttributeEffect(value, currentMonster, targetMonster, multiplier);
         } else if ('status' in value) {
-          const target = value.self === true ? currentMonster : targetMonster;
-          const result = this.monsterService.applyStatusEffect(value, target);
+          const monster = value.self === true ? currentMonster : targetMonster;
+          const result = this.monsterService.applyStatusEffect(value, monster);
           if (result !== 'unchanged') {
-            currentOpponent.results.push({type: `status-${result}`, status: value.status as MonsterStatus});
+            const opponent = value.self === true ? currentOpponent : targetOpponent;
+            opponent.results.push({type: `status-${result}`, status: value.status as MonsterStatus});
           }
         }
       }
