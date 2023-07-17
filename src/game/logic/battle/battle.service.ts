@@ -147,30 +147,43 @@ export class BattleService {
   private findNPCAbility(attacker: MonsterDocument, target: MonsterDocument): number {
     const attackAbilities = Object.keys(attacker.abilities).map(ab => abilities.find(a => a.id.toString() === ab) as Ability);
 
-    let chosenAbilityID = -1;
-    let maxSum = -1;
+    let chosenAttackAbilityID = -1;
+    let chosenEffectAbilityID = -1;
+    let maxAttackSum = -1;
+    let maxEffectSum = -1;
+
     for (const ab of attackAbilities) {
       const attackUsesLeft = attacker.abilities[ab.id];
       if (attackUsesLeft <= 0) {
         continue;
       }
 
-      const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
-      /*if (!attackDamage) {
-        // FIXME Giulio until v4: support other effects
-        continue;
-      }*/
-
       const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
-      const attackSum = attackDamage * attackMultiplier + abilityStatusScore(ab) * attackMultiplier;
+      const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
+      if (!attackDamage) {
+        // FIXME Giulio until v4: support other effects
+        const effectSum = abilityStatusScore(attacker.status, ab) * attackMultiplier;
 
-      if (maxSum < attackSum) {
-        maxSum = attackSum;
-        chosenAbilityID = ab.id;
+        if (maxEffectSum < effectSum) {
+          maxEffectSum = effectSum;
+          chosenEffectAbilityID = ab.id;
+        }
+        continue;
+      }
+
+      const attackSum = attackDamage * attackMultiplier;
+
+      if (maxAttackSum < attackSum) {
+        maxAttackSum = attackSum;
+        chosenAttackAbilityID = ab.id;
       }
     }
 
-    return chosenAbilityID;
+    if(chosenEffectAbilityID !== -1){
+      return Math.random() < .8 ? chosenAttackAbilityID : chosenEffectAbilityID;
+    }
+
+    return chosenAttackAbilityID;
   }
 
   private async findNPCnextMonster(trainer: string, target?: MonsterDocument): Promise<MonsterDocument | undefined> {
