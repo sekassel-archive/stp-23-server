@@ -361,3 +361,9 @@
 ## Bugfixes
 
 * Fixed the `Doctor_2` (woman with pink hair) walking sprites.
+
+# v4.0.1 - Gloomy Cave Bugfixes
+
+## Bugfixes
+
+* Fixed walkable tiles, portals and invalid tall grass in the Gloomy Cave maps.
