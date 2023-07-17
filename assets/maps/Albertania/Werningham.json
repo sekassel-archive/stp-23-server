@@ -2518,6 +2518,11 @@
          "name":"Spawn",
          "type":"string",
          "value":"{\"x\":40,\"y\":19}"
+        }, 
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"City"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
