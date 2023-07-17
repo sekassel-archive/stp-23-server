@@ -395,9 +395,14 @@
                  "name":"Werningham",
                  "properties":[
                         {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Dead Birds Society\nMoncenter+Store"
+                        }, 
+                        {
                          "name":"Description",
                          "type":"string",
-                         "value":"The industrial center of the isles. Factories fill the southern parts of the city."
+                         "value":"The industrial center of the isles. Factories and office buildings fill the southern parts of the city."
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -436,7 +441,7 @@
                         {
                          "name":"Description",
                          "type":"string",
-                         "value":"A deep lake forms the eye of the isles. It is theorized to be the crater of an enormous meteorite."
+                         "value":"A deep lake forms the eye of the isles. It is theorized to be the crater of an enormous meteorite. A small shrine that can be reached through a cave honors the Old Gods that created this marvel of nature."
                         }, 
                         {
                          "name":"Monsters",
