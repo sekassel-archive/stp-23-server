@@ -327,6 +327,8 @@
 
 ### Content
 
++ Added Werningham and Dead Birds Society.
++ Added Central Lake cave.
 + Added Henrikhaven.
 + Added Simonsfield.
 + Added Route 108.
@@ -355,3 +357,7 @@
 + Monball items can be used to catch monsters.
 + Monboxes can be opened to win new monsters.
 + Itemboxes can be opened to win items.
+
+## Bugfixes
+
+* Fixed the `Doctor_2` (woman with pink hair) walking sprites.
