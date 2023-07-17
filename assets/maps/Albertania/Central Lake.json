@@ -1235,12 +1235,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":10
+                         "value":8
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":29
+                         "value":27
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1273,12 +1273,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":8
+                         "value":7
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":58
+                         "value":30
                         }],
                  "rotation":0,
                  "type":"Portal",
