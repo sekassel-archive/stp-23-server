@@ -21,6 +21,7 @@ import {environment} from "../../environment";
 
 const CHARACTER_RATE_LIMIT = Math.ceil(characters.length / 30) * 30;
 const MONSTER_RATE_LIMIT = Math.ceil(monsterTypes.length / 30) * 30;
+const ITEM_RATE_LIMIT = Math.ceil(itemTypes.length / 30) * 30;
 
 @Controller('presets')
 @ApiTags('Presets')
@@ -94,7 +95,15 @@ export class PresetsController {
   }
 
   @Get('items/:id/image')
+  @ApiOperation({
+    description: `NOTE: This endpoint is throttled to ${ITEM_RATE_LIMIT} requests per ${environment.rateLimit.presetsTtl}s.`,
+  })
+  @ApiOkResponse({
+    description: 'An item image PNG.',
+    content: {'image/png': {}},
+  })
   @NotFound()
+  @Throttle(ITEM_RATE_LIMIT, environment.rateLimit.presetsTtl)
   getItemImage(
     @Param('id', ParseIntPipe) id: number,
   ): StreamableFile | undefined {
