@@ -55,7 +55,8 @@ export class MonsterGeneratorService {
     return this.monsterService.upsert({
       // NB: This makes it so NPCs cannot have two monsters of the same type.
       trainer,
-      type,
+      // NB: Use the potentially evolved type
+      type: dto.type,
     }, {
       ...dto,
       trainer,
