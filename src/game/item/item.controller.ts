@@ -90,11 +90,11 @@ export class ItemController {
   @ApiOkResponse({type: Item})
   async findAll(
     @Param('trainerId', ParseObjectIdPipe) trainer: string,
-    @Query('types', new ParseArrayPipe({items: Number})) types?: number[],
+    @Query('types', new ParseArrayPipe({items: Number, optional: true})) types?: number[],
   ): Promise<Item[]> {
     return this.itemService.findAll({
       trainer,
-      type: types ? {$in: types} : undefined,
+      type: types && types.length ? {$in: types} : undefined,
     });
   }
 
