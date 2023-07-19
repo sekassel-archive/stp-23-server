@@ -91,7 +91,8 @@ export class BattleService {
     const neededMonsters = new Set();
     const deleteOpponents = opponents.filter(opponent => {
       if (opponent.trainer === TALL_GRASS_TRAINER) {
-        return !monsters.find(m => m._id.toString() === opponent.monster);
+        const monster = monsters.find(m => m._id.toString() === opponent.monster);
+        return !monster || monster.trainer !== TALL_GRASS_TRAINER; // monster was caught
       }
 
       const monster = monsters.find(m =>
