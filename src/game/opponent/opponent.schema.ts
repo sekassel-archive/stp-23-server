@@ -70,6 +70,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
   'monster-learned': 'The monster learned a new ability',
+  'monster-caught': 'The monster was caught',
   // Error cases
   'monster-dead': 'The monster is dead before it made a move',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
@@ -103,7 +104,7 @@ export class Result {
   @IsIn(EFFECTIVENESS)
   effectiveness?: Effectiveness;
 
-  @ApiPropertyOptional({description: 'For `item-*`.'})
+  @ApiPropertyOptional({description: 'For `item-*` and `monster-caught`.'})
   @IsOptional()
   @IsInt()
   @IsIn(itemTypes.map(i => i.id))

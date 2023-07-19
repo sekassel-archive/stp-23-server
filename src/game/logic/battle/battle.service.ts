@@ -281,11 +281,15 @@ export class BattleService {
         const monsterInBattle = monsters.find(m => m._id.equals(move.target));
         const trainerMonster = monsterInBattle ? undefined : await this.monsterService.find(new Types.ObjectId(move.target));
         try {
+          const prefTrainer = monsterInBattle?.trainer;
           await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
           if (trainerMonster) {
             await this.monsterService.saveAll([trainerMonster]);
           }
-          opponent.results = [{type: 'item-success', item: move.item}];
+          opponent.results.push({
+            type: monsterInBattle?.trainer !== prefTrainer ? 'monster-caught' : 'item-success',
+            item: move.item,
+          });
         } catch (err) {
           opponent.results = [{type: 'item-failed', item: move.item}];
         }
