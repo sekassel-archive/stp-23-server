@@ -82,13 +82,13 @@ export class BattleSetupService {
 
   async joinBattle(attacker: Trainer, encounter: string) {
     const allOpponents = await this.opponentService.findAll({encounter});
-    if (allOpponents.length !== 4) {
+    if (allOpponents.length < 3) {
       return;
     }
 
     // 1v2 battles always put the single trainer on the defender side, so our "attacker" joins the defenders
     const defenders = allOpponents.filter(opponent => !opponent.isAttacker);
-    if (defenders.length !== 2 || defenders[0].trainer !== defenders[1].trainer) {
+    if (!(defenders.length === 1 || defenders.length === 2 && defenders[0].trainer === defenders[1].trainer)) {
       // the battle is not 1v2
       return;
     }
@@ -110,7 +110,7 @@ export class BattleSetupService {
       monster: attackerMonster._id.toString(),
     });
     // remove the defender's second opponent
-    await this.opponentService.delete(defenders[1]._id);
+    defenders[1] && await this.opponentService.delete(defenders[1]._id);
   }
 
   async createMonsterEncounter(defender: Trainer, type: number, level: number) {
