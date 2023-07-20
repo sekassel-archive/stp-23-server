@@ -20,6 +20,8 @@ export const speedAtLevel = (level: number) => 3 + level * 2;
 
 export const EVOLUTION_LEVELS = [10, 20];
 export const SAME_TYPE_ATTACK_MULTIPLIER = 1.5;
+
+export const STATUS_ABILITY_CHANCE = 0.2;
 export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
   [MonsterStatus.ASLEEP]: 1,
   [MonsterStatus.PARALYSED]: 0.5,

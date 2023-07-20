@@ -24,7 +24,7 @@ import {
   healthGain,
   relativeStrengthMultiplier,
   SAME_TYPE_ATTACK_MULTIPLIER,
-  speedGain,
+  speedGain, STATUS_ABILITY_CHANCE,
   STATUS_DAMAGE,
   STATUS_FAIL_CHANCE,
   STATUS_REMOVE_CHANCE,
@@ -161,7 +161,6 @@ export class BattleService {
       const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
       const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
       if (!attackDamage) {
-        // FIXME Giulio until v4: support other effects
         const effectSum = abilityStatusScore(attacker.status, ab) * attackMultiplier;
 
         if (maxEffectSum < effectSum) {
@@ -179,11 +178,7 @@ export class BattleService {
       }
     }
 
-    if(chosenEffectAbilityID !== -1){
-      return Math.random() < .8 ? chosenAttackAbilityID : chosenEffectAbilityID;
-    }
-
-    return chosenAttackAbilityID;
+    return chosenEffectAbilityID !== -1 && Math.random() < STATUS_ABILITY_CHANCE ? chosenEffectAbilityID : chosenAttackAbilityID;
   }
 
   private async findNPCnextMonster(trainer: string, target?: MonsterDocument): Promise<MonsterDocument | undefined> {
