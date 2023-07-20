@@ -58,9 +58,7 @@ export const catchChanceBonus = (target: Monster) => {
 export const abilityStatusScore = (attackerStatus: MonsterStatus[], ab: Ability) => {
   let score = 0;
   ab.effects.filter((e): e is StatusEffect => 'status' in e).forEach(e => {
-    //TODO: Adrian fix this
-    //if((<any>Object).values(MonsterStatus).includes(e.status) && !attackerStatus.includes(MonsterStatus[e.status])) {
-    if((<any>Object).values(MonsterStatus).includes(e.status)) {
+    if (!attackerStatus.includes(e.status as MonsterStatus)) {
       score += e.chance || 1;
     }
   });
