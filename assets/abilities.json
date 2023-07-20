@@ -105,7 +105,7 @@
         "amount": -4
       },
       {
-        "status": "burn",
+        "status": "burned",
         "chance": 0.1
       }
     ]
@@ -155,7 +155,7 @@
         "amount": -3
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1023,7 +1023,7 @@
         "amount": -12
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.4
       }
     ]
@@ -1041,7 +1041,7 @@
         "amount": -13
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1105,7 +1105,7 @@
         "amount": -14
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.3
       }
     ]
@@ -1198,7 +1198,7 @@
         "amount": -14
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.35
       }
     ]
@@ -1221,7 +1221,7 @@
         "chance": 0.3
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.3
       }
     ]
@@ -1305,7 +1305,7 @@
         "amount": -18
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.3
       }
     ]
@@ -1732,7 +1732,7 @@
         "amount": -23
       },
       {
-        "status": "consusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1783,7 +1783,7 @@
         "amount": -24
       },
       {
-        "status": "defense",
+        "attribute": "defense",
         "amount": -1,
         "chance": 0.2
       }
@@ -1802,7 +1802,7 @@
         "amount": -24
       },
       {
-        "status": "defense",
+        "attribute": "defense",
         "amount": -1,
         "chance": 0.2
       },
@@ -1825,7 +1825,7 @@
         "amount": -24
       },
       {
-        "status": "defense",
+        "attribute": "defense",
         "amount": -1,
         "chance": 0.15
       },
