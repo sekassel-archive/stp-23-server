@@ -8,12 +8,12 @@ import {
   IsEnum,
   IsIn,
   IsInt,
-  IsMongoId,
+  IsMongoId, IsObject,
   IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
-import {Document, Types} from 'mongoose';
+import {Document, SchemaTypes, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_ARRAY_FORMAT, MONGO_ID_FORMAT} from '../../util/schema';
 import {characters, MAX_TEAM_SIZE} from '../constants';
 
@@ -139,6 +139,12 @@ export class Trainer extends GlobalSchema {
   @ValidateNested()
   @Type(() => NPCInfo)
   npc?: NPCInfo;
+
+  @Prop({type: SchemaTypes.Mixed})
+  @ApiPropertyOptional({type: Object, description: 'Additional client settings for the trainer.'})
+  @IsOptional()
+  @IsObject()
+  settings?: Record<string, any>;
 }
 
 export type TrainerDocument = Trainer & Document<Types.ObjectId, any, Trainer>;

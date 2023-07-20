@@ -8,12 +8,14 @@ import {Types} from "mongoose";
 export class CreateTrainerDto extends PickType(Trainer, [
   'name',
   'image',
+  'settings',
 ]) {
 }
 
 export class UpdateTrainerDto extends PartialType(PickType(Trainer, [
   'name',
   'image',
+  'settings',
   'team',
   'area',
 ] as const)) {
