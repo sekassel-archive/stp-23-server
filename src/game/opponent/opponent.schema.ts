@@ -93,6 +93,10 @@ export class Result {
   @IsIn(RESULTS)
   type: keyof typeof RESULTS_WITH_DESCRIPTION;
 
+  @ApiProperty({...MONGO_ID_FORMAT, description: 'The affected monster.'})
+  @IsMongoId()
+  monster: string;
+
   @ApiPropertyOptional({description: 'For `ability-*` and `monster-learned`.'})
   @IsOptional()
   @IsInt()

@@ -240,26 +240,27 @@ export class BattleService {
     }
     switch (move.type) {
       case 'ability':
+        const monsterId = monster._id.toString();
         if (monster.currentAttributes.health <= 0) {
-          opponent.results = [{type: 'monster-dead'}];
+          opponent.results = [{type: 'monster-dead', monster: monsterId}];
           return;
         }
 
         for (const status of monster.status) {
           const failChance = STATUS_FAIL_CHANCE[status];
           if (failChance && Math.random() < failChance) {
-            opponent.results = [{type: 'ability-failed', status}];
+            opponent.results = [{type: 'ability-failed', status, monster: monsterId}];
             return;
           }
         }
 
         if (!(move.ability in monster.abilities)) {
-          opponent.results = [{type: 'ability-unknown', ability: move.ability}];
+          opponent.results = [{type: 'ability-unknown', ability: move.ability, monster: monsterId}];
           return;
         }
         const ability = abilities.find(a => a.id === move.ability);
         if (!ability) {
-          opponent.results = [{type: 'ability-unknown'}];
+          opponent.results = [{type: 'ability-unknown', monster: monsterId}];
           return;
         }
 
@@ -267,24 +268,24 @@ export class BattleService {
         const targetMonsterId = targetOpponent?.monster;
         const targetMonster = targetMonsterId && monsters.find(m => m._id.equals(targetMonsterId));
         if (!targetOpponent || !targetMonster) {
-          opponent.results = [{type: 'target-unknown'}];
+          opponent.results = [{type: 'target-unknown', monster: targetMonsterId || move.target}];
           return;
         }
 
         if (targetMonster.currentAttributes.health <= 0) {
-          opponent.results = [{type: 'target-dead'}];
+          opponent.results = [{type: 'target-dead', monster: targetMonsterId}];
           return;
         }
 
         if (monster.abilities[move.ability] <= 0) {
-          opponent.results = [{type: 'ability-no-uses', ability: move.ability}];
+          opponent.results = [{type: 'ability-no-uses', ability: move.ability, monster: monsterId}];
           return;
         }
 
         this.playAbility(opponent, monster, ability, targetMonster, targetOpponent);
         break;
       case 'change-monster':
-        opponent.results = [{type: 'monster-changed'}];
+        opponent.results = [{type: 'monster-changed', monster: move.monster}];
         break;
       case 'use-item':
         const monsterInBattle = monsters.find(m => m._id.equals(move.target));
@@ -298,9 +299,10 @@ export class BattleService {
           opponent.results.push({
             type: monsterInBattle?.trainer !== prefTrainer ? 'monster-caught' : 'item-success',
             item: move.item,
+            monster: move.target,
           });
         } catch (err) {
-          opponent.results = [{type: 'item-failed', item: move.item}];
+          opponent.results = [{type: 'item-failed', item: move.item, monster: move.target}];
         }
     }
   }
@@ -317,7 +319,11 @@ export class BattleService {
           const result = this.monsterService.applyStatusEffect(value, monster);
           if (result !== 'unchanged') {
             const opponent = value.self === true ? currentOpponent : targetOpponent;
-            opponent.results.push({type: `status-${result}`, status: value.status as MonsterStatus});
+            opponent.results.push({
+              type: `status-${result}`,
+              status: value.status as MonsterStatus,
+              monster: monster._id.toString()
+            });
           }
         }
       }
@@ -326,16 +332,17 @@ export class BattleService {
     currentOpponent.results.push({
       type: 'ability-success', ability: ability.id,
       effectiveness: this.abilityEffectiveness(multiplier),
+      monster: currentMonster._id.toString(),
     });
 
     currentMonster.abilities[ability.id] -= 1;
     currentMonster.markModified('abilities');
 
     if (currentMonster.currentAttributes.health <= 0) {
-      currentOpponent.results.push({type: 'monster-defeated'});
+      currentOpponent.results.push({type: 'monster-defeated', monster: currentMonster._id.toString()});
       currentOpponent.monster = undefined;
     } else if (targetMonster.currentAttributes.health <= 0) {
-      currentOpponent.results.push({type: 'target-defeated'});
+      currentOpponent.results.push({type: 'target-defeated', monster: targetMonster._id.toString()});
       targetOpponent.monster = undefined;
       if (!currentOpponent.isNPC) {
         this.gainExp(currentOpponent, currentMonster, targetMonster);
@@ -349,7 +356,7 @@ export class BattleService {
   private removeStatusEffects(monster: MonsterDocument, opponent?: OpponentDocument) {
     monster.status = monster.status.filter(status => {
       if (Math.random() < STATUS_REMOVE_CHANCE) {
-        opponent && opponent.results.push({type: 'status-removed', status});
+        opponent && opponent.results.push({type: 'status-removed', status, monster: monster._id.toString()});
         return false;
       }
       return true;
@@ -375,6 +382,7 @@ export class BattleService {
         type: 'status-damage',
         status,
         effectiveness: this.abilityEffectiveness(multiplier),
+        monster: monster._id.toString(),
       });
     }
     if (monster.currentAttributes.health < 1) {
@@ -444,7 +452,8 @@ export class BattleService {
   }
 
   private levelUp(opponent: OpponentDocument, currentMonster: MonsterDocument) {
-    opponent.results.push({type: 'monster-levelup'});
+    const monsterId = currentMonster._id.toString();
+    opponent.results.push({type: 'monster-levelup', monster: monsterId});
 
     currentMonster.level++;
     const health = healthGain(currentMonster.level);
@@ -473,7 +482,7 @@ export class BattleService {
       const evolution = monsterType.evolution;
       const newMonsterType = monsterTypes.find(m => m.id === evolution);
       if (evolution && newMonsterType) {
-        opponent.results.push({type: 'monster-evolved'});
+        opponent.results.push({type: 'monster-evolved', monster: monsterId});
         currentMonster.type = evolution;
         monsterType = newMonsterType;
       }
@@ -490,7 +499,7 @@ export class BattleService {
         const removed = keys.shift();
         removed && delete currentMonster.abilities[+removed];
       }
-      opponent.results.push({type: 'monster-learned', ability: ability.id});
+      opponent.results.push({type: 'monster-learned', ability: ability.id, monster: monsterId});
       currentMonster.markModified('abilities');
     }
   }
