@@ -367,3 +367,23 @@
 ## Bugfixes
 
 * Fixed walkable tiles, portals and invalid tall grass in the Gloomy Cave maps.
+
+# v4.0.2 - Bugfixes
+
+## Improvements
+
+* Added a new result `monster-caught` for successful monball uses.
+  > Unsuccessful uses return `item-success` because the item will be lost.
+* Added the `Result.monster` property to make the affected monster unambiguous.
+* NPCs now sometimes use abilities that add status effects without doing instant damage.
+* Added possibility to join 1v2 encounters where the defender only has one monster.
+* Added a special rate limit for item image requests.
+
+## Bugfixes
+
+* Opponent cleanup now happens after minutes instead of hours.
+* Fixed duplication of NPC monsters with high levels due to evolution.
+* Made the `types` query parameter in `GET .../trainers/:trainer/items` optional.
+* Catching a monster now properly stops the encounter.
+* Caught wild monsters are no longer deleted instantly.
+* Fixed abilities adding wrongly spelled status effects.
