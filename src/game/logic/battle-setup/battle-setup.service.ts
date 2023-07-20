@@ -37,7 +37,7 @@ export class BattleSetupService {
       trainer: {$in: [defenderId, ...attackerIds]},
       'currentAttributes.health': {$gt: 0},
     });
-    const defenderMonsters = defender.team.flatMap(m => monsters.find(monster => monster._id.toString() === m));
+    const defenderMonsters = defender.team.map(m => monsters.find(monster => monster._id.toString() === m)).filter(m => m);
     if (!defenderMonsters.length) {
       return;
     }
@@ -51,7 +51,7 @@ export class BattleSetupService {
 
     const attackerOpponents = await Promise.all(attackers.map(attacker => {
       const attackerId = attacker._id.toString();
-      const monster = attacker.team.flatMap(m => monsters.find(monster => monster._id.equals(m)))[0];
+      const monster = attacker.team.map(m => monsters.find(monster => monster._id.equals(m))).find(m => m);
       if (!monster) {
         return;
       }
@@ -145,7 +145,7 @@ export class BattleSetupService {
       trainer: trainer._id.toString(),
       'currentAttributes.health': {$gt: 0},
     });
-    return trainer.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
+    return trainer.team.map(m => monsters.find(monster => monster._id.toString() === m)).find(m => m);
   }
 
   private async getOpponents(trainers: string[]) {
