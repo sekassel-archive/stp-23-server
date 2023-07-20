@@ -1,5 +1,5 @@
 import {Monster} from './monster/monster.schema';
-import {MonsterStatus, Type} from './constants';
+import {Ability, MonsterStatus, StatusEffect, AttributeEffect, Type} from './constants';
 
 // TODO improve experience gain?
 export const expGain = (defeatedMonsterLevel: number): number => Math.round(defeatedMonsterLevel * 10 * (0.9 + Math.random() * 0.2));
@@ -20,6 +20,8 @@ export const speedAtLevel = (level: number) => 3 + level * 2;
 
 export const EVOLUTION_LEVELS = [10, 20];
 export const SAME_TYPE_ATTACK_MULTIPLIER = 1.5;
+
+export const STATUS_ABILITY_CHANCE = 0.2;
 export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
   [MonsterStatus.ASLEEP]: 1,
   [MonsterStatus.PARALYSED]: 0.5,
@@ -53,4 +55,17 @@ export const catchChanceBonus = (target: Monster) => {
   // each status condition adds 25% bonus
   const statusBonus = target.status.length * 0.25;
   return healthBonus + statusBonus;
+}
+
+export const abilityStatusScore = (attackerStatus: MonsterStatus[], ab: Ability) => {
+  let score = 0;
+  for (const e of ab.effects) {
+    if ('status' in e && !attackerStatus.includes(e.status as MonsterStatus)) {
+      score += e.chance || 1;
+    }
+    if ('attribute' in e && e.attribute !== 'health') {
+      score += Math.abs(e.amount * .5) * (e.chance || 1);
+    }
+  }
+  return score;
 }

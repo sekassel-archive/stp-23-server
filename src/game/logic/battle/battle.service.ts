@@ -14,6 +14,7 @@ import {
 } from '../../constants';
 import {EncounterService} from '../../encounter/encounter.service';
 import {
+  abilityStatusScore,
   attackGain,
   coinsGain,
   defenseGain,
@@ -23,7 +24,7 @@ import {
   healthGain,
   relativeStrengthMultiplier,
   SAME_TYPE_ATTACK_MULTIPLIER,
-  speedGain,
+  speedGain, STATUS_ABILITY_CHANCE,
   STATUS_DAMAGE,
   STATUS_FAIL_CHANCE,
   STATUS_REMOVE_CHANCE,
@@ -147,30 +148,38 @@ export class BattleService {
   private findNPCAbility(attacker: MonsterDocument, target: MonsterDocument): number {
     const attackAbilities = Object.keys(attacker.abilities).map(ab => abilities.find(a => a.id.toString() === ab) as Ability);
 
-    let chosenAbilityID = -1;
-    let maxSum = -1;
+    let chosenAttackAbilityID = -1;
+    let chosenEffectAbilityID = -1;
+    let maxAttackSum = -1;
+    let maxEffectSum = -1;
+
     for (const ab of attackAbilities) {
       const attackUsesLeft = attacker.abilities[ab.id];
       if (attackUsesLeft <= 0) {
         continue;
       }
 
+      const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
       const attackDamage = -(ab.effects.find((e): e is AttributeEffect => 'attribute' in e && e.attribute === 'health')?.amount || 0);
       if (!attackDamage) {
-        // FIXME Giulio until v4: support other effects
+        const effectSum = abilityStatusScore(attacker.status, ab) * attackMultiplier;
+
+        if (maxEffectSum < effectSum) {
+          maxEffectSum = effectSum;
+          chosenEffectAbilityID = ab.id;
+        }
         continue;
       }
 
-      const attackMultiplier = this.getAttackMultiplier(attacker, ab.type as Type, target);
       const attackSum = attackDamage * attackMultiplier;
 
-      if (maxSum < attackSum) {
-        maxSum = attackSum;
-        chosenAbilityID = ab.id;
+      if (maxAttackSum < attackSum) {
+        maxAttackSum = attackSum;
+        chosenAttackAbilityID = ab.id;
       }
     }
 
-    return chosenAbilityID;
+    return chosenEffectAbilityID !== -1 && Math.random() < STATUS_ABILITY_CHANCE ? chosenEffectAbilityID : chosenAttackAbilityID;
   }
 
   private async findNPCnextMonster(trainer: string, target?: MonsterDocument): Promise<MonsterDocument | undefined> {
