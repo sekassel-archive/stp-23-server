@@ -78,6 +78,9 @@ export class BattleService {
     // clear moves
     for (const opponent of opponents) {
       opponent.move = undefined;
+      if (!opponent.monster && opponent.isNPC) {
+        opponent.monster = (await this.findNPCnextMonster(opponent.trainer))?._id.toString();
+      }
     }
     await this.opponentService.saveAll(opponents);
 
