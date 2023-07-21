@@ -89,16 +89,30 @@ export class BattleService {
       trainer: {$in: opponents.map(o => o.trainer)},
       'currentAttributes.health': {$gt: 0},
     });
+    // easy check for monsters in team
     const teams = (await this.trainerService.findAll({
       _id: {$in: opponents.map(o => new Types.ObjectId(o.trainer))},
     }, {projection: {team: 1}})).flatMap(t => t.team);
-    const neededMonsters = new Set();
+    // this collects the monsters that are already in battle and those that would be needed to sustain all opponents
+    const neededMonsters = new Set(opponents.map(o => o.monster).filter(m => m));
+
     const deleteOpponents = opponents.filter(opponent => {
+      // this check needs to be above opponent.monster, because wild monsters might have been caught
       if (opponent.trainer === TALL_GRASS_TRAINER) {
         const monster = monsters.find(m => m._id.toString() === opponent.monster);
         return !monster || monster.trainer !== TALL_GRASS_TRAINER; // monster was caught
       }
 
+      if (opponent.monster) {
+        // Monster is still in battle
+        return false;
+      }
+      if (opponent.isNPC) {
+        // NPC opponents without a monster would have switched already in the "clear moves" step
+        return true;
+      }
+
+      // find a monster that is not needed for another opponent and is in the team of the player
       const monster = monsters.find(m =>
         m.trainer === opponent.trainer
         && !neededMonsters.has(m._id.toString())
@@ -108,10 +122,11 @@ export class BattleService {
         return true;
       }
 
+      // mark monster as needed
       neededMonsters.add(monster._id.toString());
       return false;
     });
-    await this.opponentService.deleteMany({_id: {$in: deleteOpponents.map(o => o._id)}});
+    await this.opponentService.deleteAll(deleteOpponents);
 
     const playerIds = opponents.filter(o => !o.isNPC && !deleteOpponents.includes(o)).map(o => o.trainer);
     // defeated opponents remember the players they encountered
