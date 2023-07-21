@@ -6,6 +6,7 @@ import {MonsterController} from './monster.controller';
 import {MonsterHandler} from './monster.handler';
 import {Monster, MonsterSchema} from './monster.schema';
 import {MonsterService} from './monster.service';
+import {TrainerModule} from "../trainer/trainer.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import {MonsterService} from './monster.service';
       schema: MonsterSchema,
     }]),
     EventModule,
+    TrainerModule,
   ],
   controllers: [MonsterController],
   providers: [MonsterService, MonsterHandler],
