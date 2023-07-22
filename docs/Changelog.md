@@ -304,18 +304,39 @@
 
 * Updated the documentation for `TalkTrainerDto`.
 
+# v3.3.1 - Bugfixes
+
+## Improvements
+
+* Area maps now include objects in object layers.
+* Opponents no longer require unique encounter-trainer combinations in preparation for v4.
+
+## Bugfixes
+
+* NPCs no longer switch areas or trigger tall grass.
+* Live monsters that are not in the trainer's team no longer count when checking if an opponent should be deleted.
+
+## Documentation
+
+* Documented the `NPCInfo.path` property.
+* Improved the description for the `monster-defeated` result.
+
 # v4.0.0 - Items
 
 ## New Features
 
 ### Content
 
++ Added Werningham and Dead Birds Society.
++ Added Central Lake cave.
 + Added Henrikhaven.
 + Added Simonsfield.
 + Added Route 108.
++ Added Route 109.
 + Added Route 112.
 + Added 32 items.
 + Added 100 new monsters.
++ Added terrain type map property for most areas. [STP23SRV-7](https://jira.uniks.de/browse/STP23SRV-7)
 
 ### Resources
 
@@ -339,4 +360,30 @@
 
 ## Bugfixes
 
-* NPCs no longer switch areas or trigger tall grass.
+* Fixed the `Doctor_2` (woman with pink hair) walking sprites.
+
+# v4.0.1 - Gloomy Cave Bugfixes
+
+## Bugfixes
+
+* Fixed walkable tiles, portals and invalid tall grass in the Gloomy Cave maps.
+
+# v4.0.2 - Bugfixes
+
+## Improvements
+
+* Added a new result `monster-caught` for successful monball uses.
+  > Unsuccessful uses return `item-success` because the item will be lost.
+* Added the `Result.monster` property to make the affected monster unambiguous.
+* NPCs now sometimes use abilities that add status effects without doing instant damage.
+* Added possibility to join 1v2 encounters where the defender only has one monster.
+* Added a special rate limit for item image requests.
+
+## Bugfixes
+
+* Opponent cleanup now happens after minutes instead of hours.
+* Fixed duplication of NPC monsters with high levels due to evolution.
+* Made the `types` query parameter in `GET .../trainers/:trainer/items` optional.
+* Catching a monster now properly stops the encounter.
+* Caught wild monsters are no longer deleted instantly.
+* Fixed abilities adding wrongly spelled status effects.

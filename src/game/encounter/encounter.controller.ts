@@ -8,6 +8,7 @@ import {Encounter} from './encounter.schema';
 import {EncounterService} from './encounter.service';
 import {Types} from "mongoose";
 import {ObjectIdPipe} from '@mean-stream/nestx';
+import {ParseObjectIdPipe} from "../../util/parse-object-id.pipe";
 
 @Controller('regions/:region/encounters')
 @ApiTags('Region Encounters')
@@ -23,9 +24,9 @@ export class EncounterController {
   @Get()
   @ApiOkResponse({type: [Encounter]})
   async findAll(
-    @Param('region', ObjectIdPipe) region: Types.ObjectId,
+    @Param('region', ParseObjectIdPipe) region: string,
   ): Promise<Encounter[]> {
-    return this.encounterService.findAll(region);
+    return this.encounterService.findAll({region});
   }
 
   @Get(':id')

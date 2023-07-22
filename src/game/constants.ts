@@ -1,5 +1,5 @@
 import {ApiProperty, ApiPropertyOptional, OmitType} from '@nestjs/swagger';
-import {IsObject, IsOptional, Max, Min} from 'class-validator';
+import {Max, Min} from 'class-validator';
 import * as _abilities from '../../assets/abilities.json';
 import * as _characters from '../../assets/characters.json';
 import * as _monsterTypes from '../../assets/monsters.json';
@@ -155,3 +155,21 @@ export const MAX_TEAM_SIZE = 6;
 export const MAX_ABILITIES = 4;
 
 export const NPC_SIGHT_RANGE = 5;
+
+export const STARTER_LEVEL = 5;
+export const EVOLUTION_LEVELS = [10, 20];
+export const SAME_TYPE_ATTACK_MULTIPLIER = 1.5;
+
+export const STATUS_ABILITY_CHANCE = 0.2;
+export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
+  [MonsterStatus.ASLEEP]: 1,
+  [MonsterStatus.PARALYSED]: 0.5,
+  [MonsterStatus.FROZEN]: 0.5,
+};
+export const STATUS_REMOVE_CHANCE = 0.25;
+export const STATUS_CONFUSED_SELF_HIT_CHANCE = 0.5;
+export const STATUS_DAMAGE: Partial<Record<MonsterStatus, [number, Type]>> = {
+  [MonsterStatus.POISONED]: [3, 'poison'],
+  [MonsterStatus.BURNED]: [3, 'fire'],
+  [MonsterStatus.FROZEN]: [3, 'ice'],
+};

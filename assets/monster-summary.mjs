@@ -80,7 +80,7 @@ for (const area in areaLevels) {
   const min = Math.min(...levels);
   const max = Math.max(...levels);
   const avg = levels.reduce((a, b) => a + b, 0) / levels.length;
-  console.log(`${chalk.blue(area)} has monsters from level ${chalk.green(min)} to ${chalk.red(max)} (average ${chalk.yellow(avg.toFixed(1))})`);
+  console.log(`${chalk.blue(area)} has level ${chalk.green(min)} to ${chalk.red(max)} (avg. ${chalk.yellow(avg.toFixed(1))})`);
 }
 
 const map = JSON.parse(await fs.readFile(`maps/${region}.json`, 'utf8'));

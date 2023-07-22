@@ -66,10 +66,11 @@ export const RESULTS_WITH_DESCRIPTION = {
   'status-damage': 'The status dealt damage',
   'target-defeated': 'The target monster was defeated',
   'monster-changed': 'The monster was changed successfully',
-  'monster-defeated': 'The monster was defeated',
+  'monster-defeated': 'The monster defeated itself by using an ability with recoil damage',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
   'monster-learned': 'The monster learned a new ability',
+  'monster-caught': 'The monster was caught',
   // Error cases
   'monster-dead': 'The monster is dead before it made a move',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
@@ -92,6 +93,10 @@ export class Result {
   @IsIn(RESULTS)
   type: keyof typeof RESULTS_WITH_DESCRIPTION;
 
+  @ApiProperty({...MONGO_ID_FORMAT, description: 'The affected monster.'})
+  @IsMongoId()
+  monster: string;
+
   @ApiPropertyOptional({description: 'For `ability-*` and `monster-learned`.'})
   @IsOptional()
   @IsInt()
@@ -103,7 +108,7 @@ export class Result {
   @IsIn(EFFECTIVENESS)
   effectiveness?: Effectiveness;
 
-  @ApiPropertyOptional({description: 'For `item-*`.'})
+  @ApiPropertyOptional({description: 'For `item-*` and `monster-caught`.'})
   @IsOptional()
   @IsInt()
   @IsIn(itemTypes.map(i => i.id))

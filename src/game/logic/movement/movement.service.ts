@@ -236,10 +236,15 @@ export class MovementService implements OnApplicationBootstrap {
           },
         };
       case 'TallGrass':
-        return {
-          type: 'TallGrass', x, y, width, height,
-          monsters: JSON.parse(getProperty<string>(object, 'Monsters') || '[]'),
-        };
+        try {
+          return {
+            type: 'TallGrass', x, y, width, height,
+            monsters: JSON.parse(getProperty<string>(object, 'Monsters') || '[]'),
+          };
+        } catch (e) {
+          this.logger.warn(`Invalid TallGrass object ${object.id} in area ${area.name}: ${e}`);
+        }
+        return;
     }
   }
 

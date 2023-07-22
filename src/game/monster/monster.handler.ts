@@ -21,10 +21,14 @@ export class MonsterHandler {
   /**
    * Delete tall grass monsters when defeated
    */
-  @OnEvent(`encounters.*.opponents.*.deleted`)
+  @OnEvent('encounters.*.opponents.*.deleted')
   async onOpponentDeleted(opponent: Opponent): Promise<void> {
     if (opponent.monster && opponent.trainer === TALL_GRASS_TRAINER) {
-      await this.monsterService.delete(new Types.ObjectId(opponent.monster));
+      await this.monsterService.deleteOne({
+        _id: new Types.ObjectId(opponent.monster),
+        // NB: additional filter condition to prevent deleting caught monsters
+        trainer: TALL_GRASS_TRAINER,
+      });
     }
   }
 }

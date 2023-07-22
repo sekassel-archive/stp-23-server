@@ -14,7 +14,7 @@ export class OpponentScheduler {
 
   @Cron(CronExpression.EVERY_5_MINUTES)
   async deleteStaleOpponents() {
-    const beforeDate = new Date(Date.now() - 1000 * 60 * 60 * environment.cleanup.opponentLifetimeMinutes);
+    const beforeDate = new Date(Date.now() - 1000 * 60 * environment.cleanup.opponentLifetimeMinutes);
     const result = await this.opponentService.deleteMany({updatedAt: {$lt: beforeDate}});
     result.deletedCount && this.logger.warn(`Deleted ${result.deletedCount} stale opponents`);
   }

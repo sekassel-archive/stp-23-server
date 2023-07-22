@@ -105,7 +105,7 @@
         "amount": -4
       },
       {
-        "status": "burn",
+        "status": "burned",
         "chance": 0.1
       }
     ]
@@ -137,7 +137,7 @@
         "amount": -3
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.2
       }
     ]
@@ -155,7 +155,7 @@
         "amount": -3
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -173,7 +173,7 @@
         "amount": -2
       },
       {
-        "status": "freeze",
+        "status": "frozen",
         "chance": 0.2
       }
     ]
@@ -257,7 +257,7 @@
         "amount": -2
       },
       {
-        "status": "poison",
+        "status": "poisoned",
         "chance": 0.1
       }
     ]
@@ -303,7 +303,7 @@
         "amount": -3
       },
       {
-        "status": "freeze",
+        "status": "frozen",
         "chance": 0.3
       }
     ]
@@ -406,7 +406,7 @@
         "amount": -8
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.3
       }
     ]
@@ -424,7 +424,7 @@
         "amount": -6
       },
       {
-        "status": "burn",
+        "status": "burned",
         "chance": 0.2
       }
     ]
@@ -442,7 +442,7 @@
         "amount": -6
       },
       {
-        "status": "freeze",
+        "status": "frozen",
         "chance": 0.2
       }
     ]
@@ -460,7 +460,7 @@
         "amount": -6
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.2
       }
     ]
@@ -497,7 +497,7 @@
         "amount": -8
       },
       {
-        "status": "poison",
+        "status": "poisoned",
         "chance": 0.3
       }
     ]
@@ -534,7 +534,7 @@
         "amount": -8
       },
       {
-        "status": "poison",
+        "status": "poisoned",
         "chance": 0.3
       }
     ]
@@ -571,7 +571,7 @@
         "amount": -9
       },
       {
-        "status": "freeze",
+        "status": "frozen",
         "chance": 0.4
       }
     ]
@@ -589,7 +589,7 @@
         "amount": -9
       },
       {
-        "status": "freeze",
+        "status": "frozen",
         "chance": 0.35
       }
     ]
@@ -621,7 +621,7 @@
         "amount": -8
       },
       {
-        "status": "poison",
+        "status": "poisoned",
         "chance": 0.2
       }
     ]
@@ -639,7 +639,7 @@
         "amount": -9
       },
       {
-        "status": "burn",
+        "status": "burned",
         "chance": 0.4
       }
     ]
@@ -789,7 +789,7 @@
         "amount": -10
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.3
       }
     ]
@@ -807,7 +807,7 @@
         "amount": -10
       },
       {
-        "status": "burn",
+        "status": "burned",
         "chance": 0.2
       }
     ]
@@ -858,7 +858,7 @@
         "amount": -13
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.2
       }
     ]
@@ -914,7 +914,7 @@
         "amount": -12
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.35
       }
     ]
@@ -932,7 +932,7 @@
         "amount": -13
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.35
       }
     ]
@@ -950,7 +950,7 @@
         "amount": -13
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.35
       }
     ]
@@ -968,7 +968,7 @@
         "amount": -13
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.3
       }
     ]
@@ -986,7 +986,7 @@
         "amount": -13
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.3
       }
     ]
@@ -1023,7 +1023,7 @@
         "amount": -12
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.4
       }
     ]
@@ -1041,7 +1041,7 @@
         "amount": -13
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1059,7 +1059,7 @@
         "amount": -14
       },
       {
-        "status": "burn",
+        "status": "burned",
         "chance": 0.2
       }
     ]
@@ -1105,7 +1105,7 @@
         "amount": -14
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.3
       }
     ]
@@ -1161,7 +1161,7 @@
         "amount": -14
       },
       {
-        "status": "poison",
+        "status": "poisoned",
         "chance": 0.2
       }
     ]
@@ -1198,7 +1198,7 @@
         "amount": -14
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.35
       }
     ]
@@ -1221,7 +1221,7 @@
         "chance": 0.3
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.3
       }
     ]
@@ -1305,7 +1305,7 @@
         "amount": -18
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.3
       }
     ]
@@ -1323,7 +1323,7 @@
         "amount": -18
       },
       {
-        "status": "sleep",
+        "status": "asleep",
         "chance": 0.3
       }
     ]
@@ -1360,7 +1360,7 @@
         "amount": -20
       },
       {
-        "status": "freeze",
+        "status": "frozen",
         "chance": 0.3
       }
     ]
@@ -1378,7 +1378,7 @@
         "amount": -20
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.4
       }
     ]
@@ -1471,7 +1471,7 @@
         "amount": -20
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.3
       }
     ]
@@ -1537,7 +1537,7 @@
         "amount": -20
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.3
       }
     ]
@@ -1555,7 +1555,7 @@
         "amount": -19
       },
       {
-        "status": "poison",
+        "status": "poisoned",
         "chance": 0.2
       }
     ]
@@ -1607,7 +1607,7 @@
     "maxUses": 10,
     "effects": [
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.8
       }
     ]
@@ -1696,7 +1696,7 @@
         "amount": -23
       },
       {
-        "status": "burn",
+        "status": "burned",
         "chance": 0.3
       }
     ]
@@ -1714,7 +1714,7 @@
         "amount": -24
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.4
       }
     ]
@@ -1732,7 +1732,7 @@
         "amount": -23
       },
       {
-        "status": "consusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1765,7 +1765,7 @@
         "amount": -25
       },
       {
-        "status": "paralysis",
+        "status": "paralysed",
         "chance": 0.4
       }
     ]
@@ -1783,7 +1783,7 @@
         "amount": -24
       },
       {
-        "status": "defense",
+        "attribute": "defense",
         "amount": -1,
         "chance": 0.2
       }
@@ -1802,12 +1802,12 @@
         "amount": -24
       },
       {
-        "status": "defense",
+        "attribute": "defense",
         "amount": -1,
         "chance": 0.2
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1825,12 +1825,12 @@
         "amount": -24
       },
       {
-        "status": "defense",
+        "attribute": "defense",
         "amount": -1,
         "chance": 0.15
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.22
       }
     ]
@@ -1848,7 +1848,7 @@
         "amount": -25
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1866,7 +1866,7 @@
         "amount": -25
       },
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.2
       }
     ]
@@ -1894,7 +1894,7 @@
     "maxUses": 5,
     "effects": [
       {
-        "status": "confusion",
+        "status": "confused",
         "chance": 0.8
       }
     ]
@@ -1970,7 +1970,7 @@
         "amount": -28
       },
       {
-        "status": "sleep",
+        "status": "asleep",
         "chance": 0.2
       }
     ]

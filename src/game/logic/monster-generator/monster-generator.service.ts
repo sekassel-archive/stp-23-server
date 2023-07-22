@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
-import {abilities as allAbilities, Ability, MAX_ABILITIES, monsterTypes} from '../../constants';
-import {attackAtLevel, defenseAtLevel, EVOLUTION_LEVELS, healthAtLevel, speedAtLevel} from '../../formulae';
+import {abilities as allAbilities, Ability, EVOLUTION_LEVELS, MAX_ABILITIES, monsterTypes} from '../../constants';
+import {attackAtLevel, defenseAtLevel, healthAtLevel, speedAtLevel} from '../../formulae';
 import {CreateMonsterDto} from '../../monster/monster.dto';
 import {MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
@@ -53,14 +53,18 @@ export class MonsterGeneratorService {
   async createAuto(trainer: string, type: number, level: number): Promise<MonsterDocument> {
     const dto = this.autofill(type, level);
     return this.monsterService.upsert({
-      // NB: This makes it so NPCs cannot have two monsters of the same type.
+      // NB: This makes it so NPCs cannot have two monsters of the same type and level.
       trainer,
-      type,
+      level,
+      // NB: Use the potentially evolved type
+      type: dto.type,
     }, {
-      ...dto,
-      trainer,
-      experience: 0,
-      currentAttributes: dto.attributes,
+      $setOnInsert: {
+        ...dto,
+        trainer,
+        experience: 0,
+        currentAttributes: dto.attributes,
+      },
     });
   }
 
