@@ -156,6 +156,7 @@ export const MAX_ABILITIES = 4;
 
 export const NPC_SIGHT_RANGE = 5;
 
+export const STARTER_LEVEL = 5;
 export const EVOLUTION_LEVELS = [10, 20];
 export const SAME_TYPE_ATTACK_MULTIPLIER = 1.5;
 

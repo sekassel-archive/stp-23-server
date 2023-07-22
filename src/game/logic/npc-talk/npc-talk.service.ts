@@ -7,6 +7,7 @@ import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
 import {MovementService} from '../movement/movement.service';
 import {ValidatedEvent} from "../../../util/validated.decorator";
+import {STARTER_LEVEL} from "../../constants";
 
 @Injectable()
 export class NpcTalkService {
@@ -45,7 +46,7 @@ export class NpcTalkService {
         await this.trainerService.update(dto.target, {
           $addToSet: {'npc.encountered': trainerId},
         });
-        await this.monsterGeneratorService.createAuto(trainerId, starterId, 1);
+        await this.monsterGeneratorService.createAuto(trainerId, starterId, STARTER_LEVEL);
       }
     }
     if (target.npc.encounterOnTalk) {
