@@ -24,7 +24,7 @@ import {
   healthGain,
   relativeStrengthMultiplier,
   SAME_TYPE_ATTACK_MULTIPLIER,
-  speedGain, STATUS_ABILITY_CHANCE,
+  speedGain, STATUS_ABILITY_CHANCE, STATUS_CONFUSED_SELF_HIT_CHANCE,
   STATUS_DAMAGE,
   STATUS_FAIL_CHANCE,
   STATUS_REMOVE_CHANCE,
@@ -334,6 +334,11 @@ export class BattleService {
   }
 
   private playAbility(currentOpponent: OpponentDocument, currentMonster: MonsterDocument, ability: Ability, targetMonster: MonsterDocument, targetOpponent: OpponentDocument) {
+    if (currentMonster.status.includes(MonsterStatus.CONFUSED) && Math.random() < STATUS_CONFUSED_SELF_HIT_CHANCE) {
+      targetMonster = currentMonster;
+      targetOpponent = currentOpponent;
+    }
+
     const multiplier = this.getAttackMultiplier(currentMonster, ability.type as Type, targetMonster);
 
     for (const value of ability.effects) {
@@ -364,6 +369,8 @@ export class BattleService {
     currentMonster.abilities[ability.id] -= 1;
     currentMonster.markModified('abilities');
 
+    // NB: If the monster attacked itself due to confusion, the first branch will be hit
+    // and the monster does not gain exp.
     if (currentMonster.currentAttributes.health <= 0) {
       currentOpponent.results.push({type: 'monster-defeated', monster: currentMonster._id.toString()});
       currentOpponent.monster = undefined;

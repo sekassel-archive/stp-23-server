@@ -27,6 +27,7 @@ export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
   [MonsterStatus.FROZEN]: 0.5,
 };
 export const STATUS_REMOVE_CHANCE = 0.25;
+export const STATUS_CONFUSED_SELF_HIT_CHANCE = 0.5;
 
 export const STATUS_DAMAGE: Partial<Record<MonsterStatus, [number, Type]>> = {
   [MonsterStatus.POISONED]: [3, 'poison'],
