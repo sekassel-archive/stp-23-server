@@ -336,9 +336,11 @@ export class BattleService {
   }
 
   private playAbility(currentOpponent: OpponentDocument, currentMonster: MonsterDocument, ability: Ability, targetMonster: MonsterDocument, targetOpponent: OpponentDocument) {
+    let status: MonsterStatus | undefined;
     if (currentMonster.status.includes(MonsterStatus.CONFUSED) && Math.random() < STATUS_CONFUSED_SELF_HIT_CHANCE) {
       targetMonster = currentMonster;
       targetOpponent = currentOpponent;
+      status = MonsterStatus.CONFUSED;
     }
 
     const multiplier = this.getAttackMultiplier(currentMonster, ability.type as Type, targetMonster);
@@ -366,6 +368,7 @@ export class BattleService {
       type: 'ability-success', ability: ability.id,
       effectiveness: this.abilityEffectiveness(multiplier),
       monster: currentMonster._id.toString(),
+      status,
     });
 
     currentMonster.abilities[ability.id] -= 1;

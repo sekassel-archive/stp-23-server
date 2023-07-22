@@ -114,7 +114,7 @@ export class Result {
   @IsIn(itemTypes.map(i => i.id))
   item?: number;
 
-  @ApiPropertyOptional({description: 'For `status-*`.'})
+  @ApiPropertyOptional({description: 'For `status-*` and `ability-success` (if the monster hit itself due to confusion).'})
   @IsOptional()
   @IsEnum(MonsterStatus)
   status?: MonsterStatus;
