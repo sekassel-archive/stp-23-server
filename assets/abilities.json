@@ -181,7 +181,7 @@
   {
     "id": 12,
     "name": "Earthquake",
-    "description": "The monster sets off an earthquake that strikes every Pmon around it.",
+    "description": "The monster sets off an earthquake that strikes every monster around it.",
     "type": "ground",
     "minLevel": 1,
     "maxUses": 5,
@@ -195,7 +195,7 @@
   {
     "id": 13,
     "name": "Shadow Ball",
-    "description": "The monster hurls a shadowy blob at the target. It may also lower the target's Def stat.",
+    "description": "The monster hurls a shadowy blob at the target. It may also lower the target's defense.",
     "type": "ghost",
     "minLevel": 1,
     "maxUses": 15,
@@ -228,7 +228,7 @@
   {
     "id": 15,
     "name": "Electric Surge",
-    "description": "The monster releases a powerful electric surge that damages the target and lowers its speed.",
+    "description": "The monster releases a powerful electric surge that damages the target and may lower its speed.",
     "type": "electric",
     "minLevel": 1,
     "maxUses": 15,
@@ -717,7 +717,7 @@
   {
     "id": 43,
     "name": "Air Ray",
-    "description": "The user attacks the target with a gust of wind. It may also raise the users' attack.",
+    "description": "The user attacks the target with a gust of wind. It may also raise the user's attack.",
     "type": "flying",
     "minLevel": 9,
     "maxUses": 5,
@@ -998,7 +998,7 @@
   {
     "id": 59,
     "name": "Twister",
-    "description": "The target is attacked with a fierce whirlwind that may also make the defense fall.",
+    "description": "The target is attacked with a fierce whirlwind that may also make the target's defense fall.",
     "type": "dragon",
     "minLevel": 15,
     "maxUses": 10,
@@ -1071,7 +1071,7 @@
   {
     "id": 63,
     "name": "Aerial Ace",
-    "description": "The user confounds the target with speed, then slashes. Critical hits land more easily.",
+    "description": "The user confounds the target with speed, then slashes.",
     "type": "flying",
     "minLevel": 17,
     "maxUses": 15,
@@ -1085,7 +1085,7 @@
   {
     "id": 64,
     "name": "Air Cutter",
-    "description": "The target is sliced with a scythe-like wind. Critical hits land more easily.",
+    "description": "The target is sliced with a scythe-like wind.",
     "type": "flying",
     "minLevel": 17,
     "maxUses": 15,
@@ -1192,7 +1192,7 @@
   {
     "id": 70,
     "name": "Psycho Cut",
-    "description": "The user tears at the target with blades formed by psychic power. The target's may also become confused.",
+    "description": "The user tears at the target with blades formed by psychic power. The target may also become confused.",
     "type": "psychic",
     "minLevel": 17,
     "maxUses": 15,
@@ -1266,7 +1266,7 @@
   {
     "id": 74,
     "name": "Aqua Jet",
-    "description": "The user lunges at the target at a speed that makes it almost invisible. It is sure to strike first.",
+    "description": "The user lunges at the target at a speed that makes it almost invisible.",
     "type": "water",
     "minLevel": 20,
     "maxUses": 15,
@@ -1418,7 +1418,7 @@
   {
     "id": 83,
     "name": "Bug Bite",
-    "description": "The user bites the target. If the target is holding a Berry, the user eats it and gains its effect.",
+    "description": "The user bites the target.",
     "type": "bug",
     "minLevel": 23,
     "maxUses": 15,
@@ -1516,7 +1516,7 @@
   {
     "id": 89,
     "name": "Iron Shield",
-    "description": "The user protects itself with a hard shell. It may also raise the user's defense.",
+    "description": "The user protects itself with a hard shell and raises its defense.",
     "type": "steel",
     "minLevel": 23,
     "maxUses": 10,
@@ -1982,7 +1982,7 @@
   {
     "id": 115,
     "name": "Wings of Chaos",
-    "description": "The user flys around the target and hits it with its wings. It may lower the target's defense.",
+    "description": "The user flies around the target and hits it with its wings. It may lower the target's defense.",
     "type": "flying",
     "minLevel": 40,
     "maxUses": 10,
