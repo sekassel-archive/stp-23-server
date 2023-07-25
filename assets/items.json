@@ -4,7 +4,6 @@
     "image": "mondex.png",
     "name": "Mondex",
     "price": 0,
-    "effects": [],
     "description": "A handheld device."
   },
   {
@@ -12,7 +11,6 @@
     "image": "purse.png",
     "name": "Money bag",
     "price": 0,
-    "effects": [],
     "description": "A purse for valuable and shiny coins."
   },
   {
@@ -20,7 +18,6 @@
     "image": "backpack_brown.png",
     "name": "Backpack",
     "price": 0,
-    "effects": [],
     "description": "A travelpack to store stuff."
   },
   {
@@ -28,7 +25,6 @@
     "image": "ball_normal.png",
     "name": "Monball",
     "price": 20,
-    "effects": [],
     "description": "A ball for catching monsters.",
     "use": "ball",
     "catch": {
@@ -40,7 +36,6 @@
     "image": "ball_super.png",
     "name": "Superball",
     "price": 50,
-    "effects": [],
     "description": "An improved ball for catching monsters. Better than the Monball.",
     "use": "ball",
     "catch": {
@@ -52,7 +47,6 @@
     "image": "ball_hyper.png",
     "name": "Hyperball",
     "price": 100,
-    "effects": [],
     "description": "An advanced ball for catching monsters. Better than the Superball.",
     "use": "ball",
     "catch": {
@@ -64,7 +58,6 @@
     "image": "ball_master.png",
     "name": "Masterball",
     "price": 1000,
-    "effects": [],
     "description": "The best ball for catching monsters, with guaranteed success. Better than the Hyperball.",
     "use": "ball",
     "catch": {
@@ -76,7 +69,6 @@
     "image": "ball_net.png",
     "name": "Netball",
     "price": 50,
-    "effects": [],
     "description": "A special ball for catching water and bug monsters.",
     "use": "ball",
     "catch": {
@@ -89,7 +81,6 @@
     "image": "ball_water.png",
     "name": "Waterball",
     "price": 40,
-    "effects": [],
     "description": "A special ball for that weakens fire monsters and attracts grass monsters.",
     "use": "ball",
     "catch": {
@@ -190,7 +181,6 @@
     "name": "Mystery box",
     "price": 150,
     "use": "itemBox",
-    "effects": [],
     "description": "A mysterious package containing basic items."
   },
   {
@@ -199,7 +189,6 @@
     "name": "Mystery box Premium",
     "price": 300,
     "use": "itemBox",
-    "effects": [],
     "description": "A mysterious package with a higher chance of containing good items."
   },
   {
@@ -208,7 +197,6 @@
     "name": "Mystery box Elite",
     "price": 500,
     "use": "itemBox",
-    "effects": [],
     "description": "A mysterious package with an even higher chance of containing good items."
   },
   {
@@ -217,7 +205,6 @@
     "name": "Mystery box Ultimate",
     "price": 750,
     "use": "itemBox",
-    "effects": [],
     "description": "A mysterious package with the highest chance of containing good items."
   },
   {
@@ -226,7 +213,6 @@
     "name": "Monbox",
     "price": 250,
     "use": "monsterBox",
-    "effects": [],
     "description": "A mysterious box containing a standard monster."
   },
   {
@@ -235,7 +221,6 @@
     "name": "Monbox Premium",
     "price": 1000,
     "use": "monsterBox",
-    "effects": [],
     "description": "A mysterious box containing a premium monster."
   },
   {
@@ -244,7 +229,6 @@
     "name": "Monbox Elite",
     "price": 8000,
     "use": "monsterBox",
-    "effects": [],
     "description": "A mysterious box containing an elite monster."
   },
   {
@@ -370,7 +354,6 @@
     "image": "lightbulb.png",
     "name": "Lightbulb",
     "price": 10,
-    "effects": [],
     "description": "Someone must have had a good idea, but this lightbulb is broken. Maybe you can sell it for a few coins."
   },
   {
@@ -378,7 +361,6 @@
     "image": "gold.png",
     "name": "Gold nugget",
     "price": 100,
-    "effects": [],
     "description": "A gold nugget. It's worth a lot of money."
   },
   {
@@ -386,7 +368,6 @@
     "image": "star.png",
     "name": "Star fragment",
     "price": 1000,
-    "effects": [],
     "description": "A rare fragment of a star. It's worth a fortune."
   }
 ]

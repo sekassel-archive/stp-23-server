@@ -34,7 +34,7 @@ export class ItemType {
   @ApiPropertyOptional({enum: ['ball', 'effect', 'itemBox', 'monsterBox']})
   use?: string;
 
-  effects: Effect[];
+  effects?: Effect[];
   catch?: Partial<Record<Type | '*', number>>;
 }
 
