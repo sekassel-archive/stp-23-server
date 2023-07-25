@@ -16,21 +16,21 @@
   {
     "id": 2,
     "name": "Quick Attack",
-    "description": "A physical attack in which the user charges and slams into the target with its whole body.",
+    "description": "The user lunges at the target at a speed that makes it almost invisible.",
     "type": "normal",
     "minLevel": 1,
     "maxUses": 30,
     "effects": [
       {
         "attribute": "health",
-        "amount": -2
+        "amount": -3
       }
     ]
   },
   {
     "id": 3,
     "name": "Take Down",
-    "description": "A physical attack in which the user charges and slams into the target with its whole body.",
+    "description": "A reckless, full-body charge attack for slamming into the target. It also slightly increases the user's attack.",
     "type": "normal",
     "minLevel": 1,
     "maxUses": 20,
@@ -72,7 +72,7 @@
         "amount": -5
       },
       {
-        "attribute": "attack",
+        "attribute": "defense",
         "amount": -1,
         "chance": 0.2
       }
