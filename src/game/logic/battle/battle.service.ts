@@ -393,7 +393,7 @@ export class BattleService {
 
   private removeStatusEffects(monster: MonsterDocument, opponent?: OpponentDocument) {
     monster.status = monster.status.filter(status => {
-      if (Math.random() < STATUS_REMOVE_CHANCE) {
+      if (Math.random() < STATUS_REMOVE_CHANCE[status]) {
         opponent && opponent.results.push({type: 'status-removed', status, monster: monster._id.toString()});
         return false;
       }
