@@ -605,6 +605,10 @@
       {
         "attribute": "health",
         "amount": -9
+      },
+      {
+        "status": "stunned",
+        "self": true
       }
     ]
   },
