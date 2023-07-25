@@ -62,7 +62,7 @@
   {
     "id": 5,
     "name": "Vine Whip",
-    "description": "A whip-like vine is used to lash the opponent. It may also lower the target's Defense stat.",
+    "description": "A whip-like vine is used to lash the opponent. It may also lower the target's defense.",
     "type": "grass",
     "minLevel": 1,
     "maxUses": 10,
@@ -505,7 +505,7 @@
   {
     "id": 31,
     "name": "Shadow Punch",
-    "description": "The target is punched with a fist wrapped in shadows. It may also lower the target's Attack stat.",
+    "description": "The target is punched with a fist wrapped in shadows. It may also lower the target's attack.",
     "type": "ghost",
     "minLevel": 6,
     "maxUses": 15,
@@ -684,7 +684,7 @@
   {
     "id": 41,
     "name": "Fairy Yell",
-    "description": "The user starts yelling at the target in a high-pitched voice. It may also lower the target's Attack stat.",
+    "description": "The user starts yelling at the target in a high-pitched voice. It may also lower the target's attack.",
     "type": "fairy",
     "minLevel": 9,
     "maxUses": 10,
@@ -717,7 +717,7 @@
   {
     "id": 43,
     "name": "Air Ray",
-    "description": "The user attacks the target with a gust of wind. It may also raise the users' Attack stat.",
+    "description": "The user attacks the target with a gust of wind. It may also raise the users' attack.",
     "type": "flying",
     "minLevel": 9,
     "maxUses": 5,
@@ -764,7 +764,7 @@
   {
     "id": 46,
     "name": "Crunch",
-    "description": "The target is bitten with viciously sharp fangs. It may also lower the target's Defense stat.",
+    "description": "The target is bitten with viciously sharp fangs. It may also lower the target's defense.",
     "type": "dark",
     "minLevel": 11,
     "maxUses": 15,
@@ -819,7 +819,7 @@
   {
     "id": 49,
     "name": "Dragon Claw",
-    "description": "The target is slashed with huge, sharp claws. It may also lower the target's Defense stat.",
+    "description": "The target is slashed with huge, sharp claws. It may also lower the target's defense.",
     "type": "dragon",
     "minLevel": 13,
     "maxUses": 15,
@@ -870,7 +870,7 @@
   {
     "id": 52,
     "name": "Grass Claw",
-    "description": "The user slashes the target with huge, sharp claws. It may also lower the target's Attack stat.",
+    "description": "The user slashes the target with huge, sharp claws. It may also lower the target's attack.",
     "type": "grass",
     "minLevel": 13,
     "maxUses": 5,
@@ -889,7 +889,7 @@
   {
     "id": 53,
     "name": "Draco Meteor",
-    "description": "The user gathers all its light energy and releases it at once. It may also lower the target's Defense stat.",
+    "description": "The user gathers all its light energy and releases it at once. It may also lower the target's defense.",
     "type": "dragon",
     "minLevel": 13,
     "maxUses": 5,
@@ -998,7 +998,7 @@
   {
     "id": 59,
     "name": "Twister",
-    "description": "The target is attacked with a fierce whirlwind that may also make the defence stat fall.",
+    "description": "The target is attacked with a fierce whirlwind that may also make the defense fall.",
     "type": "dragon",
     "minLevel": 15,
     "maxUses": 10,
@@ -1117,7 +1117,7 @@
   {
     "id": 66,
     "name": "Ancient Power",
-    "description": "The user attacks with a prehistoric power. It may also raise the user's defence stat.",
+    "description": "The user attacks with a prehistoric power. It may also raise the user's defense.",
     "type": "rock",
     "minLevel": 17,
     "maxUses": 10,
@@ -1136,7 +1136,7 @@
   {
     "id": 67,
     "name": "Steel Fist",
-    "description": "The user slams the target with a steel fist. It may also raise the user's defence stat.",
+    "description": "The user slams the target with a steel fist. It may also raise the user's defense.",
     "type": "steel",
     "minLevel": 17,
     "maxUses": 10,
@@ -1173,7 +1173,7 @@
   {
     "id": 69,
     "name": "Earthy Fist",
-    "description": "The user slams the target with a fist made of earth. It may also lower the target's defence stat.",
+    "description": "The user slams the target with a fist made of earth. It may also lower the target's defense.",
     "type": "ground",
     "minLevel": 17,
     "maxUses": 15,
@@ -1210,7 +1210,7 @@
   {
     "id": 71,
     "name": "Scream of Pain",
-    "description": "The user attacks the target with a horrible sound wave. It may also lower the target's defence stat. and confuse it.",
+    "description": "The user attacks the target with a horrible sound wave. It may also lower the target's defense and confuse it.",
     "type": "normal",
     "minLevel": 17,
     "maxUses": 10,
@@ -1247,7 +1247,7 @@
   {
     "id": 73,
     "name": "Green Ray",
-    "description": "The user attacks the target with a green ray. It may also lower the target's defence stat.",
+    "description": "The user attacks the target with a green ray. It may also lower the target's defense.",
     "type": "grass",
     "minLevel": 17,
     "maxUses": 10,
@@ -1280,7 +1280,7 @@
   {
     "id": 75,
     "name": "Aqua Fist",
-    "description": "The user slams the target with a water fist. It may also lower the target's defence stat.",
+    "description": "The user slams the target with a water fist. It may also lower the target's defense.",
     "type": "water",
     "minLevel": 20,
     "maxUses": 15,
@@ -1335,7 +1335,7 @@
   {
     "id": 78,
     "name": "Blazing Fist",
-    "description": "The user slams the target with a fist made of fire. It may also lower the target's defence stat.",
+    "description": "The user slams the target with a fist made of fire. It may also lower the target's defense.",
     "type": "fire",
     "minLevel": 21,
     "maxUses": 15,
@@ -1390,7 +1390,7 @@
   {
     "id": 81,
     "name": "Brick Break",
-    "description": "The user attacks with a swift chop. It can also break any barrier such as Light Screen and Reflect.",
+    "description": "The user attacks with a swift chop.",
     "type": "fighting",
     "minLevel": 23,
     "maxUses": 15,
@@ -1432,7 +1432,7 @@
   {
     "id": 84,
     "name": "Bug Buzz",
-    "description": "The user generates a damaging sound wave by vigorously shaking its body. It may also lower the target's special defence stat.",
+    "description": "The user generates a damaging sound wave by vigorously shaking its body.",
     "type": "bug",
     "minLevel": 23,
     "maxUses": 10,
@@ -1446,7 +1446,7 @@
   {
     "id": 85,
     "name": "Candy Crush",
-    "description": "The user crushes the target with a candy cane from Reuters Kiosk. It may also lower the target's defence stat.",
+    "description": "The user crushes the target with a candy cane from Reuters Kiosk. It may also lower the target's defense.",
     "type": "rock",
     "minLevel": 23,
     "maxUses": 10,
@@ -1483,7 +1483,7 @@
   {
     "id": 87,
     "name": "Clamp",
-    "description": "The target is clamped and squeezed by the user's very thick and sturdy shell. It may increase the user's defence stat.",
+    "description": "The target is clamped and squeezed by the user's very thick and sturdy shell. It may increase the user's defense.",
     "type": "water",
     "minLevel": 23,
     "maxUses": 10,
@@ -1516,7 +1516,7 @@
   {
     "id": 89,
     "name": "Iron Shield",
-    "description": "The user protects itself with a hard shell. It may also raise the user's defence stat.",
+    "description": "The user protects itself with a hard shell. It may also raise the user's defense.",
     "type": "steel",
     "minLevel": 23,
     "maxUses": 10,
@@ -1567,7 +1567,7 @@
   {
     "id": 92,
     "name": "Earthy Cannon",
-    "description": "The user attacks with a cannon of earth. It may also lower the target's defence stat.",
+    "description": "The user attacks with a cannon of earth. It may also lower the target's defense.",
     "type": "ground",
     "minLevel": 23,
     "maxUses": 15,
@@ -1586,7 +1586,7 @@
   {
     "id": 93,
     "name": "Flying Slash",
-    "description": "The user slashes the target with a flying blade. It may also raise the user's attack stat.",
+    "description": "The user slashes the target with a flying blade. It may also raise the user's attack.",
     "type": "flying",
     "minLevel": 23,
     "maxUses": 15,
@@ -1633,7 +1633,7 @@
   {
     "id": 96,
     "name": "Leafy Cannon",
-    "description": "The user attacks with a cannon of leaves. It may also lower the target's defence stat.",
+    "description": "The user attacks with a cannon of leaves. It may also lower the target's defense.",
     "type": "grass",
     "minLevel": 26,
     "maxUses": 10,
@@ -1652,7 +1652,7 @@
   {
     "id": 97,
     "name": "Cross Chop",
-    "description": "The user delivers a double chop with its forearms crossed. It may also lower the target's defence stat.",
+    "description": "The user delivers a double chop with its forearms crossed. It may also lower the target's defense.",
     "type": "fighting",
     "minLevel": 29,
     "maxUses": 5,
@@ -1671,7 +1671,7 @@
   {
     "id": 98,
     "name": "Crunch Punch",
-    "description": "The user throws a punch with the power to shatter a rock. It may also lower the target's defence stat.",
+    "description": "The user throws a punch with the power to shatter a rock. It may also lower the target's defense.",
     "type": "dark",
     "minLevel": 29,
     "maxUses": 15,
@@ -1744,7 +1744,7 @@
   {
     "id": 102,
     "name": "Defend Order",
-    "description": "The user focuses its mind and calms its spirit to raise its defence stat.",
+    "description": "The user focuses its mind and calms its spirit to raise its defense.",
     "type": "fighting",
     "minLevel": 31,
     "maxUses": 5,
@@ -1777,7 +1777,7 @@
   {
     "id": 104,
     "name": "Double Kick",
-    "description": "The user delivers two kicks in a row. It may also lower the target's defence stat.",
+    "description": "The user delivers two kicks in a row. It may also lower the target's defense.",
     "type": "fighting",
     "minLevel": 33,
     "maxUses": 15,
@@ -1796,7 +1796,7 @@
   {
     "id": 105,
     "name": "Fairy Ray",
-    "description": "The user shoots a ray of light at the target. It may also lower the target's defence stat. and make it confused.",
+    "description": "The user shoots a ray of light at the target. It may also lower the target's defense and make it confused.",
     "type": "fairy",
     "minLevel": 33,
     "maxUses": 10,
@@ -1819,7 +1819,7 @@
   {
     "id": 106,
     "name": "Ground Slap",
-    "description": "The user slaps the target with its open palm. It may also lower the target's defence stat. and make it confused.",
+    "description": "The user slaps the target with its open palm. It may also lower the target's defense and make it confused.",
     "type": "ground",
     "minLevel": 33,
     "maxUses": 10,
@@ -1906,7 +1906,7 @@
   {
     "id": 111,
     "name": "Draco Punch",
-    "description": "The user gathers all its power and slams the target with its punch. It may also lower the target's defence stat.",
+    "description": "The user gathers all its power and slams the target with its punch. It may also lower the target's defense.",
     "type": "dragon",
     "minLevel": 37,
     "maxUses": 5,
@@ -1925,7 +1925,7 @@
   {
     "id": 112,
     "name": "Dragon Smash",
-    "description": "The user slams the target with its tail. It may also lower the target's defence stat.",
+    "description": "The user slams the target with its tail. It may also lower the target's defense.",
     "type": "dragon",
     "minLevel": 40,
     "maxUses": 10,
@@ -1944,7 +1944,7 @@
   {
     "id": 113,
     "name": "Dragon Dance",
-    "description": "The user vigorously performs a mystic, powerful dance that boosts its attack and defense stats.",
+    "description": "The user vigorously performs a mystic, powerful dance that boosts its attack and defense.",
     "type": "dragon",
     "minLevel": 40,
     "maxUses": 5,
@@ -1982,7 +1982,7 @@
   {
     "id": 115,
     "name": "Wings of Chaos",
-    "description": "The user flys around the target and hits it with its wings. It may lower the target's defence stat.",
+    "description": "The user flys around the target and hits it with its wings. It may lower the target's defense.",
     "type": "flying",
     "minLevel": 40,
     "maxUses": 10,
@@ -2015,7 +2015,7 @@
   {
     "id": 117,
     "name": "Tunnel Retreat",
-    "description": "The user digs a hole and retreats into it. It may also increase the user's defence stat. and heal the user.",
+    "description": "The user digs a hole and retreats into it to heal. It may also increase the user's defense.",
     "type": "ground",
     "minLevel": 40,
     "maxUses": 10,
@@ -2034,7 +2034,7 @@
   {
     "id": 118,
     "name": "Fire Cannon",
-    "description": "The user shoots a fireball at the target. It may also lower the target's defence stat.",
+    "description": "The user shoots a fireball at the target. It may also lower the target's defense.",
     "type": "fire",
     "minLevel": 40,
     "maxUses": 10,
