@@ -369,5 +369,68 @@
     "name": "Star fragment",
     "price": 1000,
     "description": "A rare fragment of a star. It's worth a fortune."
+  },
+  {
+    "id": 60,
+    "image": "trophy_bronze.png",
+    "name": "Bronze Trophy",
+    "price": 0,
+    "description": "A bronze trophy for winning a tournament."
+  },
+  {
+    "id": 61,
+    "image": "trophy_silver.png",
+    "name": "Silver Trophy",
+    "price": 0,
+    "description": "A silver trophy for winning a tournament."
+  },
+  {
+    "id": 62,
+    "image": "trophy_gold.png",
+    "name": "Gold Trophy",
+    "price": 0,
+    "description": "A gold trophy for winning a tournament."
+  },
+  {
+    "id": 63,
+    "image": "trophy_alloy.png",
+    "name": "Alloy Trophy",
+    "price": 0,
+    "description": "An alloy trophy for winning a tournament."
+  },
+  {
+    "id": 64,
+    "image": "trophy_brass.png",
+    "name": "Brass Trophy",
+    "price": 0,
+    "description": "A brass trophy for winning a tournament."
+  },
+  {
+    "id": 65,
+    "image": "trophy_old.png",
+    "name": "Old Trophy",
+    "price": 0,
+    "description": "An old trophy for winning a tournament."
+  },
+  {
+    "id": 66,
+    "image": "trophy_pink.png",
+    "name": "Pink Trophy",
+    "price": 0,
+    "description": "A pink trophy for winning a tournament."
+  },
+  {
+    "id": 67,
+    "image": "trophy_pink_2.png",
+    "name": "Shiny Pink Trophy",
+    "price": 0,
+    "description": "A shiny pink trophy for winning a tournament."
+  },
+  {
+    "id": 68,
+    "image": "trophy_steel.png",
+    "name": "Steel Trophy",
+    "price": 0,
+    "description": "A steel trophy for winning a tournament."
   }
 ]
