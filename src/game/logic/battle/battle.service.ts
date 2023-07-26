@@ -87,14 +87,15 @@ export class BattleService {
     await this.opponentService.saveAll(opponents);
 
     const deletedOpponents = await this.deleteOpponentsWithoutMonsters(opponents);
-    await this.markDefeatedNPCsAsEncounteredPlayer(opponents, deletedOpponents);
-    await this.giveRewards(opponents, deletedOpponents);
+    if (deletedOpponents.length) {
+      await this.markDefeatedNPCsAsEncounteredPlayer(opponents, deletedOpponents);
+      await this.giveRewards(opponents, deletedOpponents);
+    }
   }
 
   private async markDefeatedNPCsAsEncounteredPlayer(opponents: OpponentDocument[], deleteOpponents: OpponentDocument[]) {
     const playerIds = opponents.filter(o => !o.isNPC && !deleteOpponents.includes(o)).map(o => o.trainer);
-    // defeated opponents remember the players they encountered
-    deleteOpponents.length && await this.trainerService.updateMany({
+    await this.trainerService.updateMany({
       _id: {$in: deleteOpponents.map(o => new Types.ObjectId(o.trainer))},
       npc: {$exists: true},
     }, {
