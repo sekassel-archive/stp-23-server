@@ -88,6 +88,7 @@ export class BattleService {
 
     const deletedOpponents = await this.deleteOpponentsWithoutMonsters(opponents);
     await this.markDefeatedNPCsAsEncounteredPlayer(opponents, deletedOpponents);
+    await this.giveRewards(opponents, deletedOpponents);
   }
 
   private async markDefeatedNPCsAsEncounteredPlayer(opponents: OpponentDocument[], deleteOpponents: OpponentDocument[]) {
@@ -101,6 +102,23 @@ export class BattleService {
         'npc.encountered': {$each: playerIds},
       },
     });
+  }
+
+  private async giveRewards(opponents: OpponentDocument[], deleteOpponents: OpponentDocument[]) {
+    const rewards = (await this.trainerService.findAll({
+      _id: {$in: deleteOpponents.map(o => new Types.ObjectId(o.trainer))},
+      'npc.gifts': {$exists: true},
+    }, {projection: {'npc.gifts': 1}})).map(t => t.npc?.gifts || []).flat();
+    if (!rewards.length) {
+      return;
+    }
+
+    const playerIds = opponents.filter(o => !o.isNPC && !deleteOpponents.includes(o)).map(o => o.trainer);
+    await Promise.all(playerIds.map(async playerId => {
+      return Promise.all(rewards.map(async reward => {
+        return this.itemService.updateAmount(playerId, reward, 1);
+      }));
+    }));
   }
 
   private async deleteOpponentsWithoutMonsters(opponents: OpponentDocument[]): Promise<OpponentDocument[]> {
