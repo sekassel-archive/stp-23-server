@@ -466,6 +466,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[65]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Bouncer_16x16.png"

@@ -177,6 +177,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[67]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Conference_woman_16x16.png"
