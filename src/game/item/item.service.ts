@@ -68,7 +68,7 @@ export class ItemService {
     return this.updateAmount(trainer._id.toString(), dto.type, dto.amount);
   }
 
-  private async updateAmount(trainer: string, type: number, amount: number): Promise<Item> {
+  async updateAmount(trainer: string, type: number, amount: number): Promise<Item> {
     const result = await this.model.findOneAndUpdate(
       {trainer, type},
       {$inc: {amount}},
@@ -166,10 +166,6 @@ export class ItemService {
       return true;
     }
     return false;
-  }
-
-  async getStarterItems(trainer: Trainer, type: number, amount = 1): Promise<Item> {
-    return this.updateAmount(trainer._id.toString(), type, amount);
   }
 
   async deleteTrainer(trainer: string): Promise<Item[]> {

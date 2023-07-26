@@ -57,7 +57,7 @@ export class NpcTalkService {
       await this.trainerService.update(dto.target, {
         $addToSet: {'npc.encountered': trainerId},
       });
-      await Promise.all(target.npc.gifts.map(async gift => this.itemService.getStarterItems(trainer, gift, 1)));
+      await Promise.all(target.npc.gifts.map(async gift => this.itemService.updateAmount(trainerId, gift, 1)));
     }
   }
 }

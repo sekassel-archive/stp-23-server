@@ -12,14 +12,15 @@ export class ItemHandler {
 
   @OnEvent('regions.*.trainers.*.created')
   async onTrainerCreated(trainer: Trainer): Promise<void> {
+    const trainerId = trainer._id.toString();
     await Promise.all([
-      this.itemService.getStarterItems(trainer, 1), // Mondex
-      this.itemService.getStarterItems(trainer, 2), // Moneybag
-      this.itemService.getStarterItems(trainer, 3), // Backpack
-      this.itemService.getStarterItems(trainer, 10, 10), // Monballs
-      this.itemService.getStarterItems(trainer, 20, 3), // Chocolate
-      this.itemService.getStarterItems(trainer, 21), // Chicken leg
-      this.itemService.getStarterItems(trainer, 30), // Mystery box
+      this.itemService.updateAmount(trainerId, 1, 1), // Mondex
+      this.itemService.updateAmount(trainerId, 2, 1), // Moneybag
+      this.itemService.updateAmount(trainerId, 3, 1), // Backpack
+      this.itemService.updateAmount(trainerId, 10, 10), // Monballs
+      this.itemService.updateAmount(trainerId, 20, 3), // Chocolate
+      this.itemService.updateAmount(trainerId, 21, 1), // Chicken leg
+      this.itemService.updateAmount(trainerId, 30, 1), // Mystery box
     ]);
   }
 
