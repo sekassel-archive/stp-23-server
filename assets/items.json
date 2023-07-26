@@ -371,6 +371,34 @@
     "description": "A rare fragment of a star. It's worth a fortune."
   },
   {
+    "id": 53,
+    "image": "caution_sign.png",
+    "name": "Caution sign",
+    "price": 20,
+    "description": "A caution sign. It's worth a few coins."
+  },
+  {
+    "id": 54,
+    "image": "cap_blue.png",
+    "name": "Blue cap",
+    "price": 40,
+    "description": "A blue cap for the trainer that speaks no truth."
+  },
+  {
+    "id": 55,
+    "image": "cap_gray.png",
+    "name": "Gray cap",
+    "price": 40,
+    "description": "A gray cap for the fashionable but inconspicuous trainer."
+  },
+  {
+    "id": 56,
+    "image": "cap_red.png",
+    "name": "Red cap",
+    "price": 40,
+    "description": "A red cap for the nostalgic trainer."
+  },
+  {
     "id": 60,
     "image": "trophy_bronze.png",
     "name": "Bronze Trophy",
