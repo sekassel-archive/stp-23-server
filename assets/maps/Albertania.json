@@ -219,9 +219,19 @@
                  "name":"Jenshire",
                  "properties":[
                         {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Jenshire Museum\nMoncenter\nStore\nLuap's House"
+                        }, 
+                        {
                          "name":"Description",
                          "type":"string",
                          "value":"This town is located in a swampy area that formed from the waters of the Ell Reservoir and Central Lake."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[60,83,84,61,86,91,52,89,100,20,33,1,32,98]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -343,7 +353,7 @@
                 {
                  "height":32,
                  "id":30,
-                 "name":"Simonsfeld",
+                 "name":"Simonsfield",
                  "properties":[
                         {
                          "name":"Description",
@@ -366,6 +376,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"An isolated town on a small island. Home of a rare type of crab monster."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[156,115,37,170,208,118,5,65,199]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -380,9 +395,14 @@
                  "name":"Werningham",
                  "properties":[
                         {
+                         "name":"Buildings",
+                         "type":"string",
+                         "value":"Dead Birds Society\nMoncenter+Store"
+                        }, 
+                        {
                          "name":"Description",
                          "type":"string",
-                         "value":"The industrial center of the isles. Factories fill the southern parts of the city."
+                         "value":"The industrial center of the isles. Factories and office buildings fill the southern parts of the city."
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -421,7 +441,7 @@
                         {
                          "name":"Description",
                          "type":"string",
-                         "value":"A deep lake forms the eye of the isles. It is theorized to be the crater of an enormous meteorite."
+                         "value":"A deep lake forms the eye of the isles. It is theorized to be the crater of an enormous meteorite. A small shrine that can be reached through a cave honors the Old Gods that created this marvel of nature."
                         }, 
                         {
                          "name":"Monsters",
@@ -832,7 +852,12 @@
                         {
                          "name":"Description",
                          "type":"string",
-                         "value":""
+                         "value":"Be careful when crossing this area as you may encounter angry farmers."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[115,119,120,154,156,170,172,195,197,199,208]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -850,6 +875,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"Leads to a dock belonging to Simonsfeld. Once a day, a boat travels to Henrikhaven and back."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[115,125,129,138,156,170,172,195,197,199,208]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -908,6 +938,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":""
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[57,58,94,103,43,8,74,52,107,97,30,10,11]"
                         }],
                  "rotation":0,
                  "type":"Route",
@@ -1064,7 +1099,7 @@
          "value":"{\"area\":\"Clemeville\",\"x\":40,\"y\":23}"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

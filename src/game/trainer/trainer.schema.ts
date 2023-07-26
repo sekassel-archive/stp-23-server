@@ -8,12 +8,12 @@ import {
   IsEnum,
   IsIn,
   IsInt,
-  IsMongoId,
+  IsMongoId, IsObject,
   IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
-import {Document, Types} from 'mongoose';
+import {Document, SchemaTypes, Types} from 'mongoose';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_ARRAY_FORMAT, MONGO_ID_FORMAT} from '../../util/schema';
 import {characters, MAX_TEAM_SIZE} from '../constants';
 
@@ -43,7 +43,13 @@ export class NPCInfo {
   @IsBoolean()
   canHeal: boolean;
 
-  // @ApiPropertyOptional({type: [Number]}) - but not relevant for clients
+  @ApiProperty({type: [Number], description: 'List of item IDs that the NPC sells.'})
+  @IsOptional()
+  @IsArray()
+  @IsInt({each: true})
+  sells?: number[];
+
+  @ApiPropertyOptional({type: [[Number]]})
   @IsOptional()
   path?: Path;
 
@@ -54,11 +60,18 @@ export class NPCInfo {
   @IsMongoId({each: true})
   encountered?: string[];
 
-  @ApiPropertyOptional({description: 'Monster IDs that the NPC offers as starters.'})
+  @ApiPropertyOptional({description: 'Monster IDs that the NPC offers as starters.', type: [Number]})
   @IsOptional()
   @IsArray()
   @IsInt({each: true})
   starters?: number[];
+
+  @ApiPropertyOptional({description: 'Item IDs that the NPC gives as gifts. ' +
+      'NPCs that can encounter will need to be defeated first.', type: [Number]})
+  @IsOptional()
+  @IsArray()
+  @IsInt({each: true})
+  gifts?: number[];
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
@@ -101,6 +114,12 @@ export class Trainer extends GlobalSchema {
   @IsInt({each: true})
   encounteredMonsterTypes: number[];
 
+  @Prop({default: []})
+  @ApiProperty({...MONGO_ID_ARRAY_FORMAT})
+  @IsArray()
+  @IsMongoId({each: true})
+  visitedAreas: string[];
+
   @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
@@ -127,6 +146,12 @@ export class Trainer extends GlobalSchema {
   @ValidateNested()
   @Type(() => NPCInfo)
   npc?: NPCInfo;
+
+  @Prop({type: SchemaTypes.Mixed})
+  @ApiPropertyOptional({type: Object, description: 'Additional client settings for the trainer.'})
+  @IsOptional()
+  @IsObject()
+  settings?: Record<string, any>;
 }
 
 export type TrainerDocument = Trainer & Document<Types.ObjectId, any, Trainer>;

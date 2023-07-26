@@ -8,13 +8,16 @@ import {Types} from "mongoose";
 export class CreateTrainerDto extends PickType(Trainer, [
   'name',
   'image',
+  'settings',
 ]) {
 }
 
 export class UpdateTrainerDto extends PartialType(PickType(Trainer, [
   'name',
   'image',
+  'settings',
   'team',
+  'area',
 ] as const)) {
 }
 
@@ -35,7 +38,7 @@ export class TalkTrainerDto extends PickType(Trainer, ['_id']) {
     description: `The ID of the target trainer.
 - Talking to a Nurse (npc.canHeal) will heal all monsters.
 - Talking to someone who offers Starters (npc.starters) will allow you to receive a starter monster.
-- Talking to a Trainer (npc.encounterOnSight) will start an encounter, even if that NPC already battled with you ("rematch").`,
+- Talking to a Trainer (non-NPC or npc.encounterOnTalk) will start an encounter, even if the NPC already battled with you ("rematch").`,
   })
   @AsObjectId()
   target: Types.ObjectId;

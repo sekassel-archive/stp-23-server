@@ -56,7 +56,7 @@ for (let i = 1; i < monsters.length; i++) {
   }
 }
 
-const baseMonsters = monsters.filter((m, index) => index === 0 || m.id !== monsters[index - 1].evolution);
+const baseMonsters = monsters.filter((m, index) => index === 0 || m.id !== monsters[index - 1].evolution && !m.legendary);
 let found = 0;
 for (const monster of baseMonsters) {
   const areas = foundMonsters[monster.id];
@@ -69,7 +69,7 @@ for (const monster of baseMonsters) {
       2: '🥈',
       3: '🥉',
     }
-    console.log(`✅ #${monster.id} ${monster.name}${monster.legendary ? ' 🐉' : ''} in ${chalk.green(areas.size)} areas ${rarity[areas.size] || ''}`);
+    console.log(`✅ #${monster.id} ${monster.name} in ${chalk.green(areas.size)} areas ${rarity[areas.size] || ''}`);
   }
 }
 
@@ -80,7 +80,7 @@ for (const area in areaLevels) {
   const min = Math.min(...levels);
   const max = Math.max(...levels);
   const avg = levels.reduce((a, b) => a + b, 0) / levels.length;
-  console.log(`${chalk.blue(area)} has monsters from level ${chalk.green(min)} to ${chalk.red(max)} (average ${chalk.yellow(avg.toFixed(1))})`);
+  console.log(`${chalk.blue(area)} has level ${chalk.green(min)} to ${chalk.red(max)} (avg. ${chalk.yellow(avg.toFixed(1))})`);
 }
 
 const map = JSON.parse(await fs.readFile(`maps/${region}.json`, 'utf8'));

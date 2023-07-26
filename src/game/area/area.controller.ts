@@ -1,5 +1,5 @@
-import {Controller, Get, Param} from '@nestjs/common';
-import {ApiOkResponse, ApiTags} from '@nestjs/swagger';
+import {Controller, DefaultValuePipe, Get, Param, ParseBoolPipe, Query} from '@nestjs/common';
+import {ApiOkResponse, ApiParam, ApiTags} from '@nestjs/swagger';
 import {Auth} from '../../auth/auth.decorator';
 import {NotFound} from '../../util/not-found.decorator';
 import {ParseObjectIdPipe} from '../../util/parse-object-id.pipe';
@@ -23,10 +23,17 @@ export class AreaController {
 
   @Get()
   @ApiOkResponse({type: [Area]})
+  @ApiParam({
+    name: 'spawn',
+    required: false,
+    schema: {default: false, type: 'boolean'},
+    description: 'Only return areas with spawn points'
+  })
   async findAll(
     @Param('region', ParseObjectIdPipe) region: string,
+    @Query('spawn', new DefaultValuePipe(false), ParseBoolPipe) spawn: boolean,
   ): Promise<Area[]> {
-    return this.areaService.findAll({region}, {
+    return this.areaService.findAll(spawn ? {region, spawn: {$exists: true}} : {region}, {
       projection: {
         'map.layers.objects': 0,
         'map.layers.chunks': 0,
@@ -43,6 +50,6 @@ export class AreaController {
     @Param('region', ParseObjectIdPipe) region: string,
     @Param('id', ObjectIdPipe) id: Types.ObjectId,
   ): Promise<Area | null> {
-    return this.areaService.find(id, {projection: {'map.layers.objects': 0}});
+    return this.areaService.find(id);
   }
 }

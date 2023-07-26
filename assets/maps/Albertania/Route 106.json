@@ -1513,17 +1513,17 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Route 103"
+                         "value":"Werningham"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":40
+                         "value":41
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":6
+                         "value":7
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1584,8 +1584,14 @@
  "nextlayerid":7,
  "nextobjectid":63,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Town"
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

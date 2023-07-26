@@ -16,10 +16,12 @@ import {MONGO_ID_FORMAT} from '../../util/schema';
 import {Throttled} from '../../util/throttled.decorator';
 import {Validated} from '../../util/validated.decorator';
 import {CreateTrainerDto, MoveTrainerDto, TalkTrainerDto, UpdateTrainerDto} from './trainer.dto';
-import {Trainer} from './trainer.schema';
+import {Direction, Trainer} from './trainer.schema';
 import {TrainerService} from './trainer.service';
-import {ObjectIdPipe} from "@mean-stream/nestx";
+import {notFound, ObjectIdPipe} from "@mean-stream/nestx";
 import {Types} from "mongoose";
+import {AreaService} from "../area/area.service";
+import {SocketService} from "../../udp/socket.service";
 
 @Controller('regions/:region/trainers')
 @ApiTags('Region Trainers')
@@ -30,6 +32,8 @@ import {Types} from "mongoose";
 export class TrainerController {
   constructor(
     private readonly trainerService: TrainerService,
+    private readonly areaService: AreaService,
+    private readonly socketService: SocketService,
   ) {
   }
 
@@ -77,6 +81,32 @@ export class TrainerController {
     @AuthUser() user: User,
   ): Promise<Trainer | null> {
     await this.checkTrainerAuth(user, 'update', id);
+    if (dto.area) {
+      const oldTrainer = await this.trainerService.find(id) || notFound(id);
+      if (oldTrainer.area === dto.area) {
+        return this.trainerService.update(id, dto);
+      }
+
+      if (!oldTrainer.visitedAreas.includes(dto.area)) {
+        throw new ForbiddenException(`Cannot move trainer to unvisited area ${dto.area}`);
+      }
+
+      const area = await this.areaService.find(new Types.ObjectId(dto.area)) || notFound(dto.area);
+      if (!area.spawn) {
+        throw new ForbiddenException(`Cannot move trainer ${area.name}`);
+      }
+
+      if (area.region !== region) {
+        throw new ForbiddenException(`Cannot move trainer to area in a different region`);
+      }
+
+      const {x, y} = area.spawn;
+      const move: MoveTrainerDto = {_id: id, area: dto.area, x, y, direction: Direction.DOWN};
+      const result = await this.trainerService.update(id, {...dto, ...move});
+      this.socketService.broadcast(`areas.${oldTrainer.area}.trainers.${id}.moved`, move);
+      this.socketService.broadcast(`areas.${dto.area}.trainers.${id}.moved`, move);
+      return result;
+    }
     return this.trainerService.update(id, dto);
   }
 

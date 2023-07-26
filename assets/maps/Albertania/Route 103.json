@@ -643,17 +643,17 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Route 107"
+                         "value":"Werningham"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":8
+                         "value":45
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":35
+                         "value":101
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -781,8 +781,14 @@
  "nextlayerid":7,
  "nextobjectid":47,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Forest"
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

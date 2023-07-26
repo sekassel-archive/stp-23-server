@@ -1204,12 +1204,12 @@
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Route 106"
+                         "value":"Werningham"
                         }, 
                         {
                          "name":"X",
                          "type":"int",
-                         "value":51
+                         "value":73
                         }, 
                         {
                          "name":"Y",
@@ -1314,8 +1314,14 @@
  "nextlayerid":12,
  "nextobjectid":36,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Forest"
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

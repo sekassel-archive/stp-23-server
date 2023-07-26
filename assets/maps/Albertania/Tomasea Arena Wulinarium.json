@@ -2239,6 +2239,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[64]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Halloween_Kid_1_16x16.png"
@@ -2330,8 +2335,14 @@
  "nextlayerid":14,
  "nextobjectid":41,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Plains"
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

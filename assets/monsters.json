@@ -61,10 +61,10 @@
   },
   {
     "id": 9,
-    "image": "Amogus_1.png",
-    "name": "Amogus",
-    "type": ["psychic"],
-    "description": "Amogus is a rare, otherworldly monster that dwells in vulcanic vents."
+    "image": "Scarletwing_1.png",
+    "name": "Scarletwing",
+    "type": ["fairy", "flying"],
+    "description": "Scarletwing, the red fairy, flutters through enchanted forests with vibrant grace. Its radiant wings and playful demeanor bring joy and warmth to all who cross its path."
   },
   {
     "id": 10,
@@ -809,6 +809,744 @@
     "image": "Zuendorm_1.png",
     "name": "Zuendorm",
     "type": ["fire"],
+    "legendary": true,
     "description": "Zuendorm is a fire-type creature with a body made of living flame, and can ignite anything it touches."
+  },
+  {
+    "id": 110,
+    "image": "Obsidior_1.png",
+    "name": "Obsidior",
+    "type": ["normal"],
+    "evolution": 111,
+    "description": "Obsidior is a fierce creature with obsidian-like scales, known for its brute strength and sharp fangs."
+  },
+  {
+    "id": 111,
+    "image": "Obsidior_2.png",
+    "name": "Ignisaur",
+    "type": ["fire"],
+    "evolution": 112,
+    "description": "Ignisaur is a fiery creature, ablaze with an unstoppable spirit and control over intense flames."
+  },
+  {
+    "id": 112,
+    "image": "Obsidior_3.png",
+    "name": "Infernodon",
+    "type": ["fire"],
+    "description": "Infernodon, the ultimate evolution, is a mighty fire-type Pokemon that radiates scorching heat and unleashes devastating firestorms."
+  },
+  {
+    "id": 113,
+    "image": "Frostclaw_1.png",
+    "name": "Frostclaw",
+    "type": ["ice"],
+    "evolution": 114,
+    "description": "Frostclaw is an ice-mantis creature with icy claws, capable of freezing its foes with ease."
+  },
+  {
+    "id": 114,
+    "image": "Frostclaw_2.png",
+    "name": "Frostblade",
+    "type": ["ice"],
+    "description": "Frostblade is an ice-mantis creature adorned with shimmering ice blades, swiftly slicing through enemies with frigid precision."
+  },
+  {
+    "id": 115,
+    "image": "Bushling_1.png",
+    "name": "Bushling",
+    "type": ["grass", "flying"],
+    "evolution": 116,
+    "description": "Bushling is an earth wisp creature that takes the form of a floating bush."
+  },
+  {
+    "id": 116,
+    "image": "Bushling_2.png",
+    "name": "Turbush",
+    "type": ["grass"],
+    "description": "Turbush is a earth-turtle with a vibrant bush growing on its back and its profound link to nature becomes a devastating force, posing a significant threat to its opponents."
+  },
+  {
+    "id": 117,
+    "image": "Volcanool_1.png",
+    "name": "Volcanool",
+    "type": ["rock", "fire"],
+    "description": "Volcanowool is a white, rock-like sheep with a miniature volcano on its back. It radiates intense heat and can unleash powerful fire-based attacks."
+  },
+  {
+    "id": 118,
+    "image": "Bramblehorn_1.png",
+    "name": "Bramblehorn",
+    "type": ["normal"],
+    "description": "Bramblehorn is a brown deer with imposing antlers and piercing red eyes, roaming the forest with an aura of mystery."
+  },
+  {
+    "id": 119,
+    "image": "Noxluff_1.png",
+    "name": "Noxluff",
+    "type": ["grass"],
+    "description": "Noxluff is a grass-type creature with yellow eyes and a huge aura of sweetness around it."
+  },
+  {
+    "id": 120,
+    "image": "Parrobert_1.png",
+    "name": "Parrobert",
+    "type": ["flying"],
+    "legendary": true,
+    "description": "Parrobert is a flying parrot creature adorned with an explosion of vibrant, multicolored feathers and moves with unparalleled grace and agility."
+  },
+  {
+    "id": 121,
+    "image": "Chromapede_1.png",
+    "name": "Chromapede",
+    "type": ["bug", "ground"],
+    "legendary": true,
+    "description": "A colossal centipede with a mesmerizing display of vivid hues. Swift, agile, and captivating with piercing eyes, it traverses landscapes with unmatched speed."
+  },
+  {
+    "id": 122,
+    "image": "Adrevil_1.png",
+    "name": "Adrevil",
+    "type": ["dark"],
+    "description": "Adrevil embodies pure evil. Despite its seemingly weak appearance, this creature should not be underestimated, as it forces opponents to sort through images of monsters."
+  },
+  {
+    "id": 123,
+    "image": "Furrobit_1.png",
+    "name": "Furrobit",
+    "type": ["normal"],
+    "evolution": 124,
+    "description": "Furrobit is a normal type creature that resembles a fluffy rabbit with vibrant fur. Its adorable appearance can captivate opponents, making it difficult to resist its charm."
+  },
+  {
+    "id": 124,
+    "image": "Furrobit_2.png",
+    "name": "Skelehare",
+    "type": ["ghost"],
+    "description": "Skelehare is a haunting apparition of a rabbit. Its skeletal form is draped in an ethereal aura, emitting an eerie presence that chills those who witness it."
+  },
+  {
+    "id": 125,
+    "image": "Lickitoad_1.png",
+    "name": "Lickitoad",
+    "type": ["water"],
+    "evolution": 126,
+    "description": "Lickitoad is a water type creature resembling a lively green frog. With its vibrant hue and a remarkably tongue, it adeptly catches prey and surprises opponents in battles."
+  },
+  {
+    "id": 126,
+    "image": "Lickitoad_2.png",
+    "name": "Tortoad",
+    "type": ["water", "fighting"],
+    "description": "Tortoad, the evolved form of Lickitoad, is a formidable green creature. With its turtle-like appearance and razor-sharp claws, it delivers powerful blows in battle."
+  },
+  {
+    "id": 127,
+    "image": "Maxoterus_1.png",
+    "name": "Maxoterus",
+    "type": ["normal"],
+    "evolution": 128,
+    "description": "Maxoterus is a normal type creature that resembles a bull with a vibrant mane. Its imposing horns and muscular physique make it a formidable opponent in battle."
+  },
+  {
+    "id": 128,
+    "image": "Maxoterus_2.png",
+    "name": "Terrahorn",
+    "type": ["normal"],
+    "description": "Terrahorn exudes a formidable presence with its majestic horns and piercing red eyes. With its unyielding spirit it navigates steep terrains with ease, embodying the spirit of a resilient mountain climber."
+  },
+  {
+    "id": 129,
+    "image": "Gullwing_1.png",
+    "name": "Gullwing",
+    "type": ["flying"],
+    "evolution": 130,
+    "description": "Gullwing, a serene white seagull, soars gracefully through the skies above the sea. Its wings catch the breeze, allowing it to dive and glide effortlessly."
+  },
+  {
+    "id": 130,
+    "image": "Gullwing_2.png",
+    "name": "Pelisurge",
+    "type": ["flying", "water"],
+    "description": "Pelisurge, a majestic seabird with a vibrant white plumage and a distinctive yellow bill. Its enormous size and powerful beak make it an adept hunter, diving into the waters to catch its prey."
+  },
+  {
+    "id": 131,
+    "image": "Nightshade_1.png",
+    "name": "Nightshade",
+    "type": ["dark"],
+    "description": "Nightshade, a shadowy black cat with ruby eyes, moves with eerie grace, ensnaring foes in its enigmatic presence."
+  },
+  {
+    "id": 132,
+    "image": "Frostfang_1.png",
+    "name": "Frostfang",
+    "type": ["ice"],
+    "description": "Frostfang, a towering white wolf with crimson eyes, commands the chilling power of the winter winds, striking fear into the hearts of all who witness its majestic presence."
+  },
+  {
+    "id": 133,
+    "image": "Emberroot_1.png",
+    "name": "Emberroot",
+    "type": ["normal"],
+    "description": "Emberroot, a withered brown tree stump adorned with fiery red eyes and a haunting mouth, possesses an ancient and mysterious power, radiating an aura that foretells the impending blaze it can unleash."
+  },
+  {
+    "id": 134,
+    "image": "Coralwisp_1.png",
+    "name": "Coralwisp",
+    "type": ["water"],
+    "evolution": 135,
+    "description": "Coralwisp, a petite seahorse with vibrant hues, glides through the ocean depths, leaving a trail of shimmering light in its wake."
+  },
+  {
+    "id": 135,
+    "image": "Coralwisp_2.png",
+    "name": "Crimsonfin",
+    "type": ["water"],
+    "description": "Monster 2: Crimsonfin, a colossal red fish with razor-sharp fins, emerges from the depths with an unwavering presence, embodying the might and resilience of the deep sea, ready to dominate any challengers that dare to cross its path."
+  },
+  {
+    "id": 136,
+    "image": "Bloodfin_1.png",
+    "name": "Bloodfin",
+    "type": ["water"],
+    "description": "Bloodfin, a colossal great white shark, commands the depths of the ocean with its immense power and relentless hunger, striking fear into the hearts of all who witness its presence."
+  },
+  {
+    "id": 137,
+    "image": "Hoglin_1.png",
+    "name": "Hoglin",
+    "type": ["normal"],
+    "description": "Hoglin, a massive boar with a menacing presence, is a formidable opponent in battle, charging at its foes with its razor-sharp tusks."
+  },
+  {
+    "id": 138,
+    "image": "Marinotort_1.png",
+    "name": "Marinotort",
+    "type": ["water"],
+    "description": "Marinotort, a water type creature reminiscent of a sea turtle, boasts a lush green body and a regal purple shell, utilizing the ocean's might for defense."
+  },
+  {
+    "id": 139,
+    "image": "Spikeshroud_1.png",
+    "name": "Spikeshroud",
+    "type": ["water"],
+    "evolution": 140,
+    "description": "Spikeshroud is a small pink jellyfish-like creature that disguises itself by snatching the shell of another creature, donning a grey-green spiked head covering for protection."
+  },
+  {
+    "id": 140,
+    "image": "Spikeshroud_2.png",
+    "name": "Gloomander",
+    "type": ["water"],
+    "evolution": 141,
+    "description": "Gloomander evolves from Spikeshroud, losing its shell in the process, becoming a slightly menacing pink jellyfish with heightened strength and an eerie appearance."
+  },
+  {
+    "id": 141,
+    "image": "Spikeshroud_3.png",
+    "name": "Apexsting",
+    "type": ["water", "psychic"],
+    "description": "Apexsting, the final evolution, is a formidable and menacing giant pink jellyfish that exudes an aura of danger, commanding respect with its imposing size and powerful capabilities."
+  },
+  {
+    "id": 142,
+    "image": "Sandyshell_1.png",
+    "name": "Sandyshell",
+    "type": ["ground"],
+    "description": "Sandyshell is a diminutive hermit crab found on the sandy shores, boasting a charming brown hue that blends seamlessly with its beach surroundings, seeking refuge in discarded seashells."
+  },
+  {
+    "id": 143,
+    "image": "Blufin_1.png",
+    "name": "Blufin",
+    "type": ["water"],
+    "evolution": 144,
+    "description": "Blufin, the initial evolution, is a vibrant sea fish with a striking combination of blue and yellow scales, gracefully gliding through ocean currents with agility and finesse."
+  },
+  {
+    "id": 144,
+    "image": "Blufin_2.png",
+    "name": "Crimsonfin",
+    "type": ["water"],
+    "description": "Crimsonfin, the evolved form of Blufin, exhibits a stunning transformation, now adorned in a captivating shade of red, radiating an air of intensity as it navigates the depths of the sea with unparalleled speed."
+  },
+  {
+    "id": 145,
+    "image": "Snowwing_1.png",
+    "name": "Snowwing",
+    "type": ["flying"],
+    "description": "Snowwing is a majestic creature, reminiscent of a griffon, with pristine white feathers that shimmer like freshly fallen snow, soaring through the skies with elegance and grace."
+  },
+  {
+    "id": 146,
+    "image": "Vamphibian_1.png",
+    "name": "Vampibian",
+    "type": ["flying", "water"],
+    "description": "Vamphibian is a sea-dwelling creature, resembling a captivating purple frog with delicate blue wings, effortlessly navigating both land and water as it enthralls its victims with its enchanting croak."
+  },
+  {
+    "id": 147,
+    "image": "Shadodo_1.png",
+    "name": "Shadodo",
+    "type": ["flying", "dark"],
+    "evolution": 148,
+    "description": "Shadodo is a black-feathered dodo with an air of mystery, flitting through the shadows with its distinct waddle, leaving a trail of intrigue in its wake."
+  },
+  {
+    "id": 148,
+    "image": "Shadodo_2.png",
+    "name": "Lumican",
+    "type": ["flying", "dark"],
+    "description": "Lumican evolves from Shadodo, donning striking black and yellow feathers and a brilliantly colorful beak, exuding an aura of tropical allure."
+  },
+  {
+    "id": 149,
+    "image": "Dragoking_1.png",
+    "name": "Dragoking",
+    "type": ["dragon", "flying"],
+    "legendary": true,
+    "description": "Dragoking possesses an otherworldly aura and commands the powers of the heavens, embodying grace, wisdom, and untamed power."
+  },
+  {
+    "id": 150,
+    "image": "Kitsurin_1.png",
+    "name": "Kitsurin",
+    "type": ["psychic"],
+    "legendary": true,
+    "description": "Kitsurin is a mystical creature, resembling a fox with a long, flowing tail, exuding an air of mystery and intrigue as it navigates Albertania with grace and agility."
+  },
+  {
+    "id": 151,
+    "image": "Pyrohorn_1.png",
+    "name": "Pyrohorn",
+    "evolution": 152,
+    "type": ["fire"],
+    "description": "Pyrohorn resembles a ram with fiery horns, exuding an air of power and strength as it traverses the land with confidence and poise."
+  },
+  {
+    "id": 152,
+    "image": "Pyrohorn_2.png",
+    "name": "Pyrogod",
+    "type": ["fire"],
+    "description": "Pyrogod, the majestic Aries, commands awe with its blazing horns, engulfed in flames, and adorned with shimmering golden spikes, a symbol of its unparalleled power."
+  },
+  {
+    "id": 153,
+    "image": "Zephyrella_1.png",
+    "name": "Zephyrella",
+    "type": ["fairy", "flying"],
+    "description": "Zephyrella, the wind fairy, dances on gentle breezes, its ethereal form shimmering with an ever-changing iridescence. It carries the whispers of the wind and spreads a sense of tranquility wherever it goes."
+  },
+  {
+    "id": 154,
+    "image": "Antman_1.png",
+    "name": "Terrant",
+    "type": ["bug"],
+    "evolution": 155,
+    "description": "Terrant is a formidable brown ant, known for its diligent work ethic and powerful mandibles. It scurries across the ground with impressive speed and agility, a true force to be reckoned with."
+  },
+  {
+    "id": 155,
+    "image": "Antman_2.png",
+    "name": "Antman",
+    "type": ["bug", "grass"],
+    "description": "Antman, the evolved form of Terrant, towers over its opponents with menacing stature. Its black exoskeleton is adorned with leaf-shaped shields on its hands, allowing it to defend against attacks with nature's own protection."
+  },
+  {
+    "id": 156,
+    "image": "Bee_1.png",
+    "name": "Buzzlet",
+    "type": ["flying"],
+    "evolution": 157,
+    "description": "Buzzlet is a small and vibrant yellow bee, buzzing around with boundless energy and a gentle nature. It collects nectar diligently, contributing to the balance of nature in its own small but significant way."
+  },
+  {
+    "id": 157,
+    "image": "Bee_3.png",
+    "name": "Stinglash",
+    "type": ["flying", "poison"],
+    "description": "Stinglash, a massive hornet with a menacing spike, strikes fear into the hearts of its foes. Its powerful sting delivers a venomous blow, leaving its adversaries paralyzed with pain and regret."
+  },
+  {
+    "id": 158,
+    "image": "Bee_2.png",
+    "name": "Slashwing",
+    "type": ["flying", "steel"],
+    "description": "Slashwing is a large bee with sharp, elongated claws. It moves with precision and strikes swiftly, delivering powerful slashes with its formidable appendages, making it a formidable adversary in battle."
+  },
+  {
+    "id": 159,
+    "image": "Bluecrab_1.png",
+    "name": "Coralclaw",
+    "type": ["water"],
+    "description": "Coralclaw, the big blue crab, possesses a robust exoskeleton and formidable pincers. It scuttles along the ocean floor with grace, blending into its surroundings, and strikes with swift precision when provoked."
+  },
+  {
+    "id": 160,
+    "image": "Leviathan_1.png",
+    "name": "Abyssalor",
+    "type": ["water", "dragon"],
+    "legendary": true,
+    "description": "Abyssalor, the legendary sea leviathan, looms in the depths with awe-inspiring power. Its massive blue form dominates the ocean, commanding the might of both water and dragon elements with unparalleled majesty."
+  },
+  {
+    "id": 161,
+    "image": "Slateguard_1.png",
+    "name": "Slateguard",
+    "type": ["rock"],
+    "description": "Slateguard, the stone golem, stands tall and resolute, its sturdy form composed of solid rock. Blue slime drips from its cracks, lending an eerie aura to its already formidable presence."
+  },
+  {
+    "id": 162,
+    "image": "Bottarius_1.png",
+    "name": "Bottarius",
+    "type": ["dragon", "ghost"],
+    "description": "Bottarius, the skeletal dragon, embodies an ancient and eerie presence. Its bony wings stretch wide, casting a haunting shadow, while its ethereal form exudes an aura of mystery and dread."
+  },
+  {
+    "id": 163,
+    "image": "Aerocog_1.png",
+    "name": "Aerocog",
+    "type": ["steel", "flying"],
+    "description": "Aerocog takes to the skies with precision and mechanical grace. Its intricate gears and cogs hum with energy, propelling it through the air with efficient and calculated movements."
+  },
+  {
+    "id": 164,
+    "image": "Darkcrow_1.png",
+    "name": "Obsidianwing",
+    "type": ["dark", "flying"],
+    "description": "Obsidianwing, the colossal dark crow, casts a shadow of foreboding as it soars through the skies. Its obsidian feathers gleam with an eerie luster, and its piercing gaze instills fear in the hearts of all who witness its flight."
+  },
+  {
+    "id": 165,
+    "image": "Titanstinger_1.png",
+    "name": "Titanstinger",
+    "type": ["bug", "poison"],
+    "description": "Titanstinger, the colossal scorpion, dominates the desert with its massive presence. Its imposing claws and venomous stinger make it a fearsome opponent, striking down adversaries with ruthless efficiency."
+  },
+  {
+    "id": 166,
+    "image": "Cyberslime_1.png",
+    "name": "Metagoo",
+    "type": ["steel"],
+    "description": "Metagoo, the cyber slime, is a sentient mass of metallic gel. Its steel composition grants it resilience and conductivity, making it a formidable opponent in battles of wit and strength."
+  },
+  {
+    "id": 167,
+    "image": "Umbragor_1.png",
+    "name": "Umbragor",
+    "type": ["dark"],
+    "description": "Umbragor, the dark behemoth, embodies the essence of shadows. Its massive form radiates an aura of ominous darkness, instilling fear and unease in the hearts of all who stand before it."
+  },
+  {
+    "id": 168,
+    "image": "Pebbletail_1.png",
+    "name": "Pebbletail",
+    "type": ["rock"],
+    "description": "Pebbletail is a small desert rock lizard, perfectly adapted to its arid environment. With its textured, sand-colored scales and nimble movements, it blends seamlessly into the desert landscape, basking under the scorching sun."
+  },
+  {
+    "id": 169,
+    "image": "Perezimus_1.png",
+    "name": "Perezimus",
+    "type": ["fire"],
+    "description": "Perezimus, the fiery slime creature, emanates intense heat and molten lava. Its body is a seething mass of fiery red and orange, oozing with scorching liquid flames that leave a trail of destruction in its wake."
+  },
+  {
+    "id": 170,
+    "image": "Leafhopper_1.png",
+    "name": "Leafhopper",
+    "type": ["bug"],
+    "evolution": 171,
+    "description": "Leafhopper is a nimble and vibrant green creature, leaping through meadows with agility. Its large eyes and antennae allow it to detect the slightest movement, and its powerful legs propel it through the air with ease."
+  },
+  {
+    "id": 171,
+    "image": "Leafhopper_2.png",
+    "name": "Fluttermoth",
+    "type": ["bug", "flying"],
+    "description": "Fluttermoth, the evolved form of Leafhopper, is a magnificent creature because its wings boast intricate patterns and vibrant colors, captivating all who behold its graceful flight in meadows and gardens."
+  },
+  {
+    "id": 172,
+    "image": "Dragonfly_1.png",
+    "name": "Aerowing",
+    "type": ["bug", "flying"],
+    "evolution": 173,
+    "description": "Aerowing, the dragonfly, dances through the air with grace and agility. Its slender body and shimmering wings make it a symbol of elegance and tranquility in nature."
+  },
+  {
+    "id": 173,
+    "image": "Dragonfly_2.png",
+    "name": "Typhoonwing",
+    "type": ["bug", "flying"],
+    "description": "Typhoonwing, the evolution of Aerowing, commands the winds with mastery. Its wings create powerful gusts and whirlwinds, showcasing its control over the air and making it a force to be reckoned with."
+  },
+  {
+    "id": 174,
+    "image": "Voidslick_1.png",
+    "name": "Voidslick",
+    "type": ["poison"],
+    "evolution": 175,
+    "description": "Voidslick, an eldritch slime spawn, oozes with otherworldly toxins. Its gelatinous form shimmers with dark hues, emanating an eerie aura that can unsettle even the bravest of trainers."
+  },
+  {
+    "id": 175,
+    "image": "Voidslick_2.png",
+    "name": "Abysslime",
+    "type": ["poison"],
+    "description": "Abysslime, the evolved form of Voidslick, is a sinister eldritch slime. Its inky red body absorbs light, and its gel-like substance seems to shift and writhe with an unsettling, otherworldly presence."
+  },
+  {
+    "id": 176,
+    "image": "Pyrospark_1.png",
+    "name": "Pyrospark",
+    "type": ["fire", "flying"],
+    "evolution": 177,
+    "description": "Pyrospark, a fiery wisp, illuminates the darkness with its vibrant flames. It dances and flickers, creating an enchanting display that captivates those who witness its mesmerizing glow."
+  },
+  {
+    "id": 177,
+    "image": "Pyrospark_2.png",
+    "name": "Blazegriff",
+    "type": ["fire", "flying"],
+    "description": "Blazegriff, the majestic fiery griffon, possesses the strength of a blazing inferno. Its majestic wings carry it through the skies, while its fierce gaze strikes fear into the hearts of its adversaries."
+  },
+  {
+    "id": 178,
+    "image": "Scarab_1.png",
+    "name": "Gildedscarab",
+    "type": ["bug"],
+    "evolution": 179,
+    "description": "Gildedscarab, a shimmering scarab, glows with a golden aura. Its intricately designed carapace reflects light, dazzling onlookers as it scuttles through ancient ruins with ancient wisdom."
+  },
+  {
+    "id": 179,
+    "image": "Scarab_2.png",
+    "name": "Shadowscarab",
+    "type": ["bug", "dark"],
+    "description": "Shadowscarab, the evolved form of Gildedscarab, lurks in the shadows with stealth and cunning. Its sleek purpble carapace conceals it from prying eyes, striking fear into the hearts of those who dare to challenge it."
+  },
+  {
+    "id": 180,
+    "image": "Shadowstar_1.png",
+    "name": "Shadowstar",
+    "type": ["dark"],
+    "description": "Shadowstar is a dark beach star and resides in the depths of the ocean. Its mysterious black hue and sharp, jagged edges make it an enigmatic and formidable creature, commanding the power of the shadows."
+  },
+  {
+    "id": 181,
+    "image": "Stilos_1.png",
+    "name": "Steelwing",
+    "type": ["steel", "flying"],
+    "evolution": 182,
+    "description": "Steelwing, the steel bird, possesses a body forged with durable metal feathers. Its sharp beak and powerful wings allow it to cut through the air with precision, making it a formidable force in aerial battles."
+  },
+  {
+    "id": 182,
+    "image": "Stilos_2.png",
+    "name": "Unisteel",
+    "type": ["steel", "flying"],
+    "description": "Unisteel, the evolved form of Steelwing, is a majestic flying unicorn of steel. Its horn is a radiant blade, capable of slicing through any obstacle, while its graceful wings carry it swiftly across the skies."
+  },
+  {
+    "id": 183,
+    "image": "Infernoot_1.png",
+    "name": "Infernoot",
+    "type": ["fire"],
+    "evolution": 184,
+    "description": "Infernoot is a fiery sabre-toothed tiger and prowls the wilderness of Albertania with ferocity. Its blazing fur and razor-sharp fangs strike fear into the hearts of its prey, leaving a trail of scorched earth in its wake."
+  },
+  {
+    "id": 184,
+    "image": "Infernoot_2.png",
+    "name": "Pyrelion",
+    "type": ["fire"],
+    "description": "Pyrelion, the evolved form of Infernoot, embodies the essence of fire and royalty. Its majestic mane burns with intense flames, symbolizing its dominance and power as it commands the heat of the battlefield."
+  },
+  {
+    "id": 185,
+    "image": "Spectralite_1.png",
+    "name": "Spectralite",
+    "type": ["ghost"],
+    "description": "Spectralite is a small orange ghost and floats silently through Albertania. Its orange body emits an eerie glow, and its mischievous presence leaves a haunting impression on those who encounter it."
+  },
+  {
+    "id": 186,
+    "image": "Wingardiumaven_1.png",
+    "name": "Wingardiumaven",
+    "type": ["flying", "dark"],
+    "description": "Wingardiummaven is a dark raven and flies through the skies of Albertania with stealth and cunning. Its sleek black feathers conceal it from prying eyes, and its piercing gaze strikes fear into the hearts of those who dare to challenge it."
+  },
+  {
+    "id": 187,
+    "image": "Frostite_1.png",
+    "name": "Frostite",
+    "type": ["ice"],
+    "evolution": 188,
+    "description": "Frostite, the ice crystal, radiates an icy brilliance that mesmerizes all who gaze upon it. Its cold touch can freeze anything in its path, making it a formidable presence in wintry landscapes."
+  },
+  {
+    "id": 188,
+    "image": "Frostite_2.png",
+    "name": "Glacialock",
+    "type": ["ice"],
+    "description": "Glacialock, the evolved form of Frostite, takes the form of a mighty ice golem. Its massive stature and crystalline body exude an aura of icy power, capable of withstanding the harshest winter storms."
+  },
+  {
+    "id": 189,
+    "image": "Toothwyrm_1.png",
+    "name": "Toothwyrm",
+    "type": ["ground"],
+    "description": "Toothwyrm, the formidable brown worm, possesses rows of razor-sharp teeth that can shred through the toughest materials. Its body is adorned with menacing white spikes, serving as both protection and intimidation."
+  },
+  {
+    "id": 190,
+    "image": "Lavios_1.png",
+    "name": "Lavios",
+    "type": ["normal"],
+    "evolution": 191,
+    "description": "Lavios hops through snowy fields with agility. Its soft fur provides insulation against the cold, and its innocent charm captivates the hearts of those who encounter it."
+  },
+  {
+    "id": 191,
+    "image": "Lavios_2.png",
+    "name": "Blizzardwing",
+    "type": ["normal", "flying"],
+    "description": "Blizzardwing, the evolved form of Lavios, is a majestic creature with wings. It soars through the skies, leaving behind a trail of its beauty and grace as it glides through the air."
+  },
+  {
+    "id": 192,
+    "image": "Lecleri_1.png",
+    "name": "Vipernox",
+    "type": ["poison"],
+    "evolution": 193,
+    "description": "Vipernox the big snake slithers with deadly grace. Its venomous fangs and vibrant scales make it a fearsome predator, striking fear into the hearts of its adversaries."
+  },
+  {
+    "id": 193,
+    "image": "Lecleri_2.png",
+    "name": "Serpentis",
+    "type": ["poison"],
+    "description": "Serpentis, the evolved form of Vipernox, is a colossal serpent that commands respect and fear. Its immense size and venomous power make it a force to be reckoned with in the realm of serpentine creatures."
+  },
+  {
+    "id": 194,
+    "image": "Glowfin_1.png",
+    "name": "Glowfin",
+    "type": ["water"],
+    "description": "Glowfin, the small brown fish, illuminates the depths with its bioluminescent lantern. Its unassuming appearance belies its ability to navigate dark waters with ease, evading predators with swift movements."
+  },
+  {
+    "id": 195,
+    "image": "Aerofeather_1.png",
+    "name": "Aerofeather",
+    "type": ["flying"],
+    "description": "Aerofeather, the blue bird with an abundance of feathers, soars through the skies with grace and agility. Its vibrant plumage catches the sunlight, creating a mesmerizing display of blue as it takes flight."
+  },
+  {
+    "id": 196,
+    "image": "Glacierilla_1.png",
+    "name": "Glacierilla",
+    "type": ["ice"],
+    "description": "Glacierilla, the imposing frosty gorilla, is covered in a thick layer of icy fur that glistens in the sunlight. Its sheer strength and icy breath make it a formidable presence in wintry landscapes."
+  },
+  {
+    "id": 197,
+    "image": "Sluggo_1.png",
+    "name": "Sluggo",
+    "type": ["bug"],
+    "description": "Sluggo, the little brown snail, crawls slowly along the ground, leaving behind a shimmering trail of slime. Its shell provides protection, blending seamlessly with the surrounding natural environment."
+  },
+  {
+    "id": 198,
+    "image": "Wymfire_1.png",
+    "name": "Wymfire",
+    "type": ["dragon", "fire"],
+    "legendary": true,
+    "description": "Wymfire, the legendary creature, is a colossal gray worm with piercing yellow eyes. Its mighty presence is intensified by the ethereal blue flames that burn fiercely along its back, embodying the power of fire and destruction."
+  },
+  {
+    "id": 199,
+    "image": "Verstapoid_1.png",
+    "name": "Verstapoid",
+    "type": ["flying"],
+    "evolution": 200,
+    "description": "Verstapoid, the brown wisp, floats gently in the air, resembling a tiny leaf carried by the wind. Its presence brings a sense of tranquility, harmonizing with nature's cycles."
+  },
+  {
+    "id": 200,
+    "image": "Verstapoid_2.png",
+    "name": "Leaflet",
+    "type": ["flying", "grass"],
+    "evolution": 201,
+    "description": "Leaflet, the evolved form of Verstapoid, takes on a pure white hue with elegant leaf wings. It soars gracefully through the skies, riding the currents of gentle breezes."
+  },
+  {
+    "id": 201,
+    "image": "Verstapoid_3.png",
+    "name": "Zephyrbush",
+    "type": ["flying", "grass"],
+    "description": "Zephyrbush, the final form of the wisp, has grown magnificent. It brings life and vitality wherever it goes, embodying the beauty and resilience of nature. Also it kills."
+  },
+  {
+    "id": 202,
+    "image": "Whiper_1.png",
+    "name": "Sandvine",
+    "type": ["grass"],
+    "evolution": 203,
+    "description": "Sandvine emerges from the desert sands as three plant tendrils. It draws sustenance from the arid soil, displaying adaptability in the harshest environments."
+  },
+  {
+    "id": 203,
+    "image": "Whiper_2.png",
+    "name": "Cactovine",
+    "type": ["grass"],
+    "evolution": 204,
+    "description": "Cactovine, the evolved form of Sandvine, transforms into a single cactus adorned with vibrant spines. It thrives in desert regions, utilizing stored water to survive the scorching sun."
+  },
+  {
+    "id": 204,
+    "image": "Whiper_3.png",
+    "name": "Cactom",
+    "type": ["grass"],
+    "description": "Cactorm, the final form of Sandvine, sprouts into a magnificent cluster of three cacti, sharing resources and growing together. Its thorny exterior conceals a tough and resilient spirit."
+  },
+  {
+    "id": 205,
+    "image": "Shadowsprite_1.png",
+    "name": "Shadowsprite",
+    "type": ["dark", "fairy"],
+    "description": "Shadowsprite, the dark fairy, embodies the enigmatic beauty of the night. Its graceful movements and mischievous nature bring an aura of mystery and intrigue wherever it goes."
+  },
+  {
+    "id": 206,
+    "image": "Amogus_1.png",
+    "name": "Amogus",
+    "type": ["psychic"],
+    "evolution": 207,
+    "description": "Amogus is a rare, otherworldly monster that dwells in vulcanic vents."
+  },
+  {
+    "id": 207,
+    "image": "Amogus_2.png",
+    "name": "Impostator",
+    "type": ["psychic", "dark"],
+    "description": "Impostator is a mysterious and deceptive creature, with an uncanny ability to mimic others. Its sly smile and shifty eyes hide its true intentions, leaving trainers unsure of what lies beneath."
+  },
+  {
+    "id": 208,
+    "image": "Twinklepuff_1.png",
+    "name": "Twinklepuff",
+    "type": ["fairy", "flying"],
+    "description": "Twinklepuff is a delightful and whimsical creature. Its gentle presence brings comfort and joy, enchanting all with its soft glow and sprinkling fairy dust wherever it flies."
+  },
+  {
+    "id": 209,
+    "image": "Glairy_1.png",
+    "name": "Glairy",
+    "type": ["ice", "fairy"],
+    "description": "Glairy, the ice fairy, embodies the serene beauty of ice and snow. Its shimmering frosty aura creates an enchanting spectacle, casting a magical chill over the wintry landscapes it graces."
   }
 ]

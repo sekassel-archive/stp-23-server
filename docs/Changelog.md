@@ -251,3 +251,168 @@
 
 * `TalkTrainerDto`s are now properly validated.
 * UDP clients that did not send a command in a while are now disconnected.
+
+# v3.2.0 - Travel and Jumpable Tiles
+
+## New Features
+
+### Content
+
++ Added Jenshire buildings and decoration.
++ Added Monsters info to the Central Lake, Route 106 and 107 areas in the region map.
++ Added additional protection zones to Clemeville, Route 100, Natchester and Victory Road.
++ Added more Walkable and Roof tiles.
++ Added another Prof. to Victory Road to get more than one monster.
++ Added travel spawn points to major cities and Wesers Peak.
+
+### Mechanics
+
++ Added Jumpable tiles that move the player one step further when stepped on from the right direction.
++ Trainers now track their visited areas.
++ Added `area` to `UpdateTrainerDto` to travel to other visited areas that have a spawn point.
++ Added `spawn` to `Area` that indicates if the area can be traveled to.
++ Added `spawn` query parameter to `GET /regions/{region}/areas` to filter areas that can be traveled to.
++ Added the `ping` UDP command.
+
+## Improvements
+
+* Optimized Route 107.
+* Limited the number of UDP subscriptions per client.
+* Correctly documented the type of `Trainer.npc.starters`.
+* Opponents that do not make a move are now deleted after a few minutes.
+
+## Bugfixes
+
+* Support for rotated and mirrored tiles.
+* Removed unused and deleted tilesets from Central Lake.
+
+# v3.3.0 - Jenshire Museum
+
+## New Features
+
++ Added the Jenshire Museum.
++ Added more buildings and decoration to Jenshire.
++ Added and updated more Walkable and Roof tiles.
+
+## Bugfixes
+
+* Fixed NPCs not following their predefined paths correctly.
+* Fixed talking to NPCs marking you as encountered without winning the battle.
+* Fixed the opposing trainers in Victory Road being inaccessible via the bridge.
+
+## Documentation
+
+* Updated the documentation for `TalkTrainerDto`.
+
+# v3.3.1 - Bugfixes
+
+## Improvements
+
+* Area maps now include objects in object layers.
+* Opponents no longer require unique encounter-trainer combinations in preparation for v4.
+
+## Bugfixes
+
+* NPCs no longer switch areas or trigger tall grass.
+* Live monsters that are not in the trainer's team no longer count when checking if an opponent should be deleted.
+
+## Documentation
+
+* Documented the `NPCInfo.path` property.
+* Improved the description for the `monster-defeated` result.
+
+# v4.0.0 - Items
+
+## New Features
+
+### Content
+
++ Added Werningham and Dead Birds Society.
++ Added Central Lake cave.
++ Added Henrikhaven.
++ Added Simonsfield.
++ Added Route 108.
++ Added Route 109.
++ Added Route 112.
++ Added 32 items.
++ Added 100 new monsters.
++ Added terrain type map property for most areas. [STP23SRV-7](https://jira.uniks.de/browse/STP23SRV-7)
+
+### Resources
+
++ Added Items that are owned by Trainers.
++ Added Item presets.
++ Added the `UseItemMove` for using items in battle.
++ Added the `Trainer.npc.sells` property for clerks.
++ Added the `Monster.status` property.
+
+### Mechanics
+
++ Entering an encounter against 2 NPCs now creates two opponents for the player.
++ Added the ability to join a 1v2 encounter if no moves have been made yet.
++ NPCs with the `sells` property can buy and sell items using the Item endpoints near the NPC.
++ Monster status effects can deal damage or make ability moves fail randomly.
++ Monster status effects can be removed with items.
++ Monster attributes can be increased or decreased with items.
++ Monball items can be used to catch monsters.
++ Monboxes can be opened to win new monsters.
++ Itemboxes can be opened to win items.
+
+## Bugfixes
+
+* Fixed the `Doctor_2` (woman with pink hair) walking sprites.
+
+# v4.0.1 - Gloomy Cave Bugfixes
+
+## Bugfixes
+
+* Fixed walkable tiles, portals and invalid tall grass in the Gloomy Cave maps.
+
+# v4.0.2 - Bugfixes
+
+## Improvements
+
+* Added a new result `monster-caught` for successful monball uses.
+  > Unsuccessful uses return `item-success` because the item will be lost.
+* Added the `Result.monster` property to make the affected monster unambiguous.
+* NPCs now sometimes use abilities that add status effects without doing instant damage.
+* Added possibility to join 1v2 encounters where the defender only has one monster.
+* Added a special rate limit for item image requests.
+
+## Bugfixes
+
+* Opponent cleanup now happens after minutes instead of hours.
+* Fixed duplication of NPC monsters with high levels due to evolution.
+* Made the `types` query parameter in `GET .../trainers/:trainer/items` optional.
+* Catching a monster now properly stops the encounter.
+* Caught wild monsters are no longer deleted instantly.
+* Fixed abilities adding wrongly spelled status effects.
+
+# v4.1.0 - Confusion and Ell Reservoir
+
+## New Features
+
+### Content
+
++ Added actual tall grass to Wesers Peak.
++ Added the Ell Reservoir area.
++ Starter monsters now start at level 5.
++ Implemented the `confused` status.
+  > When a confused monster attacks itself, the `ability-success` result will include the property `status: confused`.
+
+### Resources
+
++ Added `Trainer.settings` attribute for storing client-specific settings.
++ Added the `DELETE .../monsters/:id` endpoint.
+
+## Improvements
+
+* Reduced some tileset images by 15-30% in size.
+* NPCs now immediately select a new monster so the next turn can start smoothly.
+
+## Bugfixes
+
+* Encounters can now start even if the first monster in the team is dead.
+* NPC monsters no longer receive a new random set of abilities when the server restarts.
+* Fixed the `GET .../encounters` endpoint not returning any results.
+* Fixed a problem where opponent deletion would not work correctly. 

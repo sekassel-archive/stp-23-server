@@ -35,6 +35,7 @@ export class TrainerService extends MongooseRepository<Trainer> {
       coins: 0,
       team: [],
       encounteredMonsterTypes: [],
+      visitedAreas: [area],
       area,
       x,
       y,
@@ -51,15 +52,6 @@ export class TrainerService extends MongooseRepository<Trainer> {
       }
       throw err;
     }
-  }
-
-  async addToTeam(id: Types.ObjectId, monster: Monster): Promise<Trainer | null> {
-    return this.update(id, {
-      $addToSet: {
-        team: monster._id.toString(),
-        encounteredMonsterTypes: monster.type,
-      },
-    });
   }
 
   // Avoid EventRepository decorator using a new method name

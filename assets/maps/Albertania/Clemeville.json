@@ -1002,6 +1002,17 @@
  "nextlayerid":4,
  "nextobjectid":25,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Spawn",
+         "type":"string",
+         "value":"{\"x\":39,\"y\":23}"
+        }, 
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Town"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
  "tileheight":16,

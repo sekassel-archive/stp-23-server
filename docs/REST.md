@@ -25,17 +25,20 @@ Keep in mind that `ErrorResponse` may or may not include the `message` property 
 
 The following resources will be deleted automatically under certain conditions.
 
-| A...    | Will be deleted after...                                  | If...                             |
-|---------|-----------------------------------------------------------|-----------------------------------|
-| User    | ${environment.cleanup.tempUserLifetimeHours} h            | they seem to be for temporary use |
-| Group   | ${environment.cleanup.emptyGroupLifetimeHours} h          | it has no messages                |
-| Message | ${environment.cleanup.globalMessageLifetimeHours} h       | it was posted in a global channel |
-| Message | ${environment.cleanup.spamMessageLifetimeHours} h         | it appears to be spam             |
-| Message | ${environment.cleanup.orphanMessageLifetimeHours} h       | the sender was deleted            |
-| Trainer | ${environment.cleanup.unprogressedTrainerLifetimeHours} h | they did not progress<sup>1</sup> |
+| A...     | Will be deleted after...                                  | If...                                |
+|----------|-----------------------------------------------------------|--------------------------------------|
+| User     | ${environment.cleanup.tempUserLifetimeHours} h            | they seem to be for temporary use    |
+| Group    | ${environment.cleanup.emptyGroupLifetimeHours} h          | it has no messages                   |
+| Message  | ${environment.cleanup.globalMessageLifetimeHours} h       | it was posted in a global channel    |
+| Message  | ${environment.cleanup.spamMessageLifetimeHours} h         | it appears to be spam                |
+| Message  | ${environment.cleanup.orphanMessageLifetimeHours} h       | the sender was deleted               |
+| Trainer  | ${environment.cleanup.unprogressedTrainerLifetimeHours} h | they did not progress<sup>1</sup>    |
+| Opponent | ${environment.cleanup.opponentLifetimeMinutes} min        | they did not make a move<sup>2</sup> |
 
 <sup>1</sup>: A Trainer is considered to have progressed if they moved to different area from spawn,
 or acquired coins, or have a monster with some experience.
+
+<sup>2</sup>: Deleted opponents may cause the encounter to end, which will be treated as a victory for the remaining opponents.
 
 Trainers that loiter in protected zones are sent to Jail after ${environment.cleanup.loiteringMinutes} minutes.
 
@@ -49,7 +52,7 @@ All delete operations, whether manual, cleanup or cascading, trigger the same ev
 |---------------|------------------------------------|
 | Group         | All Messages sent within the Group |
 | User          | Their Trainer                      |
-| Trainer       | Their Monsters                     |
+| Trainer       | Their Monsters and Items           |
 
 Cascading deletes do not apply to some resources:
 

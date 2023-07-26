@@ -7,6 +7,8 @@ import {BattleSetupService} from '../battle-setup/battle-setup.service';
 import {MonsterGeneratorService} from '../monster-generator/monster-generator.service';
 import {MovementService} from '../movement/movement.service';
 import {ValidatedEvent} from "../../../util/validated.decorator";
+import {STARTER_LEVEL} from "../../constants";
+import {ItemService} from "../../item/item.service";
 
 @Injectable()
 export class NpcTalkService {
@@ -16,6 +18,7 @@ export class NpcTalkService {
     private monsterGeneratorService: MonsterGeneratorService,
     private battleSetupService: BattleSetupService,
     private movementService: MovementService,
+    private itemService: ItemService,
   ) {
   }
 
@@ -45,14 +48,16 @@ export class NpcTalkService {
         await this.trainerService.update(dto.target, {
           $addToSet: {'npc.encountered': trainerId},
         });
-        await this.monsterGeneratorService.createAuto(trainerId, starterId, 1);
+        await this.monsterGeneratorService.createAuto(trainerId, starterId, STARTER_LEVEL);
       }
     }
     if (target.npc.encounterOnTalk) {
+      await this.battleSetupService.createTrainerBattle(target, [trainer]);
+    } else if (target.npc.gifts && !target.npc.encountered?.includes(trainerId)) {
       await this.trainerService.update(dto.target, {
         $addToSet: {'npc.encountered': trainerId},
       });
-      await this.battleSetupService.createTrainerBattle(target, [trainer]);
+      await Promise.all(target.npc.gifts.map(async gift => this.itemService.updateAmount(trainerId, gift, 1)));
     }
   }
 }

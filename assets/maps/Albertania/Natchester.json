@@ -2021,8 +2021,19 @@
  "nextlayerid":5,
  "nextobjectid":37,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Spawn",
+         "type":"string",
+         "value":"{\"x\":44,\"y\":14}"
+        }, 
+        {
+         "name":"Terrain",
+         "type":"string",
+         "value":"Town"
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

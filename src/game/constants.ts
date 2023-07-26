@@ -3,6 +3,7 @@ import {Max, Min} from 'class-validator';
 import * as _abilities from '../../assets/abilities.json';
 import * as _characters from '../../assets/characters.json';
 import * as _monsterTypes from '../../assets/monsters.json';
+import * as _itemTypes from '../../assets/items.json';
 import * as _types from '../../assets/types.json';
 
 export const characters = _characters;
@@ -13,6 +14,34 @@ export const types: Record<Type, TypeDefinition> = _types;
 export interface TypeDefinition {
   multipliers: Partial<Record<string, number>>;
 }
+
+export class ItemType {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  image: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  price: number;
+
+  @ApiProperty()
+  description: string;
+
+  @ApiPropertyOptional({enum: ['ball', 'effect', 'itemBox', 'monsterBox']})
+  use?: string;
+
+  effects?: Effect[];
+  catch?: Partial<Record<Type | '*', number>>;
+}
+
+export class ItemTypeDto extends OmitType(ItemType, ['effects', 'catch'] as const) {
+}
+
+export const itemTypes: ItemType[] = _itemTypes;
 
 export class MonsterType {
   @ApiProperty()
@@ -38,6 +67,10 @@ export class MonsterTypeDto extends OmitType(MonsterType, ['evolution'] as const
 }
 
 export const monsterTypes: MonsterType[] = _monsterTypes;
+
+export const baseMonsterTypes: MonsterType[] = monsterTypes.filter((m, index) => {
+  return index === 0 || monsterTypes[index - 1].evolution !== m.id;
+});
 
 export class AttributeEffect {
   @ApiProperty()
@@ -66,6 +99,22 @@ export class StatusEffect {
 
   @ApiProperty()
   self?: boolean;
+
+  @ApiProperty()
+  remove?: boolean;
+}
+
+export const StatusResults = ['added', 'removed', 'unchanged'] as const;
+export type StatusResult = typeof StatusResults[number];
+
+export enum MonsterStatus {
+  PARALYSED = 'paralysed',
+  ASLEEP = 'asleep',
+  POISONED = 'poisoned',
+  BURNED = 'burned',
+  FROZEN = 'frozen',
+  CONFUSED = 'confused',
+  STUNNED = 'stunned',
 }
 
 export type Effect = AttributeEffect | StatusEffect;
@@ -101,9 +150,36 @@ export class AbilityDto extends OmitType(Ability, ['minLevel', 'effects'] as con
 export const abilities: Ability[] = _abilities;
 
 export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
-
 export const TALL_GRASS_TRAINER = '0'.repeat(24);
 
 export const MAX_TEAM_SIZE = 6;
+export const MAX_ABILITIES = 4;
 
 export const NPC_SIGHT_RANGE = 5;
+
+export const STARTER_LEVEL = 5;
+export const EVOLUTION_LEVELS = [10, 20];
+export const SAME_TYPE_ATTACK_MULTIPLIER = 1.5;
+
+export const STATUS_ABILITY_CHANCE = 0.2;
+export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
+  [MonsterStatus.ASLEEP]: 1,
+  [MonsterStatus.PARALYSED]: 0.5,
+  [MonsterStatus.FROZEN]: 0.5,
+  [MonsterStatus.STUNNED]: 1,
+};
+export const STATUS_REMOVE_CHANCE: Record<MonsterStatus, number> = {
+  [MonsterStatus.ASLEEP]: 0.25,
+  [MonsterStatus.PARALYSED]: 0.25,
+  [MonsterStatus.POISONED]: 0.25,
+  [MonsterStatus.BURNED]: 0.25,
+  [MonsterStatus.FROZEN]: 0.25,
+  [MonsterStatus.CONFUSED]: 0.25,
+  [MonsterStatus.STUNNED]: 1,
+};
+export const STATUS_CONFUSED_SELF_HIT_CHANCE = 0.5;
+export const STATUS_DAMAGE: Partial<Record<MonsterStatus, [number, Type]>> = {
+  [MonsterStatus.POISONED]: [3, 'poison'],
+  [MonsterStatus.BURNED]: [3, 'fire'],
+  [MonsterStatus.FROZEN]: [3, 'ice'],
+};

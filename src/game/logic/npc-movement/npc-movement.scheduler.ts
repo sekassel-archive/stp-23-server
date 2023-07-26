@@ -1,16 +1,17 @@
 import {Injectable} from '@nestjs/common';
 import {Cron, CronExpression} from '@nestjs/schedule';
-import {Types} from 'mongoose';
 import {MoveTrainerDto} from '../../trainer/trainer.dto';
-import {Direction, Path, Trainer} from '../../trainer/trainer.schema';
+import {Path, Trainer} from '../../trainer/trainer.schema';
 import {TrainerService} from '../../trainer/trainer.service';
 import {EventEmitter2} from "@nestjs/event-emitter";
+import {MovementService} from "../movement/movement.service";
 
 @Injectable()
 export class NpcMovementScheduler {
   constructor(
     private trainerService: TrainerService,
     private eventEmitter: EventEmitter2,
+    private movementService: MovementService,
   ) {
   }
 
@@ -34,10 +35,9 @@ export class NpcMovementScheduler {
 
   private moveRandomly(npc: Trainer) {
     const {_id, area, x, y} = npc;
-    const direction = Math.floor(Math.random() * 4);
-    const newX = x + (direction === Direction.LEFT ? -1 : direction === Direction.RIGHT ? 1 : 0);
-    const newY = y + (direction === Direction.UP ? -1 : direction === Direction.DOWN ? 1 : 0);
-    this.move(_id, area, newX, newY, direction);
+    const dto: MoveTrainerDto = {_id, area, x, y, direction: Math.floor(Math.random() * 4)};
+    this.movementService.addDirection(dto, dto.direction);
+    this.move(dto);
   }
 
   private moveByPath(trainer: Trainer, path: Path) {
@@ -54,19 +54,11 @@ export class NpcMovementScheduler {
       return;
     }
 
-    const direction = newDir ?? this.getDirection(x, y, newX, newY);
-    this.move(_id, area, newX, newY, direction);
+    const direction = newDir ?? this.movementService.getDirection(x, y, newX, newY);
+    this.move({_id, area, x: newX, y: newY, direction});
   }
 
-  private move(_id: Types.ObjectId, area: string, x: number, y: number, direction: Direction) {
-    const move: MoveTrainerDto = {_id, area, x, y, direction};
-    this.eventEmitter.emit(`udp:areas.${area}.trainers.${_id}.moved`, move);
-  }
-
-  private getDirection(x1: number, y1: number, x2: number, y2: number): Direction {
-    if (x1 === x2) {
-      return y1 < y2 ? Direction.DOWN : Direction.UP;
-    }
-    return x1 < x2 ? Direction.RIGHT : Direction.LEFT;
+  private move(dto: MoveTrainerDto) {
+    this.eventEmitter.emit(`udp:areas.${dto.area}.trainers.${dto._id}.moved`, dto);
   }
 }

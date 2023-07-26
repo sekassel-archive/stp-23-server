@@ -19,9 +19,13 @@ export class BattleSetupService {
   async createTrainerBattle(defender: Trainer, attackers: Trainer[]) {
     const defenderId = defender._id.toString();
     const attackerIds = attackers.map(a => a._id.toString());
-    const isOpponentInBattle = await this.isInBattle([defenderId, ...attackerIds]);
-    if (isOpponentInBattle) {
+    const existingOpponents = await this.getOpponents([defenderId, ...attackerIds]);
+    if (existingOpponents.length) {
       // one of the trainers is already in a battle
+      if (existingOpponents[0].trainer === defenderId) {
+        // the defender (or Trainer that is talked to) is already in a battle -- attacker joins
+        return this.joinBattle(attackers[0], existingOpponents[0].encounter);
+      }
       return;
     }
 
@@ -33,8 +37,8 @@ export class BattleSetupService {
       trainer: {$in: [defenderId, ...attackerIds]},
       'currentAttributes.health': {$gt: 0},
     });
-    const defenderMonster = defender.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
-    if (!defenderMonster) {
+    const defenderMonsters = defender.team.map(m => monsters.find(monster => monster._id.toString() === m)).filter(m => m);
+    if (!defenderMonsters.length) {
       return;
     }
 
@@ -44,36 +48,80 @@ export class BattleSetupService {
     }
 
     const encounter = await this.encounterService.create({region: defender.region, isWild: false});
-    await this.opponentService.createSimple(encounter._id.toString(), defenderId, {
-      isAttacker: false,
-      isNPC: !!defender.npc,
-      monster: defenderMonster._id.toString(),
-    });
 
-    await Promise.all(attackers.map(attacker => {
+    const attackerOpponents = await Promise.all(attackers.map(attacker => {
       const attackerId = attacker._id.toString();
-      const monster = attacker.team.flatMap(m => monsters.find(monster => monster._id.toString() === m))[0];
-      monster && this.opponentService.createSimple(encounter._id.toString(), attackerId, {
+      const monster = attacker.team.map(m => monsters.find(monster => monster._id.equals(m))).find(m => m);
+      if (!monster) {
+        return;
+      }
+      return this.opponentService.createSimple(encounter._id.toString(), attackerId, {
         isAttacker: true,
         isNPC: !!attacker.npc,
         monster: monster._id.toString(),
       });
     }));
+
+    for (const attackerOpponent of attackerOpponents) {
+      if (!attackerOpponent) {
+        continue;
+      }
+
+      const monster = defenderMonsters.shift();
+      if (!monster) {
+        break;
+      }
+
+      await this.opponentService.createSimple(encounter._id.toString(), defenderId, {
+        isAttacker: false,
+        isNPC: !!defender.npc,
+        monster: monster._id.toString(),
+      });
+    }
+  }
+
+  async joinBattle(attacker: Trainer, encounter: string) {
+    const allOpponents = await this.opponentService.findAll({encounter});
+    if (allOpponents.length < 3) {
+      return;
+    }
+
+    // 1v2 battles always put the single trainer on the defender side, so our "attacker" joins the defenders
+    const defenders = allOpponents.filter(opponent => !opponent.isAttacker);
+    if (!(defenders.length === 1 || defenders.length === 2 && defenders[0].trainer === defenders[1].trainer)) {
+      // the battle is not 1v2
+      return;
+    }
+
+    if (allOpponents.some(opponent => opponent.move || opponent.results.length || opponent.coins)) {
+      // the battle has already started
+      return;
+    }
+
+    const attackerMonster = await this.findMonster(attacker);
+    if (!attackerMonster) {
+      // the attacker has no monsters left
+      return;
+    }
+
+    await this.opponentService.createSimple(encounter, attacker._id.toString(), {
+      isAttacker: false,
+      isNPC: !!attacker.npc,
+      monster: attackerMonster._id.toString(),
+    });
+    // remove the defender's second opponent
+    defenders[1] && await this.opponentService.delete(defenders[1]._id);
   }
 
   async createMonsterEncounter(defender: Trainer, type: number, level: number) {
     const defenderId = defender._id.toString();
-    const isOpponentInBattle = await this.isInBattle([defenderId]);
-    if (isOpponentInBattle) {
+    const existingOpponents = await this.getOpponents([defenderId]);
+    if (existingOpponents.length) {
       // one of the trainers is already in a battle
       return;
     }
 
-    const defenderMonsters = await this.monsterService.findAll({
-      trainer: defenderId,
-      'currentAttributes.health': {$gt: 0},
-    });
-    const defenderMonster = defender.team.flatMap(m => defenderMonsters.find(monster => monster._id.toString() === m))[0];
+    const defenderMonster = await this.findMonster(defender);
     if (!defenderMonster) {
       return;
     }
@@ -92,11 +140,17 @@ export class BattleSetupService {
     });
   }
 
-  private async isInBattle(trainers: string[]) {
-    const opponents = await this.opponentService.findAll({
-      trainer: {$in: trainers},
+  private async findMonster(trainer: Trainer) {
+    const monsters = await this.monsterService.findAll({
+      trainer: trainer._id.toString(),
+      'currentAttributes.health': {$gt: 0},
     });
-    return !!opponents.length;
+    return trainer.team.map(m => monsters.find(monster => monster._id.toString() === m)).find(m => m);
   }
 
+  private async getOpponents(trainers: string[]) {
+    return this.opponentService.findAll({
+      trainer: {$in: trainers},
+    });
+  }
 }

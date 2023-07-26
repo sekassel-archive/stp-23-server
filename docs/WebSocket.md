@@ -72,6 +72,7 @@ Some events are only visible to certain users for privacy reasons.
 | `regions.<regionId>.messages.<messageId>.{created,updated,deleted}`                              | [`Message`](#model-Message)         | Anyone                                |
 | `regions.<regionId>.trainers.<trainerId>.{created,updated,deleted}`                              | [`Trainer`](#model-Trainer)         | Anyone who is a member of the region  |
 | `trainers.<trainerId>.monsters.<monsterId>.{created,updated,deleted}`                            | [`Monster`](#model-Monster)         | Anyone who is a member of the region  |
+| `trainers.<trainerId>.items.<itemId>.{created,updated,deleted}`                                  | [`Item`](#model-Item)               | Anyone who is a member of the region  |
 | `regions.<regionId>.encounters.<encounterId>.{created,deleted}`                                  | [`Encounter`](#model-Encounter)     | Anyone who is a member of the region  |
 | `encounters.<encounterId>.opponents.<opponentId>.{created,updated,deleted}` (deprecated)         | [`Opponent`](#model-Opponent)       | Anyone who is a member of the region  |
 | `encounters.<encounterId>.trainers.<trainerId>.opponents.<opponentId>.{created,updated,deleted}` | [`Opponent`](#model-Opponent)       | Anyone who is a member of the region  |

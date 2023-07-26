@@ -1,9 +1,9 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {ApiExtraModels, ApiProperty, ApiPropertyOptional, refs} from '@nestjs/swagger';
 import {Type} from 'class-transformer';
-import {Equals, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
+import {Equals, IsArray, IsBoolean, IsEnum, IsIn, IsInt, IsMongoId, IsOptional, ValidateNested} from 'class-validator';
 import {GLOBAL_SCHEMA_OPTIONS, GlobalSchema, MONGO_ID_FORMAT} from '../../util/schema';
-import {abilities} from '../constants';
+import {abilities, itemTypes, MonsterStatus} from '../constants';
 import {Doc} from "@mean-stream/nestx";
 
 @Schema()
@@ -37,20 +37,45 @@ export class ChangeMonsterMove {
   monster: string;
 }
 
-export type Move = AbilityMove | ChangeMonsterMove;
+@Schema()
+export class UseItemMove {
+  static type = 'use-item' as const;
+
+  @ApiProperty({enum: [UseItemMove.type]})
+  @Equals(UseItemMove.type)
+  type: typeof UseItemMove.type;
+
+  @ApiProperty({description: 'Item type ID'})
+  @IsInt()
+  @IsIn(itemTypes.map(i => i.id))
+  item: number;
+
+  @ApiProperty({...MONGO_ID_FORMAT, description: 'Monster ID'})
+  @IsMongoId()
+  target: string;
+}
+
+export type Move = AbilityMove | ChangeMonsterMove | UseItemMove;
 
 export const RESULTS_WITH_DESCRIPTION = {
   'ability-success': 'The ability was successful',
+  'ability-failed': 'The ability failed due to the status',
+  'item-success': 'The item was used successfully',
+  'status-added': 'The status was added',
+  'status-removed': 'The status was removed',
+  'status-damage': 'The status dealt damage',
   'target-defeated': 'The target monster was defeated',
   'monster-changed': 'The monster was changed successfully',
-  'monster-defeated': 'The monster was defeated',
+  'monster-defeated': 'The monster defeated itself by using an ability with recoil damage',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
   'monster-learned': 'The monster learned a new ability',
+  'monster-caught': 'The monster was caught',
   // Error cases
   'monster-dead': 'The monster is dead before it made a move',
   'ability-unknown': 'The monster doesn\'t have the ability, or the ability ID does not exist',
   'ability-no-uses': 'The monster doesn\'t have any uses left for the ability',
+  'item-failed': 'The item use failed',
   'target-unknown': 'The target opponent does not exist or has fled',
   'target-dead': 'The target monster is already dead',
 } as const;
@@ -68,27 +93,42 @@ export class Result {
   @IsIn(RESULTS)
   type: keyof typeof RESULTS_WITH_DESCRIPTION;
 
+  @ApiProperty({...MONGO_ID_FORMAT, description: 'The affected monster.'})
+  @IsMongoId()
+  monster: string;
+
   @ApiPropertyOptional({description: 'For `ability-*` and `monster-learned`.'})
   @IsOptional()
   @IsInt()
   @IsIn(abilities.map(a => a.id))
   ability?: number;
 
-  @ApiPropertyOptional({description: 'For `ability-success`.', enum: EFFECTIVENESS})
+  @ApiPropertyOptional({description: 'For `ability-success` and `status-damage`.', enum: EFFECTIVENESS})
   @IsOptional()
   @IsIn(EFFECTIVENESS)
   effectiveness?: Effectiveness;
+
+  @ApiPropertyOptional({description: 'For `item-*` and `monster-caught`.'})
+  @IsOptional()
+  @IsInt()
+  @IsIn(itemTypes.map(i => i.id))
+  item?: number;
+
+  @ApiPropertyOptional({description: 'For `status-*` and `ability-success` (if the monster hit itself due to confusion).'})
+  @IsOptional()
+  @IsEnum(MonsterStatus)
+  status?: MonsterStatus;
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
-@ApiExtraModels(AbilityMove, ChangeMonsterMove)
+@ApiExtraModels(AbilityMove, ChangeMonsterMove, UseItemMove)
 export class Opponent extends GlobalSchema {
-  @Prop()
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   encounter: string;
 
-  @Prop()
+  @Prop({index: 1})
   @ApiProperty(MONGO_ID_FORMAT)
   @IsMongoId()
   trainer: string;
@@ -116,7 +156,7 @@ export class Opponent extends GlobalSchema {
 
   @Prop({type: Object})
   @ApiProperty({
-    oneOf: refs(AbilityMove, ChangeMonsterMove),
+    oneOf: refs(AbilityMove, ChangeMonsterMove, UseItemMove),
     description: 'Patch this value to make your move. ' +
       'Once all players have made a move, the server will make a move for all NPCs. ' +
       'After that, the server will play the round and reset all moves to undefined. ' +
@@ -130,6 +170,7 @@ export class Opponent extends GlobalSchema {
       subTypes: [
         {value: AbilityMove, name: AbilityMove.type},
         {value: ChangeMonsterMove, name: ChangeMonsterMove.type},
+        {value: UseItemMove, name: UseItemMove.type},
       ],
     },
   })
@@ -149,6 +190,4 @@ export class Opponent extends GlobalSchema {
 
 export type OpponentDocument = Doc<Opponent>;
 
-export const OpponentSchema = SchemaFactory.createForClass(Opponent)
-  .index({encounter: 1, trainer: 1}, {unique: true})
-;
+export const OpponentSchema = SchemaFactory.createForClass(Opponent);

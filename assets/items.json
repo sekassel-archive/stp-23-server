@@ -1,0 +1,464 @@
+[
+  {
+    "id": 1,
+    "image": "mondex.png",
+    "name": "Mondex",
+    "price": 0,
+    "description": "A handheld device."
+  },
+  {
+    "id": 2,
+    "image": "purse.png",
+    "name": "Money bag",
+    "price": 0,
+    "description": "A purse for valuable and shiny coins."
+  },
+  {
+    "id": 3,
+    "image": "backpack_brown.png",
+    "name": "Backpack",
+    "price": 0,
+    "description": "A travelpack to store stuff."
+  },
+  {
+    "id": 10,
+    "image": "ball_normal.png",
+    "name": "Monball",
+    "price": 20,
+    "description": "A ball for catching monsters.",
+    "use": "ball",
+    "catch": {
+      "*": 0.1
+    }
+  },
+  {
+    "id": 11,
+    "image": "ball_super.png",
+    "name": "Superball",
+    "price": 50,
+    "description": "An improved ball for catching monsters. Better than the Monball.",
+    "use": "ball",
+    "catch": {
+      "*": 0.25
+    }
+  },
+  {
+    "id": 12,
+    "image": "ball_hyper.png",
+    "name": "Hyperball",
+    "price": 100,
+    "description": "An advanced ball for catching monsters. Better than the Superball.",
+    "use": "ball",
+    "catch": {
+      "*": 0.5
+    }
+  },
+  {
+    "id": 13,
+    "image": "ball_master.png",
+    "name": "Masterball",
+    "price": 1000,
+    "description": "The best ball for catching monsters, with guaranteed success. Better than the Hyperball.",
+    "use": "ball",
+    "catch": {
+      "*": 1
+    }
+  },
+  {
+    "id": 14,
+    "image": "ball_net.png",
+    "name": "Netball",
+    "price": 50,
+    "description": "A special ball for catching water and bug monsters.",
+    "use": "ball",
+    "catch": {
+      "water": 0.3,
+      "bug": 0.3
+    }
+  },
+  {
+    "id": 15,
+    "image": "ball_water.png",
+    "name": "Waterball",
+    "price": 40,
+    "description": "A special ball for that weakens fire monsters and attracts grass monsters.",
+    "use": "ball",
+    "catch": {
+      "fire": 0.2,
+      "grass": 0.3
+    }
+  },
+  {
+    "id": 16,
+    "image": "ball_heal.png",
+    "name": "Healball",
+    "description": "A special ball that heals the monster after being caught. Comparable to the Superball.",
+    "price": 75,
+    "use": "ball",
+    "catch": {
+      "*": 0.25
+    },
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "image": "chocolate.png",
+    "name": "Chocolate bar",
+    "price": 2,
+    "use": "effect",
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 1
+      }
+    ],
+    "description": "Heals 1 health and tastes good."
+  },
+  {
+    "id": 21,
+    "image": "bing_chilling.png",
+    "name": "Ice cream",
+    "price": 10,
+    "use": "effect",
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 5
+      }
+    ],
+    "description": "A scoop of smörf ice cream and a scoop of raspberry ice cream make this a delicious and cold treat."
+  },
+  {
+    "id": 22,
+    "image": "chicken.png",
+    "name": "Chicken leg",
+    "price": 10,
+    "use": "effect",
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 5
+      }
+    ],
+    "description": "A grilled chicken leg. Tasty."
+  },
+  {
+    "id": 23,
+    "image": "pot.png",
+    "name": "Small health potion",
+    "price": 50,
+    "use": "effect",
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 25
+      }
+    ],
+    "description": "Heals 25 health."
+  },
+  {
+    "id": 24,
+    "image": "pot_gold.png",
+    "name": "Large health potion",
+    "price": 80,
+    "use": "effect",
+    "effects": [
+      {
+        "attribute": "health",
+        "amount": 50
+      }
+    ],
+    "description": "Heals 50 health."
+  },
+  {
+    "id": 30,
+    "image": "package.png",
+    "name": "Mystery box",
+    "price": 150,
+    "use": "itemBox",
+    "description": "A mysterious package containing basic items."
+  },
+  {
+    "id": 31,
+    "image": "package_1.png",
+    "name": "Mystery box Premium",
+    "price": 300,
+    "use": "itemBox",
+    "description": "A mysterious package with a higher chance of containing good items."
+  },
+  {
+    "id": 32,
+    "image": "package_3.png",
+    "name": "Mystery box Elite",
+    "price": 500,
+    "use": "itemBox",
+    "description": "A mysterious package with an even higher chance of containing good items."
+  },
+  {
+    "id": 33,
+    "image": "package_2.png",
+    "name": "Mystery box Ultimate",
+    "price": 750,
+    "use": "itemBox",
+    "description": "A mysterious package with the highest chance of containing good items."
+  },
+  {
+    "id": 34,
+    "image": "present_1.png",
+    "name": "Monbox",
+    "price": 250,
+    "use": "monsterBox",
+    "description": "A mysterious box containing a standard monster."
+  },
+  {
+    "id": 35,
+    "image": "present_2.png",
+    "name": "Monbox Premium",
+    "price": 1000,
+    "use": "monsterBox",
+    "description": "A mysterious box containing a premium monster."
+  },
+  {
+    "id": 36,
+    "image": "present_3.png",
+    "name": "Monbox Elite",
+    "price": 8000,
+    "use": "monsterBox",
+    "description": "A mysterious box containing an elite monster."
+  },
+  {
+    "id": 40,
+    "image": "god_potion.png",
+    "name": "God potion",
+    "price": 150,
+    "use": "effect",
+    "effects": [
+      {
+        "status": "paralysed",
+        "remove": true
+      },
+      {
+        "status": "confused",
+        "remove": true
+      },
+      {
+        "status": "frozen",
+        "remove": true
+      },
+      {
+        "status": "poisoned",
+        "remove": true
+      },
+      {
+        "status": "burned",
+        "remove": true
+      },
+      {
+        "status": "asleep",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove all status effects."
+  },
+  {
+    "id": 41,
+    "image": "paralysis_remedy.png",
+    "name": "Paralysis Remedy",
+    "price": 25,
+    "use": "effect",
+    "effects": [
+      {
+        "status": "paralysed",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the paralysed status effect."
+  },
+  {
+    "id": 42,
+    "image": "mind_calmer.png",
+    "name": "Mind Calmer",
+    "price": 25,
+    "use": "effect",
+    "effects": [
+      {
+        "status": "confused",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the confused status effect."
+  },
+  {
+    "id": 43,
+    "image": "antifreeze.png",
+    "name": "Antifreeze",
+    "price": 25,
+    "use": "effect",
+    "effects": [
+      {
+        "status": "frozen",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the frozen status effect."
+  },
+  {
+    "id": 44,
+    "image": "antidote.png",
+    "name": "Antidote",
+    "price": 25,
+    "use": "effect",
+    "effects": [
+      {
+        "status": "poisoned",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the poisoned status effect."
+  },
+  {
+    "id": 45,
+    "image": "extinguisher.png",
+    "name": "Extinguisher",
+    "price": 25,
+    "use": "effect",
+    "effects": [
+      {
+        "status": "burned",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the burned status effect."
+  },
+  {
+    "id": 46,
+    "image": "wakeup_potion.png",
+    "name": "Wake-up potion",
+    "price": 25,
+    "use": "effect",
+    "effects": [
+      {
+        "status": "asleep",
+        "remove": true
+      }
+    ],
+    "description": "A potion to remove the asleep status effect."
+  },
+  {
+    "id": 50,
+    "image": "lightbulb.png",
+    "name": "Lightbulb",
+    "price": 10,
+    "description": "Someone must have had a good idea, but this lightbulb is broken. Maybe you can sell it for a few coins."
+  },
+  {
+    "id": 51,
+    "image": "gold.png",
+    "name": "Gold nugget",
+    "price": 100,
+    "description": "A gold nugget. It's worth a lot of money."
+  },
+  {
+    "id": 52,
+    "image": "star.png",
+    "name": "Star fragment",
+    "price": 1000,
+    "description": "A rare fragment of a star. It's worth a fortune."
+  },
+  {
+    "id": 53,
+    "image": "caution_sign.png",
+    "name": "Caution sign",
+    "price": 20,
+    "description": "A caution sign. It's worth a few coins."
+  },
+  {
+    "id": 54,
+    "image": "cap_blue.png",
+    "name": "Blue cap",
+    "price": 40,
+    "description": "A blue cap for the trainer that speaks no truth."
+  },
+  {
+    "id": 55,
+    "image": "cap_gray.png",
+    "name": "Gray cap",
+    "price": 40,
+    "description": "A gray cap for the fashionable but inconspicuous trainer."
+  },
+  {
+    "id": 56,
+    "image": "cap_red.png",
+    "name": "Red cap",
+    "price": 40,
+    "description": "A red cap for the nostalgic trainer."
+  },
+  {
+    "id": 60,
+    "image": "trophy_bronze.png",
+    "name": "Bronze Trophy",
+    "price": 0,
+    "description": "A bronze trophy for winning a tournament."
+  },
+  {
+    "id": 61,
+    "image": "trophy_silver.png",
+    "name": "Silver Trophy",
+    "price": 0,
+    "description": "A silver trophy for winning a tournament."
+  },
+  {
+    "id": 62,
+    "image": "trophy_gold.png",
+    "name": "Gold Trophy",
+    "price": 0,
+    "description": "A gold trophy for winning a tournament."
+  },
+  {
+    "id": 63,
+    "image": "trophy_ancient.png",
+    "name": "Ancient Trophy",
+    "price": 0,
+    "description": "An ancient trophy for winning a tournament."
+  },
+  {
+    "id": 64,
+    "image": "trophy_brass.png",
+    "name": "Brass Trophy",
+    "price": 0,
+    "description": "A brass trophy for winning a tournament."
+  },
+  {
+    "id": 65,
+    "image": "trophy_old.png",
+    "name": "Old Trophy",
+    "price": 0,
+    "description": "An old trophy for winning a tournament."
+  },
+  {
+    "id": 66,
+    "image": "trophy_pink.png",
+    "name": "Pink Trophy",
+    "price": 0,
+    "description": "A pink trophy for winning a tournament."
+  },
+  {
+    "id": 67,
+    "image": "trophy_pink_2.png",
+    "name": "Shiny Pink Trophy",
+    "price": 0,
+    "description": "A shiny pink trophy for winning a tournament."
+  },
+  {
+    "id": 68,
+    "image": "trophy_steel.png",
+    "name": "Steel Trophy",
+    "price": 0,
+    "description": "A steel trophy for winning a tournament."
+  }
+]
