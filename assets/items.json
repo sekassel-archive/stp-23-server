@@ -421,10 +421,10 @@
   },
   {
     "id": 63,
-    "image": "trophy_alloy.png",
-    "name": "Alloy Trophy",
+    "image": "trophy_ancient.png",
+    "name": "Ancient Trophy",
     "price": 0,
-    "description": "An alloy trophy for winning a tournament."
+    "description": "An ancient trophy for winning a tournament."
   },
   {
     "id": 64,
