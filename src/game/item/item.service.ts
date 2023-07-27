@@ -132,7 +132,7 @@ export class ItemService {
     let minDiff = Infinity;
 
     for (const item of itemTypes) {
-      if (item.price === 0) {
+      if (!item.price || itemType.use === 'itemBox' || itemType.use === 'monsterBox') {
         continue;
       }
       const diff = Math.abs(item.price - itemValue);
