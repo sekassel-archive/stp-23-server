@@ -69,6 +69,7 @@ export const RESULTS_WITH_DESCRIPTION = {
   'monster-defeated': 'The monster defeated itself by using an ability with recoil damage',
   'monster-levelup': 'The monster leveled up',
   'monster-evolved': 'The monster evolved',
+  'monster-forgot': 'The monster forgot an ability',
   'monster-learned': 'The monster learned a new ability',
   'monster-caught': 'The monster was caught',
   // Error cases

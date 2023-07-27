@@ -3,7 +3,7 @@ import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
 import {
   abilities,
-  Ability,
+  Ability, abilityMap,
   AttributeEffect,
   EVOLUTION_LEVELS,
   MAX_ABILITIES,
@@ -551,11 +551,14 @@ export class BattleService {
     if (newAbilities.length) {
       const ability = newAbilities.random();
       currentMonster.abilities[ability.id] = ability.maxUses;
-      const keys = Object.keys(currentMonster.abilities);
-      while (keys.length > MAX_ABILITIES) {
-        const removed = keys.shift();
-        removed && delete currentMonster.abilities[+removed];
+
+      const abilityIds = Object.keys(currentMonster.abilities);
+      if (abilityIds.length > MAX_ABILITIES) {
+        const worstAbility = +abilityIds.minBy(id => abilityMap[+id]?.minLevel || 0);
+        delete currentMonster.abilities[worstAbility];
+        opponent.results.push({type: 'monster-forgot', ability: worstAbility, monster: monsterId});
       }
+
       opponent.results.push({type: 'monster-learned', ability: ability.id, monster: monsterId});
       currentMonster.markModified('abilities');
     }

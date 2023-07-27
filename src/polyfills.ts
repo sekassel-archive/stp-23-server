@@ -3,6 +3,7 @@ declare global {
     sum(): number;
     shuffle(): T[];
     random(): T;
+    minBy(selector: (item: T) => number): T;
     maxBy(selector: (item: T) => number): T;
     countIf(predicate: (item: T) => boolean): number;
   }
@@ -26,6 +27,10 @@ Array.prototype.shuffle = function() {
 
 Array.prototype.random = function() {
   return this[Math.randInt(this.length)];
+}
+
+Array.prototype.minBy = function(selector: (item: any) => number) {
+  return this.reduce((a, c) => (selector(a) <= selector(c) ? a : c));
 }
 
 Array.prototype.maxBy = function(selector: (item: any) => number) {
