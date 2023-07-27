@@ -2,8 +2,8 @@ import {Injectable} from '@nestjs/common';
 import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
 import {
-  abilities,
-  Ability, abilityMap,
+  Ability,
+  abilityMap,
   AttributeEffect,
   EVOLUTION_LEVELS,
   MAX_ABILITIES,
@@ -193,7 +193,7 @@ export class BattleService {
   }
 
   private findNPCAbility(attacker: MonsterDocument, target: MonsterDocument): number {
-    const attackAbilities = Object.keys(attacker.abilities).map(ab => abilities.find(a => a.id.toString() === ab) as Ability);
+    const attackAbilities = Object.keys(attacker.abilities).map(ab => abilityMap[+ab]);
 
     let chosenAttackAbilityID = -1;
     let chosenEffectAbilityID = -1;
@@ -305,7 +305,7 @@ export class BattleService {
           opponent.results = [{type: 'ability-unknown', ability: move.ability, monster: monsterId}];
           return;
         }
-        const ability = abilities.find(a => a.id === move.ability);
+        const ability = abilityMap[move.ability];
         if (!ability) {
           opponent.results = [{type: 'ability-unknown', monster: monsterId}];
           return;

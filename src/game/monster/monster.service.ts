@@ -3,7 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {FilterQuery, Model} from 'mongoose';
 
 import {EventService} from '../../event/event.service';
-import {abilities, Effect, MonsterStatus, StatusEffect, StatusResult} from '../constants';
+import {abilityMap, Effect, MonsterStatus, StatusEffect, StatusResult} from '../constants';
 import {CreateMonsterDto} from './monster.dto';
 import {Monster, MonsterAttributes, MonsterDocument} from './monster.schema';
 import {EventRepository, MongooseRepository} from "@mean-stream/nestx";
@@ -34,7 +34,7 @@ export class MonsterService extends MongooseRepository<Monster> {
       monster.status = [];
       monster.currentAttributes = monster.attributes;
       for (const abilityId in monster.abilities) {
-        const ability = abilities.find(a => a.id === +abilityId);
+        const ability = abilityMap[abilityId];
         ability && (monster.abilities[abilityId] = ability.maxUses);
       }
       monster.markModified('abilities');
