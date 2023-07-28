@@ -46,6 +46,15 @@ export class OpponentController {
   ) {
   }
 
+  @Get('opponents')
+  @ApiOkResponse({type: [Opponent]})
+  async findAll(
+    @Param('region') region: string,
+  ): Promise<Opponent[]> {
+    const encounters = await this.encounterService.findAll({region}, {projection: {_id: 1}});
+    return this.opponentService.findAll({encounter: {$in: encounters.map(e => e._id.toString())}});
+  }
+
   @Get('trainers/:trainer/opponents')
   @ApiOkResponse({type: [Opponent]})
   async findByTrainer(
