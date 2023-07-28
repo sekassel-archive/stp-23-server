@@ -36,7 +36,7 @@ export class MonsterGeneratorService {
         const attribute = attr as keyof MonsterAttributes;
         let value = base + level * (min + max) / 2;
         for (const type of monsterType.type) {
-          value *= types[type as Type].statBonus[attribute];
+          value *= types[type as Type].attributeMultipliers[attribute];
         }
         value = Math.round(value);
         return [attribute, value] as const;

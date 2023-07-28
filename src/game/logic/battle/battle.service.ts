@@ -530,7 +530,7 @@ export class BattleService {
       const attribute = attr as keyof MonsterAttributes;
       let gain = Math.random() * (max - min) + min;
       for (const type of monsterType.type) {
-        gain *= types[type as Type].statBonus[attribute];
+        gain *= types[type as Type].attributeMultipliers[attribute];
       }
       currentMonster.attributes[attribute] += gain;
       currentMonster.currentAttributes[attribute] += gain;

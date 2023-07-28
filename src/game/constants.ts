@@ -14,7 +14,7 @@ export const types: Record<Type, TypeDefinition> = _types;
 
 export interface TypeDefinition {
   multipliers: Partial<Record<string, number>>;
-  statBonus: Record<keyof MonsterAttributes, number>;
+  attributeMultipliers: Record<keyof MonsterAttributes, number>;
 }
 
 export class ItemType {

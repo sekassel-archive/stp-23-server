@@ -6,7 +6,7 @@
       "ghost": 0,
       "steel": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1,
@@ -24,7 +24,7 @@
       "dragon": 0.5,
       "steel": 2
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1.2,
       "defense": 1,
@@ -40,7 +40,7 @@
       "rock": 2,
       "dragon": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1.2,
@@ -56,7 +56,7 @@
       "flying": 2,
       "dragon": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1,
@@ -76,7 +76,7 @@
       "dragon": 0.5,
       "steel": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1.2,
       "attack": 1,
       "defense": 1,
@@ -94,7 +94,7 @@
       "dragon": 2,
       "steel": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1,
@@ -115,7 +115,7 @@
       "steel": 2,
       "fairy": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1.2,
       "defense": 1,
@@ -132,7 +132,7 @@
       "steel": 0,
       "fairy": 2
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 0.8,
       "attack": 1.2,
       "defense": 1,
@@ -150,7 +150,7 @@
       "rock": 2,
       "steel": 2
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1.2,
@@ -166,7 +166,7 @@
       "rock": 0.5,
       "steel": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1,
@@ -181,7 +181,7 @@
       "dark": 0,
       "steel": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1,
@@ -201,7 +201,7 @@
       "steel": 0.5,
       "fairy": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1.2,
       "defense": 1,
@@ -218,7 +218,7 @@
       "bug": 2,
       "steel": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1.2,
@@ -232,7 +232,7 @@
       "ghost": 2,
       "dark": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1,
@@ -245,7 +245,7 @@
       "steel": 0.5,
       "fairy": 0
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1.2,
       "defense": 1.2,
@@ -260,7 +260,7 @@
       "dark": 0.5,
       "fairy": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1.2,
       "defense": 1,
@@ -277,7 +277,7 @@
       "steel": 0.5,
       "fairy": 2
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1.2,
@@ -292,7 +292,7 @@
       "dark": 2,
       "steel": 0.5
     },
-    "statBonus": {
+    "attributeMultipliers": {
       "health": 1,
       "attack": 1,
       "defense": 1,
