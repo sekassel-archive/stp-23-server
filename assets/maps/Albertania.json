@@ -1009,6 +1009,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"This island is located near a deep underwater trench. Many locals fear the abyssal monsters that emerge."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[103,167,198,73,160,194,134,145,113,127,187,132,196,48]"
                         }],
                  "rotation":0,
                  "type":"Place",
