@@ -7,16 +7,6 @@ export const levelFromExp = (exp: number): number => Math.floor(Math.cbrt(exp));
 
 export const coinsGain = (defeatedMonsterLevel: number): number => Math.round(defeatedMonsterLevel * 20 * (0.9 + Math.random() * 0.2));
 
-export const healthGain = (level: number) => 3 + Math.round(Math.random() * 2);
-export const attackGain = (level: number) => 2 + Math.round(Math.random());
-export const defenseGain = (level: number) => 2 + Math.round(Math.random());
-export const speedGain = (level: number) => 1 + Math.round(Math.random() * 2);
-
-export const healthAtLevel = (level: number) => 10 + level * 4;
-export const attackAtLevel = (level: number) => 5 + Math.round(level * 2.5);
-export const defenseAtLevel = (level: number) => 5 + Math.round(level * 2.5);
-export const speedAtLevel = (level: number) => 3 + level * 2;
-
 export const relativeStrengthMultiplier = (current: Monster, target: Monster): number => {
   const ratio = current.attributes.attack / target.attributes.defense;
   if (ratio < 0.5) {

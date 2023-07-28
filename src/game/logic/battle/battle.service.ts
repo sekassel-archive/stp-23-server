@@ -3,7 +3,7 @@ import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
 import {
   Ability,
-  abilityMap,
+  abilityMap, ATTRIBUTE_VALUES,
   AttributeEffect,
   EVOLUTION_LEVELS,
   MAX_ABILITIES,
@@ -22,14 +22,10 @@ import {
 import {EncounterService} from '../../encounter/encounter.service';
 import {
   abilityStatusScore,
-  attackGain,
   coinsGain,
-  defenseGain,
   expGain,
   expRequired,
-  healthGain,
   relativeStrengthMultiplier,
-  speedGain,
 } from '../../formulae';
 import {ItemService} from '../../item/item.service';
 import {MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
@@ -513,18 +509,11 @@ export class BattleService {
     opponent.results.push({type: 'monster-levelup', monster: monsterId});
 
     currentMonster.level++;
-    const health = healthGain(currentMonster.level);
-    const attack = attackGain(currentMonster.level);
-    const defense = defenseGain(currentMonster.level);
-    const speed = speedGain(currentMonster.level);
-    currentMonster.attributes.health += health;
-    currentMonster.attributes.attack += attack;
-    currentMonster.attributes.defense += defense;
-    currentMonster.attributes.speed += speed;
-    currentMonster.currentAttributes.health += health;
-    currentMonster.currentAttributes.attack += attack;
-    currentMonster.currentAttributes.defense += defense;
-    currentMonster.currentAttributes.speed += speed;
+    for (const [attribute, {levelUp: [min, max]}] of Object.entries(ATTRIBUTE_VALUES)) {
+      const gain = Math.round(Math.random() * (max - min) + min);
+      currentMonster.attributes[attribute as keyof MonsterAttributes] += gain;
+      currentMonster.currentAttributes[attribute as keyof MonsterAttributes] += gain;
+    }
     currentMonster.markModified('attributes');
     currentMonster.markModified('currentAttributes');
 

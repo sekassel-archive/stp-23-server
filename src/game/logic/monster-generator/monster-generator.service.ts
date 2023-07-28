@@ -1,8 +1,14 @@
 import {Injectable} from '@nestjs/common';
-import {abilities as allAbilities, Ability, EVOLUTION_LEVELS, MAX_ABILITIES, monsterTypes} from '../../constants';
-import {attackAtLevel, defenseAtLevel, healthAtLevel, speedAtLevel} from '../../formulae';
+import {
+  abilities as allAbilities,
+  Ability,
+  ATTRIBUTE_VALUES,
+  EVOLUTION_LEVELS,
+  MAX_ABILITIES,
+  monsterTypes
+} from '../../constants';
 import {CreateMonsterDto} from '../../monster/monster.dto';
-import {MonsterDocument} from '../../monster/monster.schema';
+import {MonsterAttributes, MonsterDocument} from '../../monster/monster.schema';
 import {MonsterService} from '../../monster/monster.service';
 import {notFound} from "@mean-stream/nestx";
 
@@ -25,12 +31,10 @@ export class MonsterGeneratorService {
     return {
       type,
       level,
-      attributes: {
-        health: healthAtLevel(level),
-        attack: attackAtLevel(level),
-        defense: defenseAtLevel(level),
-        speed: speedAtLevel(level),
-      },
+      attributes: Object.fromEntries(Object.entries(ATTRIBUTE_VALUES).map(([attribute, {
+        base,
+        levelUp: [min, max]
+      }]) => [attribute, base + Math.round(level * (min + max) / 2)])) as any,
       abilities: Object.fromEntries(abilities.map(a => [a.id, a.maxUses])),
     };
   }

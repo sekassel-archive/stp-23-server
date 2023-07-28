@@ -5,6 +5,7 @@ import * as _characters from '../../assets/characters.json';
 import * as _monsterTypes from '../../assets/monsters.json';
 import * as _itemTypes from '../../assets/items.json';
 import * as _types from '../../assets/types.json';
+import {MonsterAttributes} from "./monster/monster.schema";
 
 export const characters = _characters;
 
@@ -13,6 +14,7 @@ export const types: Record<Type, TypeDefinition> = _types;
 
 export interface TypeDefinition {
   multipliers: Partial<Record<string, number>>;
+  statBonus: Record<keyof MonsterAttributes, number>;
 }
 
 export class ItemType {
@@ -161,6 +163,25 @@ export const NPC_SIGHT_RANGE = 5;
 export const STARTER_LEVEL = 5;
 export const EVOLUTION_LEVELS = [10, 20];
 export const SAME_TYPE_ATTACK_MULTIPLIER = 1.5;
+
+export const ATTRIBUTE_VALUES: Record<keyof MonsterAttributes, { base: number; levelUp: [number, number] }> = {
+  health: {
+    base: 10,
+    levelUp: [3, 5],
+  },
+  attack: {
+    base: 5,
+    levelUp: [2, 3],
+  },
+  defense: {
+    base: 5,
+    levelUp: [2, 3],
+  },
+  speed: {
+    base: 3,
+    levelUp: [1, 3],
+  },
+};
 
 export const STATUS_ABILITY_CHANCE = 0.2;
 export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
