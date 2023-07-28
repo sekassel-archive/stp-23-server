@@ -505,23 +505,15 @@ export class BattleService {
   }
 
   private levelUp(opponent: OpponentDocument, currentMonster: MonsterDocument) {
-    const monsterId = currentMonster._id.toString();
-    opponent.results.push({type: 'monster-levelup', monster: monsterId});
-
-    currentMonster.level++;
-    for (const [attribute, {levelUp: [min, max]}] of Object.entries(ATTRIBUTE_VALUES)) {
-      const gain = Math.round(Math.random() * (max - min) + min);
-      currentMonster.attributes[attribute as keyof MonsterAttributes] += gain;
-      currentMonster.currentAttributes[attribute as keyof MonsterAttributes] += gain;
-    }
-    currentMonster.markModified('attributes');
-    currentMonster.markModified('currentAttributes');
-
     let monsterType = monsterTypes.find(m => m.id === currentMonster.type);
     if (!monsterType) {
       console.error(`Monster ${currentMonster._id} has unknown type ${currentMonster.type}!`);
       return;
     }
+
+    const monsterId = currentMonster._id.toString();
+    opponent.results.push({type: 'monster-levelup', monster: monsterId});
+    currentMonster.level++;
 
     // Evolution
     if (EVOLUTION_LEVELS.includes(currentMonster.level)) {
@@ -533,6 +525,18 @@ export class BattleService {
         monsterType = newMonsterType;
       }
     }
+
+    for (const [attr, {levelUp: [min, max]}] of Object.entries(ATTRIBUTE_VALUES)) {
+      const attribute = attr as keyof MonsterAttributes;
+      let gain = Math.random() * (max - min) + min;
+      for (const type of monsterType.type) {
+        gain *= types[type as Type].statBonus[attribute];
+      }
+      currentMonster.attributes[attribute] += gain;
+      currentMonster.currentAttributes[attribute] += gain;
+    }
+    currentMonster.markModified('attributes');
+    currentMonster.markModified('currentAttributes');
 
     // Learn new ability
     const newAbilities = this.monsterGeneratorService.getPossibleAbilities(currentMonster.level, monsterType.type)

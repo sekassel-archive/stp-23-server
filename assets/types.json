@@ -5,6 +5,12 @@
       "rock": 0.5,
       "ghost": 0,
       "steel": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1
     }
   },
   "fire": {
@@ -17,6 +23,12 @@
       "rock": 0.5,
       "dragon": 0.5,
       "steel": 2
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1.2,
+      "defense": 1,
+      "speed": 1
     }
   },
   "water": {
@@ -27,6 +39,12 @@
       "ground": 2,
       "rock": 2,
       "dragon": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1.2,
+      "speed": 1
     }
   },
   "electric": {
@@ -37,6 +55,12 @@
       "ground": 0,
       "flying": 2,
       "dragon": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1.2
     }
   },
   "grass": {
@@ -51,6 +75,12 @@
       "rock": 2,
       "dragon": 0.5,
       "steel": 0.5
+    },
+    "statBonus": {
+      "health": 1.2,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1
     }
   },
   "ice": {
@@ -63,6 +93,12 @@
       "flying": 2,
       "dragon": 2,
       "steel": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1
     }
   },
   "fighting": {
@@ -78,6 +114,12 @@
       "dark": 2,
       "steel": 2,
       "fairy": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1.2,
+      "defense": 1,
+      "speed": 1
     }
   },
   "poison": {
@@ -89,6 +131,12 @@
       "ghost": 0.5,
       "steel": 0,
       "fairy": 2
+    },
+    "statBonus": {
+      "health": 0.8,
+      "attack": 1.2,
+      "defense": 1,
+      "speed": 1
     }
   },
   "ground": {
@@ -101,6 +149,12 @@
       "bug": 0.5,
       "rock": 2,
       "steel": 2
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1.2,
+      "speed": 1
     }
   },
   "flying": {
@@ -111,6 +165,12 @@
       "bug": 2,
       "rock": 0.5,
       "steel": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1.2
     }
   },
   "psychic": {
@@ -120,6 +180,12 @@
       "psychic": 0.5,
       "dark": 0,
       "steel": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1
     }
   },
   "bug": {
@@ -134,6 +200,12 @@
       "dark": 2,
       "steel": 0.5,
       "fairy": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1.2,
+      "defense": 1,
+      "speed": 1
     }
   },
   "rock": {
@@ -145,6 +217,12 @@
       "flying": 2,
       "bug": 2,
       "steel": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1.2,
+      "speed": 1
     }
   },
   "ghost": {
@@ -153,6 +231,12 @@
       "psychic": 2,
       "ghost": 2,
       "dark": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1
     }
   },
   "dragon": {
@@ -160,6 +244,12 @@
       "dragon": 2,
       "steel": 0.5,
       "fairy": 0
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1.2,
+      "defense": 1.2,
+      "speed": 0.8
     }
   },
   "dark": {
@@ -169,6 +259,12 @@
       "ghost": 2,
       "dark": 0.5,
       "fairy": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1.2,
+      "defense": 1,
+      "speed": 1
     }
   },
   "steel": {
@@ -180,6 +276,12 @@
       "rock": 2,
       "steel": 0.5,
       "fairy": 2
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1.2,
+      "speed": 1
     }
   },
   "fairy": {
@@ -189,6 +291,12 @@
       "dragon": 2,
       "dark": 2,
       "steel": 0.5
+    },
+    "statBonus": {
+      "health": 1,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1
     }
   }
 }
