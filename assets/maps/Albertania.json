@@ -325,6 +325,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A small fishing town in the high north."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[142,144,159,168,190,138,140,196,188,187,132,113,108]"
                         }],
                  "rotation":0,
                  "type":"Town",
@@ -960,6 +965,11 @@
                          "name":"Description",
                          "type":"string",
                          "value":"A long road that travels between a forest and grasslands. Bandits often rob the fish merchants traveling back to Giolaxen with their gains."
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[110,123,127,133,137,190]"
                         }],
                  "rotation":0,
                  "type":"Route",
