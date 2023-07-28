@@ -5536,25 +5536,7 @@
                 }]
         }, 
         {
-         "id":4033,
-         "properties":[
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
          "id":4034,
-         "properties":[
-                {
-                 "name":"Walkable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "id":4035,
          "properties":[
                 {
                  "name":"Walkable",
