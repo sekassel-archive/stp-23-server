@@ -799,7 +799,7 @@
                  "value":true
                 }, 
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -813,7 +813,7 @@
                  "value":true
                 }, 
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -827,7 +827,7 @@
                  "value":true
                 }, 
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -841,7 +841,7 @@
                  "value":true
                 }, 
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -887,7 +887,7 @@
          "id":351,
          "properties":[
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -896,7 +896,7 @@
          "id":354,
          "properties":[
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -956,10 +956,28 @@
                 }]
         }, 
         {
+         "id":375,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":378,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":381,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -968,7 +986,7 @@
          "id":382,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1038,6 +1056,24 @@
         }, 
         {
          "id":401,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":405,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":406,
          "properties":[
                 {
                  "name":"Walkable",
@@ -1121,7 +1157,7 @@
          "id":429,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1153,7 +1189,7 @@
                  "value":true
                 }, 
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1167,7 +1203,7 @@
                  "value":true
                 }, 
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1176,7 +1212,7 @@
          "id":453,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1194,7 +1230,7 @@
          "id":475,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1203,7 +1239,7 @@
          "id":476,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1212,7 +1248,7 @@
          "id":477,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1221,7 +1257,7 @@
          "id":478,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1230,7 +1266,7 @@
          "id":479,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1311,7 +1347,7 @@
          "id":499,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1320,7 +1356,7 @@
          "id":500,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1329,7 +1365,7 @@
          "id":501,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1338,7 +1374,7 @@
          "id":502,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1347,7 +1383,7 @@
          "id":503,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1419,7 +1455,7 @@
          "id":520,
          "properties":[
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1428,7 +1464,7 @@
          "id":522,
          "properties":[
                 {
-                 "name":"Walkalbe",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1437,7 +1473,7 @@
          "id":523,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1446,7 +1482,7 @@
          "id":524,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1455,7 +1491,7 @@
          "id":525,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1464,7 +1500,7 @@
          "id":526,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
@@ -1473,7 +1509,7 @@
          "id":527,
          "properties":[
                 {
-                 "name":"Walkbale",
+                 "name":"Walkable",
                  "type":"bool",
                  "value":true
                 }]
