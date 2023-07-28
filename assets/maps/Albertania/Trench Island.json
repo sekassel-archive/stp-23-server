@@ -3105,7 +3105,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":0
+                         "value":3
                         }, 
                         {
                          "name":"Image",
@@ -3115,7 +3115,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[]"
+                         "value":"[[164, 70],[189,69]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -3133,7 +3133,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"Image",
@@ -3143,7 +3143,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[]"
+                         "value":"[[205,68],[180,71]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
@@ -3260,8 +3260,14 @@
                  "height":464,
                  "id":68,
                  "name":"TG green",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[\n[103,67,69],\n[167,67,69],\n[198,67,69],\n[73,67,69],\n[160,67,69],\n[194,67,69],\n[134,67,69]\n]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"TallGrass",
                  "visible":true,
                  "width":816,
                  "x":192,
@@ -3271,8 +3277,14 @@
                  "height":784,
                  "id":69,
                  "name":"TG west",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[145, 68,70],\n[113, 68,70],\n[127, 68,70],\n[187, 68,70]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"TallGrass",
                  "visible":true,
                  "width":224,
                  "x":336,
@@ -3282,8 +3294,14 @@
                  "height":368,
                  "id":70,
                  "name":"TG east",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[132, 68,70],\n[196, 68,70],\n[48, 68,70],\n[145, 68,70]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"TallGrass",
                  "visible":true,
                  "width":240,
                  "x":848,

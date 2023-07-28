@@ -883,8 +883,14 @@
                  "height":144,
                  "id":53,
                  "name":"TG Main",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[154,68,71],\n[195,68,71],\n[131,68,71],\n[153,68,71],\n[142,68,71],\n[192,68,71],\n[189,68,71],\n[202,68,71]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"TallGrass",
                  "visible":true,
                  "width":816,
                  "x":128,
@@ -894,8 +900,14 @@
                  "height":112,
                  "id":54,
                  "name":"TG2",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[146,68,70],\n[161,68,70],\n[54,68,70],\n[142,68,70],\n[192,68,70],\n[122,68,70],\n[178,68,70]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"TallGrass",
                  "visible":true,
                  "width":848,
                  "x":112,
@@ -905,8 +917,14 @@
                  "height":64,
                  "id":56,
                  "name":"TG3",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[122,69,71],\n[178,69,71],\n[189,69,71],\n[202,69,71],\n[161,69,71],\n[54,69,71]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"TallGrass",
                  "visible":true,
                  "width":320,
                  "x":384,
