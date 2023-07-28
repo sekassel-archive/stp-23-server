@@ -387,3 +387,32 @@
 * Catching a monster now properly stops the encounter.
 * Caught wild monsters are no longer deleted instantly.
 * Fixed abilities adding wrongly spelled status effects.
+
+# v4.1.0 - Confusion and Ell Reservoir
+
+## New Features
+
+### Content
+
++ Added actual tall grass to Wesers Peak.
++ Added the Ell Reservoir area.
++ Starter monsters now start at level 5.
++ Implemented the `confused` status.
+  > When a confused monster attacks itself, the `ability-success` result will include the property `status: confused`.
+
+### Resources
+
++ Added `Trainer.settings` attribute for storing client-specific settings.
++ Added the `DELETE .../monsters/:id` endpoint.
+
+## Improvements
+
+* Reduced some tileset images by 15-30% in size.
+* NPCs now immediately select a new monster so the next turn can start smoothly.
+
+## Bugfixes
+
+* Encounters can now start even if the first monster in the team is dead.
+* NPC monsters no longer receive a new random set of abilities when the server restarts.
+* Fixed the `GET .../encounters` endpoint not returning any results.
+* Fixed a problem where opponent deletion would not work correctly. 

@@ -2239,6 +2239,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[64]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Halloween_Kid_1_16x16.png"

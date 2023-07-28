@@ -34,7 +34,7 @@ export class ItemType {
   @ApiPropertyOptional({enum: ['ball', 'effect', 'itemBox', 'monsterBox']})
   use?: string;
 
-  effects: Effect[];
+  effects?: Effect[];
   catch?: Partial<Record<Type | '*', number>>;
 }
 
@@ -114,6 +114,7 @@ export enum MonsterStatus {
   BURNED = 'burned',
   FROZEN = 'frozen',
   CONFUSED = 'confused',
+  STUNNED = 'stunned',
 }
 
 export type Effect = AttributeEffect | StatusEffect;
@@ -165,8 +166,17 @@ export const STATUS_FAIL_CHANCE: Partial<Record<MonsterStatus, number>> = {
   [MonsterStatus.ASLEEP]: 1,
   [MonsterStatus.PARALYSED]: 0.5,
   [MonsterStatus.FROZEN]: 0.5,
+  [MonsterStatus.STUNNED]: 1,
 };
-export const STATUS_REMOVE_CHANCE = 0.25;
+export const STATUS_REMOVE_CHANCE: Record<MonsterStatus, number> = {
+  [MonsterStatus.ASLEEP]: 0.25,
+  [MonsterStatus.PARALYSED]: 0.25,
+  [MonsterStatus.POISONED]: 0.25,
+  [MonsterStatus.BURNED]: 0.25,
+  [MonsterStatus.FROZEN]: 0.25,
+  [MonsterStatus.CONFUSED]: 0.25,
+  [MonsterStatus.STUNNED]: 1,
+};
 export const STATUS_CONFUSED_SELF_HIT_CHANCE = 0.5;
 export const STATUS_DAMAGE: Partial<Record<MonsterStatus, [number, Type]>> = {
   [MonsterStatus.POISONED]: [3, 'poison'],

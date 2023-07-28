@@ -9978,6 +9978,11 @@
          "id":2068,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -9986,6 +9991,11 @@
         {
          "id":2069,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -9996,6 +10006,11 @@
          "id":2070,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -10004,6 +10019,11 @@
         {
          "id":2071,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -10637,6 +10657,11 @@
          "id":2242,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -10645,6 +10670,11 @@
         {
          "id":2244,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -10655,6 +10685,11 @@
          "id":2245,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -10663,6 +10698,11 @@
         {
          "id":2246,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -10673,6 +10713,11 @@
          "id":2247,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -10681,6 +10726,11 @@
         {
          "id":2249,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -11403,6 +11453,11 @@
          "id":2418,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -11426,6 +11481,11 @@
          "id":2420,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -11434,6 +11494,11 @@
         {
          "id":2421,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -11444,6 +11509,11 @@
          "id":2422,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -11452,6 +11522,11 @@
         {
          "id":2423,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -11475,6 +11550,11 @@
         {
          "id":2425,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -12205,6 +12285,11 @@
          "id":2603,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -12213,6 +12298,11 @@
         {
          "id":2604,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -12939,6 +13029,11 @@
          "id":2770,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -12947,6 +13042,11 @@
         {
          "id":2771,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -12957,6 +13057,11 @@
          "id":2772,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -12965,6 +13070,11 @@
         {
          "id":2773,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -12975,6 +13085,11 @@
          "id":2774,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -12983,6 +13098,11 @@
         {
          "id":2775,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -12993,6 +13113,11 @@
          "id":2776,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -13001,6 +13126,11 @@
         {
          "id":2777,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -13011,6 +13141,11 @@
          "id":2778,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -13020,6 +13155,11 @@
          "id":2779,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -13028,6 +13168,11 @@
         {
          "id":2780,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -13988,6 +14133,11 @@
          "id":2946,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -13996,6 +14146,11 @@
         {
          "id":2947,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -14006,6 +14161,11 @@
          "id":2948,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14014,6 +14174,11 @@
         {
          "id":2949,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -14024,6 +14189,11 @@
          "id":2950,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14032,6 +14202,11 @@
         {
          "id":2951,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -14042,6 +14217,11 @@
          "id":2952,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14051,6 +14231,11 @@
          "id":2953,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14059,6 +14244,11 @@
         {
          "id":2954,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -14906,6 +15096,11 @@
          "id":3123,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14914,6 +15109,11 @@
         {
          "id":3124,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -14924,6 +15124,11 @@
          "id":3125,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14932,6 +15137,11 @@
         {
          "id":3126,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -14942,6 +15152,11 @@
          "id":3127,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14951,6 +15166,11 @@
          "id":3128,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -14959,6 +15179,11 @@
         {
          "id":3130,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -15970,6 +16195,11 @@
          "id":3483,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -15978,6 +16208,11 @@
         {
          "id":3484,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -17292,6 +17527,11 @@
          "id":3828,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -17300,6 +17540,11 @@
         {
          "id":3831,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -18327,6 +18572,11 @@
          "id":4004,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -18335,6 +18585,11 @@
         {
          "id":4007,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -19480,6 +19735,11 @@
          "id":4356,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -19488,6 +19748,11 @@
         {
          "id":4357,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -19498,6 +19763,11 @@
          "id":4358,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -19506,6 +19776,11 @@
         {
          "id":4359,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",

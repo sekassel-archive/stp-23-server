@@ -156,6 +156,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[63]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Premade_Character_09.png"

@@ -6,7 +6,7 @@
  "name":"Pixel Woods",
  "spacing":0,
  "tilecount":1376,
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tiles":[
         {
@@ -751,6 +751,11 @@
          "id":961,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -759,6 +764,11 @@
         {
          "id":962,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -769,6 +779,11 @@
          "id":963,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -777,6 +792,11 @@
         {
          "id":1005,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -787,6 +807,11 @@
          "id":1006,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -795,6 +820,11 @@
         {
          "id":1047,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -805,6 +835,11 @@
          "id":1048,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -813,6 +848,11 @@
         {
          "id":1049,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -832,6 +872,11 @@
          "id":1091,
          "properties":[
                 {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -840,6 +885,11 @@
         {
          "id":1092,
          "properties":[
+                {
+                 "name":"TallGrass",
+                 "type":"bool",
+                 "value":true
+                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
@@ -893,7 +943,7 @@
         }],
  "tilewidth":16,
  "type":"tileset",
- "version":"1.9",
+ "version":"1.10",
  "wangsets":[
         {
          "colors":[

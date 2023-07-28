@@ -68,7 +68,7 @@ export class ItemService {
     return this.updateAmount(trainer._id.toString(), dto.type, dto.amount);
   }
 
-  private async updateAmount(trainer: string, type: number, amount: number): Promise<Item> {
+  async updateAmount(trainer: string, type: number, amount: number): Promise<Item> {
     const result = await this.model.findOneAndUpdate(
       {trainer, type},
       {$inc: {amount}},
@@ -106,7 +106,7 @@ export class ItemService {
         }
         if (this.useBall(trainer, itemType, monster)) {
           // balls may have effects
-          await this.monsterService.applyEffects(monster, itemType.effects);
+          itemType.effects && await this.monsterService.applyEffects(monster, itemType.effects);
         }
         break;
       case 'effect':
@@ -116,7 +116,7 @@ export class ItemService {
         if (monster.trainer !== trainer) {
           throw new ForbiddenException('You are not the owner of this monster');
         }
-        await this.monsterService.applyEffects(monster, itemType.effects);
+        itemType.effects && await this.monsterService.applyEffects(monster, itemType.effects);
         break;
     }
 
@@ -132,7 +132,7 @@ export class ItemService {
     let minDiff = Infinity;
 
     for (const item of itemTypes) {
-      if (item.price === 0) {
+      if (!item.price || itemType.use === 'itemBox' || itemType.use === 'monsterBox') {
         continue;
       }
       const diff = Math.abs(item.price - itemValue);
@@ -166,10 +166,6 @@ export class ItemService {
       return true;
     }
     return false;
-  }
-
-  async getStarterItems(trainer: Trainer, type: number, amount = 1): Promise<Item> {
-    return this.updateAmount(trainer._id.toString(), type, amount);
   }
 
   async deleteTrainer(trainer: string): Promise<Item[]> {

@@ -2586,7 +2586,7 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":17
+                         "value":13
                         }, 
                         {
                          "name":"Y",
@@ -2967,7 +2967,7 @@
          "value":"Forest"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

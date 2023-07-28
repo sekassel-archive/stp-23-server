@@ -65,6 +65,13 @@ export class NPCInfo {
   @IsArray()
   @IsInt({each: true})
   starters?: number[];
+
+  @ApiPropertyOptional({description: 'Item IDs that the NPC gives as gifts. ' +
+      'NPCs that can encounter will need to be defeated first.', type: [Number]})
+  @IsOptional()
+  @IsArray()
+  @IsInt({each: true})
+  gifts?: number[];
 }
 
 @Schema(GLOBAL_SCHEMA_OPTIONS)
