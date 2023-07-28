@@ -416,3 +416,40 @@
 * NPC monsters no longer receive a new random set of abilities when the server restarts.
 * Fixed the `GET .../encounters` endpoint not returning any results.
 * Fixed a problem where opponent deletion would not work correctly. 
+
+# v4.2.0 - New Areas and Balancing
+
+## New Features
+
+### Content
+
++ Added the Adromere arena.
++ Added the Trench Island and cave area.
++ Added the Julianwood area and buildings.
++ Added the Route 110 area.
++ Added the Giolaxen area and buildings.
++ Added more opposing NPCs and tall grass to Victory Road.
++ Added the `stunned` status (added by Hyper Beam).
++ Added trophy items and NPCs that gift them to the player on defeat.
++ Added a way to receive gifts from passive NPCs.
++ Added new lower level abilities for fighting and dragon types.
+
+### Resources
+
++ Added the `monster-forgot` result.
++ Added the `GET /regions/:region/opponents` endpoint.
+
+## Improvements
+
+* Improved selection of forgotten abilities.
+* Improved some low level abilities.
+* Different monster types now have slightly different attribute growth.
+* Adjusted some abilities for better balancing.
+* Greatly adjusted monster levels in Route 111 to be visited in the end game.
+
+## Bugfixes
+
+* Monster evolution now updates the mondex.
+* Fixed many ability descriptions.
+* Made the pier in Route 111 walkable.
+* Item boxes can no longer contain other item boxes or monster boxes.
