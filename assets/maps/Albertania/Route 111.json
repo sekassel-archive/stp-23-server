@@ -1290,6 +1290,34 @@
                  "width":16,
                  "x":848,
                  "y":96
+                }, 
+                {
+                 "height":0,
+                 "id":46,
+                 "name":"Ferryman Ferik",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[41]"
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Premade_Character_09.png"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":816,
+                 "y":112
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1298,7 +1326,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":46,
+ "nextobjectid":47,
  "orientation":"orthogonal",
  "properties":[
         {
