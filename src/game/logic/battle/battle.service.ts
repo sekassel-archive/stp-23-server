@@ -532,6 +532,7 @@ export class BattleService {
       for (const type of monsterType.type) {
         gain *= types[type as Type].attributeMultipliers[attribute];
       }
+      gain = Math.round(gain);
       currentMonster.attributes[attribute] += gain;
       currentMonster.currentAttributes[attribute] += gain;
     }
