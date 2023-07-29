@@ -1088,7 +1088,7 @@
          "height":112,
          "id":3,
          "name":"Ground",
-         "opacity":0.44,
+         "opacity":1,
          "startx":0,
          "starty":0,
          "type":"tilelayer",
