@@ -3576,7 +3576,7 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":15
+                         "value":14
                         }, 
                         {
                          "name":"Y",
@@ -3693,7 +3693,7 @@
          "value":"City"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

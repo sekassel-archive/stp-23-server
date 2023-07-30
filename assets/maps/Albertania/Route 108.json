@@ -1641,7 +1641,7 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":128
+                         "value":130
                         }, 
                         {
                          "name":"Y",
@@ -1827,7 +1827,7 @@
                  "y":464
                 }, 
                 {
-                 "height":96,
+                 "height":128,
                  "id":57,
                  "name":"Simonsfield",
                  "properties":[
@@ -1844,14 +1844,14 @@
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":54
+                         "value":56
                         }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
                  "width":96,
                  "x":1040,
-                 "y":32
+                 "y":0
                 }, 
                 {
                  "height":0,
@@ -1922,7 +1922,7 @@
          "value":"Plains"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

@@ -4691,7 +4691,7 @@
                  "y":559.637750531517
                 }, 
                 {
-                 "height":141.450736670787,
+                 "height":144,
                  "id":6,
                  "name":"Route 112",
                  "properties":[
@@ -4708,14 +4708,14 @@
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":58
+                         "value":59
                         }],
                  "rotation":0,
                  "type":"Portal",
                  "visible":true,
-                 "width":159.744019810763,
-                 "x":752.49479663969,
-                 "y":2.54926332921319
+                 "width":160,
+                 "x":752,
+                 "y":0
                 }, 
                 {
                  "height":0,
@@ -4862,7 +4862,7 @@
                  "y":495.597657498682
                 }, 
                 {
-                 "height":141.657115766432,
+                 "height":125.657321530689,
                  "id":13,
                  "name":"Route 108",
                  "properties":[
@@ -4874,19 +4874,19 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":66
+                         "value":67
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":7
+                         "value":8
                         }],
                  "rotation":359.709421770292,
                  "type":"Portal",
                  "visible":true,
                  "width":158.814983481891,
-                 "x":207.503820253486,
-                 "y":896.408243646363
+                 "x":207.584963611588,
+                 "y":912.407832120494
                 }, 
                 {
                  "height":0,
@@ -5314,7 +5314,7 @@
          "value":"Town"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
