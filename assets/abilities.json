@@ -10,7 +10,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -2
+          "amount": -3
         }
       ]
     },
@@ -38,7 +38,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -4
+          "amount": -2
         },
         {
           "attribute": "attack",
@@ -74,7 +74,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -10
+          "amount": -9
         }
       ]
     },
@@ -141,7 +141,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         }
       ]
     },
@@ -174,7 +174,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -2
+          "amount": -4
         }
       ]
     },
@@ -188,7 +188,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -5
+          "amount": -8
         },
         {
           "attribute": "defense",
@@ -207,7 +207,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -8
+          "amount": -10
         },
         {
           "attribute": "defense",
@@ -226,7 +226,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -17
         },
         {
           "attribute": "attack",
@@ -245,7 +245,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -16
+          "amount": -21
         },
         {
           "attribute": "defense",
@@ -264,7 +264,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -23
+          "amount": -31
         },
         {
           "attribute": "defense",
@@ -283,7 +283,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -25
+          "amount": -36
         },
         {
           "status": "confused",
@@ -303,7 +303,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         }
       ]
     },
@@ -335,7 +335,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -6
+          "amount": -7
         },
         {
           "status": "burned",
@@ -353,7 +353,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -9
+          "amount": -12
         },
         {
           "status": "burned",
@@ -371,7 +371,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -13
+          "amount": -14
         },
         {
           "status": "burned",
@@ -389,7 +389,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -18
         },
         {
           "status": "burned",
@@ -407,7 +407,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -18
+          "amount": -25
         },
         {
           "attribute": "defense",
@@ -426,7 +426,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -23
+          "amount": -32
         },
         {
           "status": "burned",
@@ -465,7 +465,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -2
+          "amount": -4
         }
       ]
     },
@@ -479,7 +479,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -5
+          "amount": -4
         }
       ]
     },
@@ -493,7 +493,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         }
       ]
     },
@@ -507,7 +507,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -10
+          "amount": -12
         }
       ]
     },
@@ -521,7 +521,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -9
+          "amount": -13
         },
         {
           "attribute": "accuracy",
@@ -540,7 +540,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -12
+          "amount": -14
         }
       ]
     },
@@ -554,7 +554,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -12
+          "amount": -18
         },
         {
           "status": "confused",
@@ -572,7 +572,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -13
+          "amount": -18
         },
         {
           "status": "confused",
@@ -590,7 +590,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -18
+          "amount": -23
         }
       ]
     },
@@ -604,7 +604,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -16
+          "amount": -24
         },
         {
           "attribute": "defense",
@@ -623,7 +623,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -22
+          "amount": -26
         }
       ]
     },
@@ -637,7 +637,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -25
         },
         {
           "attribute": "defense",
@@ -656,7 +656,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -23
+          "amount": -29
         }
       ]
     }
@@ -672,7 +672,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         },
         {
           "status": "paralysed",
@@ -690,7 +690,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -4
+          "amount": -5
         },
         {
           "attribute": "speed",
@@ -709,7 +709,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -8
+          "amount": -7
         },
         {
           "status": "paralysed",
@@ -727,7 +727,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -6
+          "amount": -7
         },
         {
           "status": "paralysed",
@@ -745,7 +745,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -12
+          "amount": -16
         },
         {
           "status": "paralysed",
@@ -763,7 +763,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -13
+          "amount": -16
         },
         {
           "status": "paralysed",
@@ -781,7 +781,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -13
+          "amount": -18
         },
         {
           "status": "paralysed",
@@ -799,7 +799,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -13
+          "amount": -18
         },
         {
           "status": "paralysed",
@@ -817,7 +817,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -26
         },
         {
           "status": "paralysed",
@@ -835,7 +835,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -25
+          "amount": -36
         },
         {
           "status": "paralysed",
@@ -855,7 +855,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         },
         {
           "status": "confused",
@@ -873,7 +873,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -20
         },
         {
           "status": "confused",
@@ -891,7 +891,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -18
+          "amount": -24
         },
         {
           "status": "asleep",
@@ -909,7 +909,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -26
         },
         {
           "status": "confused",
@@ -929,7 +929,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -2
+          "amount": -4
         },
         {
           "status": "frozen",
@@ -947,7 +947,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         },
         {
           "status": "frozen",
@@ -965,7 +965,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -6
+          "amount": -7
         },
         {
           "status": "frozen",
@@ -983,7 +983,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -9
+          "amount": -12
         },
         {
           "status": "frozen",
@@ -1001,7 +1001,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -9
+          "amount": -12
         },
         {
           "status": "frozen",
@@ -1019,7 +1019,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -26
         },
         {
           "status": "frozen",
@@ -1039,7 +1039,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -5
+          "amount": -4
         }
       ]
     },
@@ -1053,7 +1053,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -5
+          "amount": -10
         },
         {
           "attribute": "accuracy",
@@ -1072,7 +1072,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -13
+          "amount": -16
         },
         {
           "status": "paralysed",
@@ -1090,7 +1090,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -21
         },
         {
           "attribute": "defense",
@@ -1109,7 +1109,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -19
+          "amount": -28
         },
         {
           "attribute": "defense",
@@ -1128,7 +1128,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -24
+          "amount": -37
         },
         {
           "attribute": "defense",
@@ -1172,7 +1172,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -5
         },
         {
           "attribute": "defense",
@@ -1191,7 +1191,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         }
       ]
     },
@@ -1205,7 +1205,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -7
+          "amount": -10
         },
         {
           "attribute": "attack",
@@ -1224,7 +1224,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -18
+          "amount": -24
         },
         {
           "status": "confused",
@@ -1258,7 +1258,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -2
+          "amount": -4
         },
         {
           "status": "poisoned",
@@ -1276,7 +1276,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -8
+          "amount": -9
         },
         {
           "status": "poisoned",
@@ -1294,7 +1294,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -8
+          "amount": -9
         },
         {
           "status": "poisoned",
@@ -1312,7 +1312,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -8
+          "amount": -12
         },
         {
           "status": "poisoned",
@@ -1332,7 +1332,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -2
+          "amount": -5
         },
         {
           "attribute": "defense",
@@ -1351,7 +1351,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -10
+          "amount": -11
         },
         {
           "attribute": "attack",
@@ -1370,7 +1370,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -20
         }
       ]
     },
@@ -1384,7 +1384,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -15
+          "amount": -20
         }
       ]
     },
@@ -1398,7 +1398,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -17
+          "amount": -20
         },
         {
           "status": "confused",
@@ -1416,7 +1416,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -19
+          "amount": -25
         },
         {
           "attribute": "attack",
@@ -1435,7 +1435,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -25
+          "amount": -36
         },
         {
           "status": "confused",
@@ -1453,7 +1453,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -26
+          "amount": -44
         },
         {
           "attribute": "defense",
@@ -1474,7 +1474,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -5
+          "amount": -7
         }
       ]
     },
@@ -1488,7 +1488,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -16
+          "amount": -19
         },
         {
           "attribute": "defense",
@@ -1507,7 +1507,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -17
+          "amount": -20
         }
       ]
     },
@@ -1538,7 +1538,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -5
+          "amount": -8
         },
         {
           "attribute": "speed",
@@ -1557,7 +1557,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -10
+          "amount": -13
         },
         {
           "attribute": "attack",
@@ -1576,7 +1576,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -24
+          "amount": -37
         },
         {
           "attribute": "defense",
@@ -1599,7 +1599,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -28
+          "amount": -43
         },
         {
           "status": "asleep",
@@ -1633,7 +1633,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -10
+          "amount": -15
         },
         {
           "attribute": "defense",
@@ -1652,7 +1652,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -22
+          "amount": -33
         },
         {
           "attribute": "defense",
@@ -1671,7 +1671,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -24
+          "amount": -34
         },
         {
           "status": "confused",
@@ -1689,7 +1689,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -23
+          "amount": -34
         },
         {
           "status": "confused",
@@ -1709,7 +1709,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -10
+          "amount": -14
         },
         {
           "status": "paralysed",
@@ -1727,7 +1727,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -12
+          "amount": -17
         },
         {
           "attribute": "defense",
@@ -1746,7 +1746,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -16
         }
       ]
     },
@@ -1760,7 +1760,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -13
+          "amount": -16
         },
         {
           "status": "paralysed",
@@ -1778,7 +1778,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -17
         },
         {
           "attribute": "defense",
@@ -1797,7 +1797,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -19
         },
         {
           "attribute": "defense",
@@ -1816,7 +1816,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -28
+          "amount": -41
         },
         {
           "attribute": "defense",
@@ -1835,7 +1835,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -28
+          "amount": -44
         },
         {
           "attribute": "defense",
@@ -1874,7 +1874,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -3
+          "amount": -4
         }
       ]
     },
@@ -1888,7 +1888,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -8
+          "amount": -9
         }
       ]
     },
@@ -1902,7 +1902,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -19
         },
         {
           "attribute": "defense",
@@ -1923,7 +1923,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -16
+          "amount": -19
         },
         {
           "attribute": "defense",
@@ -1942,7 +1942,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -26
         },
         {
           "status": "confused",
@@ -1960,7 +1960,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -27
         },
         {
           "attribute": "defense",
@@ -1979,7 +1979,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -30
+          "amount": -43
         }
       ]
     }
@@ -1995,7 +1995,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -20
         },
         {
           "status": "poisoned",
@@ -2013,7 +2013,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -26
         }
       ]
     },
@@ -2027,7 +2027,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -22
+          "amount": -26
         }
       ]
     },
@@ -2041,7 +2041,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -19
+          "amount": -26
         },
         {
           "status": "poisoned",
@@ -2061,7 +2061,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
+          "amount": -26
         }
       ]
     },
@@ -2075,7 +2075,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -25
+          "amount": -33
         },
         {
           "attribute": "defense",
@@ -2109,7 +2109,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -24
+          "amount": -37
         },
         {
           "attribute": "defense",
@@ -2128,7 +2128,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -25
+          "amount": -38
         }
       ]
     },
@@ -2142,7 +2142,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -2
+          "amount": -4
         }
       ]
     },
@@ -2156,7 +2156,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -7
+          "amount": -9
         }
       ]
     },
@@ -2170,7 +2170,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -14
+          "amount": -15
         },
         {
           "attribute": "defense",
@@ -2189,7 +2189,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -16
+          "amount": -18
         }
       ]
     }
