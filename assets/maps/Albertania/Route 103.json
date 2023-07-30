@@ -648,12 +648,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":45
+                         "value":44
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":101
+                         "value":102
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -788,7 +788,7 @@
          "value":"Forest"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
