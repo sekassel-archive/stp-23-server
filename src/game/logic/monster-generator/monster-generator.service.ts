@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {
-  abilities as allAbilities,
+  abilitiesByType,
   Ability,
   ATTRIBUTE_VALUES,
   EVOLUTION_LEVELS,
@@ -47,7 +47,9 @@ export class MonsterGeneratorService {
 
   getPossibleAbilities(level: number, types: string[]) {
     // filter by minLevel and type (normal or one of monster types)
-    return allAbilities.filter(a => level >= a.minLevel && (a.type === 'normal' || types.includes(a.type)));
+    return (types.includes('normal') ? types : ['normal', ...types])
+      .flatMap(t => abilitiesByType[t])
+      .filter(a => a.minLevel <= level);
   }
 
   findBestAbilities(abilities: Ability[]) {
