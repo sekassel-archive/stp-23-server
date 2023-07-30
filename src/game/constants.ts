@@ -149,8 +149,9 @@ export class AbilityDto extends OmitType(Ability, ['minLevel', 'effects'] as con
   power: number;
 }
 
-export const abilities: Ability[] = _abilities;
-export const abilityMap: Record<number, Ability> = Object.fromEntries(abilities.map(a => [a.id, a]));
+export const abilitiesByType: Record<string, Ability[]> = _abilities;
+export const abilities: Ability[] = Object.values(abilitiesByType).flat();
+export const abilitiesById: Record<number, Ability> = Object.fromEntries(abilities.map(a => [a.id, a]));
 
 export const TALL_GRASS_ENCOUNTER_CHANCE = 0.1;
 export const TALL_GRASS_TRAINER = '0'.repeat(24);

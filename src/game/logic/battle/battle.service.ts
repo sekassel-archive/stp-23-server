@@ -3,7 +3,8 @@ import {OnEvent} from '@nestjs/event-emitter';
 import {Types} from 'mongoose';
 import {
   Ability,
-  abilityMap, ATTRIBUTE_VALUES,
+  abilitiesById,
+  ATTRIBUTE_VALUES,
   AttributeEffect,
   EVOLUTION_LEVELS,
   MAX_ABILITIES,
@@ -189,7 +190,7 @@ export class BattleService {
   }
 
   private findNPCAbility(attacker: MonsterDocument, target: MonsterDocument): number {
-    const attackAbilities = Object.keys(attacker.abilities).map(ab => abilityMap[+ab]);
+    const attackAbilities = Object.keys(attacker.abilities).map(ab => abilitiesById[+ab]);
 
     let chosenAttackAbilityID = -1;
     let chosenEffectAbilityID = -1;
@@ -301,7 +302,7 @@ export class BattleService {
           opponent.results = [{type: 'ability-unknown', ability: move.ability, monster: monsterId}];
           return;
         }
-        const ability = abilityMap[move.ability];
+        const ability = abilitiesById[move.ability];
         if (!ability) {
           opponent.results = [{type: 'ability-unknown', monster: monsterId}];
           return;
@@ -548,7 +549,7 @@ export class BattleService {
 
       const abilityIds = Object.keys(currentMonster.abilities);
       if (abilityIds.length > MAX_ABILITIES) {
-        const worstAbility = +abilityIds.minBy(id => abilityMap[+id]?.minLevel || 0);
+        const worstAbility = +abilityIds.minBy(id => abilitiesById[+id]?.minLevel || 0);
         delete currentMonster.abilities[worstAbility];
         opponent.results.push({type: 'monster-forgot', ability: worstAbility, monster: monsterId});
       }

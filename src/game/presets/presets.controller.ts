@@ -6,7 +6,7 @@ import {
   abilities,
   Ability,
   AbilityDto,
-  abilityMap,
+  abilitiesById,
   AttributeEffect,
   characters,
   ItemType,
@@ -169,7 +169,7 @@ export class PresetsController {
   getAbility(
     @Param('id', ParseIntPipe) id: number,
   ): AbilityDto | undefined {
-    const ability = abilityMap[id];
+    const ability = abilitiesById[id];
     return ability && this.maskAbility(ability);
   }
 
