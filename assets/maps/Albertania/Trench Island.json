@@ -3555,6 +3555,74 @@
                  "width":0,
                  "x":960,
                  "y":176
+                }, 
+                {
+                 "height":16,
+                 "id":73,
+                 "name":"TG1",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[103, 69, 71],\n[143, 69, 71],\n[139, 69, 71],\n[105, 69, 71],\n[62, 69, 71],\n[125, 69, 71],\n[160, 69, 71]]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":160,
+                 "x":288,
+                 "y":144
+                }, 
+                {
+                 "height":64,
+                 "id":74,
+                 "name":"TG2",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[103, 67, 69],\n[143, 67, 69],\n[139, 67, 69],\n[105, 67, 69],\n[62, 67, 69],\n[125, 67, 69],\n[160, 67, 69]]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":16,
+                 "x":288,
+                 "y":624
+                }, 
+                {
+                 "height":96,
+                 "id":75,
+                 "name":"TG3",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[139, 67, 69],\n[105, 67, 69],\n[126, 67, 69],\n[62, 67, 69],\n[160, 67, 69],\n[144, 67, 69]]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":16,
+                 "x":928,
+                 "y":896
+                }, 
+                {
+                 "height":80,
+                 "id":76,
+                 "name":"TG4",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[139, 69, 71],\n[105, 69, 71],\n[126, 69, 71],\n[62, 69, 71],\n[160, 69, 71],\n[144, 69, 71]]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":16,
+                 "x":992,
+                 "y":336
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3563,7 +3631,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":73,
+ "nextobjectid":77,
  "orientation":"orthogonal",
  "properties":[
         {
