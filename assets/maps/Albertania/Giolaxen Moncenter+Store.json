@@ -97,7 +97,7 @@
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":57
+                         "value":56
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -189,7 +189,7 @@
  "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {

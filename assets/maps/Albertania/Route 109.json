@@ -1589,12 +1589,12 @@
                  "x":64,
                  "y":48
                 }],
-         "height":64,
+         "height":48,
          "id":7,
          "name":"Buildings 3",
          "opacity":1,
          "startx":0,
-         "starty":0,
+         "starty":16,
          "type":"tilelayer",
          "visible":true,
          "width":80,
@@ -1673,7 +1673,7 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":11
+                         "value":10
                         }, 
                         {
                          "name":"Y",
@@ -1931,7 +1931,7 @@
  "nextobjectid":75,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.0",
  "tileheight":16,
  "tilesets":[
         {
