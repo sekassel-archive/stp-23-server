@@ -12,6 +12,10 @@ export class ItemHandler {
 
   @OnEvent('regions.*.trainers.*.created')
   async onTrainerCreated(trainer: Trainer): Promise<void> {
+    if (trainer.npc) {
+      return;
+    }
+
     const trainerId = trainer._id.toString();
     await Promise.all([
       this.itemService.updateAmount(trainerId, 1, 1), // Mondex
