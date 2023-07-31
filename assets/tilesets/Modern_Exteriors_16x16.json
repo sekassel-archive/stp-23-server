@@ -47882,6 +47882,20 @@
                 }]
         }, 
         {
+         "id":17120,
+         "properties":[
+                {
+                 "name":"Roof",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":17121,
          "properties":[
                 {
