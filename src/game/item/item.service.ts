@@ -92,7 +92,9 @@ export class ItemService {
 
     switch (itemType.use) {
       case 'itemBox':
-        await this.openItemLootbox(itemType, trainer);
+        if (!(await this.openItemLootbox(itemType, trainer))) {
+          return item;
+        }
         break;
       case 'monsterBox':
         await this.openMonsterLootbox(itemType, trainer);
@@ -124,27 +126,17 @@ export class ItemService {
   }
 
   async openItemLootbox(itemType: ItemType, trainer: string) {
-    const minValue = Math.floor(itemType.price * 0.8);
-    const maxValue = Math.floor(itemType.price * 1.4);
-    const itemValue = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+    const minValue = itemType.price;
+    const maxValue = Math.floor(itemType.price * 2);
 
-    let closestItem: ItemType | null = null;
-    let minDiff = Infinity;
-
-    for (const item of itemTypes) {
-      if (!item.price || itemType.use === 'itemBox' || itemType.use === 'monsterBox') {
-        continue;
-      }
-      const diff = Math.abs(item.price - itemValue);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closestItem = item;
-      }
-    }
-
-    if (closestItem) {
+    const candidates = itemTypes.filter(item => item.price >= minValue && item.price <= maxValue && item.use !== 'itemBox' && item.use !== 'monsterBox');
+    const item = candidates.random();
+    if (item) {
       // Add the closest item to trainer's inventory
-      await this.updateAmount(trainer, closestItem.id, 1);
+      await this.updateAmount(trainer, item.id, 1);
+      return true;
+    } else {
+      return false;
     }
   }
 
