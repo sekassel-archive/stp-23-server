@@ -864,20 +864,48 @@
       ]
     },
     {
+      "id": 126,
+      "name": "Psykick",
+      "description": "The target is attacked with a psychic kick. It may also leave the target confused.",
+      "type": "psychic",
+      "minLevel": 6,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -9
+        },
+        {
+          "status": "confused",
+          "chance": 0.15
+        }
+      ]
+    },
+    {
+      "id": 127,
+      "name": "Psycho Slam",
+      "description": "The target is attacked with slam of psychic power.",
+      "type": "psychic",
+      "minLevel": 13,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -16
+        }
+      ]
+    },
+    {
       "id": 70,
       "name": "Psycho Cut",
       "description": "The user tears at the target with blades formed by psychic power. The target may also become confused.",
       "type": "psychic",
       "minLevel": 17,
-      "maxUses": 15,
+      "maxUses": 5,
       "effects": [
         {
           "attribute": "health",
-          "amount": -20
-        },
-        {
-          "status": "confused",
-          "chance": 0.35
+          "amount": -18
         }
       ]
     },
@@ -914,6 +942,20 @@
         {
           "status": "confused",
           "chance": 0.3
+        }
+      ]
+    },
+    {
+      "id": 128,
+      "name": "Psychotic Teardown",
+      "description": "The user attacks generating a destructive psychic energy.",
+      "type": "psychic",
+      "minLevel": 31,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -36
         }
       ]
     }
@@ -1010,6 +1052,38 @@
       ]
     },
     {
+      "id": 129,
+      "name": "Ice Storm",
+      "description": "The user attacks with a storm of ice.",
+      "type": "ice",
+      "minLevel": 13,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -16
+        }
+      ]
+    },
+    {
+      "id": 130,
+      "name": "Avalanche",
+      "description": "The user attacks the target with a chilling gust of powdery snow. It may also freeze the target.",
+      "type": "ice",
+      "minLevel": 20,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -25
+        },
+        {
+          "status": "frozen",
+          "chance": 0.3
+        }
+      ]
+    },
+    {
       "id": 79,
       "name": "Blizzard Blast",
       "description": "A blast of freezing cold air is blown at the target. It may also leave the target frozen.",
@@ -1020,6 +1094,24 @@
         {
           "attribute": "health",
           "amount": -26
+        },
+        {
+          "status": "frozen",
+          "chance": 0.3
+        }
+      ]
+    },
+    {
+      "id": 131,
+      "name": "Ice Age",
+      "description": "The user freezes the whole surrounding area with an icy blast. This move may also leave the target frozen.",
+      "type": "ice",
+      "minLevel": 31,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -35
         },
         {
           "status": "frozen",
@@ -1215,6 +1307,34 @@
       ]
     },
     {
+      "id": 132,
+      "name": "Shadow Claw",
+      "description": "The user slashes with a sharp claw made from shadows.",
+      "type": "ghost",
+      "minLevel": 11,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -14
+        }
+      ]
+    },
+    {
+      "id": 133,
+      "name": "Shadow Storm",
+      "description": "The user summons a storm of shadows to attack the target.",
+      "type": "ghost",
+      "minLevel": 17,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -21
+        }
+      ]
+    },
+    {
       "id": 76,
       "name": "Astonish",
       "description": "The user attacks the target while shouting in a startling fashion. It may also make the target confused.",
@@ -1243,6 +1363,34 @@
         {
           "status": "confused",
           "chance": 0.8
+        }
+      ]
+    },
+    {
+      "id": 134,
+      "name": "Shadow Terror",
+      "description": "The user summons a terrifying storm of shadows to attack the target.",
+      "type": "ghost",
+      "minLevel": 29,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -34
+        }
+      ]
+    },
+    {
+      "id": 135,
+      "name": "Shadowban",
+      "description": "The user shortly banishes the target to the shadow realm.",
+      "type": "ghost",
+      "minLevel": 37,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -42
         }
       ]
     }
@@ -1317,6 +1465,65 @@
         {
           "status": "poisoned",
           "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 136,
+      "name": "Poison Sting",
+      "description": "The target is stabbed with a toxic barb, which may also poison the target.",
+      "type": "poison",
+      "minLevel": 15,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -17
+        },
+        {
+          "status": "poisoned",
+          "chance": 0.3
+        }
+      ]
+    },
+    {
+      "id": 137,
+      "name": "Toxic Rage",
+      "description": "The user attacks the target with a toxic rage. The user's attack is raised and may also poison the target.",
+      "type": "poison",
+      "minLevel": 21,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -23
+        },
+        {
+          "attribute": "attack",
+          "amount": 1,
+          "chance": 0.2
+        },
+        {
+          "status": "poisoned",
+          "chance": 0.1
+        }
+      ]
+    },
+    {
+      "id": 138,
+      "name": "Venom Chomp",
+      "description": "The user attacks the target with a venomous bite. The target may also be poisoned.",
+      "type": "poison",
+      "minLevel": 29,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -32
+        },
+        {
+          "status": "poisoned",
+          "chance": 0.3
         }
       ]
     }
@@ -1479,6 +1686,20 @@
       ]
     },
     {
+      "id": 139,
+      "name": "Steel Chomp",
+      "description": "The user attacks the target with a steel-hard bite.",
+      "type": "steel",
+      "minLevel": 11,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -15
+        }
+      ]
+    },
+    {
       "id": 67,
       "name": "Steel Fist",
       "description": "The user slams the target with a steel fist. It may also raise the user's defense.",
@@ -1525,6 +1746,57 @@
           "chance": 0.9
         }
       ]
+    },
+    {
+      "id": 140,
+      "name": "Steel Slam",
+      "description": "The user slams the target with a steel-hard tail.",
+      "type": "steel",
+      "minLevel": 23,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -28
+        }
+      ]
+    },
+    {
+      "id": 141,
+      "name": "Steel Headbutt",
+      "description": "The user slams the target with a steel-hard head. It may leave the target confused.",
+      "type": "steel",
+      "minLevel": 31,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -35
+        },
+        {
+          "status": "confused",
+          "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 142,
+      "name": "Steel Charge",
+      "description": "The user charges at the target with a steel-hard body. It may also lower the target's defense.",
+      "type": "steel",
+      "minLevel": 37,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -41
+        },
+        {
+          "attribute": "defense",
+          "amount": -1,
+          "chance": 0.25
+        }
+      ]
     }
   ],
   "fairy": [
@@ -1562,6 +1834,61 @@
         {
           "attribute": "attack",
           "amount": -1,
+          "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 143,
+      "name": "Fairy Punch",
+      "description": "The user punches the target with a fairy-hard fist. It may also confuse the target.",
+      "type": "fairy",
+      "minLevel": 15,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -18
+        },
+        {
+          "status": "confused",
+          "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 144,
+      "name": "Fairy Dance",
+      "description": "The user dances a deadly fairy dance. It may lower the target's defense.",
+      "type": "fairy",
+      "minLevel": 21,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -23
+        },
+        {
+          "attribute": "defense",
+          "amount": -1,
+          "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 145,
+      "name": "Fairy Scream",
+      "description": "The user screams at the target in a high-pitched voice. It may also confuse the target.",
+      "type": "fairy",
+      "minLevel": 26,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -30
+        },
+        {
+          "status": "confused",
           "chance": 0.2
         }
       ]
@@ -1610,6 +1937,25 @@
   ],
   "dark": [
     {
+      "id": 146,
+      "name": "Dark Wind",
+      "description": "The user summons a dark wind that damages the target and lowers its defense.",
+      "type": "dark",
+      "minLevel": 4,
+      "maxUses": 15,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -7
+        },
+        {
+          "attribute": "defense",
+          "amount": -1,
+          "chance": 0.2
+        }
+      ]
+    },
+    {
       "id": 45,
       "name": "Bite",
       "description": "The target is bitten with viciously sharp fangs.",
@@ -1639,6 +1985,39 @@
           "attribute": "defense",
           "amount": -1,
           "chance": 0.3
+        }
+      ]
+    },
+    {
+      "id": 147,
+      "name": "Dark Bite",
+      "description": "The target is bitten with viciously sharp fangs. It may also lower the target's defense.",
+      "type": "dark",
+      "minLevel": 17,
+      "maxUses": 15,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -19
+        },
+        {
+          "attribute": "defense",
+          "amount": -1,
+          "chance": 0.3
+        }
+      ]
+    },
+    {
+      "id": 148,
+      "name": "Night Daze",
+      "description": "The user lets loose a pitch-black shock wave at its target.",
+      "type": "dark",
+      "minLevel": 23,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -27
         }
       ]
     },
@@ -1694,6 +2073,24 @@
         {
           "status": "confused",
           "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 149,
+      "name": "Dark Blast",
+      "description": "The user lets loose a pitch-black shock wave at the target. It may also make the target confused.",
+      "type": "dark",
+      "minLevel": 37,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -41
+        },
+        {
+          "status": "confused",
+          "chance": 0.3
         }
       ]
     }
@@ -1811,16 +2208,34 @@
       "name": "Draco Punch",
       "description": "The user gathers all its power and slams the target with its punch. It may also lower the target's defense.",
       "type": "dragon",
-      "minLevel": 37,
+      "minLevel": 21,
       "maxUses": 5,
       "effects": [
         {
           "attribute": "health",
-          "amount": -41
+          "amount": -24
         },
         {
           "attribute": "defense",
           "amount": -1,
+          "chance": 0.3
+        }
+      ]
+    },
+    {
+      "id": 150,
+      "name": "Dragon Tail",
+      "description": "The target is knocked away by the user's tail. It may leave the target confused.",
+      "type": "dragon",
+      "minLevel": 31,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -35
+        },
+        {
+          "status": "confused",
           "chance": 0.3
         }
       ]
@@ -1914,6 +2329,53 @@
   ],
   "rock": [
     {
+      "id": 151,
+      "name": "Rock Throw",
+      "description": "The user picks up and throws a small rock at the target to attack.",
+      "type": "rock",
+      "minLevel": 1,
+      "maxUses": 15,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -3
+        }
+      ]
+    },
+    {
+      "id": 152,
+      "name": "Rock Smash",
+      "description": "The user smashes into the target with its hard head. It may also lower the target's defense.",
+      "type": "rock",
+      "minLevel": 9,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -12
+        },
+        {
+          "attribute": "defense",
+          "amount": -1,
+          "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 153,
+      "name": "Rock Slide",
+      "description": "Large boulders are hurled at the opposing monster to inflict damage.",
+      "type": "rock",
+      "minLevel": 13,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -17
+        }
+      ]
+    },
+    {
       "id": 66,
       "name": "Ancient Power",
       "description": "The user attacks with a prehistoric power. It may also raise the user's defense.",
@@ -1970,6 +2432,24 @@
       ]
     },
     {
+      "id": 154,
+      "name": "Rock Tomb",
+      "description": "Boulders are hurled at the target. It may also confuse the target.",
+      "type": "rock",
+      "minLevel": 31,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -35
+        },
+        {
+          "status": "confused",
+          "chance": 0.3
+        }
+      ]
+    },
+    {
       "id": 116,
       "name": "Meteor Smash",
       "description": "The user creates a meteor and smashes it into the target.",
@@ -1985,6 +2465,48 @@
     }
   ],
   "bug": [
+    {
+      "id": 155,
+      "name": "Bug Kick",
+      "description": "The target is kicked with a leg that has a small foot.",
+      "type": "bug",
+      "minLevel": 1,
+      "maxUses": 15,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -3
+        }
+      ]
+    },
+    {
+      "id": 156,
+      "name": "Bug Punch",
+      "description": "The target is punched with a small fist.",
+      "type": "bug",
+      "minLevel": 9,
+      "maxUses": 15,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -12
+        }
+      ]
+    },
+    {
+      "id": 157,
+      "name": "Bug Whip",
+      "description": "The target is hit with a slender, whiplike tail.",
+      "type": "bug",
+      "minLevel": 13,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -18
+        }
+      ]
+    },
     {
       "id": 68,
       "name": "Insect Bite",
@@ -2046,6 +2568,24 @@
         {
           "status": "poisoned",
           "chance": 0.2
+        }
+      ]
+    },
+    {
+      "id": 158,
+      "name": "Bug Beam",
+      "description": "The user shoots a beam of bugs at the target. The target may be left confused.",
+      "type": "bug",
+      "minLevel": 33,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -37
+        },
+        {
+          "status": "confused",
+          "chance": 0.3
         }
       ]
     }
