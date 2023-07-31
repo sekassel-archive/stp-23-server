@@ -25,7 +25,10 @@ for (const type of types) {
       if (type === 'normal') {
         targetDamage *= normalDamageMultiplier;
       }
-      healthEffect.amount = -Math.round(targetDamage);
+      targetDamage = -Math.round(targetDamage);
+      if (targetDamage !== healthEffect.amount) {
+        console.log(`${ability.name} ${type} damage is ${healthEffect.amount} but should be ${targetDamage} (${targetDamage - healthEffect.amount})`);
+      }
     }
   }
 }
