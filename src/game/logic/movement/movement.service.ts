@@ -320,11 +320,14 @@ export class MovementService implements OnApplicationBootstrap {
         this.checkAllNPCsOnSight(oldLocation, dto);
     }
 
-    const update: UpdateQuery<Trainer> = {...dto};
     if (dto.area !== oldLocation.area) {
-      update.$addToSet = {visitedAreas: dto.area};
+      await this.trainerService.update(dto._id, {
+        ...dto,
+        $addToSet: {visitedAreas: dto.area},
+      });
+    } else {
+      await this.trainerService.updateWithoutEvent(dto._id, dto);
     }
-    await this.trainerService.updateWithoutEvent(dto._id, update);
     this.broadcast(dto, oldLocation.area);
   }
 
