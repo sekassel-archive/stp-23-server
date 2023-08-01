@@ -1589,12 +1589,12 @@
                  "x":64,
                  "y":48
                 }],
-         "height":64,
+         "height":48,
          "id":7,
          "name":"Buildings 3",
          "opacity":1,
          "startx":0,
-         "starty":0,
+         "starty":16,
          "type":"tilelayer",
          "visible":true,
          "width":80,
@@ -1879,7 +1879,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[\n[107,46,50],\n[97,46,48],\n[30,46,49],\n[10,46,50],\n[11,46,50]\n]"
+                         "value":"[\n[107,46,50],\n[97,46,48],\n[30,46,49],\n[10,46,50],\n[11,46,50],\n[206,46,50],\n[106,49,50],\n[43,46,48],\n[185,46,50],\n[162,48,50]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",

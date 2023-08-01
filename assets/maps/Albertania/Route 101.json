@@ -2676,7 +2676,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[\n[28,10,14],\n[92,10,14],\n[65,10,14],\n[93,10,14]\n]"
+                         "value":"[\n[28,10,14],\n[92,10,14],\n[65,10,14],\n[93,10,14],\n[57,11,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2967,7 +2967,7 @@
          "value":"Forest"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
