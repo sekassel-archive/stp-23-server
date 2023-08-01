@@ -1097,6 +1097,23 @@
                  "width":0,
                  "x":16,
                  "y":112
+                }, 
+                {
+                 "height":16,
+                 "id":66,
+                 "name":"Adromere Stadium",
+                 "properties":[
+                        {
+                         "name":"Description",
+                         "type":"string",
+                         "value":"A large arena where big tournaments can take place."
+                        }],
+                 "rotation":0,
+                 "type":"Place",
+                 "visible":true,
+                 "width":16,
+                 "x":432,
+                 "y":432
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1105,7 +1122,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":66,
+ "nextobjectid":67,
  "orientation":"orthogonal",
  "properties":[
         {
