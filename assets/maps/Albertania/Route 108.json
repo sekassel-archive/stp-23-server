@@ -1705,6 +1705,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[53]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Premade_Character_11.png"
@@ -1922,7 +1927,7 @@
          "value":"Plains"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

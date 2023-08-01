@@ -771,6 +771,39 @@
                  "width":0,
                  "x":272,
                  "y":192
+                }, 
+                {
+                 "height":0,
+                 "id":47,
+                 "name":"Robort",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Scout_2_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[133,20],[127,21]]"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":320,
+                 "y":192
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -779,7 +812,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":47,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -788,7 +821,7 @@
          "value":"Forest"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

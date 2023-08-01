@@ -2432,8 +2432,8 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":880,
-                 "y":384
+                 "x":848,
+                 "y":400
                 },
             
                 {
@@ -2466,7 +2466,7 @@
                  "type":"Trainer",
                  "visible":true,
                  "width":0,
-                 "x":864,
+                 "x":848,
                  "y":352
                 }, 
                 {

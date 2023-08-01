@@ -1277,6 +1277,100 @@
                  "width":400,
                  "x":112,
                  "y":96
+                }, 
+                {
+                 "height":0,
+                 "id":61,
+                 "name":"Gio Chips",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Kid_Karen_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[124,52], [209,55]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":208,
+                 "y":1024
+                }, 
+                {
+                 "height":0,
+                 "id":62,
+                 "name":"Gio Tto",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Kid_Oscar_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[109,54], [4,56]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":1024
+                }, 
+                {
+                 "height":0,
+                 "id":63,
+                 "name":"Anonymous",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[35]"
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Premade_Character_18.png"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":144,
+                 "y":416
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1285,7 +1379,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":61,
+ "nextobjectid":64,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
