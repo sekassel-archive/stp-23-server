@@ -4,6 +4,7 @@ import {User} from '../../user/user.schema';
 import {TrainerService} from './trainer.service';
 import {Monster} from "../monster/monster.schema";
 import {Types} from "mongoose";
+import {Trainer} from "./trainer.schema";
 
 @Injectable()
 export class TrainerHandler {
@@ -15,6 +16,18 @@ export class TrainerHandler {
   @OnEvent('users.*.deleted')
   async onUserDeleted(user: User): Promise<void> {
     await this.trainerService.deleteMany({user: user._id.toString()});
+  }
+
+  @OnEvent('regions.*.trainers.*.deleted')
+  async onTrainerDeleted(trainer: Trainer): Promise<void> {
+    const id = trainer._id.toString();
+    await this.trainerService.updateMany({
+      'npc.encountered': id,
+    }, {
+      $pull: {
+        'npc.encountered': id,
+      },
+    });
   }
 
   @OnEvent('trainers.*.monsters.*.created')
