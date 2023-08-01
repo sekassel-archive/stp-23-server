@@ -452,6 +452,42 @@
           "chance": 0.33
         }
       ]
+    },
+    {
+      "id": 159,
+      "name": "Magma Storm",
+      "description": "The user summons a volcano that erupts and spews lava over the target. It may also leave the target with a burn.",
+      "type": "fire",
+      "minLevel": 35,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -37
+        },
+        {
+          "status": "burned",
+          "chance": 0.4
+        }
+      ]
+    },
+    {
+      "id": 160,
+      "name": "Volcanic Blast",
+      "description": "The user creates a magma blast that erupts from the ground. It may also leave the target with a burn.",
+      "type": "fire",
+      "minLevel": 40,
+      "maxUses": 5,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -43
+        },
+        {
+          "status": "burned",
+          "chance": 0.4
+        }
+      ]
     }
   ],
   "water": [
@@ -657,6 +693,34 @@
         {
           "attribute": "health",
           "amount": -29
+        }
+      ]
+    },
+    {
+      "id": 161,
+      "name": "Aquatic Whirlwind",
+      "description": "The user creates a whirlpool around itself using to swallow the target with full force.",
+      "type": "water",
+      "minLevel": 33,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -37
+        }
+      ]
+    },
+    {
+      "id": 162,
+      "name": "Tsunami",
+      "description": "The user creates a giant wave that rushes forward and sweeps away the target.",
+      "type": "water",
+      "minLevel": 37,
+      "maxUses": 10,
+      "effects": [
+        {
+          "attribute": "health",
+          "amount": -42
         }
       ]
     }
