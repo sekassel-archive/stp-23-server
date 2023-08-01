@@ -113,11 +113,7 @@ export class OpponentController {
       await this.checkMonster(dto.move.monster, trainer);
       dto.monster = dto.move.monster;
     }
-    const update: UpdateQuery<Opponent> = dto;
-    if (dto.move) {
-      update.results = [];
-    }
-    return this.opponentService.update(id, update);
+    return this.opponentService.update(id, {...dto, results: []});
   }
 
   private async checkMonster(monsterId: string, trainer: Trainer) {
