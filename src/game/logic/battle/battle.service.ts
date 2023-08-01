@@ -174,7 +174,7 @@ export class BattleService {
 
       const targets = opponents.filter(o => o.isAttacker !== opponent.isAttacker && o.monster);
       const target = targets.random();
-      const targetMonster = target.monster && await this.monsterService.find(new Types.ObjectId(target.monster));
+      const targetMonster = target && target.monster && await this.monsterService.find(new Types.ObjectId(target.monster));
       let monster = opponent.monster && await this.monsterService.find(new Types.ObjectId(opponent.monster));
       if (!monster || monster.currentAttributes.health <= 0) {
         monster = await this.findNPCnextMonster(opponent.trainer, targetMonster || undefined);
