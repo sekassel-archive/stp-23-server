@@ -2034,6 +2034,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[30]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Premade_Character_05.png"
@@ -2164,6 +2169,11 @@
                          "name":"EncounterOnSight",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[51]"
                         }, 
                         {
                          "name":"Image",

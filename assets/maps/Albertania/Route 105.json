@@ -1556,6 +1556,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[22]"
+                        }, 
+                        {
                          "name":"Image",
                          "type":"string",
                          "value":"Scout_1_16x16.png"
@@ -1626,6 +1631,72 @@
                  "width":0,
                  "x":848,
                  "y":800
+                }, 
+                {
+                 "height":0,
+                 "id":52,
+                 "name":"Mlemens",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Samuel_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[207,32],[168,30],[108,34]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":960,
+                 "y":336
+                }, 
+                {
+                 "height":0,
+                 "id":53,
+                 "name":"Carie",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Amelia_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[196,32],[207,30]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":960,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1634,7 +1705,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":52,
+ "nextobjectid":54,
  "orientation":"orthogonal",
  "properties":[
         {

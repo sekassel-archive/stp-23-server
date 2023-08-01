@@ -1248,7 +1248,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":0
+                         "value":3
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -1270,7 +1270,7 @@
                  "visible":true,
                  "width":0,
                  "x":464,
-                 "y":512
+                 "y":480
                 }, 
                 {
                  "height":0,
@@ -1281,7 +1281,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"EncounterOnSight",

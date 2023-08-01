@@ -2676,7 +2676,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[\n[28,10,14],\n[92,10,14],\n[65,10,14],\n[93,10,14]\n]"
+                         "value":"[\n[28,10,14],\n[92,10,14],\n[65,10,14],\n[93,10,14],\n[57,11,14]\n]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
@@ -2860,7 +2860,7 @@
                         {
                          "name":"Direction",
                          "type":"int",
-                         "value":3
+                         "value":0
                         }, 
                         {
                          "name":"EncounterOnSight",
@@ -2899,6 +2899,11 @@
                          "name":"EncounterOnSight",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"Gifts",
+                         "type":"string",
+                         "value":"[50]"
                         }, 
                         {
                          "name":"Image",
@@ -2950,6 +2955,39 @@
                  "width":0,
                  "x":2416,
                  "y":144
+                }, 
+                {
+                 "height":0,
+                 "id":55,
+                 "name":"Schmimon",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"EncounterOnSight",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":"Adam_16x16.png"
+                        }, 
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[42,11],[50,12]]"
+                        }],
+                 "rotation":0,
+                 "type":"Trainer",
+                 "visible":true,
+                 "width":0,
+                 "x":1712,
+                 "y":416
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2958,7 +2996,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":55,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -2967,7 +3005,7 @@
          "value":"Forest"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
