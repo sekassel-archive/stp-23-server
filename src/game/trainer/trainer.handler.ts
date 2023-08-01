@@ -35,4 +35,13 @@ export class TrainerHandler {
       },
     });
   }
+
+  @OnEvent('trainers.*.monsters.*.deleted')
+  async onMonsterDeleted(monster: Monster): Promise<void> {
+    await this.trainerService.update(new Types.ObjectId(monster.trainer), {
+      $pull: {
+        team: monster._id.toString(),
+      },
+    });
+  }
 }
