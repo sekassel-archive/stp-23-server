@@ -360,7 +360,7 @@
 
 ## Bugfixes
 
-* Fixed the `Doctor_2` (woman with pink hair) walking sprites.
+* Fixed the `Doctor_2` (woman with pink hair) walking sprites. [STP23SRV-9](https://jira.uniks.de/browse/STP23SRV-9)
 
 # v4.0.1 - Gloomy Cave Bugfixes
 
@@ -402,8 +402,8 @@
 
 ### Resources
 
-+ Added `Trainer.settings` attribute for storing client-specific settings.
-+ Added the `DELETE .../monsters/:id` endpoint.
++ Added `Trainer.settings` attribute for storing client-specific settings. [STP23SRV-10](https://jira.uniks.de/browse/STP23SRV-10)
++ Added the `DELETE .../monsters/:id` endpoint. [STP23SRV-10](https://jira.uniks.de/browse/STP23SRV-10)
 
 ## Improvements
 
