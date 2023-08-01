@@ -453,3 +453,31 @@
 * Fixed many ability descriptions.
 * Made the pier in Route 111 walkable.
 * Item boxes can no longer contain other item boxes or monster boxes.
+
+# v4.3.0 - Stadium and Abilities
+
+## New Features
+
++ Added the Adromere Stadium.
++ Added 37 new abilities.
++ Added many new spots on piers where water monsters may appear.
++ Spread many previously unobtainable monsters across the world.
++ Added many new NPCs, including opposing ones for double encounters and passive NPCs with gifts.
+
+## Improvements
+
+* Adjusted many abilities for better balancing.
+* Updated many tiles with Walkable and Roof properties.
+* Added some decorations in the prison to avoid getting stuck. [STP23SRV-8](https://jira.uniks.de/browse/STP23SRV-8)
+* Added some buildings in Werningham for padding.
+* Removed water on the right of Jenshire.
+
+## Bugfixes
+
+* Attribute growth is now rounded correctly.
+* Fixed item box randomization and improved the value of random items.
+* NPCs no longer generate starter items.
+* Entering a different area now sends WebSocket events.
+* Deleting a monster now removes it from the trainer's team.
+* NPCs now forget deleted trainers.
+* Updating the opponent monster without a move after defeat now clears the results.
