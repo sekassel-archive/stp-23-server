@@ -101,7 +101,7 @@ export class OpponentController {
     const trainer = await this.checkTrainerAccess(current, user);
     if (dto.monster) {
       // Changing the monster happens immediately
-      await this.checkMonster(dto.monster, trainer);
+      await this.checkMonster(id, dto.monster, trainer);
       if (current && current.monster) {
         throw new ConflictException(`Opponent ${id} already has a monster`);
       }
@@ -110,19 +110,27 @@ export class OpponentController {
     }
     if (dto.move && dto.move.type === ChangeMonsterMove.type) {
       // Changing the monster happens immediately
-      await this.checkMonster(dto.move.monster, trainer);
+      await this.checkMonster(id, dto.move.monster, trainer);
       dto.monster = dto.move.monster;
     }
     return this.opponentService.update(id, {...dto, results: []});
   }
 
-  private async checkMonster(monsterId: string, trainer: Trainer) {
+  private async checkMonster(opponentId: Types.ObjectId, monsterId: string, trainer: Trainer) {
     const monster = await this.monsterService.find(new Types.ObjectId(monsterId)) || notFound(monsterId);
-    if (!trainer.team.includes(monsterId)) {
+    if (!trainer._id.equals(monster.trainer) || !trainer.team.includes(monsterId)) {
       throw new ForbiddenException(`Monster ${monsterId} is not on trainer ${trainer._id} team`);
     }
     if (monster.currentAttributes.health <= 0) {
       throw new UnprocessableEntityException(`Monster ${monsterId} is dead`);
+    }
+    const otherOpponent = await this.opponentService.findOne({
+      _id: {$ne: opponentId},
+      trainer: trainer._id.toString(),
+      monster: monster._id.toString(),
+    });
+    if (otherOpponent) {
+      throw new ConflictException(`Monster ${monsterId} is already in use for another opponent`);
     }
   }
 
