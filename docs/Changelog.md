@@ -481,3 +481,17 @@
 * Deleting a monster now removes it from the trainer's team.
 * NPCs now forget deleted trainers.
 * Updating the opponent monster without a move after defeat now clears the results.
+
+# v4.3.1 - Bugfixes
+
+## Improvements
+
+* Status effects are now removed at the start of each turn so they always have some effect.
+* Expanded the protection zone in Victory Road to the whole map.
+
+## Bugfixes
+
+* The bridge in Route 109 can now be crossed.
+* The trees in Route 106 no longer allow passing through to the map border.
+* Status items now check if the monster has the status and are not used if not.
+* It is no longer possible to use a monster for multiple opponents at the same time.
