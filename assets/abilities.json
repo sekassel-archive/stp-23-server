@@ -303,7 +303,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -4
+          "amount": -2
         }
       ]
     },
@@ -317,7 +317,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -4
+          "amount": -3
         },
         {
           "status": "burned",
@@ -515,7 +515,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -4
+          "amount": -5
         }
       ]
     },
@@ -529,7 +529,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -4
+          "amount": -3
         }
       ]
     },
@@ -791,7 +791,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -7
+          "amount": -5
         },
         {
           "status": "paralysed",
