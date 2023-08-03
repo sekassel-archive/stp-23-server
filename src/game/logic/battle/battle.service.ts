@@ -269,8 +269,8 @@ export class BattleService {
 
     for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
-      opponent && await this.playMove(monster, opponent, opponents, monsters);
       this.removeStatusEffects(monster, opponent);
+      opponent && await this.playMove(monster, opponent, opponents, monsters);
       this.applyStatusDamage(monster, opponent);
     }
 
