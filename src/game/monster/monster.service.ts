@@ -42,20 +42,24 @@ export class MonsterService extends MongooseRepository<Monster> {
     await this.saveAll(monsters);
   }
 
-  async applyEffects(monster: MonsterDocument, effects: Effect[]) {
+  applyEffects(monster: MonsterDocument, effects: Effect[]): boolean {
     const m = monster.currentAttributes;
+    let hadEffect = false;
     for (const effect of effects) {
       if ('attribute' in effect) {
         const attribute = effect.attribute as keyof MonsterAttributes;
-        if (m[attribute] === monster.attributes[attribute]) {
-          throw new ForbiddenException('Can\'t use item, attribute already at max');
+        if (m[attribute] !== monster.attributes[attribute]) {
+          m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
+          hadEffect = true;
         }
-        m[attribute] = Math.min(m[attribute] + effect.amount, monster.attributes[attribute]);
+        monster.markModified('currentAttributes');
       } else if ('status' in effect) {
-        this.applyStatusEffect(effect, monster);
+        if (this.applyStatusEffect(effect, monster) !== 'unchanged') {
+          hadEffect = true;
+        }
       }
     }
-    monster.markModified('currentAttributes');
+    return hadEffect;
   }
 
   applyStatusEffect(effect: StatusEffect, monster: MonsterDocument): StatusResult {

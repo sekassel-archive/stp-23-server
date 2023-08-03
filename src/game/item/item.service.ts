@@ -108,7 +108,7 @@ export class ItemService {
         }
         if (this.useBall(trainer, itemType, monster)) {
           // balls may have effects
-          itemType.effects && await this.monsterService.applyEffects(monster, itemType.effects);
+          itemType.effects && this.monsterService.applyEffects(monster, itemType.effects);
         }
         break;
       case 'effect':
@@ -118,7 +118,9 @@ export class ItemService {
         if (monster.trainer !== trainer) {
           throw new ForbiddenException('You are not the owner of this monster');
         }
-        itemType.effects && await this.monsterService.applyEffects(monster, itemType.effects);
+        if (itemType.effects && !this.monsterService.applyEffects(monster, itemType.effects)) {
+          throw new ForbiddenException('This item has no effect on this monster');
+        }
         break;
     }
 
