@@ -2081,7 +2081,7 @@
                  "y":0
                 }, 
                 {
-                 "height":128,
+                 "height":368,
                  "id":51,
                  "name":"Protection",
                  "properties":[
@@ -2103,13 +2103,13 @@
                  "rotation":0,
                  "type":"ProtectedZone",
                  "visible":true,
-                 "width":64,
-                 "x":160,
+                 "width":96,
+                 "x":144,
                  "y":160
                 },
             
                 {
-                 "height":48,
+                 "height":384,
                  "id":52,
                  "name":"Protection",
                  "properties":[
@@ -2131,63 +2131,9 @@
                  "rotation":0,
                  "type":"ProtectedZone",
                  "visible":true,
-                 "width":64,
-                 "x":224,
+                 "width":544,
+                 "x":240,
                  "y":144
-                }, 
-                {
-                 "height":64,
-                 "id":53,
-                 "name":"Protection",
-                 "properties":[
-                        {
-                         "name":"Map",
-                         "type":"string",
-                         "value":"Victory Road"
-                        }, 
-                        {
-                         "name":"X",
-                         "type":"int",
-                         "value":10
-                        }, 
-                        {
-                         "name":"Y",
-                         "type":"int",
-                         "value":9
-                        }],
-                 "rotation":0,
-                 "type":"ProtectedZone",
-                 "visible":true,
-                 "width":64,
-                 "x":480,
-                 "y":192
-                }, 
-                {
-                 "height":80,
-                 "id":54,
-                 "name":"Protection",
-                 "properties":[
-                        {
-                         "name":"Map",
-                         "type":"string",
-                         "value":"Victory Road"
-                        }, 
-                        {
-                         "name":"X",
-                         "type":"int",
-                         "value":10
-                        }, 
-                        {
-                         "name":"Y",
-                         "type":"int",
-                         "value":9
-                        }],
-                 "rotation":0,
-                 "type":"ProtectedZone",
-                 "visible":true,
-                 "width":64,
-                 "x":144,
-                 "y":400
                 }, 
                 {
                  "height":64,
