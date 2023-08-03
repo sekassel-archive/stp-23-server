@@ -2771,12 +2771,12 @@
                         {
                          "name":"X",
                          "type":"int",
-                         "value":51
+                         "value":46
                         }, 
                         {
                          "name":"Y",
                          "type":"int",
-                         "value":40
+                         "value":45
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -3051,7 +3051,7 @@
          "value":"City"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
