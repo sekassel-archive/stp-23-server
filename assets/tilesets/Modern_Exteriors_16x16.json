@@ -6,7 +6,7 @@
  "name":"Modern_Exteriors_16x16",
  "spacing":0,
  "tilecount":41712,
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tiles":[
         {
@@ -19178,11 +19178,6 @@
          "id":4155,
          "properties":[
                 {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -19192,11 +19187,6 @@
          "id":4159,
          "properties":[
                 {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"Walkable",
                  "type":"bool",
                  "value":true
@@ -19205,11 +19195,6 @@
         {
          "id":4163,
          "properties":[
-                {
-                 "name":"Roof",
-                 "type":"bool",
-                 "value":true
-                }, 
                 {
                  "name":"Walkable",
                  "type":"bool",
