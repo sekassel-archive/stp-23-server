@@ -91,8 +91,11 @@ for (const layer of map.layers) {
   }
 
   for (const object of layer.objects) {
-    const areaMonster = areaMonsters[object.name];
-    if (!areaMonster) {
+    const areaMonster = Object.entries(areaMonsters)
+      .filter(([area]) => area.startsWith(object.name))
+      .flatMap(([, monsters]) => [...monsters])
+      .sort((a, b) => a - b);
+    if (!areaMonster.length) {
       continue;
     }
 
@@ -103,7 +106,7 @@ for (const layer of map.layers) {
       properties.push(monsters);
     }
 
-    const newValue = JSON.stringify([...areaMonster]);
+    const newValue = JSON.stringify(areaMonster);
     if (monsters.value !== newValue) {
       changed = true;
     }
