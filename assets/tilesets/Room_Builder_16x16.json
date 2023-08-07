@@ -6,7 +6,7 @@
  "name":"Room_Builder_16x16",
  "spacing":0,
  "tilecount":8284,
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tiles":[
         {
@@ -348,6 +348,42 @@
                 }]
         }, 
         {
+         "id":896,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":898,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":899,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":901,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":902,
          "properties":[
                 {
@@ -650,6 +686,42 @@
                 }]
         }, 
         {
+         "id":972,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":974,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":975,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":977,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":978,
          "properties":[
                 {
@@ -902,6 +974,150 @@
                 }]
         }, 
         {
+         "id":1048,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1049,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1050,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1051,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1052,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1053,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1054,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1055,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1056,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1057,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1058,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1059,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1060,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1061,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1062,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1063,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":1098,
          "properties":[
                 {
@@ -1056,6 +1272,42 @@
         }, 
         {
          "id":1119,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1124,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1126,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1127,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1129,
          "properties":[
                 {
                  "name":"Walkable",
@@ -1226,6 +1478,60 @@
                 }]
         }, 
         {
+         "id":1200,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1201,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1202,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1203,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1204,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1205,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
          "id":1250,
          "properties":[
                 {
@@ -1380,6 +1686,60 @@
         }, 
         {
          "id":1271,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1276,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1277,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1278,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1279,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1280,
+         "properties":[
+                {
+                 "name":"Walkable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "id":1281,
          "properties":[
                 {
                  "name":"Walkable",
