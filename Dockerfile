@@ -1,4 +1,4 @@
-FROM node:18-slim as builder
+FROM node:20-slim as builder
 RUN npm install -g pnpm
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
@@ -14,7 +14,7 @@ WORKDIR /app
 COPY assets ./assets
 RUN find assets -name '*.json' -exec sh -c 'grep -v "//" "$1" | jq -c . | sponge "$1"' _ {} \;
 
-FROM node:18-slim
+FROM node:20-slim
 RUN npm install -g pnpm
 WORKDIR /app
 ENV NODE_ENV=production
