@@ -1,5 +1,5 @@
 { "compressionlevel":-1,
- "height":48,
+ "height":60,
  "infinite":true,
  "layers":[
         {
@@ -1936,7 +1936,7 @@
  "nextobjectid":75,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -1954,5 +1954,5 @@
  "tilewidth":16,
  "type":"map",
  "version":"1.10",
- "width":96
+ "width":100
 }
