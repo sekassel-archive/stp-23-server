@@ -124,7 +124,8 @@ export class GameLoader implements OnModuleInit {
 
     trainer.team = [];
     for (const [type, level] of monsterSpecs) {
-      const monster = await this.monsterGeneratorService.createAuto(trainer._id.toString(), type, level);
+      const monsterDto = this.monsterGeneratorService.autofill(type, level, true);
+      const monster = await this.monsterGeneratorService.createAuto(trainer._id.toString(), monsterDto);
       trainer.team.push(monster._id.toString());
     }
     await trainer.save();

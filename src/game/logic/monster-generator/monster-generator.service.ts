@@ -19,10 +19,16 @@ export class MonsterGeneratorService {
   ) {
   }
 
-  autofill(type: number, level: number): CreateMonsterDto {
+  autofill(type: number, level: number, evolve: boolean | 'random'): CreateMonsterDto {
     let monsterType = monsterTypes.find(t => t.id === type) || notFound('Invalid monster type');
-    for (const evolutionLevel of EVOLUTION_LEVELS) {
-      if (level >= evolutionLevel && monsterType.evolution) {
+    if (evolve) {
+      for (const evolutionLevel of EVOLUTION_LEVELS) {
+        if (level < evolutionLevel || !monsterType.evolution) {
+          break;
+        }
+        if (evolve === 'random' && Math.random() < 0.5) {
+          break;
+        }
         type = monsterType.evolution;
         monsterType = monsterTypes.find(t => t.id === type) || monsterType;
       }
@@ -62,12 +68,11 @@ export class MonsterGeneratorService {
       .slice(0, MAX_ABILITIES);
   }
 
-  async createAuto(trainer: string, type: number, level: number): Promise<MonsterDocument> {
-    const dto = this.autofill(type, level);
+  async createAuto(trainer: string, dto: CreateMonsterDto): Promise<MonsterDocument> {
     return this.monsterService.upsert({
       // NB: This makes it so NPCs cannot have two monsters of the same type and level.
       trainer,
-      level,
+      level: dto.level,
       // NB: Use the potentially evolved type
       type: dto.type,
     }, {

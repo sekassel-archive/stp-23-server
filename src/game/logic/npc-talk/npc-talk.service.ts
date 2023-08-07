@@ -48,7 +48,8 @@ export class NpcTalkService {
         await this.trainerService.update(dto.target, {
           $addToSet: {'npc.encountered': trainerId},
         });
-        await this.monsterGeneratorService.createAuto(trainerId, starterId, STARTER_LEVEL);
+        const monsterDto = this.monsterGeneratorService.autofill(starterId, STARTER_LEVEL, false);
+        await this.monsterGeneratorService.createAuto(trainerId, monsterDto);
       }
     }
     if (target.npc.encounterOnTalk) {

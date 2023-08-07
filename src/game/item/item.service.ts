@@ -147,7 +147,8 @@ export class ItemService {
     const randomBaseMonster = baseMonsterTypes.random();
     // 250 -> level 6-10, 1000 -> level 10-14, 8000 -> level 20-24
     const level = Math.round(levelFromExp(itemType.price) + Math.random() * 4);
-    await this.monsterGenerator.createAuto(trainer, randomBaseMonster.id, level);
+    const dto = this.monsterGenerator.autofill(randomBaseMonster.id, level, 'random');
+    await this.monsterGenerator.createAuto(trainer, dto);
   }
 
   private useBall(trainer: string, itemType: ItemType, monster: MonsterDocument): boolean {
