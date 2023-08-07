@@ -1252,13 +1252,19 @@
                 {
                  "height":16,
                  "id":40,
-                 "name":"Old Shrine",
+                 "name":"Legendary Dragoking",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[149,37,41]]"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"TallGrass",
                  "visible":true,
                  "width":32,
                  "x":1024,
-                 "y":352
+                 "y":368
                 }, 
                 {
                  "height":16,

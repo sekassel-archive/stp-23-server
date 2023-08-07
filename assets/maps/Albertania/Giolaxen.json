@@ -5218,6 +5218,24 @@
                  "width":48,
                  "x":928,
                  "y":144
+                },
+            
+                {
+                 "height":16,
+                 "id":100,
+                 "name":"Legendary Wymfire",
+                 "properties":[
+                        {
+                         "name":"Monsters",
+                         "type":"string",
+                         "value":"[[198,55,59]]"
+                        }],
+                 "rotation":0,
+                 "type":"TallGrass",
+                 "visible":true,
+                 "width":96,
+                 "x":464,
+                 "y":1968
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5226,7 +5244,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":100,
+ "nextobjectid":101,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -5235,7 +5253,7 @@
          "value":"{\"x\":84,\"y\":92}"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.10.0",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
