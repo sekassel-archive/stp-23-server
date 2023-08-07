@@ -542,19 +542,18 @@ export class BattleService {
 
     // Learn new ability
     const newAbilities = this.monsterGeneratorService.getPossibleAbilities(currentMonster.level, monsterType.type)
-      .filter(a => !(a.id in currentMonster.abilities));
+      .filter(a => !(a.id in currentMonster.abilities) && a.minLevel === currentMonster.level);
     if (newAbilities.length) {
-      const ability = newAbilities.random();
-      currentMonster.abilities[ability.id] = ability.maxUses;
-
       const abilityIds = Object.keys(currentMonster.abilities);
-      if (abilityIds.length > MAX_ABILITIES) {
-        const worstAbility = +abilityIds.minBy(id => abilitiesById[+id]?.minLevel || 0);
-        delete currentMonster.abilities[worstAbility];
-        opponent.results.push({type: 'monster-forgot', ability: worstAbility, monster: monsterId});
+      if (abilityIds.length >= MAX_ABILITIES) {
+        const worstAbilityId = +abilityIds.minBy(id => abilitiesById[+id]?.minLevel || 0);
+        delete currentMonster.abilities[worstAbilityId];
+        opponent.results.push({type: 'monster-forgot', ability: worstAbilityId, monster: monsterId});
       }
 
-      opponent.results.push({type: 'monster-learned', ability: ability.id, monster: monsterId});
+      const newAbility = newAbilities.random();
+      currentMonster.abilities[newAbility.id] = newAbility.maxUses;
+      opponent.results.push({type: 'monster-learned', ability: newAbility.id, monster: monsterId});
       currentMonster.markModified('abilities');
     }
   }
