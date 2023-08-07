@@ -1723,7 +1723,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[\n[121,31,35],\n]"
+                         "value":"[[121,31,35]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",

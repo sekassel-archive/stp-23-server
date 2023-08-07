@@ -736,7 +736,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[160,68,70]]"
+                         "value":"[[150,68,70]]"
                         }],
                  "rotation":0,
                  "type":"TallGrass",
