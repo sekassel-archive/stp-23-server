@@ -495,3 +495,23 @@
 * The trees in Route 106 no longer allow passing through to the map border.
 * Status items now check if the monster has the status and are not used if not.
 * It is no longer possible to use a monster for multiple opponents at the same time.
+
+# v4.4.0 - Legendary Monsters
+
+## New Features
+
+* Spread 7 legendary monsters across the world.
+
+## Improvements
+
+* Updated the damage of some abilities.
+* The region map now includes monster IDs of minor areas.
+* Wild monsters may now spawn unevolved to allow Mondex discovery.
+* Monsters now learn only the best abilities of the new level.
+
+## Bugfixes
+
+* Fixed a few minor problems in Route 109.
+* Fixed Sandropolis to have the right size.
+* Fixed some Walkable and Roof tile properties.
+* NPC monsters are no longer healed when no encounter starts.
