@@ -29,16 +29,17 @@ export class BattleSetupService {
       return;
     }
 
-    await this.monsterService.healAll({
-      trainer: {$in: [defender, ...attackers].filter(t => t.npc).map(t => t._id.toString())},
-    });
-
+    const npcTrainerIds = [defender, ...attackers].filter(t => t.npc).map(t => t._id.toString());
     const monsters = await this.monsterService.findAll({
       trainer: {$in: [defenderId, ...attackerIds]},
-      'currentAttributes.health': {$gt: 0},
+      $or: [
+        {'currentAttributes.health': {$gt: 0}},
+        {trainer: {$in: npcTrainerIds}},
+      ],
     });
     const defenderMonsters = defender.team.map(m => monsters.find(monster => monster._id.toString() === m)).filter(m => m);
     if (!defenderMonsters.length) {
+      // the defender has no monsters left
       return;
     }
 
@@ -46,6 +47,10 @@ export class BattleSetupService {
       // the attackers have no monsters left
       return;
     }
+
+    await this.monsterService.healAll({
+      trainer: {$in: npcTrainerIds},
+    });
 
     const encounter = await this.encounterService.create({region: defender.region, isWild: false});
 
