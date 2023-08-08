@@ -621,12 +621,12 @@
       "name": "Aqua Jet",
       "description": "The user lunges at the target at a speed that makes it almost invisible.",
       "type": "water",
-      "minLevel": 20,
+      "minLevel": 17,
       "maxUses": 15,
       "effects": [
         {
           "attribute": "health",
-          "amount": -23
+          "amount": -20
         }
       ]
     },
@@ -983,7 +983,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -24
+          "amount": -23
         },
         {
           "status": "asleep",
