@@ -5,6 +5,7 @@ import {TrainerService} from './trainer.service';
 import {Monster} from "../monster/monster.schema";
 import {Types} from "mongoose";
 import {Trainer} from "./trainer.schema";
+import {MAX_TEAM_SIZE} from "../constants";
 
 @Injectable()
 export class TrainerHandler {
@@ -32,12 +33,14 @@ export class TrainerHandler {
 
   @OnEvent('trainers.*.monsters.*.created')
   async onMonsterCreated(monster: Monster): Promise<void> {
-    await this.trainerService.update(new Types.ObjectId(monster.trainer), {
-      $addToSet: {
-        team: monster._id.toString(),
-        encounteredMonsterTypes: monster.type,
+    await this.trainerService.update(new Types.ObjectId(monster.trainer), [
+      {
+        $set: {
+          encounteredMonsterTypes: {$setUnion: ['$encounteredMonsterTypes', [monster.type]]},
+          team: {$slice: [{$setUnion: ['$team', [monster._id.toString()]]}, MAX_TEAM_SIZE]},
+        },
       },
-    });
+    ]);
   }
 
   @OnEvent('trainers.*.monsters.*.updated')
