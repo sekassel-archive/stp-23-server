@@ -35,6 +35,7 @@ import {ItemService} from './item.service';
 import {ItemAction} from "./item.action";
 import {Types} from "mongoose";
 import {exceptionDesc} from "../../util/exception.extractor";
+import {OpponentService} from "../opponent/opponent.service";
 
 @Controller('regions/:regionId/trainers/:trainerId/items')
 @ApiTags('Trainer Items')
@@ -46,6 +47,7 @@ export class ItemController {
     private readonly itemService: ItemService,
     private readonly trainerService: TrainerService,
     private readonly monsterService: MonsterService,
+    private readonly opponentService: OpponentService,
   ) {
   }
 
@@ -76,6 +78,9 @@ export class ItemController {
     if (action === ItemAction.USE) {
       if (amount !== 1) {
         throw new BadRequestException('Amount must be exactly 1 when using items');
+      }
+      if (await this.opponentService.findOne({trainer: trainer._id.toString()})) {
+        throw new ForbiddenException('You cannot use items while in a battle');
       }
       const monster = dto.monster ? await this.monsterService.find(new Types.ObjectId(dto.monster)) : null;
       const result = await this.itemService.useItem(trainer._id.toString(), dto.type, monster);

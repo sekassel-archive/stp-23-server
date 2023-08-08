@@ -8,6 +8,7 @@ import {ItemHandler} from "./item.handler";
 import {TrainerModule} from "../trainer/trainer.module";
 import {MonsterModule} from "../monster/monster.module";
 import {LogicModule} from "../logic/logic.module";
+import {OpponentModule} from "../opponent/opponent.module";
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import {LogicModule} from "../logic/logic.module";
     EventModule,
     TrainerModule,
     MonsterModule,
+    OpponentModule,
     forwardRef(() => LogicModule),
   ],
   controllers: [ItemController],
