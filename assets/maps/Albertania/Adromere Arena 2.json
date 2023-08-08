@@ -100,12 +100,12 @@
                 {
                  "height":32,
                  "id":19,
-                 "name":"Adromere Arena 4",
+                 "name":"Adromere Arena 3",
                  "properties":[
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Adromere Arena 2"
+                         "value":"Adromere Arena 3"
                         }, 
                         {
                          "name":"X",
@@ -155,12 +155,12 @@
                 {
                  "height":32,
                  "id":21,
-                 "name":"Adromere Arena 4",
+                 "name":"Adromere Arena 3",
                  "properties":[
                         {
                          "name":"Map",
                          "type":"string",
-                         "value":"Adromere Arena 2"
+                         "value":"Adromere Arena 3"
                         }, 
                         {
                          "name":"X",
