@@ -173,19 +173,9 @@
  "orientation":"orthogonal",
  "properties":[
         {
-         "name":"Map",
+         "name":"Terrain",
          "type":"string",
-         "value":"Werningham DBS Entrance"
-        }, 
-        {
-         "name":"X",
-         "type":"int",
-         "value":8
-        }, 
-        {
-         "name":"Y",
-         "type":"int",
-         "value":23
+         "value":"Building"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
