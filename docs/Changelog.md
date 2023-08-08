@@ -515,3 +515,22 @@
 * Fixed Sandropolis to have the right size.
 * Fixed some Walkable and Roof tile properties.
 * NPC monsters are no longer healed when no encounter starts.
+
+# v4.4.1 - Bugfixes
+
+## Improvements
+
+* Wild monsters that did not evolve yet can now do that at every level above 20.
+* Added missing spawn to Julianwood.
+* Added many Terrain properties to areas.
+* Adjusted the damage of some abilities.
+
+## Bugfixes
+
+* New monsters are no longer added to the team if it is full.
+* Items can no longer be used with the endpoint if the trainer is in battle.
+* Made baseboards walkable to allow traversal through Adromere Arena.
+* Fixed a roof in Route 106.
+* Fixed the Terrain properties in some areas.
+* Fixed the portals in the Adromere Arena.
+* Adjusted some area map sizes.
