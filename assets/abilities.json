@@ -1139,7 +1139,7 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -25
+          "amount": -24
         },
         {
           "status": "frozen",
@@ -1157,11 +1157,11 @@
       "effects": [
         {
           "attribute": "health",
-          "amount": -26
+          "amount": -27
         },
         {
           "status": "frozen",
-          "chance": 0.3
+          "chance": 0.4
         }
       ]
     },
