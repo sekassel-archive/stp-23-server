@@ -2727,12 +2727,12 @@
       "name": "Double Slap",
       "description": "The user slaps the target with its open palm two to five times in a row.",
       "type": "fighting",
-      "minLevel": 35,
+      "minLevel": 37,
       "maxUses": 15,
       "effects": [
         {
           "attribute": "health",
-          "amount": -38
+          "amount": -42
         }
       ]
     },
