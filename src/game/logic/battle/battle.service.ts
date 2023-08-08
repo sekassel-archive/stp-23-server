@@ -516,8 +516,9 @@ export class BattleService {
     opponent.results.push({type: 'monster-levelup', monster: monsterId});
     currentMonster.level++;
 
-    // Evolution
-    if (EVOLUTION_LEVELS.includes(currentMonster.level)) {
+    // Evolution happens at the predefined levels, or if the monster is past the final evolution level.
+    // This is important to allow wild monsters that spawned as the base type to evolve.
+    if (EVOLUTION_LEVELS.includes(currentMonster.level) || currentMonster.level >= EVOLUTION_LEVELS[EVOLUTION_LEVELS.length - 1]) {
       const evolution = monsterType.evolution;
       const newMonsterType = monsterTypes.find(m => m.id === evolution);
       if (evolution && newMonsterType) {
