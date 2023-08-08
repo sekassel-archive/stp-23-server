@@ -1937,6 +1937,11 @@
  "orientation":"orthogonal",
  "properties":[
         {
+         "name":"Spawn",
+         "type":"string",
+         "value":"{\"x\":19,\"y\":33}"
+        }, 
+        {
          "name":"Terrain",
          "type":"string",
          "value":"Forest"
