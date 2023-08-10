@@ -1335,7 +1335,7 @@
                         {
                          "name":"Monsters",
                          "type":"string",
-                         "value":"[[109,54], [4,56]]"
+                         "value":"[[143,54], [4,56]]"
                         }],
                  "rotation":0,
                  "type":"Trainer",
