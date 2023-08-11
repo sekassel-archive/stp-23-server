@@ -270,6 +270,9 @@ export class BattleService {
       // items are always first
       // NB: this is important for the monster-caught result, which is only possible when the item is used first
       if (a.move && 'item' in a.move) {
+        if (b.move && 'item' in b.move) { // ensure a stable sort
+          return 0;
+        }
         return -1;
       }
       if (b.move && 'item' in b.move) {
