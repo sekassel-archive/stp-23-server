@@ -534,3 +534,17 @@
 * Fixed the Terrain properties in some areas.
 * Fixed the portals in the Adromere Arena.
 * Adjusted some area map sizes.
+
+# v4.4.2 - Bugfixes
+
+## Improvements
+
+* Improved portals between Werningham and Route 107.
+* Improved portals and NPC placement in the Dead Birds Society building.
+* Changed two NPCs to not have legendary monsters.
+* Adjusted the Albertania region map with new descriptions and missing Buildings info.
+
+## Bugfixes
+
+* Monster attacks are now ordered by the current speed (descending).
+* Made the helipad and Reuterbank entrance walkable.
