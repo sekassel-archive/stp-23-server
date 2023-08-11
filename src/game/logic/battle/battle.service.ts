@@ -293,7 +293,7 @@ export class BattleService {
         for (const status of monster.status) {
           const failChance = STATUS_FAIL_CHANCE[status];
           if (failChance && Math.random() < failChance) {
-            opponent.results = [{type: 'ability-failed', status, monster: monsterId}];
+            opponent.results = [{type: 'ability-failed', ability: move.ability, status, monster: monsterId}];
             return;
           }
         }
