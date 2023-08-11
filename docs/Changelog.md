@@ -548,3 +548,17 @@
 
 * Monster attacks are now ordered by the current speed (descending).
 * Made the helipad and Reuterbank entrance walkable.
+
+# v4.4.3 - Reliable Opponent Order
+
+## Improvements
+
+* Item moves now always happen before ability moves.
+* Opponent updates are now ordered by the attack order.
+* The `monster-caught` result is now added to the wild monster opponent.
+* Removed the `stunned` status because it did not have an effect.
+
+## Bugfixes
+
+* The `ability-failed` result now includes the ability when triggered by a status.
+* Wild monsters no longer attack after being caught.
