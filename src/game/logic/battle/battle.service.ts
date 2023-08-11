@@ -318,6 +318,7 @@ export class BattleService {
 
         if (opponent.trainer === TALL_GRASS_TRAINER && monster.trainer === targetOpponent.trainer) {
           // a wild monster that was just caught
+          opponent.results = [{type: 'monster-caught', monster: targetMonsterId}];
           return;
         }
 
@@ -340,13 +341,12 @@ export class BattleService {
         const monsterInBattle = monsters.find(m => m._id.equals(move.target));
         const trainerMonster = monsterInBattle ? undefined : await this.monsterService.find(new Types.ObjectId(move.target));
         try {
-          const prefTrainer = monsterInBattle?.trainer;
           await this.itemService.useItem(opponent.trainer, move.item, monsterInBattle || trainerMonster);
           if (trainerMonster) {
             await this.monsterService.saveAll([trainerMonster]);
           }
           opponent.results.push({
-            type: monsterInBattle?.trainer !== prefTrainer ? 'monster-caught' : 'item-success',
+            type: 'item-success',
             item: move.item,
             monster: move.target,
           });
