@@ -264,13 +264,32 @@ export class BattleService {
 
     const monsterIds = opponents.filter(o => o.monster).map(o => new Types.ObjectId(o.monster));
     const monsters = await this.monsterService.findAll({_id: {$in: monsterIds}});
+    const monsterMap = Object.fromEntries(monsters.map(m => [m._id.toString(), m] as const));
 
-    monsters.sort((a, b) => b.currentAttributes.speed - a.currentAttributes.speed);
+    opponents.sort((a, b) => {
+      // items are always first
+      // NB: this is important for the monster-caught result, which is only possible when the item is used first
+      if (a.move && 'item' in a.move) {
+        return -1;
+      }
+      if (b.move && 'item' in b.move) {
+        return 1;
+      }
+      if (a.monster && b.monster) {
+        // the monster with the higher current speed goes first
+        return monsterMap[b.monster].currentAttributes.speed - monsterMap[a.monster].currentAttributes.speed;
+      }
+      return 0;
+    });
 
-    for (const monster of monsters) {
-      const opponent = opponents.find(o => o.monster === monster._id.toString());
+    for (const opponent of opponents) {
+      const monster = opponent.monster && monsterMap[opponent.monster];
+      if (!monster) {
+        continue;
+      }
+
       this.removeStatusEffects(monster, opponent);
-      opponent && await this.playMove(monster, opponent, opponents, monsters);
+      await this.playMove(monster, opponent, opponents, monsters);
       this.applyStatusDamage(monster, opponent);
     }
 
