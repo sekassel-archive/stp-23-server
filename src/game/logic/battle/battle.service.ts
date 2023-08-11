@@ -265,7 +265,7 @@ export class BattleService {
     const monsterIds = opponents.filter(o => o.monster).map(o => new Types.ObjectId(o.monster));
     const monsters = await this.monsterService.findAll({_id: {$in: monsterIds}});
 
-    monsters.sort((a, b) => a.attributes.speed - b.attributes.speed);
+    monsters.sort((a, b) => b.currentAttributes.speed - a.currentAttributes.speed);
 
     for (const monster of monsters) {
       const opponent = opponents.find(o => o.monster === monster._id.toString());
