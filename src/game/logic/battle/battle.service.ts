@@ -316,6 +316,11 @@ export class BattleService {
           return;
         }
 
+        if (opponent.trainer === TALL_GRASS_TRAINER && monster.trainer === targetOpponent.trainer) {
+          // a wild monster that was just caught
+          return;
+        }
+
         if (targetMonster.currentAttributes.health <= 0) {
           opponent.results = [{type: 'target-dead', monster: targetMonsterId}];
           return;
