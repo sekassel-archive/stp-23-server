@@ -1,4 +1,11 @@
 services:
+  server:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+      - nats
   nats:
     image: nats:2
     ports:
