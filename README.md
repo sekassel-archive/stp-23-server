@@ -13,16 +13,24 @@ $ pnpm install
 MongoDB and NATS are required and provided with `docker-compose`.
 
 ```bash
-$ docker compose up
+$ docker compose up database nats
 ```
 
 ## Running the app
+
+To run everything, use
+
+```bash
+$ docker compose up database nats
+```
+
+Otherwise, choose one of the following:
 
 ```bash
 # development
 $ pnpm run start
 
-# watch mode
+# watch mode (recommended)
 $ pnpm run start:dev
 
 # production mode
