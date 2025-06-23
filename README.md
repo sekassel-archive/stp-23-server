@@ -2,7 +2,7 @@
 
 ## Installation
 
-Requires [`pnpm`](https://pnpm.js.org/) instead of [`npm`].
+Requires [`pnpm`](https://pnpm.js.org/) instead of `npm`.
 
 ```bash
 $ pnpm install
@@ -13,7 +13,7 @@ $ pnpm install
 MongoDB and NATS are required and provided with `docker-compose`.
 
 ```bash
-$ docker compose up database nats
+$ docker compose up -d database nats
 ```
 
 ## Running the app
@@ -21,7 +21,7 @@ $ docker compose up database nats
 To run everything, use
 
 ```bash
-$ docker compose up database nats
+$ docker compose up
 ```
 
 Otherwise, choose one of the following:
