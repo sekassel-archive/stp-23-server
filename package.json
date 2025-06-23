@@ -99,6 +99,11 @@
   "pnpm": {
     "patchedDependencies": {
       "@nestjs/swagger@7.1.7": "patches/@nestjs__swagger@7.1.7.patch"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "bcrypt",
+      "es5-ext"
+    ]
   }
 }
